@@ -53,6 +53,7 @@ export default function Home() {
   const [portalText, setPortalText] = useState("");
   const [fullText, setFullText] = useState("");
   const [lifeOrLibertyFlag, setLifeOrLibertyFlag] = useState(false);
+  const [lifeOrLibertyReason, setLifeOrLibertyReason] = useState("");
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
   const wordCount = grievance.trim().split(/\s+/).filter(Boolean).length;
@@ -97,6 +98,7 @@ export default function Home() {
       setPortalText(data.portalText);
       setFullText(data.fullText);
       setLifeOrLibertyFlag(data.lifeOrLibertyFlag);
+      setLifeOrLibertyReason(data.lifeOrLibertyReason ?? "");
 
       const authority = candidates.find((c) => c.authority.id === selectedAuthorityId)?.authority;
       const id = crypto.randomUUID();
@@ -297,8 +299,15 @@ export default function Home() {
             <CardContent className="space-y-4">
               {lifeOrLibertyFlag && (
                 <Alert>
-                  <AlertTitle>Flagged under Section 7(1)</AlertTitle>
-                  <AlertDescription>48-Hour Statutory Window Applicable</AlertDescription>
+                  <AlertTitle>Flagged under Section 7(1): 48-Hour Statutory Window Applicable</AlertTitle>
+                  <AlertDescription className="space-y-1">
+                    {lifeOrLibertyReason && <p>{lifeOrLibertyReason}</p>}
+                    <p>
+                      State this ground in your application. The 48-hour window applies only to
+                      genuine life-or-liberty matters — if it doesn&apos;t fit your situation, remove
+                      the claim and the normal 30-day deadline applies.
+                    </p>
+                  </AlertDescription>
                 </Alert>
               )}
 

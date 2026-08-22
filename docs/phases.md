@@ -104,10 +104,12 @@ This is pure data entry, no model work. Highest-leverage improvement available �
 Current state after Phase 1 testing:
 
 - **Drafting prompt — works well.** Verified live: emotional/interrogative input became itemized document requests with reference numbers preserved verbatim.
-- **Life/liberty detection (FR-13) — works, but thinly tested.** Two cases checked (custody+medical flagged, pension not flagged). Edge cases are unexplored — e.g. a *delayed* medical reimbursement could plausibly false-positive into the 48-hour window, which would misstate a statutory deadline to a citizen.
+- ~~**Life/liberty detection (FR-13) — works, but thinly tested.**~~ **Addressed.** The prompt now encodes the CIC's narrow test (imminent danger, records must be capable of changing the outcome) with explicit non-qualifying examples, and requires the model to state *why* it flagged. Covered by `data/fr13-fixtures.json` — 7 cases including five false-positive traps — run via `node scripts/check-fr13.mjs`. Expand the fixture set when new domains are added.
 - **Confidence scores are uncalibrated.** The number the model emits (`0.98`) is a generated token, not a probability. Fine as a coarse UI signal, but it must not be presented as a real accuracy figure, and thresholds keyed off it are guesswork.
 
-To do: build a small fixture set of ~15–20 real grievances across all covered domains, run both prompts against it, and tighten wording where routing or the 7(1) flag lands wrong. Without that, prompt quality is anecdote.
+Both calls now run at `temperature: 0`. They are classification and extraction, not creative writing, and sampling made boundary cases non-deterministic — one fixture flipped between true and false across 6 identical runs before this was fixed.
+
+Still to do: extend the same fixture treatment to **routing** across all 20 domains, the way `fr13-fixtures.json` covers the 7(1) flag. Routing correctness is currently spot-checked, not regression-tested.
 
 ---
 

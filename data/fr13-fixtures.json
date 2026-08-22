@@ -1,0 +1,47 @@
+{
+  "_comment": "Fixtures for FR-13 (Section 7(1) life-or-liberty detection). The CIC applies this proviso narrowly: imminent danger, where withholding the records could itself contribute to death, grievous injury, or continued detention. Hardship alone is not the test. The 'expect: false' cases are deliberate false-positive traps — a wrongly claimed 48-hour deadline misstates the law to the citizen. Run these after any change to the drafting prompt.",
+  "cases": [
+    {
+      "label": "Ongoing police custody",
+      "expect": true,
+      "authorityId": "police-fir-status",
+      "grievance": "My brother has been held at the police station for three days now and they refuse to tell us anything about his condition or the grounds of his arrest, we are terrified for his safety"
+    },
+    {
+      "label": "Urgent treatment being denied right now",
+      "expect": true,
+      "authorityId": "government-hospital",
+      "grievance": "The government hospital is refusing to admit my mother for emergency dialysis today saying her Ayushman card is not verified, she needs the treatment immediately or her condition will worsen"
+    },
+    {
+      "label": "Medical reimbursement delay — treatment already received",
+      "expect": false,
+      "authorityId": "government-hospital",
+      "grievance": "I paid for my father's heart surgery six months ago and the hospital has still not reimbursed the amount under the state health scheme despite many visits to the office"
+    },
+    {
+      "label": "Pension stopped — severe hardship but not imminent danger",
+      "expect": false,
+      "authorityId": "epfo-pension",
+      "grievance": "My father's pension under PPO 12345 has been stopped for eight months and we have no other income, we are struggling to buy food and medicines every single month"
+    },
+    {
+      "label": "Death already occurred — accountability, not prevention",
+      "expect": false,
+      "authorityId": "government-hospital",
+      "grievance": "My wife died at the government hospital last year after being left unattended for hours and I want the records to hold the doctors accountable for what happened to her"
+    },
+    {
+      "label": "Eviction proceeding through normal legal process",
+      "expect": false,
+      "authorityId": "housing-development-authority",
+      "grievance": "The development authority has issued a notice to vacate my flat next month claiming the allotment was irregular, I want the records of how this decision was taken"
+    },
+    {
+      "label": "Ration entitlement blocked",
+      "expect": false,
+      "authorityId": "ration-pds",
+      "grievance": "Our ration card has been blocked for four months and the fair price shop refuses to give us our monthly food grain entitlement despite repeated complaints"
+    }
+  ]
+}

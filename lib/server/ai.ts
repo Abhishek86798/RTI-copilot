@@ -56,6 +56,9 @@ export async function routeGrievance(grievance: string): Promise<RoutingResult> 
     generateObject({
       model,
       schema: routingSchema,
+      // Ranking against a fixed directory should be reproducible; sampling
+      // makes the same grievance score differently between runs.
+      temperature: 0,
       system: `You route Indian citizens' grievances to the correct RTI (Right to Information) Public Authority — the office that physically holds the records being asked about.
 
 Score confidence honestly, using these anchors:
@@ -101,12 +104,20 @@ const draftSchema = z.object({
     .describe("numbered, itemized requests for specific documents/records/file notings — no opinions or interrogatives"),
   lifeOrLibertyFlag: z
     .boolean()
-    .describe("true only if the grievance concerns imminent risk to life or personal liberty (e.g. medical emergency, custody, urgent eviction, denial of urgent treatment) per RTI Act Section 7(1)"),
+    .describe(
+      "true ONLY if this meets the Section 7(1) proviso as the CIC applies it: imminent danger to someone's life or liberty, where withholding the requested records could itself contribute to death, grievous injury, or continued detention. Default false."
+    ),
+  lifeOrLibertyReason: z
+    .string()
+    .describe(
+      "If lifeOrLibertyFlag is true, one sentence naming who is in danger and how the requested records would change that. Empty string when false."
+    ),
 });
 
 export type DraftResult = {
   items: string[];
   lifeOrLibertyFlag: boolean;
+  lifeOrLibertyReason: string;
   portalText: string;
   portalCharCount: number;
   fullText: string;
@@ -125,18 +136,33 @@ export async function draftApplication(
     generateObject({
       model,
       schema: draftSchema,
-      prompt: `Rewrite this citizen grievance into an RTI application under India's Right to Information Act, 2005.
+      // Drafting and the 7(1) call are classification/extraction, not creative
+      // writing. Sampling made the flag non-deterministic on boundary cases.
+      temperature: 0,
+      system: `You turn Indian citizens' grievances into RTI applications under the Right to Information Act, 2005.
 
-Grievance: "${grievance}"
+DRAFTING RULES
+- Output only itemized requests for specific documents, records, orders, or file notings. The Act compels disclosure of information that exists on record — not explanations, opinions, or justifications, which a PIO may lawfully refuse.
+- Strip every interrogative ("why", "how could", "who is responsible") and all emotional language. Convert the underlying question into the record that would answer it: "why was it stopped" becomes "the order and file notings recording the decision to stop it".
+- Preserve dates and reference numbers exactly as the citizen gave them. Never paraphrase, reformat, or invent an identifier.
+- Keep the combined itemized text under roughly ${PORTAL_TARGET} characters — the RTI Online portal enforces a hard ${PORTAL_LIMIT}-character limit on its request field.
+
+SECTION 7(1) LIFE-OR-LIBERTY FLAG
+The proviso to Section 7(1) compresses the reply window from 30 days to 48 hours. The Central Information Commission applies it narrowly: only where there is IMMINENT danger to a person's life or liberty, and where withholding the requested records could itself contribute to death, grievous injury, or continued detention. The records must be capable of changing the situation.
+
+Set lifeOrLibertyFlag true only when all three hold:
+1. A specific person faces danger now, not in the past.
+2. The danger is to life, physical safety, or freedom from detention.
+3. Getting these records could realistically affect that outcome.
+
+Flag true, for example: someone currently in custody whose detention records are sought; a live threat where police inaction records could alter the response; an ongoing refusal of urgent medical treatment or admission, where the records sought (the refusal order, the eligibility or entitlement rules being applied) could remove the obstacle while the person still needs the treatment.
+
+Do NOT flag, for example: reimbursement of treatment already received; a pension, salary, or benefit that has stopped, however severe the hardship; a death or injury that has already occurred and where records are sought for accountability; general financial distress; slow service; a property or eviction dispute proceeding through normal legal process.
+
+Hardship is not the test — imminence is. When uncertain, set it false. A wrongly claimed 48-hour deadline misstates the law to the citizen and invites the PIO to reject the framing, which costs them more time than it saves.`,
+      prompt: `Grievance: "${grievance}"
 Addressed to: ${authority.authorityName} (${authority.pioDesignation})
-Reference identifiers to preserve verbatim if relevant: ${extractedReferences.join(", ") || "none found"}
-
-Rules:
-- Output only itemized requests for specific documents, records, orders, or file notings. RTI compels disclosure of information, not explanations or opinions.
-- Strip all interrogatives ("why", "how could") and emotional language.
-- Preserve any dates/reference numbers exactly as given, never paraphrase them.
-- Keep the total itemized text concise enough to fit in roughly ${PORTAL_TARGET} characters combined, since the RTI Online portal enforces a hard ${PORTAL_LIMIT}-character field limit.
-- Flag lifeOrLibertyFlag true only if the grievance concerns imminent risk to life or personal liberty (Section 7(1) of the Act shortens the response window to 48 hours in that case).`,
+Reference identifiers to preserve verbatim if relevant: ${extractedReferences.join(", ") || "none found"}`,
     })
   );
 
@@ -146,6 +172,7 @@ Rules:
   return {
     items: object.items,
     lifeOrLibertyFlag: object.lifeOrLibertyFlag,
+    lifeOrLibertyReason: object.lifeOrLibertyReason,
     portalText,
     portalCharCount: portalText.length,
     fullText,
