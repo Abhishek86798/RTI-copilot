@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Clock, Plus } from "lucide-react";
 
+import { MigratePrompt } from "@/components/migrate-prompt";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
-import { deriveStatus, type Application } from "@/lib/client/guest-storage";
+import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
+import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
 import { useI18n } from "@/lib/client/i18n";
 import { useRemainingLabel } from "@/lib/client/use-remaining-label";
 import { useApplications, useHydrated } from "@/lib/client/use-applications";
@@ -37,6 +39,10 @@ export default function ApplicationsPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-10">
+      {getStoreMode() === "account" && (
+        <MigratePrompt count={listGuestApplications().length} />
+      )}
+
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {t("list.title")}

@@ -11,7 +11,7 @@ import { StepIndicator } from "@/components/step-indicator";
 import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
 import { splitDraftItems } from "@/lib/client/filing";
-import { createApplication, updateApplication } from "@/lib/client/guest-storage";
+import { createApplication, updateApplication } from "@/lib/client/store";
 import type { DraftResponse, RoutingResponse } from "@/lib/client/types";
 
 type WizardStep = "intake" | "authority" | "draft";

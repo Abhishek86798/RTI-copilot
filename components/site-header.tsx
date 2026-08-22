@@ -30,7 +30,7 @@ export function SiteHeader() {
       data-print="hide"
       className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
     >
-      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-3 px-4">
+      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-1.5 px-3 sm:gap-3 sm:px-4">
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
@@ -46,9 +46,10 @@ export function SiteHeader() {
           >
             RTI
           </span>
-          <span className="text-base font-bold tracking-tight sm:text-lg">
+          <span className="hidden text-base font-bold tracking-tight min-[420px]:inline sm:text-lg">
             {t("brand.name")}
           </span>
+          <span className="sr-only min-[420px]:hidden">{t("brand.name")}</span>
         </Link>
 
         <nav aria-label="Main" className="ml-auto flex items-center gap-1">

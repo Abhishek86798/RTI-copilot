@@ -3,9 +3,11 @@
 import { useI18n, type Locale } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";
 
-const OPTIONS: { value: Locale; label: string; aria: string }[] = [
-  { value: "en", label: "English", aria: "Switch to English" },
-  { value: "hi", label: "हिन्दी", aria: "हिन्दी में बदलें" },
+const OPTIONS: { value: Locale; label: string; short: string; aria: string }[] = [
+  // The short form is used where the header is tight. It stays the language's
+  // own script, so it is still findable by someone who cannot read the other.
+  { value: "en", label: "English", short: "EN", aria: "Switch to English" },
+  { value: "hi", label: "हिन्दी", short: "हिं", aria: "हिन्दी में बदलें" },
 ];
 
 /**
@@ -40,14 +42,15 @@ export function LanguageToggle({ className }: { className?: string }) {
             aria-pressed={active}
             aria-label={option.aria}
             className={cn(
-              "min-h-9 cursor-pointer rounded-md px-3 text-sm font-medium transition-colors",
+              "min-h-11 cursor-pointer rounded-md px-2.5 text-sm font-medium transition-colors sm:px-3",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               active
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
-            {option.label}
+            <span className="sm:hidden">{option.short}</span>
+            <span className="hidden sm:inline">{option.label}</span>
           </button>
         );
       })}

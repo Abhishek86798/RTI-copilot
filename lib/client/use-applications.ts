@@ -3,13 +3,14 @@
 import { useSyncExternalStore } from "react";
 import {
   getApplication,
+  isLoaded,
   listApplications,
   subscribe,
   type Application,
-} from "./guest-storage";
+} from "./store";
 
 /**
- * React bindings over the guest store.
+ * React bindings over the store.
  *
  * `useSyncExternalStore` rather than `useState` + `useEffect` because the store
  * is also written to from other tabs and from event handlers outside React.
@@ -36,14 +37,15 @@ export function useApplication(id: string): Application | undefined {
 }
 
 /**
- * True once the browser has taken over from the server render. Screens that
- * read localStorage use this to show a skeleton on the first paint instead of
- * flashing an "you have no applications" empty state at someone who has three.
+ * True once the browser has taken over from the server render AND the store
+ * has rows to show. Screens use this to hold a skeleton on the first paint
+ * instead of flashing "you have no applications" at someone who has three —
+ * which matters more when signed in, where the rows arrive over the network.
  */
 export function useHydrated(): boolean {
   return useSyncExternalStore(
-    () => () => {},
-    () => true,
+    subscribe,
+    () => isLoaded(),
     () => false
   );
 }

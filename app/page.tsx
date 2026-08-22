@@ -206,7 +206,7 @@ export default function HomePage() {
           </Button>
           <Link
             href="/how-it-works"
-            className="text-sm font-medium underline underline-offset-4 hover:text-foreground"
+            className="inline-flex min-h-11 items-center text-sm font-medium underline underline-offset-4 hover:text-foreground"
           >
             {t("disclosure.title")}
           </Link>

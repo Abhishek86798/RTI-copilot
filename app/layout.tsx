@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
+import { AccountGate } from "@/components/account-gate";
 import { SiteHeader } from "@/components/site-header";
 import { isAuthConfigured } from "@/lib/client/auth-config";
 import { I18nProvider } from "@/lib/client/i18n";
@@ -57,6 +58,7 @@ export const viewport: Viewport = {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <I18nProvider>
+      <AccountGate />
       {/* First tab stop on every page, for keyboard and switch users. */}
       <a
         href="#main"

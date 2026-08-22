@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { computeClock, formatDate, parseDateInput } from "@/lib/client/deadlines";
 import { buildFirstAppeal } from "@/lib/client/filing";
-import { deriveStatus, updateApplication } from "@/lib/client/guest-storage";
+import { deriveStatus, updateApplication } from "@/lib/client/store";
 import { useI18n } from "@/lib/client/i18n";
 import { useApplication, useHydrated } from "@/lib/client/use-applications";
 import type { Applicant } from "@/lib/client/types";

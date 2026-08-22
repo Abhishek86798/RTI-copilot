@@ -13,13 +13,16 @@ export function ClerkControls() {
   return (
     <>
       <Show when="signed-out">
+        {/* Two auth buttons plus the language toggle overflow a 375px header,
+            so only the primary action shows on mobile. Sign in is still one
+            tap from the sign-up screen. */}
         <SignInButton>
-          <Button variant="ghost" size="lg">
+          <Button variant="ghost" size="xl" className="hidden sm:inline-flex">
             Sign in
           </Button>
         </SignInButton>
         <SignUpButton>
-          <Button size="lg">Sign up</Button>
+          <Button size="xl">Sign up</Button>
         </SignUpButton>
       </Show>
       <Show when="signed-in">
