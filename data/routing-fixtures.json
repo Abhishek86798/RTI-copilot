@@ -1,0 +1,119 @@
+{
+  "_comment": "Fixtures for authority routing (FR-2). Each case names the authority id that should rank first. 'confusable' cases are near-miss pairs that share vocabulary and are the most likely place for routing to regress. 'expectLowConfidence' cases fall outside the directory entirely and must be flagged uncertain rather than forced into a wrong match — routing a citizen to the wrong authority triggers a Section 6(3) transfer and restarts their 30-day clock. Run via: node scripts/check-routing.mjs",
+  "cases": [
+    {
+      "label": "EPFO pension stopped",
+      "expectId": "epfo-pension",
+      "grievance": "My father's monthly pension under PPO number 12345 was stopped last month with no notice from the EPFO office and nobody there will explain the reason to us"
+    },
+    {
+      "label": "PF withdrawal claim rejected",
+      "expectId": "epfo-provident-fund",
+      "confusable": "epfo-pension",
+      "grievance": "My PF withdrawal claim was rejected twice without any reason being given to me, my UAN is 100234567890 and the regional office keeps saying it is still under process"
+    },
+    {
+      "label": "State widow pension not credited",
+      "expectId": "social-welfare-pension",
+      "confusable": "epfo-pension",
+      "grievance": "My mother's widow pension from the state welfare department has not been credited to her account for the last five months and the district office keeps sending us away"
+    },
+    {
+      "label": "Land mutation not recorded",
+      "expectId": "revenue-land-records",
+      "grievance": "The mutation of my father's agricultural land has not been recorded in the 7/12 extract even after two years of applying at the tehsildar office with all documents submitted"
+    },
+    {
+      "label": "FIR investigation status",
+      "expectId": "police-fir-status",
+      "grievance": "I filed an FIR at the police station eight months ago about a theft at my shop and there has been no progress or chargesheet filed since then despite repeated visits"
+    },
+    {
+      "label": "Answer sheet revaluation",
+      "expectId": "education-board",
+      "grievance": "I applied for revaluation of my class twelve board exam answer sheet three months ago and the education board has not sent the revised marksheet or any response"
+    },
+    {
+      "label": "Ration card blocked",
+      "expectId": "ration-pds",
+      "grievance": "Our ration card has been blocked for four months and the fair price shop refuses to give us our monthly food grain entitlement despite repeated complaints to the office"
+    },
+    {
+      "label": "Passport stuck in verification",
+      "expectId": "passport-office",
+      "grievance": "I applied for my passport four months ago and it is still showing under review at the passport office, police verification was done in June but nothing has moved since then"
+    },
+    {
+      "label": "Inflated electricity bill",
+      "expectId": "electricity-discom",
+      "grievance": "My electricity bill this month shows twenty thousand rupees which is impossible for a small house, the DISCOM office refuses to check the meter reading for consumer number 4471"
+    },
+    {
+      "label": "Streetlights and garbage collection",
+      "expectId": "municipal-corporation",
+      "grievance": "The streetlights on my road have been broken for six months and the garbage collection truck has not come to our colony since March despite many complaints to the local office"
+    },
+    {
+      "label": "Water connection not sanctioned",
+      "expectId": "water-supply",
+      "confusable": "municipal-corporation",
+      "grievance": "I applied for a new water supply connection to my house nine months ago and paid the deposit but the water board has not sanctioned the pipeline connection yet"
+    },
+    {
+      "label": "Income tax refund not credited",
+      "expectId": "income-tax",
+      "grievance": "My income tax refund for assessment year 2024-25 has not been credited even though the return was processed eight months ago, my PAN is ABCDE1234F"
+    },
+    {
+      "label": "Driving licence not issued",
+      "expectId": "rto-transport",
+      "grievance": "I passed my driving test at the RTO five months ago but the permanent driving licence has still not been issued or dispatched to my registered address"
+    },
+    {
+      "label": "Hospital treatment records",
+      "expectId": "government-hospital",
+      "grievance": "The government hospital is refusing to give me the discharge summary and treatment records of my father who was admitted there for three weeks last year"
+    },
+    {
+      "label": "MGNREGA wages unpaid",
+      "expectId": "mgnrega-rural",
+      "grievance": "I worked forty days under MGNREGA last season and my wages have still not been paid into my account, my job card number is registered at the block office"
+    },
+    {
+      "label": "Panchayat road works funds",
+      "expectId": "gram-panchayat",
+      "confusable": "mgnrega-rural",
+      "grievance": "The gram panchayat claims it spent eight lakh rupees on the village road last year but the road was never built, I want the records of this expenditure and the sarpanch decision"
+    },
+    {
+      "label": "Bank loan rejected without reason",
+      "expectId": "public-sector-bank",
+      "grievance": "My education loan application at the nationalised bank branch was rejected without any written reason being given and the manager refuses to show me the rejection note"
+    },
+    {
+      "label": "Train ticket refund pending",
+      "expectId": "railways",
+      "grievance": "My train ticket was cancelled by the railways due to train cancellation and the IRCTC refund has not come to my account after three months, my PNR is 4471256789"
+    },
+    {
+      "label": "Housing allotment possession delayed",
+      "expectId": "housing-development-authority",
+      "grievance": "The development authority allotted me a flat under a housing scheme four years ago and I have paid the full amount but possession has still not been handed over to me"
+    },
+    {
+      "label": "MLA constituency fund works",
+      "expectId": "mp-mla-local-area-funds",
+      "grievance": "I want to know what development works were sanctioned under the MLA local area development fund in my constituency last year and how much money was actually spent"
+    },
+    {
+      "label": "Out of scope — private telecom operator",
+      "expectLowConfidence": true,
+      "grievance": "My private mobile operator has been charging me for a data pack I never subscribed to and their customer care refuses to refund the amount or give me any written explanation"
+    },
+    {
+      "label": "Out of scope — private employer dispute",
+      "expectLowConfidence": true,
+      "grievance": "My private company employer has not given me my relieving letter and experience certificate even three months after I resigned and completed my notice period properly"
+    }
+  ]
+}

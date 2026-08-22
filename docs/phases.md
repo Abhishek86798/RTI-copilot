@@ -99,6 +99,14 @@ The failure mode: a grievance outside those five domains (municipal water, elect
 
 This is pure data entry, no model work. Highest-leverage improvement available — every entry added widens what the demo can survive being asked.
 
+**Update (20 entries):** the core citizen domains are now covered and all 20 route correctly under test. Remaining coverage gaps are the long tail (state-specific boards, universities, PSUs, courts), which matter less for a demo than for real use.
+
+### Deliberately NOT doing: replacing keyword matching with LLM domain classification
+
+Considered and rejected at the current scale. The keyword pre-filter is not there for accuracy — it's there so the model can only ever return an ID we already recognise, which is what makes a hallucinated authority impossible rather than merely unlikely. Replacing it with an LLM classification step would move that guarantee from code into a second model call.
+
+At 20 entries the whole directory fits in the prompt comfortably, so the pre-filter is an optimisation, not a necessity — and routing currently passes 22/22. Revisit if the directory grows past roughly 100 entries (where prompt size starts to matter), or if fixtures start failing because a grievance uses vocabulary no keyword list anticipated. Add misspellings and Hindi/transliterated terms to `keywords` before reaching for a model.
+
 ### ⚠️ Improve and validate the system prompts
 
 Current state after Phase 1 testing:
@@ -109,7 +117,13 @@ Current state after Phase 1 testing:
 
 Both calls now run at `temperature: 0`. They are classification and extraction, not creative writing, and sampling made boundary cases non-deterministic — one fixture flipped between true and false across 6 identical runs before this was fixed.
 
-Still to do: extend the same fixture treatment to **routing** across all 20 domains, the way `fr13-fixtures.json` covers the 7(1) flag. Routing correctness is currently spot-checked, not regression-tested.
+**Both prompts are now regression-tested.** With a dev server running:
+
+```
+pnpm check:prompts     # routing (22 cases) + FR-13 (7 cases)
+```
+
+`data/routing-fixtures.json` covers all 20 domains, three confusable pairs (the three pension types, water vs municipal, panchayat vs MGNREGA), and two out-of-scope grievances that must be flagged uncertain rather than forced into a match. Add a fixture whenever an authority is added or a routing mistake is found.
 
 ---
 

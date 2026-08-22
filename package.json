@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:routing": "node scripts/check-routing.mjs",
+    "check:fr13": "node scripts/check-fr13.mjs",
+    "check:prompts": "node scripts/check-routing.mjs && node scripts/check-fr13.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.50",
