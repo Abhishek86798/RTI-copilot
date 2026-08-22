@@ -24,7 +24,7 @@ Goal: prove the actual product idea — plain language in, itemized legal draft 
 
 - Free-text grievance form (FR-1)
 - Curated authority dataset (`data/authorities.json`) covering pension, land records, police, education, ration for one state + central departments
-- NLP routing call via Vercel AI SDK: grievance → domain → ranked candidate authorities with confidence (FR-2)
+- NLP routing call via Vercel AI SDK (Gemini primary, Groq fallback — both free, no card): grievance → domain → ranked candidate authorities with confidence (FR-2)
 - Authority confirm screen — user accepts or edits the AI's pick (FR-3)
 - Legal Translation rewrite: grievance → itemized document request, strips interrogatives/opinions (FR-4)
 - 3,000-char portal constraint: live counter, prompt constrained to <2,500 chars, full version flagged for PDF (FR-4a)

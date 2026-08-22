@@ -1,69 +1,293 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { saveGuestApplication, type GuestApplication } from "@/lib/client/guest-storage";
+
+type Candidate = {
+  authority: {
+    id: string;
+    authorityName: string;
+    pioDesignation: string;
+    filingAddress: string;
+  };
+  confidence: number;
+  reason: string;
+};
+
+type Step = "intake" | "confirm" | "draft";
+
+const PORTAL_LIMIT = 3000;
 
 export default function Home() {
+  const [step, setStep] = useState<Step>("intake");
+  const [grievance, setGrievance] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [extractedReferences, setExtractedReferences] = useState<string[]>([]);
+  const [selectedAuthorityId, setSelectedAuthorityId] = useState<string | null>(null);
+
+  const [items, setItems] = useState<string[]>([]);
+  const [portalText, setPortalText] = useState("");
+  const [fullText, setFullText] = useState("");
+  const [lifeOrLibertyFlag, setLifeOrLibertyFlag] = useState(false);
+  const [applicationId, setApplicationId] = useState<string | null>(null);
+
+  const wordCount = grievance.trim().split(/\s+/).filter(Boolean).length;
+
+  async function handleRoute() {
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/route-authority", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ grievance }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Something went wrong while routing your grievance.");
+      setCandidates(data.candidates);
+      setExtractedReferences(data.extractedReferences);
+      setSelectedAuthorityId(data.candidates[0]?.authority.id ?? null);
+      setStep("confirm");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDraft() {
+    if (!selectedAuthorityId) return;
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ grievance, authorityId: selectedAuthorityId, extractedReferences }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Something went wrong while drafting your application.");
+
+      setItems(data.items);
+      setPortalText(data.portalText);
+      setFullText(data.fullText);
+      setLifeOrLibertyFlag(data.lifeOrLibertyFlag);
+
+      const authority = candidates.find((c) => c.authority.id === selectedAuthorityId)?.authority;
+      const id = crypto.randomUUID();
+      const app: GuestApplication = {
+        id,
+        createdAt: new Date().toISOString(),
+        grievance,
+        authorityId: selectedAuthorityId,
+        authorityName: authority?.authorityName ?? "",
+        extractedReferences,
+        items: data.items,
+        fullText: data.fullText,
+        portalText: data.portalText,
+        lifeOrLibertyFlag: data.lifeOrLibertyFlag,
+        status: "drafting",
+      };
+      saveGuestApplication(app);
+      setApplicationId(id);
+      setStep("draft");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function updatePortalText(value: string) {
+    setPortalText(value);
+    if (applicationId) {
+      const authority = candidates.find((c) => c.authority.id === selectedAuthorityId)?.authority;
+      saveGuestApplication({
+        id: applicationId,
+        createdAt: new Date().toISOString(),
+        grievance,
+        authorityId: selectedAuthorityId ?? "",
+        authorityName: authority?.authorityName ?? "",
+        extractedReferences,
+        items,
+        fullText,
+        portalText: value,
+        lifeOrLibertyFlag,
+        status: "drafting",
+      });
+    }
+  }
+
+  const selectedCandidate = candidates.find((c) => c.authority.id === selectedAuthorityId);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex flex-1 justify-center bg-muted/30 px-4 py-10">
+      <div className="w-full max-w-2xl space-y-6">
+        <div className="space-y-1 text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">RTI Copilot</h1>
+          <p className="text-sm text-muted-foreground">
+            Describe your grievance in plain language — we route it to the right authority and draft a
+            legally valid RTI request.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {error && (
+          <Alert variant="destructive">
+            <AlertTitle>Couldn&apos;t continue</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        {step === "intake" && (
+          <Card>
+            <CardHeader>
+              <CardTitle>What happened?</CardTitle>
+              <CardDescription>
+                Write it the way you&apos;d tell a friend. No need to know which department is involved.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Textarea
+                value={grievance}
+                onChange={(e) => setGrievance(e.target.value)}
+                placeholder="e.g. My father's pension was stopped last month without any notice, and no one at the office will explain why..."
+                rows={7}
+              />
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>{wordCount} words (minimum 15)</span>
+              </div>
+              <Button onClick={handleRoute} disabled={loading || wordCount < 15} className="w-full">
+                {loading ? "Finding the right authority…" : "Find the right authority"}
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        {step === "confirm" && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Confirm the Public Authority</CardTitle>
+              <CardDescription>
+                Filing with the wrong authority delays your request under Section 6(3). Review our match
+                before continuing.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {candidates.map((c) => (
+                <button
+                  key={c.authority.id}
+                  onClick={() => setSelectedAuthorityId(c.authority.id)}
+                  className={`w-full rounded-lg border p-3 text-left transition-colors ${
+                    selectedAuthorityId === c.authority.id
+                      ? "border-primary bg-accent"
+                      : "border-border hover:bg-muted"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-medium">{c.authority.authorityName}</span>
+                    <Badge variant={c.confidence >= 0.7 ? "default" : "secondary"}>
+                      {Math.round(c.confidence * 100)}% match
+                    </Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.authority.pioDesignation}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{c.reason}</p>
+                </button>
+              ))}
+
+              {extractedReferences.length > 0 && (
+                <div className="rounded-lg bg-muted p-3 text-sm">
+                  <span className="font-medium">Reference details we&apos;ll preserve: </span>
+                  {extractedReferences.join(", ")}
+                </div>
+              )}
+
+              <Separator />
+
+              {selectedCandidate && (
+                <p className="text-sm text-muted-foreground">
+                  Filing address: {selectedCandidate.authority.filingAddress}
+                </p>
+              )}
+
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={() => setStep("intake")} className="flex-1">
+                  Back
+                </Button>
+                <Button onClick={handleDraft} disabled={loading || !selectedAuthorityId} className="flex-1">
+                  {loading ? "Drafting…" : "Draft my application"}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {step === "draft" && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Your RTI application</CardTitle>
+              <CardDescription>
+                Addressed to {selectedCandidate?.authority.authorityName}. Edit freely before filing — you
+                have final say.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {lifeOrLibertyFlag && (
+                <Alert>
+                  <AlertTitle>Flagged under Section 7(1)</AlertTitle>
+                  <AlertDescription>48-Hour Statutory Window Applicable</AlertDescription>
+                </Alert>
+              )}
+
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Portal-ready draft</span>
+                  <span
+                    className={`text-xs ${
+                      portalText.length > PORTAL_LIMIT ? "text-destructive" : "text-muted-foreground"
+                    }`}
+                  >
+                    {portalText.length} / {PORTAL_LIMIT} characters
+                  </span>
+                </div>
+                <Textarea
+                  value={portalText}
+                  onChange={(e) => updatePortalText(e.target.value)}
+                  rows={10}
+                  className="font-mono text-sm"
+                />
+                <p className="text-xs text-muted-foreground">
+                  This fits the RTI Online portal&apos;s text field. The full itemized version below is
+                  always available to attach as a PDF.
+                </p>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-1">
+                <span className="text-sm font-medium">Full itemized request</span>
+                <ol className="list-inside list-decimal space-y-1 text-sm text-muted-foreground">
+                  {items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <Button variant="outline" onClick={() => setStep("intake")} className="w-full">
+                Start a new application
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }
