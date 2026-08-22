@@ -3,9 +3,13 @@ import { Resend } from "resend";
 /**
  * Deadline mail.
  *
- * Falls back to logging when RESEND_API_KEY is absent, so the sweep is fully
- * testable before a sender domain is verified. Wiring the real key later is a
- * config change, not a code change.
+ * Three outcomes, all deliberate:
+ *  - no RESEND_API_KEY   -> "logged", the mail is written to the console
+ *  - shared test sender  -> "sent" to the Resend account owner, "blocked" for
+ *                           anyone else (the current setup — no domain)
+ *  - verified domain     -> "sent" to anyone
+ *
+ * Moving between them is a config change, not a code change.
  */
 
 const FROM = process.env.RESEND_FROM ?? "RTI Copilot <onboarding@resend.dev>";
@@ -21,15 +25,20 @@ export async function sendMail(mail: Mail): Promise<"sent" | "logged" | "blocked
   const { error } = await resend.emails.send({ from: FROM, ...mail });
   if (error) {
     // Resend's shared onboarding@resend.dev sender only delivers to the
-    // account owner's own address. Until a domain is verified this is the
-    // expected failure for every other recipient, and it must be loud: a
-    // deadline notice that silently never arrives is the exact failure this
-    // whole sweep exists to prevent.
+    // Resend account owner's own address. That is the current deliberate
+    // setup: there is no domain, so the demo sends real mail to the owner and
+    // nothing reaches anyone else.
+    //
+    // It must stay loud rather than pass as success. A deadline notice that
+    // silently never arrives is the exact failure this whole sweep exists to
+    // prevent, and the day a real applicant is added is the day this line is
+    // the only warning that they were never told.
     if (FROM.includes("onboarding@resend.dev")) {
       console.error(
         `[email:blocked] to=${mail.to} — the shared resend.dev sender only ` +
-          `delivers to the Resend account owner. Verify a domain and set ` +
-          `RESEND_FROM to send to real applicants. (${error.message})`
+          `delivers to the Resend account owner, so this notice was NOT sent. ` +
+          `Sending to real applicants needs a domain in Resend and ` +
+          `RESEND_FROM set to an address on it. (${error.message})`
       );
       return "blocked";
     }
