@@ -49,28 +49,30 @@ Goal: round out the drafting experience with the two remaining P0 drafting featu
 
 ---
 
-## Phase 3 — Tracking + Appeals Engine — UI done, persistence/Cron/email open
+## Phase 3 — Tracking + Appeals Engine ✅ Complete
 
 Goal: the second half of the pitch — the product doesn't stop at filing, it follows through.
 
 - ~~"Mark as filed" + date entry, starts the countdown (FR-7)~~ — done, with the registration number captured alongside it, and an APIO checkbox that adds the 5 days the proviso to Section 5(2) allows
-- **Still open: Vercel Cron daily sweep.** Nothing reaches the citizen when the clock runs out — the deadline is only visible if they come back and look. This is the piece that makes tracking actually useful, and it needs Phase 4's accounts first.
+- ~~Vercel Cron daily sweep~~ — done. `/api/cron/sweep` runs daily at 09:00 IST (`vercel.ts`), drafts the First Appeal the moment the deadline lapses, emails the citizen once, and records that it did. Demo rows are excluded, so a spoofed clock can never drive a real email.
 - ~~Auto-drafted First Appeal when the deadline lapses (FR-9)~~ — done, from a template in `lib/client/filing.ts` rather than an LLM call: a First Appeal is formulaic, every field is already known by then, and a template is exact, instant, and works with no network
 - ~~Demo-only "Simulate +31 Days" control (FR-14)~~ — done, gated behind `canSimulate()`, which requires `isDemo` — a genuinely filed application can never have its statutory clock spoofed
 - ~~Guest Mode gets the same tracking/appeal logic against `localStorage`~~ — done; `lib/client/guest-storage.ts` holds the same shape Postgres will, so Phase 4 swaps the storage module rather than forking the UI
 
-**Still open (backend), and left deliberately unwired so it can be built directly:**
+**Backend, now built:**
 
 | What | Where it plugs in |
 |------|-------------------|
-| Postgres persistence | Replace the four exported functions in `lib/client/guest-storage.ts` (`listApplications`, `getApplication`, `createApplication`, `updateApplication`). The `Application` type there is the schema. The UI calls nothing else. |
-| Vercel Cron daily sweep | Purely additive — no frontend change. Read the same deadline rules from `lib/client/deadlines.ts` so server and client never disagree about a date. |
-| Resend deadline emails | Additive. `computeClock()` already returns `isOverdue`, `canAppeal` and `appealWindowClosed` to key the templates off. |
-| Server-side appeal drafting | If it should come from the model instead of the template, replace `buildFirstAppeal()` in `lib/client/filing.ts` with a call added to `lib/client/api.ts`. The appeal screen reads `application.appeal.text` and does not care where it came from. |
+| Postgres persistence | ✅ `lib/server/db/applications.ts` mirrors guest-storage's four functions and returns the same `Application` shape. Schema in `lib/server/db/schema.ts`; migrations in `drizzle/`, applied with `pnpm db:push`. Every query filters on `userId`. |
+| Vercel Cron daily sweep | ✅ `/api/cron/sweep`, gated behind `CRON_SECRET` — without it the endpoint is a public trigger for emailing every user. Reuses `computeClock()` rather than restating the clock. |
+| Resend deadline emails | ✅ `lib/server/email.ts`. Two notices: deadline lapsed, and appeal window closing within 7 days. Falls back to logging when `RESEND_API_KEY` is absent, so the pipeline is testable before a sender domain is verified. |
+| Server-side appeal drafting | ✅ The sweep calls the same `buildFirstAppeal()` template the client uses. Still deliberately not a model call — a First Appeal is formulaic and every field is known by then. |
 
 Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the Act (s.7(1), its proviso, the proviso to s.5(2), s.19(1)) rather than approximated. **Reuse it server-side rather than reimplementing** — it is plain TypeScript with no React or browser dependency.
 
 **Demo checkpoint:** file a guest-mode application, hit "Simulate +31 Days," watch the First Appeal draft itself.
+
+**Verified end to end** (`pnpm check:sweep`, against the real database): an application filed 40 days ago becomes overdue, drafts an appeal citing s.19(1) carrying the applicant's details, emails once — and a second sweep stays silent. The re-run is the point: a cron that mails the same person every morning about the same lapse is worse than one that never fires.
 
 ---
 
@@ -78,9 +80,10 @@ Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the 
 
 Goal: turn on the production path alongside guest mode, not instead of it.
 
-- Clerk-gated save/track flow, backed by Neon Postgres (applications, users, deadline state)
+- ~~Clerk-gated save/track flow, backed by Neon Postgres~~ — the API and storage layer landed with Phase 3 (`/api/applications`). What remains is pointing the UI at it when signed in, instead of always reading `localStorage`.
+- Guest → account migration on sign-in: `lib/client/migrate.ts` is built and opt-in; it still needs the prompt that offers it
 - Per-user dashboard: Drafting / Filed / Awaiting Response / Overdue / Appealed / Resolved (FR-10)
-- Resend integration: deadline-approaching and deadline-lapsed emails (FR-8)
+- ~~Resend integration (FR-8)~~ — built in Phase 3; needs a verified sender domain and `RESEND_API_KEY` to send rather than log
 - Landing page offers both entry points equally: "Try Demo Case" (Guest) and "Sign up" (real)
 
 **Demo checkpoint:** the same flow from Phase 1–3, now also available signed-in with a dashboard and a real reminder email.
