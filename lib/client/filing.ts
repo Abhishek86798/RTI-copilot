@@ -49,6 +49,11 @@ export function buildFilingPlan(
   options: { isBpl: boolean; overPortalLimit: boolean }
 ): FilingPlan {
   const feeRupees = options.isBpl ? 0 : RTI_FEE_RUPEES;
+  // The steps must agree with feeRupees above. A BPL applicant told to
+  // "pay the Rs 10 fee" pays money the Act exempts them from.
+  const payStep = options.isBpl
+    ? "Attach your BPL certificate. No fee is payable — do not pay one."
+    : `Pay the ₹${RTI_FEE_RUPEES} fee`;
   const feeNote = options.isBpl
     ? "No fee. Section 7(5) exempts applicants below the poverty line — but you must attach a copy of your BPL certificate, or the application will be treated as unpaid and returned."
     : `₹${RTI_FEE_RUPEES}, payable by UPI, net banking, or a Master/Visa/RuPay card. Keep the payment receipt.`;
@@ -78,7 +83,7 @@ export function buildFilingPlan(
         "Tick the guidelines checkbox and fill in your name, address, and contact details exactly as written below.",
         "Select the Ministry or Department, then the public authority named below.",
         "Paste the portal-ready text into the “Text for RTI Request Application” box.",
-        `Pay the ₹${RTI_FEE_RUPEES} fee and submit.`,
+        options.isBpl ? `${payStep} Then submit.` : `${payStep} and submit.`,
         "Save the registration number the portal shows you. Enter it on the next screen so we can track your 30-day deadline.",
       ],
       attachments,
@@ -98,7 +103,7 @@ export function buildFilingPlan(
       "Check whether your state runs its own RTI portal. Many do; several still take applications only on paper.",
       "If it does, file there using the portal-ready text below.",
       "If it does not, print the application, sign it, and send it by registered post to the address shown below — keep the posting receipt, it is your proof of the filing date.",
-      `Pay the ₹${RTI_FEE_RUPEES} fee in the manner your state prescribes.`,
+      options.isBpl ? payStep : `${payStep} in the manner your state prescribes.`,
       "Come back and record the filing date so we can track your 30-day deadline.",
     ],
     attachments,
