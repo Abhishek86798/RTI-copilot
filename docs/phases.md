@@ -35,27 +35,30 @@ Goal: prove the actual product idea — plain language in, itemized legal draft 
 
 ---
 
-## Phase 2 — Life/liberty detection + PDF export
+## Phase 2 — Life/liberty detection + PDF export ✅ Complete (via print)
 
 Goal: round out the drafting experience with the two remaining P0 drafting features.
 
 - ~~Life/liberty marker detection in the NLP extractor; urgent badge "Flagged under Section 7(1): 48-Hour Statutory Window Applicable" (FR-13)~~ — **done in Phase 1**: it shares the drafting LLM call, so splitting it would have meant a second round-trip for no gain
-- Server-side PDF generation matching standard RTI application format — applicant details, authority, itemized request, fee line (FR-6)
-- PDF always carries the full (unconstrained) draft even when the on-screen/portal version was trimmed for length
+- ~~Server-side PDF generation matching standard RTI application format~~ — **shipped as a print stylesheet instead** (FR-6). `components/track/application-sheet.tsx` renders an A4 sheet with applicant details, authority, itemized request, the Section 7(1) ground where claimed, and the fee/BPL line; the browser's own "Save as PDF" exports it. Chosen over `@react-pdf` because it needs no server round-trip, works offline, and never uploads a document containing someone's PPO or FIR number. A server-rendered PDF can replace it later without changing anything the citizen sees.
+- The printed sheet carries the full itemized request, not the length-trimmed portal text
+- The drafting screen surfaces the 48-hour flag with the citizen able to withdraw the claim; the filing screen hands over the exact sentence that actually invokes the proviso, since the shorter deadline does not apply unless it is stated
 
 **Demo checkpoint:** a pension grievance shows a normal 30-day badge; a medical-emergency grievance shows the 48-hour badge; both export a clean PDF.
 
 ---
 
-## Phase 3 — Tracking + Appeals Engine
+## Phase 3 — Tracking + Appeals Engine ✅ Complete (guest mode)
 
 Goal: the second half of the pitch — the product doesn't stop at filing, it follows through.
 
-- "Mark as filed" + date entry, starts the 30-day (or 48-hour, from Phase 2) countdown (FR-7)
-- Vercel Cron daily sweep checking open applications against their deadline
-- Auto-drafted First Appeal when the deadline lapses without a logged response, addressed to the Appellate Authority (FR-9)
-- **Demo-only "Simulate +31 Days" control** — fast-forwards an application's clock so the appeal auto-trigger can be shown live, clearly labeled as a demo aid and never reachable on a real filed application (FR-14)
-- Guest Mode gets the same tracking/appeal logic, running entirely against `localStorage` state
+- ~~"Mark as filed" + date entry, starts the countdown (FR-7)~~ — done, with the registration number captured alongside it, and an APIO checkbox that adds the 5 days the proviso to Section 5(2) allows
+- **Still open: Vercel Cron daily sweep.** Nothing reaches the citizen when the clock runs out — the deadline is only visible if they come back and look. This is the piece that makes tracking actually useful, and it needs Phase 4's accounts first.
+- ~~Auto-drafted First Appeal when the deadline lapses (FR-9)~~ — done, from a template in `lib/client/filing.ts` rather than an LLM call: a First Appeal is formulaic, every field is already known by then, and a template is exact, instant, and works with no network
+- ~~Demo-only "Simulate +31 Days" control (FR-14)~~ — done, gated behind `canSimulate()`, which requires `isDemo` — a genuinely filed application can never have its statutory clock spoofed
+- ~~Guest Mode gets the same tracking/appeal logic against `localStorage`~~ — done; `lib/client/guest-storage.ts` holds the same shape Postgres will, so Phase 4 swaps the storage module rather than forking the UI
+
+Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the Act (s.7(1), its proviso, the proviso to s.5(2), s.19(1)) rather than approximated.
 
 **Demo checkpoint:** file a guest-mode application, hit "Simulate +31 Days," watch the First Appeal draft itself.
 
@@ -71,6 +74,43 @@ Goal: turn on the production path alongside guest mode, not instead of it.
 - Landing page offers both entry points equally: "Try Demo Case" (Guest) and "Sign up" (real)
 
 **Demo checkpoint:** the same flow from Phase 1–3, now also available signed-in with a dashboard and a real reminder email.
+
+---
+
+## Frontend notes (Phases 1–3 UI)
+
+The citizen-facing surface is built out across five screens — intake, authority
+confirmation, draft, filing, tracking/appeal — plus a dashboard and an honesty
+page at `/how-it-works` that states plainly what is live and what is mocked.
+
+Decisions worth knowing before changing things:
+
+- **`lib/client/api.ts` is the only place the UI talks to the backend.** Paths,
+  request shapes, timeout, and the translation of an HTTP failure into a
+  sentence a citizen can act on all live there. Adding an endpoint means
+  changing that file and nothing else.
+- **The fixture fallback is deliberately narrow.** If a call fails, the three
+  seeded demo cases fall back to a saved response so the journey still runs;
+  text a citizen wrote themselves always surfaces the error instead. Inventing
+  an authority match or an RTI draft for real input would be worse than an
+  outage. Whenever a fixture is used, a banner says so.
+- **Central vs State filing channel.** rtionline.gov.in serves Central
+  authorities only and returns a State application *without refunding the fee*
+  — so `lib/client/filing.ts` derives the channel from `authority.level` and
+  warns before the citizen pays. More than half the directory is state-level.
+- **Clerk is loaded behind a flag.** A static import of `@clerk/nextjs` throws
+  on every request when no publishable key is set, which took down the guest
+  journey too. `lib/client/auth-config.ts` gates it, and `proxy.ts` installs
+  the middleware only when both keys are present. A fresh clone with no `.env`
+  now runs the whole guest flow.
+- **English + Hindi interface.** The chrome is translated; the generated RTI
+  application is not, because a PIO expects it in English or the state's
+  official language and machine-translating a legal document risks changing
+  what was actually requested.
+- **Accessibility is checked, not assumed.** All eleven screen states pass axe
+  at WCAG 2.1 AA with zero violations. Touch targets are 44px, body text is
+  17px on mobile, status is never carried by colour alone, and zoom is never
+  suppressed.
 
 ---
 
