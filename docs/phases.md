@@ -4,7 +4,7 @@ Sequenced for a hackathon clock. Each phase ends in something demoable — never
 
 ---
 
-## Phase 0 — Scaffold
+## Phase 0 — Scaffold ✅ Complete
 
 Goal: empty app deployed and reachable, so every later phase ships onto a working pipeline instead of debugging deploy config under time pressure.
 
@@ -18,7 +18,7 @@ Goal: empty app deployed and reachable, so every later phase ships onto a workin
 
 ---
 
-## Phase 1 — Guest-mode intake → draft (core thesis, no auth, no DB)
+## Phase 1 — Guest-mode intake → draft (core thesis, no auth, no DB) ✅ Complete
 
 Goal: prove the actual product idea — plain language in, itemized legal draft out — before anything else gets built on top of it.
 
@@ -39,7 +39,7 @@ Goal: prove the actual product idea — plain language in, itemized legal draft 
 
 Goal: round out the drafting experience with the two remaining P0 drafting features.
 
-- Life/liberty marker detection in the NLP extractor; urgent badge "Flagged under Section 7(1): 48-Hour Statutory Window Applicable" (FR-13)
+- ~~Life/liberty marker detection in the NLP extractor; urgent badge "Flagged under Section 7(1): 48-Hour Statutory Window Applicable" (FR-13)~~ — **done in Phase 1**: it shares the drafting LLM call, so splitting it would have meant a second round-trip for no gain
 - Server-side PDF generation matching standard RTI application format — applicant details, authority, itemized request, fee line (FR-6)
 - PDF always carries the full (unconstrained) draft even when the on-screen/portal version was trimmed for length
 
