@@ -70,3 +70,38 @@ console.log("filing: all checks passed");
 }
 
 console.log("splitDraftItems: all checks passed");
+
+/* Deadline email templates — these are the only words a citizen may ever read
+ * about their lapsed deadline, so the legal claims in them must be right. */
+{
+  const { deadlineLapsedMail, appealWindowClosingMail } = await import("../lib/server/email.ts");
+
+  const lapsed = deadlineLapsedMail({
+    to: "a@example.com",
+    name: "Test Applicant",
+    authorityName: "EPFO",
+    filedAtLabel: "1 July 2026",
+    deadlineLabel: "31 July 2026",
+    appealDeadlineLabel: "30 August 2026",
+    url: "https://example.com/applications/1",
+  });
+  assert.match(lapsed.text, /Section 7\(2\)/, "must cite deemed refusal");
+  assert.match(lapsed.text, /Section 19\(1\)/, "must cite the appeal clause");
+  assert.match(lapsed.text, /no fee|not have to pay/i, "must say a first appeal is free");
+  assert.match(lapsed.text, /30 August 2026/, "must state the appeal deadline");
+  assert.match(lapsed.text, /not legal advice/i, "must carry the disclaimer");
+
+  const closing = appealWindowClosingMail({
+    to: "a@example.com",
+    name: "Test Applicant",
+    authorityName: "EPFO",
+    appealDeadlineLabel: "30 August 2026",
+    daysLeft: 5,
+    url: "https://example.com/applications/1",
+  });
+  assert.match(closing.subject, /5 days/, "subject must state days left");
+  assert.match(closing.text, /condone/i, "must explain what lapsing costs");
+  assert.match(closing.text, /not legal advice/i, "must carry the disclaimer");
+}
+
+console.log("email templates: all checks passed");
