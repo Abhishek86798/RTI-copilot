@@ -13,7 +13,8 @@
     "check:filing": "node --experimental-strip-types scripts/check-filing.mjs",
     "check:sweep": "node scripts/check-sweep.mjs",
     "db:generate": "drizzle-kit generate",
-    "db:push": "node scripts/db-push.mjs"
+    "db:push": "node scripts/db-push.mjs",
+    "check:journey": "node scripts/check-journey.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.50",
