@@ -1,0 +1,47 @@
+[
+  {
+    "id": "epfo-pension",
+    "domain": "pension",
+    "keywords": ["pension", "ppo", "provident fund", "epfo", "retirement benefit"],
+    "authorityName": "Employees' Provident Fund Organisation (EPFO)",
+    "pioDesignation": "Central Public Information Officer, EPFO Regional Office",
+    "filingAddress": "EPFO Regional Office (per applicant's jurisdiction) — see epfindia.gov.in for regional office list",
+    "level": "central"
+  },
+  {
+    "id": "revenue-land-records",
+    "domain": "land_records",
+    "keywords": ["land record", "7/12", "mutation", "property title", "revenue department"],
+    "authorityName": "Office of the Tehsildar / Revenue Department",
+    "pioDesignation": "Public Information Officer, Revenue Department (District)",
+    "filingAddress": "District Collectorate, Revenue Department — per applicant's district",
+    "level": "state"
+  },
+  {
+    "id": "police-fir-status",
+    "domain": "police",
+    "keywords": ["fir", "police complaint", "investigation status", "police station"],
+    "authorityName": "Office of the Superintendent of Police / Commissioner of Police",
+    "pioDesignation": "Public Information Officer, District Police Headquarters",
+    "filingAddress": "District Police Headquarters — per jurisdiction of the police station concerned",
+    "level": "state"
+  },
+  {
+    "id": "education-board",
+    "domain": "education",
+    "keywords": ["exam result", "marksheet", "school admission", "education board", "scholarship"],
+    "authorityName": "State Board of Secondary Education",
+    "pioDesignation": "Public Information Officer, State Education Board",
+    "filingAddress": "State Board of Secondary Education, Head Office",
+    "level": "state"
+  },
+  {
+    "id": "ration-pds",
+    "domain": "ration",
+    "keywords": ["ration card", "pds", "public distribution", "food supply"],
+    "authorityName": "Department of Food, Civil Supplies and Consumer Affairs",
+    "pioDesignation": "Public Information Officer, Food & Civil Supplies Department",
+    "filingAddress": "District Food & Civil Supplies Office — per applicant's district",
+    "level": "state"
+  }
+]
