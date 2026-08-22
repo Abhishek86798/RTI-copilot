@@ -1,53 +1,102 @@
-import {
-  ClerkProvider,
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Atkinson_Hyperlegible, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
+
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { isAuthConfigured } from "@/lib/client/auth-config";
+import { I18nProvider } from "@/lib/client/i18n";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/**
+ * Atkinson Hyperlegible, from the Braille Institute, is designed so that
+ * characters which normally blur together — 1/l/I, 0/O, rn/m — stay
+ * distinguishable at small sizes and low contrast. That matters more here than
+ * usual: this product asks people to read back PPO numbers, FIR numbers and
+ * registration numbers, where one misread character wastes a month.
+ */
+const atkinson = Atkinson_Hyperlegible({
+  variable: "--font-atkinson",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+/** Devanagari for the Hindi interface; Atkinson has no Devanagari coverage. */
+const devanagari = Noto_Sans_Devanagari({
+  variable: "--font-devanagari",
+  subsets: ["devanagari"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "RTI Copilot",
-  description: "Plain-language RTI application routing and drafting",
+  title: {
+    default: "RTI Copilot — file an RTI without knowing the department",
+    template: "%s · RTI Copilot",
+  },
+  description:
+    "Describe a grievance in plain language. RTI Copilot finds the public authority that holds the records, rewrites it into a valid RTI request, and tracks the 30-day statutory deadline.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // No maximumScale and no user-scalable=no: pinch-zoom stays available.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+  ],
+};
+
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <I18nProvider>
+      {/* First tab stop on every page, for keyboard and switch users. */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-3 focus:text-primary-foreground"
+      >
+        Skip to main content
+      </a>
+      <SiteHeader />
+      <main id="main" className="flex-1">
+        {children}
+      </main>
+      <SiteFooter />
+    </I18nProvider>
+  );
+}
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const shell = <Shell>{children}</Shell>;
+
+  /*
+   * Clerk is imported at runtime, and only when it is configured.
+   *
+   * A static `import { ClerkProvider } from "@clerk/nextjs"` throws on every
+   * request when the publishable key is missing — even on pages that never
+   * render it — which returned 500 for the entire guest journey. Guest mode is
+   * a shipped path that is meant to need no external service, so the SDK is
+   * loaded behind the flag rather than at module scope.
+   */
+  let tree = shell;
+  if (isAuthConfigured) {
+    const { ClerkProvider } = await import("@clerk/nextjs");
+    tree = <ClerkProvider>{shell}</ClerkProvider>;
+  }
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${atkinson.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <ClerkProvider>
-          <header className="flex justify-end items-center p-4 gap-4 h-16 border-b">
-            <Show when="signed-out">
-              <SignInButton />
-              <SignUpButton>
-                <button className="bg-primary text-primary-foreground rounded-full font-medium text-sm h-9 px-4 cursor-pointer">
-                  Sign Up
-                </button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-          </header>
-          {children}
-        </ClerkProvider>
-      </body>
+      <body className="flex min-h-full flex-col bg-background">{tree}</body>
     </html>
   );
 }

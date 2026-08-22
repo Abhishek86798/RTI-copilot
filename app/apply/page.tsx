@@ -1,0 +1,239 @@
+"use client";
+
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { AuthorityStep } from "@/components/apply/authority-step";
+import { DraftStep } from "@/components/apply/draft-step";
+import { IntakeStep } from "@/components/apply/intake-step";
+import { ErrorNotice, FixtureNotice } from "@/components/notices";
+import { StepIndicator } from "@/components/step-indicator";
+import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
+import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
+import { createApplication, updateApplication } from "@/lib/client/guest-storage";
+import type { DraftResponse, RoutingResponse } from "@/lib/client/types";
+
+type WizardStep = "intake" | "authority" | "draft";
+
+const STEP_INDEX: Record<WizardStep, number> = {
+  intake: 0,
+  authority: 1,
+  draft: 2,
+};
+
+/**
+ * Steps 1–3 of the journey, held in component state.
+ *
+ * Routing and drafting are ephemeral until there is something worth keeping:
+ * the application record is created the moment a draft comes back, and from
+ * then on every edit is persisted. That split means a half-finished intake
+ * never clutters the citizen's list, while a real draft survives a refresh, a
+ * dropped connection, or a phone that killed the tab to save memory.
+ *
+ * Once the draft exists the journey moves to `/applications/[id]`, which owns
+ * filing and tracking — those need a durable URL the citizen can come back to
+ * in thirty days.
+ */
+function ApplyWizard() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const headingRef = useRef<HTMLDivElement>(null);
+
+  /*
+   * A deep link from the landing page (/apply?case=pension) seeds the box.
+   * Computed as the initial state rather than applied by an effect: the query
+   * string is already known on the first client render, so copying it into
+   * state afterwards would only cause a second render and briefly show an
+   * empty textarea.
+   */
+  const seeded = getDemoCase(searchParams.get("case") ?? "");
+
+  const [step, setStep] = useState<WizardStep>("intake");
+  const [grievance, setGrievance] = useState(() => seeded?.grievance ?? "");
+  const [isDemo, setIsDemo] = useState(() => Boolean(seeded));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<ApiError | null>(null);
+  const [source, setSource] = useState<ResultSource>("live");
+
+  const [routing, setRouting] = useState<RoutingResponse | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const [draft, setDraft] = useState<DraftResponse | null>(null);
+  const [portalText, setPortalText] = useState("");
+  const [urgent, setUrgent] = useState(false);
+  const [applicationId, setApplicationId] = useState<string | null>(null);
+
+  /*
+   * Move focus to the step heading on every step change. Without this a
+   * keyboard or screen-reader user is left at the bottom of the previous
+   * screen with no announcement that anything happened.
+   */
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [step]);
+
+  const handleRoute = useCallback(
+    async (text: string, demo: boolean) => {
+      setError(null);
+      setLoading(true);
+      try {
+        const result = await routeAuthority(text);
+        setRouting(result.data);
+        setSource(result.source);
+        setSelectedId(result.data.candidates[0]?.authority.id ?? null);
+        setIsDemo(demo);
+        setStep("authority");
+      } catch (caught) {
+        setError(toApiError(caught));
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
+  async function handleDraft() {
+    if (!routing || !selectedId) return;
+    const authority = routing.candidates.find(
+      (c) => c.authority.id === selectedId
+    )?.authority;
+    if (!authority) return;
+
+    setError(null);
+    setLoading(true);
+    try {
+      const result = await generateDraft({
+        grievance,
+        authorityId: selectedId,
+        extractedReferences: routing.extractedReferences,
+      });
+
+      setDraft(result.data);
+      setPortalText(result.data.portalText);
+      setUrgent(result.data.lifeOrLibertyFlag);
+      setSource((previous) =>
+        previous === "demo-fixture" ? previous : result.source
+      );
+
+      const application = createApplication({
+        grievance,
+        authority,
+        extractedReferences: routing.extractedReferences,
+        items: result.data.items,
+        fullText: result.data.fullText,
+        portalText: result.data.portalText,
+        lifeOrLibertyFlag: result.data.lifeOrLibertyFlag,
+        lifeOrLibertyReason: result.data.lifeOrLibertyReason,
+        isDemo,
+      });
+      setApplicationId(application.id);
+      setStep("draft");
+    } catch (caught) {
+      setError(toApiError(caught));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handlePortalTextChange(value: string) {
+    setPortalText(value);
+    if (applicationId) updateApplication(applicationId, { portalText: value });
+  }
+
+  function handleToggleUrgency(next: boolean) {
+    setUrgent(next);
+    if (applicationId) {
+      updateApplication(applicationId, { lifeOrLibertyFlag: next });
+    }
+  }
+
+  function handlePickDemo(demo: DemoCase) {
+    setGrievance(demo.grievance);
+    void handleRoute(demo.grievance, true);
+  }
+
+  return (
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-10">
+      <StepIndicator current={STEP_INDEX[step]} className="mb-8" />
+
+      {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
+      <div ref={headingRef} tabIndex={-1} className="outline-none">
+        {error && (
+          <ErrorNotice
+            error={error}
+            onRetry={
+              step === "intake"
+                ? () => void handleRoute(grievance, isDemo)
+                : () => void handleDraft()
+            }
+            className="mb-6"
+          />
+        )}
+
+        {source === "demo-fixture" && step !== "intake" && (
+          <FixtureNotice className="mb-6" />
+        )}
+
+        {step === "intake" && (
+          <IntakeStep
+            value={grievance}
+            onChange={(value) => {
+              setGrievance(value);
+              // Typing over a seeded case makes it the citizen's own text, and
+              // the fixture fallback must not answer for it.
+              setIsDemo(false);
+            }}
+            onSubmit={() => void handleRoute(grievance, isDemo)}
+            onPickDemo={handlePickDemo}
+            loading={loading}
+          />
+        )}
+
+        {step === "authority" && routing && (
+          <AuthorityStep
+            routing={routing}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+            onBack={() => setStep("intake")}
+            onSubmit={() => void handleDraft()}
+            loading={loading}
+          />
+        )}
+
+        {step === "draft" && draft && (
+          <DraftStep
+            grievance={grievance}
+            items={draft.items}
+            portalText={portalText}
+            onPortalTextChange={handlePortalTextChange}
+            lifeOrLibertyFlag={urgent}
+            lifeOrLibertyReason={draft.lifeOrLibertyReason}
+            onToggleUrgency={handleToggleUrgency}
+            onBack={() => setStep("authority")}
+            onSubmit={() => {
+              if (applicationId) router.push(`/applications/${applicationId}`);
+            }}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * `useSearchParams` opts the subtree into client-side rendering, so Next needs
+ * a boundary to prerender the shell around it.
+ */
+export default function ApplyPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto w-full max-w-3xl px-4 py-16">
+          <p className="text-muted-foreground">Loading…</p>
+        </div>
+      }
+    >
+      <ApplyWizard />
+    </Suspense>
+  );
+}

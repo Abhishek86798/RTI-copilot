@@ -33,9 +33,22 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+/**
+ * `as` is a local addition to the shadcn primitive.
+ *
+ * The stock CardTitle is a `<div>`, which leaves a page built out of cards
+ * with no heading structure at all — a screen-reader user cannot jump between
+ * sections, and on this product a card title is genuinely the heading of its
+ * section. Callers pass the level that is correct for their page rather than
+ * getting a div by default and an inaccessible outline by accident.
+ */
+function CardTitle({
+  className,
+  as: Component = "div",
+  ...props
+}: React.ComponentProps<"div"> & { as?: "div" | "h1" | "h2" | "h3" }) {
   return (
-    <div
+    <Component
       data-slot="card-title"
       className={cn(
         "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
