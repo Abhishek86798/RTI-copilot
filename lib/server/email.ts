@@ -12,14 +12,29 @@ const FROM = process.env.RESEND_FROM ?? "RTI Copilot <onboarding@resend.dev>";
 
 export type Mail = { to: string; subject: string; text: string };
 
-export async function sendMail(mail: Mail): Promise<"sent" | "logged"> {
+export async function sendMail(mail: Mail): Promise<"sent" | "logged" | "blocked"> {
   if (!process.env.RESEND_API_KEY) {
     console.info(`[email:logged] to=${mail.to} subject=${mail.subject}\n${mail.text}`);
     return "logged";
   }
   const resend = new Resend(process.env.RESEND_API_KEY);
   const { error } = await resend.emails.send({ from: FROM, ...mail });
-  if (error) throw new Error(`Resend failed: ${error.message}`);
+  if (error) {
+    // Resend's shared onboarding@resend.dev sender only delivers to the
+    // account owner's own address. Until a domain is verified this is the
+    // expected failure for every other recipient, and it must be loud: a
+    // deadline notice that silently never arrives is the exact failure this
+    // whole sweep exists to prevent.
+    if (FROM.includes("onboarding@resend.dev")) {
+      console.error(
+        `[email:blocked] to=${mail.to} — the shared resend.dev sender only ` +
+          `delivers to the Resend account owner. Verify a domain and set ` +
+          `RESEND_FROM to send to real applicants. (${error.message})`
+      );
+      return "blocked";
+    }
+    throw new Error(`Resend failed: ${error.message}`);
+  }
   return "sent";
 }
 
