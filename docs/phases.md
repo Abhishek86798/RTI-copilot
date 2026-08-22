@@ -35,12 +35,13 @@ Goal: prove the actual product idea — plain language in, itemized legal draft 
 
 ---
 
-## Phase 2 — Life/liberty detection + PDF export ✅ Complete (via print)
+## Phase 2 — Life/liberty detection + PDF export — UI done, server PDF open
 
 Goal: round out the drafting experience with the two remaining P0 drafting features.
 
 - ~~Life/liberty marker detection in the NLP extractor; urgent badge "Flagged under Section 7(1): 48-Hour Statutory Window Applicable" (FR-13)~~ — **done in Phase 1**: it shares the drafting LLM call, so splitting it would have meant a second round-trip for no gain
-- ~~Server-side PDF generation matching standard RTI application format~~ — **shipped as a print stylesheet instead** (FR-6). `components/track/application-sheet.tsx` renders an A4 sheet with applicant details, authority, itemized request, the Section 7(1) ground where claimed, and the fee/BPL line; the browser's own "Save as PDF" exports it. Chosen over `@react-pdf` because it needs no server round-trip, works offline, and never uploads a document containing someone's PPO or FIR number. A server-rendered PDF can replace it later without changing anything the citizen sees.
+- **Still open (backend): server-side PDF generation (FR-6).** The frontend ships a browser-print fallback so the journey is not blocked — `components/track/application-sheet.tsx` renders an A4 sheet (applicant details, authority, itemized request, the Section 7(1) ground where claimed, fee/BPL line) and the browser's "Save as PDF" exports it. That sheet is the layout reference for the real thing.
+  **To wire in `@react-pdf`:** add the endpoint, then point the two existing `onPrint` handlers in `app/applications/[id]/page.tsx` at it. Nothing else in the UI changes — the buttons, labels and placement already exist.
 - The printed sheet carries the full itemized request, not the length-trimmed portal text
 - The drafting screen surfaces the 48-hour flag with the citizen able to withdraw the claim; the filing screen hands over the exact sentence that actually invokes the proviso, since the shorter deadline does not apply unless it is stated
 
@@ -48,7 +49,7 @@ Goal: round out the drafting experience with the two remaining P0 drafting featu
 
 ---
 
-## Phase 3 — Tracking + Appeals Engine ✅ Complete (guest mode)
+## Phase 3 — Tracking + Appeals Engine — UI done, persistence/Cron/email open
 
 Goal: the second half of the pitch — the product doesn't stop at filing, it follows through.
 
@@ -58,7 +59,16 @@ Goal: the second half of the pitch — the product doesn't stop at filing, it fo
 - ~~Demo-only "Simulate +31 Days" control (FR-14)~~ — done, gated behind `canSimulate()`, which requires `isDemo` — a genuinely filed application can never have its statutory clock spoofed
 - ~~Guest Mode gets the same tracking/appeal logic against `localStorage`~~ — done; `lib/client/guest-storage.ts` holds the same shape Postgres will, so Phase 4 swaps the storage module rather than forking the UI
 
-Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the Act (s.7(1), its proviso, the proviso to s.5(2), s.19(1)) rather than approximated.
+**Still open (backend), and left deliberately unwired so it can be built directly:**
+
+| What | Where it plugs in |
+|------|-------------------|
+| Postgres persistence | Replace the four exported functions in `lib/client/guest-storage.ts` (`listApplications`, `getApplication`, `createApplication`, `updateApplication`). The `Application` type there is the schema. The UI calls nothing else. |
+| Vercel Cron daily sweep | Purely additive — no frontend change. Read the same deadline rules from `lib/client/deadlines.ts` so server and client never disagree about a date. |
+| Resend deadline emails | Additive. `computeClock()` already returns `isOverdue`, `canAppeal` and `appealWindowClosed` to key the templates off. |
+| Server-side appeal drafting | If it should come from the model instead of the template, replace `buildFirstAppeal()` in `lib/client/filing.ts` with a call added to `lib/client/api.ts`. The appeal screen reads `application.appeal.text` and does not care where it came from. |
+
+Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the Act (s.7(1), its proviso, the proviso to s.5(2), s.19(1)) rather than approximated. **Reuse it server-side rather than reimplementing** — it is plain TypeScript with no React or browser dependency.
 
 **Demo checkpoint:** file a guest-mode application, hit "Simulate +31 Days," watch the First Appeal draft itself.
 
