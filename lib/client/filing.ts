@@ -186,3 +186,30 @@ Date: ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", 
 Place: ______________________
 `;
 }
+
+/**
+ * Inverse of the `1. item\n2. item` join used to build the draft text.
+ *
+ * The citizen edits one textarea, but the printed application (FR-6) renders a
+ * numbered list from `items` while the portal box (FR-4a) takes the flat text.
+ * Without this, an edit reached the screen and the clipboard but not the PDF.
+ *
+ * Continuation lines belong to the item above them, so a wrapped or
+ * deliberately multi-line entry survives the round trip instead of being split
+ * into two requests.
+ */
+export function splitDraftItems(text: string): string[] {
+  const items: string[] = [];
+  for (const line of text.split("\n")) {
+    const numbered = line.match(/^\s*\d+[.)]\s*(.*)$/);
+    if (numbered) {
+      items.push(numbered[1].trim());
+    } else if (line.trim() && items.length) {
+      items[items.length - 1] += " " + line.trim();
+    } else if (line.trim()) {
+      // Text before any number — an unnumbered draft is still one request.
+      items.push(line.trim());
+    }
+  }
+  return items.filter(Boolean);
+}

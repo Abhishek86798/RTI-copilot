@@ -41,3 +41,32 @@ assert.ok(
 );
 
 console.log("filing: all checks passed");
+
+/* splitDraftItems — the edited textarea must round-trip back to items, or an
+ * edit shows on screen and in the clipboard but never reaches the PDF. */
+{
+  const { splitDraftItems } = await import("../lib/client/filing.ts");
+
+  const items = ["First request.", "Second request."];
+  const joined = items.map((t, i) => `${i + 1}. ${t}`).join("\n");
+  assert.deepEqual(splitDraftItems(joined), items, "round trip must be lossless");
+
+  assert.deepEqual(
+    splitDraftItems("1. Kept.\n2. Edited wording here."),
+    ["Kept.", "Edited wording here."],
+    "edits must survive"
+  );
+
+  // A wrapped line belongs to the item above it, not a new request.
+  assert.deepEqual(
+    splitDraftItems("1. A request that\ncontinues on the next line.\n2. Second."),
+    ["A request that continues on the next line.", "Second."],
+    "continuation lines must merge upward"
+  );
+
+  assert.deepEqual(splitDraftItems("1) Paren style."), ["Paren style."]);
+  assert.deepEqual(splitDraftItems("No numbering at all."), ["No numbering at all."]);
+  assert.deepEqual(splitDraftItems("\n\n"), [], "empty text yields no items");
+}
+
+console.log("splitDraftItems: all checks passed");

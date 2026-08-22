@@ -10,6 +10,7 @@ import { ErrorNotice, FixtureNotice } from "@/components/notices";
 import { StepIndicator } from "@/components/step-indicator";
 import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
+import { splitDraftItems } from "@/lib/client/filing";
 import { createApplication, updateApplication } from "@/lib/client/guest-storage";
 import type { DraftResponse, RoutingResponse } from "@/lib/client/types";
 
@@ -137,7 +138,16 @@ function ApplyWizard() {
 
   function handlePortalTextChange(value: string) {
     setPortalText(value);
-    if (applicationId) updateApplication(applicationId, { portalText: value });
+    // items is what the printed application renders (FR-6), portalText is what
+    // goes in the portal box (FR-4a). Saving only portalText meant an edit made
+    // here showed on screen but never reached the PDF, which then carried
+    // wording the citizen thought they had changed.
+    if (applicationId) {
+      updateApplication(applicationId, {
+        portalText: value,
+        items: splitDraftItems(value),
+      });
+    }
   }
 
   function handleToggleUrgency(next: boolean) {
