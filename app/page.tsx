@@ -15,6 +15,8 @@ type Candidate = {
     authorityName: string;
     pioDesignation: string;
     filingAddress: string;
+    verifyAt?: string;
+    notes?: string;
   };
   confidence: number;
   reason: string;
@@ -238,9 +240,32 @@ export default function Home() {
               <Separator />
 
               {selectedCandidate && (
-                <p className="text-sm text-muted-foreground">
-                  Filing address: {selectedCandidate.authority.filingAddress}
-                </p>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>Filing address: {selectedCandidate.authority.filingAddress}</p>
+                  {selectedCandidate.authority.notes && (
+                    <p className="rounded-lg bg-muted p-3">
+                      <span className="font-medium text-foreground">Worth knowing: </span>
+                      {selectedCandidate.authority.notes}
+                    </p>
+                  )}
+                  {selectedCandidate.authority.verifyAt && (
+                    <p className="text-xs">
+                      Confirm the exact office for your area at{" "}
+                      {selectedCandidate.authority.verifyAt.startsWith("http") ? (
+                        <a
+                          href={selectedCandidate.authority.verifyAt}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline underline-offset-2"
+                        >
+                          {selectedCandidate.authority.verifyAt}
+                        </a>
+                      ) : (
+                        selectedCandidate.authority.verifyAt
+                      )}
+                    </p>
+                  )}
+                </div>
               )}
 
               <div className="flex gap-2">

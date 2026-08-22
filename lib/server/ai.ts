@@ -50,7 +50,7 @@ export type RoutingResult = {
 export const CONFIDENCE_FLOOR = 0.5;
 
 export async function routeGrievance(grievance: string): Promise<RoutingResult> {
-  const shortlist = shortlistAuthorities(grievance);
+  const { authorities: shortlist, noKeywordMatch } = shortlistAuthorities(grievance);
 
   const { object } = await withModelFallback((model) =>
     generateObject({
@@ -69,7 +69,11 @@ Never inflate a score to appear helpful. Routing a citizen to the wrong authorit
 
 Candidate authorities (choose only from this list, by id):
 ${shortlist.map((a) => `- id: ${a.id} | ${a.authorityName} | domain: ${a.domain}`).join("\n")}
-
+${
+  noKeywordMatch
+    ? "\nNote: nothing in this grievance matched our directory's keywords, so the full directory is shown above with no narrowing. Treat this as a signal that the right authority may not be listed at all — score accordingly rather than forcing a fit.\n"
+    : ""
+}
 Rank up to 3 candidates by confidence that they hold the records this grievance concerns. Also extract any dates, PPO numbers, FIR numbers, case numbers, or other reference identifiers mentioned verbatim in the grievance — do not paraphrase them.`,
     })
   );
