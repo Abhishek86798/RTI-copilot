@@ -87,6 +87,30 @@ P1/P2 items, picked up in this order if the clock allows:
 
 ---
 
+## Known gaps — carry into every phase
+
+These are open weaknesses in what Phase 1 shipped, not future features. Fix them whenever there's slack; both directly cap demo quality.
+
+### ⚠️ Expand `data/authorities.json` — only 5 entries today
+
+The dataset currently covers exactly five domains: pension (EPFO), land records, police, education, ration. Routing is grounded in this file by design — `shortlistAuthorities()` keyword-matches in our own code and the LLM may only rank IDs from that shortlist, so a hallucinated authority is discarded rather than shown. That makes the file, not the model, the accuracy ceiling.
+
+The failure mode: a grievance outside those five domains (municipal water, electricity board, PDS grievance redressal, income tax, passport, RTO…) hits the `else` branch and the LLM is handed all five entries to pick the least-wrong one. It will return something with a confident-looking score, and it will be wrong.
+
+This is pure data entry, no model work. Highest-leverage improvement available — every entry added widens what the demo can survive being asked.
+
+### ⚠️ Improve and validate the system prompts
+
+Current state after Phase 1 testing:
+
+- **Drafting prompt — works well.** Verified live: emotional/interrogative input became itemized document requests with reference numbers preserved verbatim.
+- **Life/liberty detection (FR-13) — works, but thinly tested.** Two cases checked (custody+medical flagged, pension not flagged). Edge cases are unexplored — e.g. a *delayed* medical reimbursement could plausibly false-positive into the 48-hour window, which would misstate a statutory deadline to a citizen.
+- **Confidence scores are uncalibrated.** The number the model emits (`0.98`) is a generated token, not a probability. Fine as a coarse UI signal, but it must not be presented as a real accuracy figure, and thresholds keyed off it are guesswork.
+
+To do: build a small fixture set of ~15–20 real grievances across all covered domains, run both prompts against it, and tighten wording where routing or the 7(1) flag lands wrong. Without that, prompt quality is anecdote.
+
+---
+
 ## Out of scope for any phase
 
 Carried from [PRD.md §6](./PRD.md#6-scope-for-the-hackathon-build-mvp) — do not build these even if time allows, they're post-hackathon:
