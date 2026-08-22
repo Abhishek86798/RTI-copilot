@@ -39,7 +39,15 @@ const routingSchema = z.object({
 export type RoutingResult = {
   candidates: { authority: Authority; confidence: number; reason: string }[];
   extractedReferences: string[];
+  lowConfidence: boolean;
 };
+
+/**
+ * Below this, the UI must tell the user we're unsure rather than presenting a
+ * match. Misrouting costs the citizen a Section 6(3) transfer and restarts the
+ * clock, so an honest "verify this" beats a confident wrong answer.
+ */
+export const CONFIDENCE_FLOOR = 0.5;
 
 export async function routeGrievance(grievance: string): Promise<RoutingResult> {
   const shortlist = shortlistAuthorities(grievance);
@@ -48,14 +56,21 @@ export async function routeGrievance(grievance: string): Promise<RoutingResult> 
     generateObject({
       model,
       schema: routingSchema,
-      prompt: `You are routing an Indian citizen's grievance to the correct RTI (Right to Information) Public Authority.
+      system: `You route Indian citizens' grievances to the correct RTI (Right to Information) Public Authority — the office that physically holds the records being asked about.
 
-Grievance: "${grievance}"
+Score confidence honestly, using these anchors:
+- 0.9-1.0: the grievance names this authority or its scheme explicitly.
+- 0.6-0.9: the domain clearly belongs to this authority, but the specific office is inferred.
+- 0.4-0.6: plausible but unverified — several authorities could hold these records.
+- Below 0.4: guessing. If none of the candidates plausibly holds these records, return your best guess at this level rather than inflating the score.
+
+Never inflate a score to appear helpful. Routing a citizen to the wrong authority triggers a Section 6(3) transfer that restarts their 30-day clock, so an honest low score is more useful to them than a confident wrong answer.`,
+      prompt: `Grievance: "${grievance}"
 
 Candidate authorities (choose only from this list, by id):
 ${shortlist.map((a) => `- id: ${a.id} | ${a.authorityName} | domain: ${a.domain}`).join("\n")}
 
-Rank up to 3 candidates by confidence (0 to 1) that they hold the records this grievance concerns. Also extract any dates, PPO numbers, FIR numbers, case numbers, or other reference identifiers mentioned verbatim in the grievance — do not paraphrase them.`,
+Rank up to 3 candidates by confidence that they hold the records this grievance concerns. Also extract any dates, PPO numbers, FIR numbers, case numbers, or other reference identifiers mentioned verbatim in the grievance — do not paraphrase them.`,
     })
   );
 
@@ -64,9 +79,16 @@ Rank up to 3 candidates by confidence (0 to 1) that they hold the records this g
       const authority = shortlist.find((a) => a.id === c.authorityId);
       return authority ? { authority, confidence: c.confidence, reason: c.reason } : null;
     })
-    .filter((c): c is NonNullable<typeof c> => c !== null);
+    .filter((c): c is NonNullable<typeof c> => c !== null)
+    .sort((a, b) => b.confidence - a.confidence);
 
-  return { candidates, extractedReferences: object.extractedReferences };
+  const topConfidence = candidates[0]?.confidence ?? 0;
+
+  return {
+    candidates,
+    extractedReferences: object.extractedReferences,
+    lowConfidence: topConfidence < CONFIDENCE_FLOOR,
+  };
 }
 
 const draftSchema = z.object({

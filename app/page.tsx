@@ -24,6 +24,18 @@ type Step = "intake" | "confirm" | "draft";
 
 const PORTAL_LIMIT = 3000;
 
+/**
+ * The model's confidence number isn't a calibrated probability, so showing it
+ * as "98% match" overstates what we know. Buckets convey the same signal
+ * without implying precision we don't have.
+ */
+function confidenceLabel(confidence: number): { text: string; variant: "default" | "secondary" | "outline" } {
+  if (confidence >= 0.9) return { text: "Strong match", variant: "default" };
+  if (confidence >= 0.6) return { text: "Likely match", variant: "default" };
+  if (confidence >= 0.5) return { text: "Possible match", variant: "secondary" };
+  return { text: "Uncertain — verify", variant: "outline" };
+}
+
 export default function Home() {
   const [step, setStep] = useState<Step>("intake");
   const [grievance, setGrievance] = useState("");
@@ -33,6 +45,7 @@ export default function Home() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [extractedReferences, setExtractedReferences] = useState<string[]>([]);
   const [selectedAuthorityId, setSelectedAuthorityId] = useState<string | null>(null);
+  const [lowConfidence, setLowConfidence] = useState(false);
 
   const [items, setItems] = useState<string[]>([]);
   const [portalText, setPortalText] = useState("");
@@ -55,6 +68,7 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error ?? "Something went wrong while routing your grievance.");
       setCandidates(data.candidates);
       setExtractedReferences(data.extractedReferences);
+      setLowConfidence(data.lowConfidence);
       setSelectedAuthorityId(data.candidates[0]?.authority.id ?? null);
       setStep("confirm");
     } catch (e) {
@@ -182,6 +196,17 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
+              {lowConfidence && (
+                <Alert>
+                  <AlertTitle>We&apos;re not confident about this match</AlertTitle>
+                  <AlertDescription>
+                    No authority in our directory clearly holds these records. Please verify the correct
+                    office before filing — check the department&apos;s own website or the RTI Online
+                    portal. Filing with the wrong authority restarts your 30-day clock under Section 6(3).
+                  </AlertDescription>
+                </Alert>
+              )}
+
               {candidates.map((c) => (
                 <button
                   key={c.authority.id}
@@ -194,8 +219,8 @@ export default function Home() {
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-medium">{c.authority.authorityName}</span>
-                    <Badge variant={c.confidence >= 0.7 ? "default" : "secondary"}>
-                      {Math.round(c.confidence * 100)}% match
+                    <Badge variant={confidenceLabel(c.confidence).variant}>
+                      {confidenceLabel(c.confidence).text}
                     </Badge>
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{c.authority.pioDesignation}</p>
@@ -222,8 +247,13 @@ export default function Home() {
                 <Button variant="outline" onClick={() => setStep("intake")} className="flex-1">
                   Back
                 </Button>
-                <Button onClick={handleDraft} disabled={loading || !selectedAuthorityId} className="flex-1">
-                  {loading ? "Drafting…" : "Draft my application"}
+                <Button
+                  onClick={handleDraft}
+                  disabled={loading || !selectedAuthorityId}
+                  variant={lowConfidence ? "outline" : "default"}
+                  className="flex-1"
+                >
+                  {loading ? "Drafting…" : lowConfidence ? "Draft anyway" : "Draft my application"}
                 </Button>
               </div>
             </CardContent>
