@@ -1,6 +1,18 @@
 # RTI Copilot — Build Phases
 
-Sequenced for a hackathon clock. Each phase ends in something demoable — never a half-wired feature. P0 items from [PRD.md](./PRD.md) are the floor; P1/P2 only get picked up if time remains after Phase 4.
+Sequenced for a hackathon clock. Each phase ends in something demoable — never a half-wired feature. P0 items from [PRD.md](./PRD.md) are the floor; P1/P2 only get picked up if time remains.
+
+**These two documents are the contract.** [PRD.md §5](./PRD.md#5-user-flow) defines the citizen journey in four steps; the build phases below deliver it. Every P0 requirement in the PRD appears in exactly one phase here, and no phase is complete while a requirement it owns is open. If the two disagree, the PRD wins and this file is wrong.
+
+**Journey coverage** — PRD §5 step to the phase that delivers it:
+
+| PRD journey step | Requirements | Phase |
+|---|---|---|
+| Step 1 — NLP intake | FR-1, FR-2, FR-3, FR-4, FR-4a, FR-13 | Phase 1 ✅ |
+| Step 2 — Verification | FR-5, plus applicant details for FR-15 | Phase 1 ✅ / Phase 2b |
+| Step 3 — Mock settlement + receipt | FR-6, FR-15, FR-16, FR-17, FR-18, FR-19 | Phase 2a ✅ backend / **Phase 2b** |
+| Step 4 — Appeals dashboard | FR-7, FR-9, FR-10, FR-14, FR-20 | Phase 3 ✅ |
+| (cross-cutting) | FR-8 email, FR-11, FR-12 | Phase 3 ✅ / Phase 5 |
 
 ---
 
@@ -35,17 +47,37 @@ Goal: prove the actual product idea — plain language in, itemized legal draft 
 
 ---
 
-## Phase 2 — Life/liberty detection + PDF export — UI done, server PDF open
+## Phase 2 — Filing: the submission portal (PRD Step 3)
 
-Goal: round out the drafting experience with the two remaining P0 drafting features.
+Goal: close the hole in the middle of the journey. The app routed, drafted and
+tracked, but at the moment of filing it sent the citizen to rtionline.gov.in
+and asked them to come back and self-report. The hardest step was the one
+handed off.
 
-- ~~Life/liberty marker detection in the NLP extractor; urgent badge "Flagged under Section 7(1): 48-Hour Statutory Window Applicable" (FR-13)~~ — **done in Phase 1**: it shares the drafting LLM call, so splitting it would have meant a second round-trip for no gain
-- **Still open (backend): server-side PDF generation (FR-6).** The frontend ships a browser-print fallback so the journey is not blocked — `components/track/application-sheet.tsx` renders an A4 sheet (applicant details, authority, itemized request, the Section 7(1) ground where claimed, fee/BPL line) and the browser's "Save as PDF" exports it. That sheet is the layout reference for the real thing.
-  **To wire in `@react-pdf`:** add the endpoint, then point the two existing `onPrint` handlers in `app/applications/[id]/page.tsx` at it. Nothing else in the UI changes — the buttons, labels and placement already exist.
-- The printed sheet carries the full itemized request, not the length-trimmed portal text
-- The drafting screen surfaces the 48-hour flag with the citizen able to withdraw the claim; the filing screen hands over the exact sentence that actually invokes the proviso, since the shorter deadline does not apply unless it is stated
+### Phase 2a — Filing backend ✅ Complete
 
-**Demo checkpoint:** a pension grievance shows a normal 30-day badge; a medical-emergency grievance shows the 48-hour badge; both export a clean PDF.
+- ~~Life/liberty detection (FR-13)~~ — **done in Phase 1**: it shares the drafting LLM call, so splitting it would have meant a second round-trip for no gain
+- ~~Simulated submission portal with real validation (FR-15)~~ — `POST /api/file`. Enforces what the portal enforces, including the rules it only reveals *after* taking the fee: s.3 citizenship, s.6(1) contact details, the s.7(5) certificate a BPL claim depends on, the 3,000-character field, and the Central-only rule that returns a State application unrefunded. Every problem is returned at once — a form that reveals its objections one reload apart is the experience this product replaces.
+- ~~Mock settlement (FR-16)~~ — ₹10 confirmation, or a s.7(5) BPL declaration. No payment gateway is contacted.
+- ~~Registration number + server-side clock (FR-17)~~ — portal format `DOPPW/R/E/26/00142`; `/A/` for appeals. The clock starts from the server's timestamp, because the filing date is the one fact an applicant cannot otherwise prove.
+- ~~Acknowledgement receipt data (FR-18)~~ — registration number, authority, ministry, fee basis, reply-due date.
+- ~~`ministry` on Central authorities~~ — the portal makes citizens pick Ministry before Public Authority, which is precisely the knowledge they lack.
+
+**Verified:** `pnpm check:file` drives the real endpoint and covers every rule above.
+
+### Phase 2b — Filing UI (PRD Step 2 + Step 3 screens) ⬅ **current**
+
+The backend is done and tested; the screens a reviewer actually clicks are not.
+
+- **Applicant details (FR-15):** the form has name, address, email, phone and the BPL toggle. **State and PIN are missing** and the API rejects a filing without them.
+- **BPL certificate reference (FR-16):** the toggle exists, but s.7(5) makes the exemption depend on the certificate, not the claim — the API refuses a BPL filing without a reference, and the UI has nowhere to give one.
+- **Mock payment screen (FR-16):** ₹10 confirmation, plainly labelled as simulated. Not built.
+- **Receipt screen (FR-18):** registration number, fee basis, reply-due date, and the print-ready PDF. Not built.
+- **Wire the filing step to `/api/file`:** `components/track/filing-guide.tsx` still links out to the real portal and asks for a self-reported date. That link becomes "file here", and the self-reported path stays only for an application genuinely filed on paper elsewhere (FR-7).
+- **Simulation labelling (FR-19):** every screen carrying simulated state says so on the screen, not only in the docs. The existing fixture-banner pattern is the model.
+- **Server-side PDF (FR-6)** — *deliberately not doing.* `components/track/application-sheet.tsx` plus the print stylesheet already produce a filed-ready A4 document through the browser's own Save-as-PDF, verified against a real print. `@react-pdf` would re-render the same document, add a dependency and a round trip, and upload a page containing someone's PPO number. Revisit only if a browser renders the sheet wrongly.
+
+**Demo checkpoint:** a citizen completes a filing end to end — details, fee or BPL waiver, registration number, receipt — without leaving the product, and a pension grievance shows a 30-day badge while a medical-emergency one shows 48 hours.
 
 ---
 
@@ -53,7 +85,8 @@ Goal: round out the drafting experience with the two remaining P0 drafting featu
 
 Goal: the second half of the pitch — the product doesn't stop at filing, it follows through.
 
-- ~~"Mark as filed" + date entry, starts the countdown (FR-7)~~ — done, with the registration number captured alongside it, and an APIO checkbox that adds the 5 days the proviso to Section 5(2) allows
+- ~~"Mark as filed" + date entry, starts the countdown (FR-7)~~ — done, with the registration number captured alongside it
+- ~~APIO recognition (FR-20)~~ — done: the proviso to s.5(2) adds five days because the clock starts on receipt by the PIO, not the APIO. Shipped in both languages. A 35-day deadline shown as 30 would send the citizen to appeal early.
 - ~~Vercel Cron daily sweep~~ — done. `/api/cron/sweep` runs daily at 09:00 IST (`vercel.ts`), drafts the First Appeal the moment the deadline lapses, emails the citizen once, and records that it did. Demo rows are excluded, so a spoofed clock can never drive a real email.
 - ~~Auto-drafted First Appeal when the deadline lapses (FR-9)~~ — done, from a template in `lib/client/filing.ts` rather than an LLM call: a First Appeal is formulaic, every field is already known by then, and a template is exact, instant, and works with no network
 - ~~Demo-only "Simulate +31 Days" control (FR-14)~~ — done, gated behind `canSimulate()`, which requires `isDemo` — a genuinely filed application can never have its statutory clock spoofed
@@ -76,12 +109,12 @@ Deadline maths lives in `lib/client/deadlines.ts`, tied clause by clause to the 
 
 ---
 
-## Phase 4 — Real accounts (signed-in mode)
+## Phase 4 — Real accounts (signed-in mode) ✅ Complete
 
 Goal: turn on the production path alongside guest mode, not instead of it.
 
-- ~~Clerk-gated save/track flow, backed by Neon Postgres~~ — the API and storage layer landed with Phase 3 (`/api/applications`). What remains is pointing the UI at it when signed in, instead of always reading `localStorage`.
-- Guest → account migration on sign-in: `lib/client/migrate.ts` is built and opt-in; it still needs the prompt that offers it
+- ~~Clerk-gated save/track flow, backed by Neon Postgres~~ — done. `lib/client/store.ts` reads `localStorage` as a guest and `/api/applications` when signed in, so the UI reads one type either way and no screen forked.
+- ~~Guest → account migration on sign-in~~ — done, and opt-in by design: a guest draft can carry a PPO, FIR or PAN number, so nothing uploads without a click. `components/migrate-prompt.tsx`, in both languages.
 - Per-user dashboard: Drafting / Filed / Awaiting Response / Overdue / Appealed / Resolved (FR-10)
 - ~~Resend integration (FR-8)~~ — built in Phase 3; needs a verified sender domain and `RESEND_API_KEY` to send rather than log
 - Landing page offers both entry points equally: "Try Demo Case" (Guest) and "Sign up" (real)
