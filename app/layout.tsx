@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
+import { Geist_Mono, Noto_Sans, Noto_Sans_Devanagari } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { AccountGate } from "@/components/account-gate";
@@ -9,20 +9,29 @@ import { I18nProvider } from "@/lib/client/i18n";
 import "./globals.css";
 
 /**
- * Atkinson Hyperlegible, from the Braille Institute, is designed so that
- * characters which normally blur together — 1/l/I, 0/O, rn/m — stay
- * distinguishable at small sizes and low contrast. That matters more here than
- * usual: this product asks people to read back PPO numbers, FIR numbers and
- * registration numbers, where one misread character wastes a month.
+ * Noto Sans, matching the approved design canvas exactly (its own foundations
+ * screen names "Noto Sans · Noto Sans Display" as the type system). Reference
+ * numbers — PPO, FIR, registration — still render in the monospace face
+ * (--font-mono) wherever they appear on screen, which is what actually
+ * prevents a misread character; that did not depend on the body typeface and
+ * is unaffected by this change.
  */
-const atkinson = Atkinson_Hyperlegible({
-  variable: "--font-atkinson",
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-/** Devanagari for the Hindi interface; Atkinson has no Devanagari coverage. */
+/** The design's display face for large headings. */
+const notoSansDisplay = Noto_Sans({
+  variable: "--font-noto-sans-display",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+});
+
+/** Devanagari for the Hindi interface; Noto Sans has no Devanagari coverage. */
 const devanagari = Noto_Sans_Devanagari({
   variable: "--font-devanagari",
   subsets: ["devanagari"],
@@ -96,7 +105,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${atkinson.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${notoSans.variable} ${notoSansDisplay.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
       // The pre-paint script below sets `class` and `data-theme` on this
       // element before React hydrates, which is the whole point — it is what
       // stops a dark-mode user seeing a white flash. React must be told that
