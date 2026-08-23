@@ -351,6 +351,19 @@ const en = {
   "clock.alt":
     "A thirty-day response window running out at a deadline, followed by a thirty-day window in which a free First Appeal can be filed.",
 
+  "home.hero.covers": "What it covers",
+  "home.hero.coversNote": "Twenty domains, hand-curated. Central and State.",
+
+  "photo.office.alt": "A rusted, padlocked shutter painted with the words Department of Post, with a dog asleep beneath it.",
+  "photo.office.caption":
+    "A padlocked branch office. A right to information is worth what the office you can actually reach is worth. Documentary photograph, used illustratively.",
+  "photo.counter.alt": "Citizens standing at the service windows of a post office counter.",
+  "photo.counter.caption":
+    "Waiting at the window is the part of the process this product cannot remove. Getting the request right first time is the part it can.",
+  "photo.seals.alt": "Worn rubber stamps standing in metal tins on a wooden desk.",
+  "photo.seals.caption":
+    "An application is answered from a file. The Act compels the record, not an explanation of it.",
+
   "home.cta.title": "It takes one paragraph to start",
   "home.cta.lead":
     "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
@@ -689,6 +702,19 @@ const hi: Record<StringKey, string> = {
   "clock.appealCloses": "अपील की अवधि समाप्त",
   "clock.alt":
     "तीस दिन की उत्तर अवधि समय-सीमा पर समाप्त होती है, उसके बाद तीस दिन की वह अवधि जिसमें निःशुल्क प्रथम अपील दाख़िल की जा सकती है।",
+
+  "home.hero.covers": "यह किन क्षेत्रों को कवर करता है",
+  "home.hero.coversNote": "बीस क्षेत्र, हाथ से चुने गए। केंद्र और राज्य दोनों।",
+
+  "photo.office.alt": "जंग लगा, ताला लगा शटर जिस पर “Department of Post” लिखा है, नीचे एक कुत्ता सो रहा है।",
+  "photo.office.caption":
+    "ताला लगा एक शाखा कार्यालय। सूचना का अधिकार उतना ही काम का है जितना वह कार्यालय जहाँ आप वास्तव में पहुँच सकें। यह दस्तावेज़ी तस्वीर केवल दृष्टांत के लिए है।",
+  "photo.counter.alt": "डाकघर के काउंटर की खिड़कियों पर खड़े नागरिक।",
+  "photo.counter.caption":
+    "खिड़की पर प्रतीक्षा वह हिस्सा है जिसे यह उत्पाद हटा नहीं सकता। पहली बार में सही अनुरोध लिखवाना वह हिस्सा है जिसे यह कर सकता है।",
+  "photo.seals.alt": "लकड़ी की मेज़ पर धातु के डिब्बों में रखी घिसी हुई रबर मुहरें।",
+  "photo.seals.caption":
+    "आवेदन का उत्तर फाइल से आता है। अधिनियम अभिलेख देने के लिए बाध्य करता है, उसकी सफ़ाई देने के लिए नहीं।",
 
   "home.cta.title": "शुरू करने के लिए एक अनुच्छेद काफ़ी है",
   "home.cta.lead":

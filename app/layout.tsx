@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Noto_Sans, Noto_Sans_Devanagari } from "next/font/google";
+import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { AccountGate } from "@/components/account-gate";
@@ -10,25 +10,26 @@ import { I18nProvider } from "@/lib/client/i18n";
 import "./globals.css";
 
 /**
- * Noto Sans, matching the approved design canvas exactly (its own foundations
- * screen names "Noto Sans · Noto Sans Display" as the type system). Reference
- * numbers — PPO, FIR, registration — still render in the monospace face
- * (--font-mono) wherever they appear on screen, which is what actually
- * prevents a misread character; that did not depend on the body typeface and
- * is unaffected by this change.
+ * Inter, as the Latin face for both body and display.
+ *
+ * This replaces Noto Sans, which the design canvas named. Noto Sans is a
+ * humanist face — softer terminals, wider apertures, a little more warmth —
+ * and the editorial layout this page now uses is a Swiss grotesque one, where
+ * that warmth reads as slightly generic. Inter is the closest freely licensed
+ * grotesque to the neo-grotesque the reference layouts are set in, holds
+ * tight tracking at display sizes without the counters closing up, and has a
+ * genuine variable weight axis so headings and captions come from one file.
+ *
+ * Reference numbers — PPO, FIR, registration — still render in the monospace
+ * face wherever they appear on screen, which is what actually prevents a
+ * misread character. That never depended on the body typeface.
+ *
+ * Devanagari is unaffected: Inter has no Devanagari coverage, so the Hindi
+ * interface continues to use Noto Sans Devanagari below.
  */
-const notoSans = Noto_Sans({
-  variable: "--font-noto-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-/** The design's display face for large headings. */
-const notoSansDisplay = Noto_Sans({
-  variable: "--font-noto-sans-display",
-  subsets: ["latin"],
-  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -107,7 +108,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${notoSans.variable} ${notoSansDisplay.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
       // The pre-paint script below sets `class` and `data-theme` on this
       // element before React hydrates, which is the whole point — it is what
       // stops a dark-mode user seeing a white flash. React must be told that

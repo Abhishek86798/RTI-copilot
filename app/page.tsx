@@ -2,53 +2,70 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowDown, ArrowRight, CalendarClock, CircleHelp, MapPinOff } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 import {
-  CounterQueue,
-  JaaliBand,
-  QuestionToRecords,
-  RoutingFan,
-  StatutoryClock,
-} from "@/components/illustrations";
-import { Reveal } from "@/components/reveal";
-import { Section, SectionHeader, Stat } from "@/components/section";
+  Band,
+  Display,
+  Figure,
+  Frame,
+  Marker,
+  Photo,
+  Reveal,
+  Rule,
+  RuleGrid,
+} from "@/components/editorial";
+import { QuestionToRecords, RoutingFan, StatutoryClock } from "@/components/illustrations";
 import { Button } from "@/components/ux4g/button";
 import { DEMO_CASES } from "@/lib/client/demo-cases";
 import { useI18n } from "@/lib/client/i18n";
 
-const TOTAL_SECTIONS = 5;
+const TOTAL = 5;
+
+const CREDITS = {
+  office: {
+    credit: "Subhashish Panigrahi / CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:India_Post_office_in_Ooty.jpg",
+  },
+  counter: {
+    credit: "Saiphani02 / CC BY 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:A_man_at_an_India_Post_Office.jpg",
+  },
+  seals: {
+    credit: "Subhashish Panigrahi / CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Seals_in_an_India_Post_office,_Marathahalli,_Bangalore,_India.jpg",
+  },
+} as const;
 
 /**
- * The landing page makes a five-part argument to someone who has already been
- * let down by a government website.
+ * The landing page, as a five-part editorial argument.
  *
- * It leads with the objection rather than the product — you should not need to
- * know which department to ask — and each section afterwards pairs one reason
- * the current experience fails with the specific thing this does instead. The
- * sections are numbered so a sceptical reader can see how long the case is
- * before committing to reading it.
+ * Structure is Swiss on purpose. Hairline rules instead of cards, numerals at
+ * display size, small tracked section markers, and photography that is
+ * documentary rather than decorative. It has to read as serious enough to
+ * trust with a pension number and clean enough that a sceptic reaches the
+ * bottom — a government service that looks like a marketing page achieves
+ * neither.
  *
- * The visual register is deliberately split: government in its structure,
- * seriousness and sourcing; modern in its spacing and typography. It has to
- * read as official enough to trust with a pension number, and clean enough
- * that someone actually reaches the bottom.
+ * The photographs are reused from Wikimedia Commons under CC BY / CC BY-SA,
+ * credited in place and in `public/photos/CREDITS.md`. They illustrate the
+ * setting; nobody pictured is presented as a user of this product.
  */
 export default function HomePage() {
   const { t } = useI18n();
   const router = useRouter();
 
   const problems = [
-    { icon: MapPinOff, titleKey: "home.problem.1.title", bodyKey: "home.problem.1.body" },
-    { icon: CircleHelp, titleKey: "home.problem.2.title", bodyKey: "home.problem.2.body" },
-    { icon: CalendarClock, titleKey: "home.problem.3.title", bodyKey: "home.problem.3.body" },
+    { titleKey: "home.problem.1.title", bodyKey: "home.problem.1.body" },
+    { titleKey: "home.problem.2.title", bodyKey: "home.problem.2.body" },
+    { titleKey: "home.problem.3.title", bodyKey: "home.problem.3.body" },
   ] as const;
 
   const stats = [
-    { v: "home.stat.filed.value", l: "home.stat.filed.label", s: "home.stat.filed.source" },
-    { v: "home.stat.pending.value", l: "home.stat.pending.label", s: "home.stat.pending.source" },
-    { v: "home.stat.wait.value", l: "home.stat.wait.label", s: "home.stat.wait.source" },
-    { v: "home.stat.defunct.value", l: "home.stat.defunct.label", s: "home.stat.defunct.source" },
+    ["home.stat.filed.value", "home.stat.filed.label", "home.stat.filed.source"],
+    ["home.stat.pending.value", "home.stat.pending.label", "home.stat.pending.source"],
+    ["home.stat.wait.value", "home.stat.wait.label", "home.stat.wait.source"],
+    ["home.stat.defunct.value", "home.stat.defunct.label", "home.stat.defunct.source"],
   ] as const;
 
   const solutions = [
@@ -59,45 +76,65 @@ export default function HomePage() {
     "home.solution.5",
   ] as const;
 
+  const domains = [
+    "Pension", "Provident fund", "Land records", "Police / FIR",
+    "Ration & PDS", "Passport", "Electricity", "Municipal",
+    "Water", "Income tax", "Transport", "Health",
+  ];
+
   return (
     <>
-      {/* ================================================================ */}
-      {/* Hero                                                             */}
-      {/* ================================================================ */}
-      <section className="relative overflow-hidden border-b border-border">
-        {/* The jaali sits behind the type at low opacity — texture, not pattern. */}
-        {/*
-          Colour and opacity are set separately: `currentColor` inside an SVG
-          <pattern> resolves against the <svg>'s own colour, and an opacity
-          baked into the text colour left it rendering near-black when the
-          utility did not generate. `w-full` matters too — without it the SVG
-          sizes from its 6:1 intrinsic ratio and stops short of the viewport.
-        */}
-        <JaaliBand className="pointer-events-none absolute inset-x-0 top-0 h-44 w-full text-primary opacity-[0.07] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+      {/* ================================================================= */}
+      {/* Hero                                                              */}
+      {/* ================================================================= */}
+      <Band frame={false}>
+        <Frame>
+          <div className="border-b border-border py-3">
+            <Marker label={t("home.hero.eyebrow")} />
+          </div>
 
-        <div className="relative mx-auto grid w-full max-w-6xl gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:px-12 lg:py-32">
-          <div>
+          <div className="grid gap-10 py-10 lg:grid-cols-[1.55fr_1fr] lg:items-end lg:gap-16 lg:py-14">
             <Reveal>
-              <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-                <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
-                {t("home.hero.eyebrow")}
-              </p>
-            </Reveal>
-
-            <Reveal delay={60}>
-              <h1 className="mt-7 text-[2.1rem] leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.4rem]">
+              <Display
+                as="h1"
+                className="max-w-[17ch] text-[2.35rem] sm:text-[3.2rem] lg:text-[4.15rem]"
+              >
                 {t("home.hero.title")}
-              </h1>
+              </Display>
             </Reveal>
 
-            <Reveal delay={120}>
-              <p className="mt-7 max-w-[46ch] text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            {/* Stat pair divided by a hairline, as in the reference layouts. */}
+            <Reveal delay={80}>
+              <div className="grid grid-cols-2 border-t border-border pt-6 lg:border-t-0 lg:pt-0">
+                <div className="pr-6">
+                  <p className="text-[2.5rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[3.25rem]">
+                    30
+                  </p>
+                  <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+                    Days to reply
+                  </p>
+                </div>
+                <div className="border-l border-border pl-6">
+                  <p className="text-[2.5rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[3.25rem]">
+                    ₹10
+                  </p>
+                  <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+                    Fee, or free if BPL
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          <Rule />
+
+          <div className="grid gap-10 py-12 lg:grid-cols-[1.55fr_1fr] lg:gap-16">
+            <Reveal>
+              <p className="max-w-[46ch] text-lg leading-relaxed opacity-80 sm:text-xl">
                 {t("home.hero.body")}
               </p>
-            </Reveal>
 
-            <Reveal delay={180}>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-wrap gap-3">
                 <Button size="xl" variant="cta" onClick={() => router.push("/apply")}>
                   {t("home.hero.start")}
                   <ArrowRight aria-hidden="true" />
@@ -108,260 +145,321 @@ export default function HomePage() {
                   onClick={() => router.push(`/apply?case=${DEMO_CASES[0].id}`)}
                 >
                   {t("home.hero.demo")}
+                  <BookOpen aria-hidden="true" />
                 </Button>
               </div>
-              <p className="mt-5 max-w-[46ch] text-sm text-muted-foreground">
-                {t("home.hero.note")}
-              </p>
+
+              <p className="mt-5 max-w-[46ch] text-sm opacity-75">{t("home.hero.note")}</p>
             </Reveal>
-          </div>
 
-          <Reveal delay={120} className="lg:justify-self-end">
-            <CounterQueue className="w-full max-w-lg" />
-          </Reveal>
-        </div>
-
-        {/* Anchor down to the argument, for anyone not ready to start yet. */}
-        <div className="relative mx-auto w-full max-w-6xl px-5 pb-10 sm:px-8 lg:px-12">
-          <a
-            href="#problem"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-          >
-            <ArrowDown aria-hidden="true" className="size-4" />
-            {t("home.hero.scroll")}
-          </a>
-        </div>
-      </section>
-
-      {/* ================================================================ */}
-      {/* 01 — The problem                                                 */}
-      {/* ================================================================ */}
-      <Section id="problem" tone="alt">
-        <SectionHeader
-          index={1}
-          total={TOTAL_SECTIONS}
-          eyebrow={t("home.sec.problem.eyebrow")}
-          title={t("home.sec.problem.title")}
-          lead={t("home.sec.problem.lead")}
-        />
-
-        <ul className="grid gap-x-10 gap-y-12 md:grid-cols-3">
-          {problems.map((problem, index) => (
-            <Reveal as="li" key={problem.titleKey} delay={index * 90}>
-              <span
-                aria-hidden="true"
-                className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary"
-              >
-                <problem.icon className="size-6" strokeWidth={1.75} />
-              </span>
-              <h3 className="mt-5 text-lg font-semibold">{t(problem.titleKey)}</h3>
-              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                {t(problem.bodyKey)}
-              </p>
-            </Reveal>
-          ))}
-        </ul>
-      </Section>
-
-      {/* ================================================================ */}
-      {/* 02 — The scale                                                   */}
-      {/* ================================================================ */}
-      <Section tone="invert">
-        <SectionHeader
-          index={2}
-          total={TOTAL_SECTIONS}
-          eyebrow={t("home.sec.scale.eyebrow")}
-          title={t("home.sec.scale.title")}
-          lead={t("home.sec.scale.lead")}
-          invert
-        />
-
-        <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <Reveal key={stat.v} delay={index * 80}>
-              <Stat value={t(stat.v)} label={t(stat.l)} source={t(stat.s)} invert />
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={320}>
-          <p className="mt-14 max-w-[62ch] border-t border-primary-foreground/20 pt-6 text-sm text-primary-foreground/70">
-            {t("home.stat.attrib")}
-          </p>
-        </Reveal>
-      </Section>
-
-      {/* ================================================================ */}
-      {/* 03 — Routing                                                     */}
-      {/* ================================================================ */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <SectionHeader
-            index={3}
-            total={TOTAL_SECTIONS}
-            eyebrow={t("home.sec.routing.eyebrow")}
-            title={t("home.sec.routing.title")}
-            lead={t("home.sec.routing.lead")}
-            className="mb-0"
-          />
-          <Reveal delay={100}>
-            <RoutingFan className="w-full" />
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* ================================================================ */}
-      {/* 04 — The rewrite                                                 */}
-      {/* ================================================================ */}
-      <Section tone="alt">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <Reveal className="order-2 lg:order-1">
-            <QuestionToRecords className="w-full" />
-          </Reveal>
-          <SectionHeader
-            index={4}
-            total={TOTAL_SECTIONS}
-            eyebrow={t("home.sec.rewrite.eyebrow")}
-            title={t("home.sec.rewrite.title")}
-            lead={t("home.sec.rewrite.lead")}
-            className="order-1 mb-0 lg:order-2"
-          />
-        </div>
-
-        {/* The actual diff, because the pitch for this product is a diff. */}
-        <Reveal delay={120}>
-          <div className="mt-16 grid overflow-hidden rounded-2xl border border-border bg-background md:grid-cols-2">
-            <div className="border-b border-border p-7 md:border-r md:border-b-0 lg:p-10">
-              <p className="inline-flex rounded-full bg-card px-3 py-1 text-xs font-semibold tracking-[0.1em] text-destructive uppercase ring-1 ring-destructive/30">
-                Usually refused
-              </p>
-              <blockquote className="mt-5 text-lg leading-relaxed text-muted-foreground italic">
-                &ldquo;Why was my father&apos;s pension stopped without any
-                notice? This is completely unfair and someone needs to explain
-                what happened.&rdquo;
-              </blockquote>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                An authority can lawfully decline this. It asks for an
-                explanation, and the Act obliges them to hand over records, not
-                to justify themselves.
-              </p>
-            </div>
-
-            <div className="p-7 lg:p-10">
-              <p className="inline-flex rounded-full bg-card px-3 py-1 text-xs font-semibold tracking-[0.1em] text-success uppercase ring-1 ring-success/30">
-                Must be answered
-              </p>
-              <ol className="mt-5 space-y-3 text-base leading-relaxed">
-                {[
-                  "A certified copy of the order discontinuing pension against PPO No. MH/BAN/00123456.",
-                  "All file notings relating to that discontinuation.",
-                  "The name and designation of the officer who approved it.",
-                ].map((item, index) => (
-                  <li key={item} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 font-semibold text-muted-foreground tabular-nums"
-                    >
-                      {index + 1}.
-                    </span>
-                    <span>{item}</span>
+            <Reveal delay={80} className="lg:border-l lg:border-border lg:pl-16">
+              <p className="text-base font-medium">{t("home.hero.covers")}</p>
+              <ul className="mt-5 grid grid-cols-2 gap-x-6 border-t border-border">
+                {domains.map((d) => (
+                  <li
+                    key={d}
+                    className="border-b border-border py-2 font-mono text-[0.72rem] tracking-wide uppercase opacity-75"
+                  >
+                    {d}
                   </li>
                 ))}
-              </ol>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                Same grievance. Now it asks for documents that exist on a file,
-                so refusing it needs a stated exemption under Section 8.
+              </ul>
+              <p className="mt-4 text-xs opacity-72">{t("home.hero.coversNote")}</p>
+            </Reveal>
+          </div>
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* Documentary photograph                                            */}
+      {/* ================================================================= */}
+      <Band>
+        <Frame className="py-12">
+          <Photo
+            src="/photos/office.webp"
+            alt={t("photo.office.alt")}
+            caption={t("photo.office.caption")}
+            credit={CREDITS.office.credit}
+            creditHref={CREDITS.office.href}
+            width={1500}
+            height={843}
+            priority
+            sizes="(max-width: 1408px) 100vw, 1408px"
+            imageClassName="aspect-[16/9] object-cover"
+          />
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* 01 — The problem                                                  */}
+      {/* ================================================================= */}
+      <Band id="problem" tone="alt">
+        <Frame className="py-16 lg:py-24">
+          <Reveal>
+            <Marker index={1} total={TOTAL} label={t("home.sec.problem.eyebrow")} />
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+              <Display>{t("home.sec.problem.title")}</Display>
+              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+                {t("home.sec.problem.lead")}
               </p>
             </div>
+          </Reveal>
+
+          <Reveal delay={60}>
+            <RuleGrid cols={3} className="mt-14 border-t border-border">
+              {problems.map((p, i) => (
+                <div key={p.titleKey}>
+                  <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 text-lg leading-snug font-semibold">
+                    {t(p.titleKey)}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed opacity-75">{t(p.bodyKey)}</p>
+                </div>
+              ))}
+            </RuleGrid>
+          </Reveal>
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* 02 — The scale                                                    */}
+      {/* ================================================================= */}
+      <Band tone="invert">
+        <Frame className="py-16 lg:py-24">
+          <Reveal>
+            <Marker index={2} total={TOTAL} label={t("home.sec.scale.eyebrow")} />
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+              <Display>{t("home.sec.scale.title")}</Display>
+              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+                {t("home.sec.scale.lead")}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={60}>
+            {/* Hairlines inherit the band's inverted colour so they stay visible. */}
+            <RuleGrid
+              cols={4}
+              className="mt-14 border-t border-current/25 [&>*]:border-current/25"
+            >
+              {stats.map(([v, l, s]) => (
+                <Figure key={v} value={t(v)} label={t(l)} source={t(s)} />
+              ))}
+            </RuleGrid>
+          </Reveal>
+
+          <Reveal delay={200}>
+            <p className="mt-10 max-w-[64ch] border-t border-current/25 pt-6 text-xs leading-relaxed opacity-75">
+              {t("home.stat.attrib")}
+            </p>
+          </Reveal>
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* 03 — Routing                                                      */}
+      {/* ================================================================= */}
+      <Band>
+        <Frame className="py-16 lg:py-24">
+          <Reveal>
+            <Marker index={3} total={TOTAL} label={t("home.sec.routing.eyebrow")} />
+          </Reveal>
+
+          <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+            <Reveal>
+              <Display>{t("home.sec.routing.title")}</Display>
+              <p className="mt-7 max-w-[50ch] text-base leading-relaxed opacity-75">
+                {t("home.sec.routing.lead")}
+              </p>
+              <Photo
+                src="/photos/counter.webp"
+                alt={t("photo.counter.alt")}
+                caption={t("photo.counter.caption")}
+                credit={CREDITS.counter.credit}
+                creditHref={CREDITS.counter.href}
+                width={1100}
+                height={1375}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="mt-12"
+                imageClassName="aspect-[5/4] object-cover object-center"
+              />
+            </Reveal>
+
+            <Reveal delay={80} className="lg:border-l lg:border-border lg:pl-16">
+              <RoutingFan className="w-full" />
+            </Reveal>
           </div>
-        </Reveal>
-      </Section>
+        </Frame>
+      </Band>
 
-      {/* ================================================================ */}
-      {/* 05 — The clock                                                   */}
-      {/* ================================================================ */}
-      <Section>
-        <SectionHeader
-          index={5}
-          total={TOTAL_SECTIONS}
-          eyebrow={t("home.sec.clock.eyebrow")}
-          title={t("home.sec.clock.title")}
-          lead={t("home.sec.clock.lead")}
-        />
+      {/* ================================================================= */}
+      {/* 04 — The rewrite                                                  */}
+      {/* ================================================================= */}
+      <Band tone="alt">
+        <Frame className="py-16 lg:py-24">
+          <Reveal>
+            <Marker index={4} total={TOTAL} label={t("home.sec.rewrite.eyebrow")} />
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+              <Display>{t("home.sec.rewrite.title")}</Display>
+              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+                {t("home.sec.rewrite.lead")}
+              </p>
+            </div>
+          </Reveal>
 
-        <Reveal>
-          <StatutoryClock
-            className="w-full max-w-3xl"
-            labels={{
-              filed: t("clock.filed"),
-              deadline: t("clock.deadline"),
-              appealCloses: t("clock.appealCloses"),
-              alt: t("clock.alt"),
-            }}
-          />
-        </Reveal>
+          <Reveal delay={60}>
+            <QuestionToRecords className="mt-14 w-full max-w-2xl" />
+          </Reveal>
 
-        <Reveal delay={100}>
-          <ol className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
-            {solutions.map((key, index) => (
-              <li key={key} className="border-t-2 border-primary/25 pt-5">
-                <span
-                  aria-hidden="true"
-                  className="text-sm font-bold text-primary tabular-nums"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-2 text-base leading-relaxed">{t(key)}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </Section>
+          {/* The diff, because the pitch for this product is a diff. */}
+          <Reveal delay={80}>
+            <div className="mt-14 grid border-t border-border md:grid-cols-2">
+              <div className="border-b border-border py-9 md:border-r md:border-b-0 md:pr-12">
+                <Marker label="Usually refused" className="text-destructive" dim={false} />
+                <blockquote className="mt-6 max-w-[42ch] text-xl leading-snug">
+                  &ldquo;Why was my father&apos;s pension stopped without any
+                  notice? This is completely unfair and someone needs to explain
+                  what happened.&rdquo;
+                </blockquote>
+                <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
+                  An authority can lawfully decline this. It asks for an
+                  explanation, and the Act obliges them to hand over records, not
+                  to justify themselves.
+                </p>
+              </div>
 
-      {/* ================================================================ */}
-      {/* Honesty + close                                                  */}
-      {/* ================================================================ */}
-      <Section tone="alt" className="border-t border-border">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <SectionHeader
-              eyebrow={t("home.sec.honest.eyebrow")}
-              title={t("home.sec.honest.title")}
-              lead={t("home.sec.honest.lead")}
-              className="mb-0"
+              <div className="py-9 md:pl-12">
+                <Marker label="Must be answered" className="text-success" dim={false} />
+                <ol className="mt-6 border-t border-border">
+                  {[
+                    "A certified copy of the order discontinuing pension against PPO No. MH/BAN/00123456.",
+                    "All file notings relating to that discontinuation.",
+                    "The name and designation of the officer who approved it.",
+                  ].map((item, i) => (
+                    <li
+                      key={item}
+                      className="flex gap-5 border-b border-border py-4 text-base leading-relaxed"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="font-mono text-xs opacity-72 tabular-nums"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="max-w-[44ch]">{item}</span>
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
+                  Same grievance. Now it asks for documents that exist on a file,
+                  so refusing it needs a stated exemption under Section 8.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <Photo
+              src="/photos/seals.webp"
+              alt={t("photo.seals.alt")}
+              caption={t("photo.seals.caption")}
+              credit={CREDITS.seals.credit}
+              creditHref={CREDITS.seals.href}
+              width={1100}
+              height={733}
+              sizes="(max-width: 1408px) 100vw, 1408px"
+              className="mt-16"
+              imageClassName="aspect-[21/8] object-cover object-center"
             />
-            <Reveal delay={80}>
+          </Reveal>
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* 05 — The clock                                                    */}
+      {/* ================================================================= */}
+      <Band>
+        <Frame className="py-16 lg:py-24">
+          <Reveal>
+            <Marker index={5} total={TOTAL} label={t("home.sec.clock.eyebrow")} />
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+              <Display>{t("home.sec.clock.title")}</Display>
+              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+                {t("home.sec.clock.lead")}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={60}>
+            <StatutoryClock
+              className="mt-14 w-full max-w-4xl"
+              labels={{
+                filed: t("clock.filed"),
+                deadline: t("clock.deadline"),
+                appealCloses: t("clock.appealCloses"),
+                alt: t("clock.alt"),
+              }}
+            />
+          </Reveal>
+
+          <Reveal delay={80}>
+            <RuleGrid cols={4} className="mt-16 border-t border-border">
+              {solutions.map((key, i) => (
+                <div key={key}>
+                  <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-4 text-sm leading-relaxed">{t(key)}</p>
+                </div>
+              ))}
+            </RuleGrid>
+          </Reveal>
+        </Frame>
+      </Band>
+
+      {/* ================================================================= */}
+      {/* Honesty and close                                                 */}
+      {/* ================================================================= */}
+      <Band tone="alt">
+        <Frame className="py-16 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+            <Reveal>
+              <Marker label={t("home.sec.honest.eyebrow")} />
+              <Display className="mt-8">{t("home.sec.honest.title")}</Display>
+              <p className="mt-7 max-w-[52ch] text-base leading-relaxed opacity-75">
+                {t("home.sec.honest.lead")}
+              </p>
               <Link
                 href="/how-it-works"
-                className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-primary underline-offset-4 hover:underline"
+                className="mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-base font-medium"
               >
                 {t("home.sec.honest.cta")}
                 <ArrowRight aria-hidden="true" className="size-4" />
               </Link>
             </Reveal>
-          </div>
 
-          <Reveal delay={120} className="lg:justify-self-end lg:self-center">
-            <div className="rounded-2xl border border-border bg-background p-8 lg:p-10">
-              <h3 className="text-2xl font-bold tracking-tight text-balance">
+            <Reveal delay={80} className="lg:border-l lg:border-border lg:pl-16">
+              <h3 className="max-w-[16ch] text-2xl leading-tight font-bold tracking-tight text-balance sm:text-3xl">
                 {t("home.cta.title")}
               </h3>
-              <p className="mt-4 max-w-[40ch] text-base leading-relaxed text-muted-foreground">
+              <p className="mt-5 max-w-[42ch] text-base leading-relaxed opacity-75">
                 {t("home.cta.lead")}
               </p>
               <Button
                 size="xl"
                 variant="cta"
-                className="mt-8 w-full sm:w-auto"
+                className="mt-9 w-full sm:w-auto"
                 onClick={() => router.push("/apply")}
               >
                 {t("home.hero.start")}
                 <ArrowRight aria-hidden="true" />
               </Button>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
+            </Reveal>
+          </div>
+        </Frame>
+      </Band>
     </>
   );
 }
