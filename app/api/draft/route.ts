@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { draftApplication } from "@/lib/server/ai";
 import { getAuthorityById } from "@/lib/server/authorities";
+import { checkGrievance } from "@/lib/server/limits";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,8 +13,9 @@ export async function POST(request: Request) {
   if (!authority) {
     return NextResponse.json({ error: "Unknown or missing authority selection." }, { status: 400 });
   }
-  if (!grievance) {
-    return NextResponse.json({ error: "Missing grievance text." }, { status: 400 });
+  const rejection = checkGrievance(grievance);
+  if (rejection) {
+    return NextResponse.json({ error: rejection.error }, { status: rejection.status });
   }
 
   const draft = await draftApplication(grievance, authority, extractedReferences);
