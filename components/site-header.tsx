@@ -6,6 +6,7 @@ import { FileText, ScrollText } from "lucide-react";
 
 import { AuthControls } from "@/components/auth-controls";
 import { LanguageToggle } from "@/components/language-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useApplications } from "@/lib/client/use-applications";
 import { useI18n } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";
@@ -82,6 +83,11 @@ export function SiteHeader() {
             );
           })}
         </nav>
+
+        {/* Hidden on the narrowest screens: the header already carries the
+            language choice and the primary action there, and theme follows the
+            device by default. */}
+        <ThemeToggle className="hidden shrink-0 sm:inline-flex" />
 
         <LanguageToggle className="shrink-0" />
 

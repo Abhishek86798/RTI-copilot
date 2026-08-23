@@ -2,9 +2,9 @@
 
 import { CalendarClock, FastForward, FlaskConical, Gavel, RotateCcw, Siren } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ux4g/card";
 import { Progress } from "@/components/ui/progress";
 import {
   basisKey,

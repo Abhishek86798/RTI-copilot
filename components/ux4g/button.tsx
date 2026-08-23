@@ -25,7 +25,7 @@ type Variant =
   | "destructive"
   | "secondary";
 
-type Size = "xl" | "lg" | "md" | "sm";
+type Size = "xl" | "lg" | "md" | "sm" | "default";
 
 /** Our variant vocabulary mapped onto UX4G's. */
 const VARIANT_CLASS: Record<Variant, string> = {
@@ -40,6 +40,8 @@ const VARIANT_CLASS: Record<Variant, string> = {
 const SIZE_CLASS: Record<Size, string> = {
   xl: "ux4g-btn-xl",
   lg: "ux4g-btn-lg",
+  // `default` maps to lg, not md: md is 40px, under the 44px touch target.
+  default: "ux4g-btn-lg",
   md: "ux4g-btn-md",
   sm: "ux4g-btn-sm",
 };

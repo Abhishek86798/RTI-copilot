@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, CircleDashed, XCircle } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ux4g/button";
 
 export const metadata: Metadata = {
   title: "How this works, and what is mocked",

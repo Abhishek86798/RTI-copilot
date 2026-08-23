@@ -2,8 +2,8 @@
 
 import { AlertTriangle, FlaskConical, Info, RotateCcw } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ux4g/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import type { ApiError } from "@/lib/client/api";
 import { useI18n } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";

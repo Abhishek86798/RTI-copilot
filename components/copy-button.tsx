@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ux4g/button";
 import { useI18n } from "@/lib/client/i18n";
 
 /**

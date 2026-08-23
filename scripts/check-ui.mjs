@@ -93,3 +93,66 @@ try {
 } finally {
   await browser.close();
 }
+
+/* Dark mode must reach both styling systems. Ours keys off `.dark`, UX4G off
+ * data-theme — driving only one leaves half the page in the other theme, and
+ * the seam is invisible until someone actually toggles it. */
+{
+  const browser2 = await chromium.launch();
+  const page = await browser2.newPage({ viewport: { width: 1280, height: 900 } });
+  const darkProblems = [];
+
+  await page.goto(`${BASE}/apply?case=pension`, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: /Dark/i }).click();
+  await page.waitForTimeout(600);
+
+  const state = await page.evaluate(() => {
+    const root = document.documentElement;
+    const body = getComputedStyle(document.body).backgroundColor;
+    const card = document.querySelector(".ux4g-card");
+    return {
+      hasClass: root.classList.contains("dark"),
+      attr: root.getAttribute("data-theme"),
+      body,
+      cardBg: card ? getComputedStyle(card).backgroundColor : null,
+      cardColor: card ? getComputedStyle(card).color : null,
+    };
+  });
+
+  if (!state.hasClass) darkProblems.push("dark: .dark class not set");
+  if (state.attr !== "dark") darkProblems.push(`dark: data-theme is ${state.attr}`);
+
+  // A dark page must not be painted on a light ground. Colours can come back
+  // as rgb() or lab(), so luminance is measured by painting the value into a
+  // canvas rather than by parsing the string.
+  const lum = await page.evaluate((colors) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext("2d");
+    return colors.map((color) => {
+      if (!color) return null;
+      ctx.clearRect(0, 0, 1, 1);
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return (r + g + b) / 3;
+    });
+  }, [state.body, state.cardBg]);
+
+  if (lum[0] !== null && lum[0] > 128) {
+    darkProblems.push(`dark: body still light (${state.body})`);
+  }
+  if (lum[1] !== null && lum[1] > 128) {
+    darkProblems.push(`dark: ux4g card still light (${state.cardBg})`);
+  }
+
+  await page.screenshot({ path: `${DIR}/ui-dark.png`, fullPage: true });
+  await browser2.close();
+
+  if (darkProblems.length) {
+    console.log("dark mode problems:\n" + darkProblems.map((p) => `  - ${p}`).join("\n"));
+    process.exitCode = 1;
+  } else {
+    console.log("dark: both styling systems follow the toggle");
+  }
+}

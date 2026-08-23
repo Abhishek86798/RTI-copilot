@@ -97,7 +97,24 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${atkinson.variable} ${devanagari.variable} ${geistMono.variable} h-full antialiased`}
+      // The pre-paint script below sets `class` and `data-theme` on this
+      // element before React hydrates, which is the whole point — it is what
+      // stops a dark-mode user seeing a white flash. React must be told that
+      // difference is expected, or it warns on every load.
+      suppressHydrationWarning
     >
+      <head>
+        {/*
+          Runs before paint so a dark-mode user never sees a white flash. It
+          sets both hooks: `.dark` for our Tailwind styles and data-theme for
+          UX4G's, which keys its palette off the attribute.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("rti-copilot:theme")||"system";var d=t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);document.documentElement.setAttribute("data-theme",d?"dark":"light");}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-background">{tree}</body>
     </html>
   );
