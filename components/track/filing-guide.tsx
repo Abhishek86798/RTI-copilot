@@ -1,6 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
+
+import { INDIAN_STATES } from "@/lib/client/states";
 import {
   AlertTriangle,
   ExternalLink,
@@ -120,6 +122,42 @@ export function FilingGuide({
             />
           </div>
 
+          {/*
+            State and PIN are separate fields on the portal, not part of the
+            street address, and it rejects an application without them.
+          */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label htmlFor={`${fieldPrefix}-state`}>{t("file.state")}</Label>
+              <select
+                id={`${fieldPrefix}-state`}
+                value={application.applicant.state}
+                onChange={(event) => patchApplicant({ state: event.target.value })}
+                autoComplete="address-level1"
+                className="ux4g-form-select min-h-11 w-full rounded-lg border border-input bg-background px-3 text-base"
+              >
+                <option value="">{t("file.statePlaceholder")}</option>
+                {INDIAN_STATES.map((name) => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor={`${fieldPrefix}-pincode`}>{t("file.pincode")}</Label>
+              <Input
+                id={`${fieldPrefix}-pincode`}
+                inputMode="numeric"
+                maxLength={6}
+                value={application.applicant.pincode}
+                onChange={(event) =>
+                  patchApplicant({ pincode: event.target.value.replace(/\D/g, "").slice(0, 6) })
+                }
+                autoComplete="postal-code"
+              />
+              <p className="text-sm text-muted-foreground">{t("file.pincodeHelp")}</p>
+            </div>
+          </div>
+
           <div className="space-y-1.5">
             <Label htmlFor={`${fieldPrefix}-email`}>{t("file.email")}</Label>
             <Input
@@ -139,6 +177,23 @@ export function FilingGuide({
             label={t("file.bpl")}
             hint={t("file.bplHelp")}
           />
+
+          {/*
+            s.7(5) waives the fee on production of the certificate, not on the
+            claim alone. Asking for the reference here is what stops a citizen
+            filing a fee-exempt application that is returned as unpaid.
+          */}
+          {application.applicant.isBpl && (
+            <div className="space-y-1.5">
+              <Label htmlFor={`${fieldPrefix}-bplref`}>{t("file.bplRef")}</Label>
+              <Input
+                id={`${fieldPrefix}-bplref`}
+                value={application.applicant.bplCertificateRef ?? ""}
+                onChange={(event) => patchApplicant({ bplCertificateRef: event.target.value })}
+              />
+              <p className="text-sm text-muted-foreground">{t("file.bplRefHelp")}</p>
+            </div>
+          )}
         </CardContent>
       </Card>
 

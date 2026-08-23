@@ -1,0 +1,176 @@
+"use client";
+
+import { useState } from "react";
+import { AlertTriangle, FlaskConical, IndianRupee, Loader2 } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { useI18n } from "@/lib/client/i18n";
+import type { Application } from "@/lib/client/store";
+
+/**
+ * Mock settlement (FR-16) and submission (FR-15).
+ *
+ * The payment is simulated and says so on the screen, not only in the docs —
+ * a build that could be mistaken for the real portal would be worse than one
+ * that stops short of filing. What is not simulated is the validation: the
+ * server applies the rules the real portal applies, including the ones it only
+ * reveals after taking the fee.
+ */
+
+export type FilingProblem = { field: string; message: string };
+
+export function PayAndFile({
+  application,
+  onFiled,
+}: {
+  application: Application;
+  onFiled: (receipt: Receipt) => void;
+}) {
+  const { t } = useI18n();
+  const [method, setMethod] = useState<"upi" | "card" | "netbanking">("upi");
+  const [busy, setBusy] = useState(false);
+  const [problems, setProblems] = useState<FilingProblem[]>([]);
+  const [failed, setFailed] = useState(false);
+
+  const isBpl = application.applicant.isBpl;
+
+  async function submit() {
+    setBusy(true);
+    setProblems([]);
+    setFailed(false);
+    try {
+      const response = await fetch("/api/file", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filing: {
+            authorityId: application.authority.id,
+            requestText: application.portalText,
+            applicant: { ...application.applicant, isCitizen: true },
+          },
+        }),
+      });
+
+      if (response.status === 422) {
+        const body = await response.json();
+        setProblems(body.problems ?? []);
+        return;
+      }
+      if (!response.ok) {
+        setFailed(true);
+        return;
+      }
+      const body = await response.json();
+      onFiled(body.receipt);
+    } catch {
+      setFailed(true);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle as="h2" className="text-xl">
+          {isBpl ? t("pay.bplTitle") : t("pay.title")}
+        </CardTitle>
+        <CardDescription>{isBpl ? t("pay.bplBody") : t("pay.help")}</CardDescription>
+      </CardHeader>
+
+      <CardContent className="space-y-5">
+        {/* FR-19: the disclosure sits on the screen, above the action. */}
+        <Alert variant="warning">
+          <FlaskConical aria-hidden="true" />
+          <AlertTitle>{t("file.simulatedTitle")}</AlertTitle>
+          <AlertDescription>{t("file.simulatedBody")}</AlertDescription>
+        </Alert>
+
+        {!isBpl && (
+          <fieldset className="space-y-2">
+            <legend className="mb-2 text-sm font-medium">{t("pay.method")}</legend>
+            <div className="flex flex-wrap gap-2">
+              {(
+                [
+                  ["upi", t("pay.upi")],
+                  ["card", t("pay.card")],
+                  ["netbanking", t("pay.netbanking")],
+                ] as const
+              ).map(([value, label]) => (
+                <label
+                  key={value}
+                  className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border px-4 text-sm font-medium ${
+                    method === value
+                      ? "border-primary bg-primary/10 text-foreground"
+                      : "border-border text-muted-foreground"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="pay-method"
+                    value={value}
+                    checked={method === value}
+                    onChange={() => setMethod(value)}
+                    className="size-4"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        {problems.length > 0 && (
+          <Alert variant="destructive">
+            <AlertTriangle aria-hidden="true" />
+            <AlertTitle>{t("file.problemsTitle")}</AlertTitle>
+            <AlertDescription>
+              <ul className="list-disc space-y-1 pl-5">
+                {problems.map((problem) => (
+                  <li key={problem.field}>{problem.message}</li>
+                ))}
+              </ul>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {failed && (
+          <Alert variant="destructive">
+            <AlertTriangle aria-hidden="true" />
+            <AlertDescription>
+              Something went wrong on our side, not yours. Nothing was filed — try again.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <Button size="xl" variant="cta" onClick={submit} disabled={busy}>
+          {busy ? (
+            <>
+              <Loader2 aria-hidden="true" className="animate-spin" />
+              {t("file.submitting")}
+            </>
+          ) : (
+            <>
+              {!isBpl && <IndianRupee aria-hidden="true" />}
+              {isBpl ? t("pay.confirmBpl") : t("pay.confirm")}
+            </>
+          )}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+export type Receipt = {
+  registrationNumber: string;
+  filedAt: string;
+  authorityName: string;
+  ministry?: string;
+  pioDesignation: string;
+  feePaidRupees: number;
+  feeBasis: "paid" | "bpl-exempt";
+  responseDueBy: string;
+  charCount: number;
+};

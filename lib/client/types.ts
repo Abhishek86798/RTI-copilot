@@ -69,15 +69,26 @@ export type FilingChannel = "rti-online-central" | "state-portal" | "post";
 export type Applicant = {
   fullName: string;
   address: string;
+  /** The portal asks for state and PIN separately from the street address. */
+  state: string;
+  pincode: string;
   phone: string;
   email: string;
   /** Section 7(5): BPL applicants pay no fee, but must attach the certificate. */
   isBpl: boolean;
+  /**
+   * Reference for the attached BPL certificate. Section 7(5) makes the
+   * exemption depend on producing it, not on claiming it — without one the
+   * application is treated as unpaid and returned.
+   */
+  bplCertificateRef?: string;
 };
 
 export const EMPTY_APPLICANT: Applicant = {
   fullName: "",
   address: "",
+  state: "",
+  pincode: "",
   phone: "",
   email: "",
   isBpl: false,

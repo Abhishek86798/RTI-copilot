@@ -11,6 +11,8 @@ import { AppealCard } from "@/components/track/appeal-card";
 import { ApplicationSheet, AppealSheet } from "@/components/track/application-sheet";
 import { DeadlineTracker } from "@/components/track/deadline-tracker";
 import { FilingGuide } from "@/components/track/filing-guide";
+import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
+import { Receipt } from "@/components/track/receipt";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { computeClock, formatDate, parseDateInput } from "@/lib/client/deadlines";
@@ -38,6 +40,7 @@ export default function ApplicationPage() {
   const application = useApplication(params.id);
 
   const [printTarget, setPrintTarget] = useState<PrintTarget>(null);
+  const [receipt, setReceipt] = useState<ReceiptData | null>(null);
 
   const status = application ? deriveStatus(application) : "drafting";
   const filed = Boolean(application?.filedAt);
@@ -179,19 +182,51 @@ export default function ApplicationPage() {
       {/* Not filed yet -> how to file                                      */}
       {/* ---------------------------------------------------------------- */}
       {!filed && (
-        <FilingGuide
-          application={application}
-          onApplicantChange={handleApplicantChange}
-          onMarkFiled={({ filedAt, registrationNumber, viaApio }) => {
-            updateApplication(application.id, {
-              status: "filed",
-              filedAt: parseDateInput(filedAt).toISOString(),
-              registrationNumber: registrationNumber || undefined,
-              viaApio,
-            });
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+        <div className="space-y-6">
+          <FilingGuide
+            application={application}
+            onApplicantChange={handleApplicantChange}
+            onMarkFiled={({ filedAt, registrationNumber, viaApio }) => {
+              updateApplication(application.id, {
+                status: "filed",
+                filedAt: parseDateInput(filedAt).toISOString(),
+                registrationNumber: registrationNumber || undefined,
+                viaApio,
+              });
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            onPrint={() => setPrintTarget("application")}
+          />
+
+          {/*
+            Filing in-app is offered only for Central authorities, because the
+            portal this simulates serves only those. A State application would
+            be returned with the fee kept, so that path stays outward — the
+            filing guide already says where it actually goes.
+          */}
+          {application.authority.level === "central" && (
+            <PayAndFile
+              application={application}
+              onFiled={(receipt) => {
+                updateApplication(application.id, {
+                  status: "filed",
+                  filedAt: receipt.filedAt,
+                  registrationNumber: receipt.registrationNumber,
+                  viaApio: false,
+                });
+                setReceipt(receipt);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
+          )}
+        </div>
+      )}
+
+      {receipt && (
+        <Receipt
+          receipt={receipt}
           onPrint={() => setPrintTarget("application")}
+          onTrack={() => setReceipt(null)}
         />
       )}
 

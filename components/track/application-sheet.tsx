@@ -84,7 +84,8 @@ export function ApplicationSheet({ application }: { application: Application }) 
         {applicant.isBpl ? (
           <p>
             I am a person below the poverty line and am exempt from payment of
-            fee under Section 7(5) of the Act. A copy of my BPL certificate is
+            fee under Section 7(5) of the Act. A copy of my BPL certificate
+            {applicant.bplCertificateRef ? ` (No. ${applicant.bplCertificateRef})` : ""} is
             enclosed.
           </p>
         ) : (
@@ -107,6 +108,11 @@ export function ApplicationSheet({ application }: { application: Application }) 
         <p className="mt-8">____________________________</p>
         <p className="font-semibold">{applicant.fullName || "[Full name]"}</p>
         <p className="whitespace-pre-line">{applicant.address || "[Postal address]"}</p>
+        {(applicant.state || applicant.pincode) && (
+          <p>
+            {[applicant.state, applicant.pincode].filter(Boolean).join(" — ")}
+          </p>
+        )}
         {applicant.phone && <p>Phone: {applicant.phone}</p>}
         {applicant.email && <p>Email: {applicant.email}</p>}
         <p className="mt-4">

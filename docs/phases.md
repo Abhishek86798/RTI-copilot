@@ -65,16 +65,18 @@ handed off.
 
 **Verified:** `pnpm check:file` drives the real endpoint and covers every rule above.
 
-### Phase 2b — Filing UI (PRD Step 2 + Step 3 screens) ⬅ **current**
+### Phase 2b — Filing UI (PRD Step 2 + Step 3 screens) ✅ Complete
 
 The backend is done and tested; the screens a reviewer actually clicks are not.
 
-- **Applicant details (FR-15):** the form has name, address, email, phone and the BPL toggle. **State and PIN are missing** and the API rejects a filing without them.
-- **BPL certificate reference (FR-16):** the toggle exists, but s.7(5) makes the exemption depend on the certificate, not the claim — the API refuses a BPL filing without a reference, and the UI has nowhere to give one.
-- **Mock payment screen (FR-16):** ₹10 confirmation, plainly labelled as simulated. Not built.
-- **Receipt screen (FR-18):** registration number, fee basis, reply-due date, and the print-ready PDF. Not built.
-- **Wire the filing step to `/api/file`:** `components/track/filing-guide.tsx` still links out to the real portal and asks for a self-reported date. That link becomes "file here", and the self-reported path stays only for an application genuinely filed on paper elsewhere (FR-7).
-- **Simulation labelling (FR-19):** every screen carrying simulated state says so on the screen, not only in the docs. The existing fixture-banner pattern is the model.
+- ~~Applicant details (FR-15)~~ — state and PIN added. The portal treats them as separate fields, not part of the street address, and `/api/file` rejects a filing without them. State is a fixed list of the 36 states and UTs: a typo is the kind of thing that gets an application returned.
+- ~~BPL certificate reference (FR-16)~~ — the field appears when the BPL box is ticked. s.7(5) makes the exemption depend on producing the certificate, not on claiming it, so the reference also prints on the application itself.
+- ~~Mock payment screen (FR-16)~~ — `components/track/pay-and-file.tsx`. UPI / card / net banking, or the s.7(5) exemption path with no payment step at all.
+- ~~Receipt screen (FR-18)~~ — `components/track/receipt.tsx`. The registration number carries the most visual weight on the screen and is set in monospace, because it is the only key the portal later accepts and a citizen who mis-copies it has no way back to their own application.
+- ~~Filing wired to `/api/file`~~ — offered for Central authorities only, since that is what the portal serves. A State application keeps the outward path: filing it centrally would return it with the fee kept.
+- ~~Simulation labelling (FR-19)~~ — on the payment screen above the action, and again on the receipt, which is the artefact most likely to be mistaken for an official one.
+
+**Verified:** `pnpm check:file-journey` files an application through the UI in a real browser and asserts the registration number reaching the citizen matches the portal format, that the reply-due date is shown, and that the simulation disclosure is on screen both before and after filing.
 - **Server-side PDF (FR-6)** — *deliberately not doing.* `components/track/application-sheet.tsx` plus the print stylesheet already produce a filed-ready A4 document through the browser's own Save-as-PDF, verified against a real print. `@react-pdf` would re-render the same document, add a dependency and a round trip, and upload a page containing someone's PPO number. Revisit only if a browser renders the sheet wrongly.
 
 **Demo checkpoint:** a citizen completes a filing end to end — details, fee or BPL waiver, registration number, receipt — without leaving the product, and a pension grievance shows a 30-day badge while a medical-emergency one shows 48 hours.

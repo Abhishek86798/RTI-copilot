@@ -17,7 +17,8 @@
     "check:journey": "node scripts/check-journey.mjs",
     "check:ui": "node scripts/check-ui.mjs",
     "ux4g:extract": "node scripts/extract-ux4g.mjs",
-    "check:file": "node scripts/check-filing-service.mjs"
+    "check:file": "node scripts/check-filing-service.mjs",
+    "check:file-journey": "node scripts/check-file-journey.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.50",
