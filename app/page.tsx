@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { Ux4gButton } from "@/components/ux4g/button";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DEMO_CASES } from "@/lib/client/demo-cases";
@@ -200,10 +201,12 @@ export default function HomePage() {
         </ol>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Button size="xl" variant="cta" onClick={() => router.push("/apply")}>
+          {/* First screen converted to UX4G (GoI design system). The rest of
+              the app follows page by page; see components/ux4g/. */}
+          <Ux4gButton size="xl" onClick={() => router.push("/apply")}>
             {t("home.hero.start")}
             <ArrowRight aria-hidden="true" />
-          </Button>
+          </Ux4gButton>
           <Link
             href="/how-it-works"
             className="inline-flex min-h-11 items-center text-sm font-medium underline underline-offset-4 hover:text-foreground"

@@ -59,6 +59,9 @@ importers:
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
+      ux4g-web-components:
+        specifier: ^1.0.13
+        version: 1.0.13
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -3634,6 +3637,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  ux4g-web-components@1.0.13:
+    resolution: {integrity: sha512-k1zvvqL6KWcoxg9tFhz2zmaWiYbRZipsTg9n8LI62NnS1xhG9ODx1mIRYCtQay2J7zScFFsjdLywj5EXPsUZMw==}
 
   validate-npm-package-name@7.0.2:
     resolution: {integrity: sha512-hVDIBwsRruT73PbK7uP5ebUt+ezEtCmzZz3F59BSr2F6OVFnJ/6h8liuvdLrQ88Xmnk6/+xGGuq+pG9WwTuy3A==}
@@ -7242,6 +7248,8 @@ snapshots:
       react: 19.2.8
 
   util-deprecate@1.0.2: {}
+
+  ux4g-web-components@1.0.13: {}
 
   validate-npm-package-name@7.0.2: {}
 

@@ -2,6 +2,21 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/*
+ * UX4G — the Government of India's official design system (Digital India /
+ * MeitY). Every class and token is namespaced `ux4g-` / `--ux4g-*` and the
+ * bundle declares no bare-element selectors, so it sits alongside our own
+ * styling instead of overriding it. Verified before adopting, because a
+ * design system that restyled `button` would have silently changed every
+ * screen already tested.
+ *
+ * We import a slice, not the published bundle: 7.9MB (3.9MB gzipped) covering
+ * 3,384 classes would put about a minute of download in front of a citizen on
+ * a district-town connection. scripts/extract-ux4g.mjs keeps only the rules
+ * our source references — re-run it after adopting a new ux4g- class.
+ */
+@import "./ux4g.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
