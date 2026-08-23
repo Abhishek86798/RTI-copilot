@@ -54,33 +54,47 @@ Three capabilities, applied in sequence to every submission:
 The journey runs end to end inside the product. The citizen is never handed off
 to another site to do the hard part.
 
-**Step 1 — Intelligent intake and AI co-pilot**
-- Free-text grievance input. No dropdowns.
-- Auto-detection of the Public Authority, the subject category, and Section 7(1)
-  life/liberty priority.
-- Auto-refactoring of emotional questions into itemized requests for records and
-  file notings — the form the Act actually compels an answer to.
+**Step 1 — The NLP intake (the co-pilot)**
+- *UI:* a single, clean text area — "What information are you trying to find?"
+  No dropdowns, no government jargon.
+- *Logic:* the citizen types their grievance; the backend sends it to the LLM.
+- *Output:* three things at once —
+  1. Map the text to a specific Public Authority from the curated dataset.
+  2. Flag it where the Section 7(1) 48-hour life-or-liberty window applies.
+  3. Rewrite the emotional text into a precise, numbered list of the documents
+     required, held under the portal's 3,000-character limit.
 
-**Step 2 — Streamlined verification and applicant details**
-- The pre-filled Public Authority is shown with an override option.
-- Applicant details: name, address, state, PIN — plus a BPL fee-waiver toggle.
-- Contrast with the real portal is shown here deliberately: rtionline.gov.in
-  makes a citizen pick Ministry first and then Public Authority within it, which
-  is precisely the knowledge they do not have. We derive both and ask them to
-  confirm.
+**Step 2 — Streamlined verification**
+- *UI:* a side-by-side comparison screen.
+- *Logic:* the citizen's original words sit next to the drafted, legally sound
+  application, with a badge naming the authority it was routed to (for example,
+  "Routed to Employees' Provident Fund Organisation"). Seeing both at once is
+  what makes the rewrite reviewable rather than something to be taken on trust.
+- *Action:* the citizen reviews the draft, enters their details (name, address,
+  state, PIN), and ticks the Below Poverty Line fee-exemption box if it applies.
+- The authority is pre-filled but always overridable. The contrast with the real
+  portal is deliberate: rtionline.gov.in makes a citizen pick Ministry first and
+  then Public Authority within it, which is precisely the knowledge they do not
+  have. We derive both and ask only for confirmation.
 
-**Step 3 — Instant mock settlement and receipt**
-- ₹10 mock payment, or a BPL declaration under Section 7(5).
-- A realistic statutory registration number in the portal's own format
+**Step 3 — Mock settlement and receipt generation**
+- *UI:* a realistic but plainly labelled simulated payment and confirmation
+  screen.
+- *Logic:* a non-BPL applicant passes through a mock ₹10 payment; a BPL
+  applicant declares the exemption under Section 7(5) instead.
+- *Output:* a unique registration number in the portal's own format
   (`DOPPW/R/E/26/00142`) — the only key the portal later accepts for status
-  checks, appeals and complaints.
-- Downloadable print-ready PDF matching standard RTI application formatting.
+  checks, appeals and complaints — and a downloadable, print-ready PDF of the
+  application.
 
-**Step 4 — Real-time lifecycle and appeal engine**
-- Citizen dashboard with the live 30-day statutory countdown (48 hours where the
-  Section 7(1) proviso applies).
-- "Simulate +31 Days" demo control to show the deadline lapse and the
-  auto-generated Section 19(1) First Appeal without waiting out a real month.
+**Step 4 — The appeals dashboard**
+- *UI:* a tracking dashboard showing the active application.
+- *Logic:* a live countdown against the mandatory 30-day response window (48
+  hours where the Section 7(1) proviso applies).
+- *Demo hook:* a prominent "Simulate +31 Days" control. On click the timer hits
+  zero, the status shifts to Overdue, and the statutory First Appeal under
+  Section 19(1) is generated immediately — so the second half of the product can
+  be shown without waiting out a real month.
 
 ### On the mock submission portal
 
@@ -147,7 +161,7 @@ Core thesis to prove end to end: **plain language in → correctly routed, legal
 | FR-4a | Enforce a live character counter against the RTI Online portal's 3,000-char field limit; LLM prompt is constrained to produce a concise, bulleted draft strictly under 2,500 characters, with the full (unconstrained) version always available as a PDF attachment. | P0 |
 | FR-5 | Let user edit any generated line before finalizing. | P0 |
 | FR-6 | Generate print-ready PDF matching standard RTI application format. | P0 |
-| FR-7 | Record filing date/mode; start 30-calendar-day statutory response timer. | P0 |
+| FR-7 | Start the 30-calendar-day statutory response timer on filing. Where the application is submitted through the simulated portal (FR-17) the clock runs from the server's timestamp; a self-reported filing date is accepted only for an application filed elsewhere, since a citizen who filed on paper still needs it tracked. | P0 |
 | FR-8 | Notify user (in-app + email) as deadline approaches and on lapse. | P1 |
 | FR-9 | Auto-draft First Appeal to Appellate Authority when deadline lapses without logged response. | P0 |
 | FR-10 | Per-user dashboard with status: Drafting / Filed / Awaiting Response / Overdue / Appealed / Resolved. | P1 |
@@ -160,6 +174,7 @@ Core thesis to prove end to end: **plain language in → correctly routed, legal
 | FR-17 | Issue a registration number in the portal's own format (`DOPPW/R/E/26/00142`) on successful submission, persist it, and start the statutory clock from the server's timestamp rather than a self-reported filing date. | P0 |
 | FR-18 | Acknowledgement receipt showing the registration number, authority, ministry, fee basis, and the date a reply is due — the proof of filing the real portal issues. | P0 |
 | FR-19 | Every screen carrying simulated state says so on the screen. The build must never be mistakable for an official government service. | P0 |
+| FR-20 | Recognise an application lodged through an Assistant PIO: the proviso to Section 5(2) adds five days, because the clock starts on receipt by the PIO rather than the APIO. A 35-day deadline shown as 30 would send the citizen to appeal early. | P1 |
 
 ---
 
