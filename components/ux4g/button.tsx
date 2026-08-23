@@ -1,62 +1,84 @@
 "use client";
 
-import type { ComponentProps } from "react";
+import { cloneElement, isValidElement, type ComponentProps, type ReactElement } from "react";
 
 import { cn } from "@/lib/utils";
 
 /**
  * A button in the Government of India's UX4G design system.
  *
- * The migration bridge: screens move to UX4G one at a time, so this wraps the
- * official CSS classes in the same prop shape our own Button uses. Nothing
- * imports UX4G class strings directly, which keeps the class names in one file
- * when the next screen is converted.
+ * API-compatible with `components/ui/button` — same variant, size, and
+ * `render`/`nativeButton` props — so a screen converts by changing one import
+ * line. That is what makes a page-by-page migration safe: a half-migrated app
+ * still builds and still works.
  *
  * Size note — UX4G's `md` is 40px, below the 44px WCAG 2.5.5 target this app
- * holds itself to elsewhere. `lg` (48px) is the default here for that reason;
- * `md` stays available for genuinely secondary controls.
+ * holds itself to elsewhere. Our `lg` and `xl` map to UX4G sizes that clear
+ * it (48px and 56px); `md` stays reachable for genuinely secondary controls.
  */
 
 type Variant =
-  | "primary"
-  | "outline-primary"
-  | "tonal-primary"
-  | "text-primary"
-  | "danger"
-  | "outline-danger";
+  | "default"
+  | "cta"
+  | "outline"
+  | "ghost"
+  | "destructive"
+  | "secondary";
 
 type Size = "xl" | "lg" | "md" | "sm";
 
-export function Ux4gButton({
-  variant = "primary",
+/** Our variant vocabulary mapped onto UX4G's. */
+const VARIANT_CLASS: Record<Variant, string> = {
+  default: "ux4g-btn-primary",
+  cta: "ux4g-btn-primary",
+  outline: "ux4g-btn-outline-primary",
+  ghost: "ux4g-btn-text-primary",
+  destructive: "ux4g-btn-danger",
+  secondary: "ux4g-btn-tonal-primary",
+};
+
+const SIZE_CLASS: Record<Size, string> = {
+  xl: "ux4g-btn-xl",
+  lg: "ux4g-btn-lg",
+  md: "ux4g-btn-md",
+  sm: "ux4g-btn-sm",
+};
+
+type ButtonProps = Omit<ComponentProps<"button">, "children"> & {
+  variant?: Variant;
+  size?: Size;
+  children?: React.ReactNode;
+  /** Render as another element (a Link, say) while keeping button styling. */
+  render?: ReactElement<{ className?: string }>;
+  /** Present for API parity with the shadcn button; `render` implies it. */
+  nativeButton?: boolean;
+};
+
+export function Button({
+  variant = "default",
   size = "lg",
   className,
+  render,
+  nativeButton,
   ...props
-}: ComponentProps<"button"> & { variant?: Variant; size?: Size }) {
-  return (
-    <button
-      className={cn(`ux4g-btn-${variant}`, `ux4g-btn-${size}`, className)}
-      {...props}
-    />
+}: ButtonProps) {
+  const classes = cn(
+    VARIANT_CLASS[variant],
+    SIZE_CLASS[size],
+    // UX4G buttons are inline-flex already, but a rendered <a> needs it said.
+    "ux4g-d-inline-flex ux4g-ai-center ux4g-jc-center ux4g-gap-xs",
+    className
   );
+
+  if (render && isValidElement(render)) {
+    return cloneElement(render, {
+      className: cn(classes, render.props.className),
+    });
+  }
+
+  void nativeButton;
+  return <button className={classes} {...props} />;
 }
 
-/** Same styling on a link, for navigation that should look like an action. */
-export function Ux4gLinkButton({
-  variant = "primary",
-  size = "lg",
-  className,
-  ...props
-}: ComponentProps<"a"> & { variant?: Variant; size?: Size }) {
-  return (
-    <a
-      className={cn(
-        `ux4g-btn-${variant}`,
-        `ux4g-btn-${size}`,
-        "ux4g-d-inline-flex ux4g-ai-center",
-        className
-      )}
-      {...props}
-    />
-  );
-}
+/** Explicit alias, for screens not yet migrated that want one UX4G button. */
+export { Button as Ux4gButton };

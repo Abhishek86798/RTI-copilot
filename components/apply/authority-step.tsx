@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 
 import { InfoNotice } from "@/components/notices";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { confidenceBucket } from "@/lib/client/confidence";
 import { resolveChannel } from "@/lib/client/filing";
 import { useI18n } from "@/lib/client/i18n";

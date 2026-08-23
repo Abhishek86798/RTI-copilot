@@ -3,8 +3,8 @@
 import { useId, useState } from "react";
 import { ArrowRight, Loader2, Lock, Sparkles } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
 import { FieldError, FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DEMO_CASES, type DemoCase } from "@/lib/client/demo-cases";

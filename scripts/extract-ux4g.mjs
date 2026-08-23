@@ -36,6 +36,7 @@ const DYNAMIC = {
     "danger", "outline-danger",
     "xl", "lg", "md", "sm",
   ],
+  "ux4g-alert": ["info", "success", "warning", "error"],
 };
 for (const [base, suffixes] of Object.entries(DYNAMIC)) {
   used.add(base);

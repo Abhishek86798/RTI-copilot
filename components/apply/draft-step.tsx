@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 import { CopyButton } from "@/components/copy-button";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PORTAL_CHAR_LIMIT } from "@/lib/client/filing";

@@ -5,8 +5,8 @@ import { AlertTriangle, ArrowRight, Clock, Plus } from "lucide-react";
 
 import { MigratePrompt } from "@/components/migrate-prompt";
 import { StatusBadge } from "@/components/status-badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ux4g/button";
+import { Card, CardContent } from "@/components/ux4g/card";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
