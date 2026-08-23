@@ -4,6 +4,8 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
+import { PAGE_LAYOUT } from "@/components/editorial";
+import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
 import { ErrorNotice, FixtureNotice } from "@/components/notices";
@@ -163,7 +165,7 @@ function ApplyWizard() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-10">
+    <div className={cn(PAGE_LAYOUT)}>
       <StepIndicator current={STEP_INDEX[step]} className="mb-8" />
 
       {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
@@ -238,7 +240,7 @@ export default function ApplyPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto w-full max-w-3xl px-4 py-16">
+        <div className={cn(PAGE_LAYOUT)}>
           <p className="text-muted-foreground">Loading…</p>
         </div>
       }

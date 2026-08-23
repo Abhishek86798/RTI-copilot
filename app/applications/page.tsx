@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ux4g/card";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
+import { PAGE_LAYOUT } from "@/components/editorial";
+import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useRemainingLabel } from "@/lib/client/use-remaining-label";
 import { useApplications, useHydrated } from "@/lib/client/use-applications";
@@ -31,14 +33,14 @@ export default function ApplicationsPage() {
 
   if (!hydrated) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-16">
+      <div className={cn(PAGE_LAYOUT)}>
         <p className="text-muted-foreground">{t("common.loading")}</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-10">
+    <div className={cn(PAGE_LAYOUT)}>
       {getStoreMode() === "account" && (
         <MigratePrompt count={listGuestApplications().length} />
       )}

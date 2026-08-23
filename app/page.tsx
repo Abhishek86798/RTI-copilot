@@ -7,35 +7,20 @@ import { ArrowRight, BookOpen } from "lucide-react";
 import {
   Band,
   Display,
-  Figure,
   Frame,
   Marker,
-  Photo,
   Reveal,
   Rule,
   RuleGrid,
+  Stat,
 } from "@/components/editorial";
+import { Drawn } from "@/components/drawn";
 import { QuestionToRecords, RoutingFan, StatutoryClock } from "@/components/illustrations";
 import { Button } from "@/components/ux4g/button";
 import { DEMO_CASES } from "@/lib/client/demo-cases";
 import { useI18n } from "@/lib/client/i18n";
 
 const TOTAL = 5;
-
-const CREDITS = {
-  office: {
-    credit: "Subhashish Panigrahi / CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:India_Post_office_in_Ooty.jpg",
-  },
-  counter: {
-    credit: "Saiphani02 / CC BY 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:A_man_at_an_India_Post_Office.jpg",
-  },
-  seals: {
-    credit: "Subhashish Panigrahi / CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Seals_in_an_India_Post_office,_Marathahalli,_Bangalore,_India.jpg",
-  },
-} as const;
 
 /**
  * The landing page, as a five-part editorial argument.
@@ -47,9 +32,10 @@ const CREDITS = {
  * bottom — a government service that looks like a marketing page achieves
  * neither.
  *
- * The photographs are reused from Wikimedia Commons under CC BY / CC BY-SA,
- * credited in place and in `public/photos/CREDITS.md`. They illustrate the
- * setting; nobody pictured is presented as a user of this product.
+ * Diagrams rather than photography. Line art in a single stroke weight stays
+ * quiet next to type this large, carries no licensing question, weighs a few
+ * kilobytes on a connection that cannot spare hundreds, and never implies that
+ * some photographed stranger is an RTI applicant.
  */
 export default function HomePage() {
   const { t } = useI18n();
@@ -170,25 +156,6 @@ export default function HomePage() {
         </Frame>
       </Band>
 
-      {/* ================================================================= */}
-      {/* Documentary photograph                                            */}
-      {/* ================================================================= */}
-      <Band>
-        <Frame className="py-12">
-          <Photo
-            src="/photos/office.webp"
-            alt={t("photo.office.alt")}
-            caption={t("photo.office.caption")}
-            credit={CREDITS.office.credit}
-            creditHref={CREDITS.office.href}
-            width={1500}
-            height={843}
-            priority
-            sizes="(max-width: 1408px) 100vw, 1408px"
-            imageClassName="aspect-[16/9] object-cover"
-          />
-        </Frame>
-      </Band>
 
       {/* ================================================================= */}
       {/* 01 — The problem                                                  */}
@@ -245,7 +212,7 @@ export default function HomePage() {
               className="mt-14 border-t border-current/25 [&>*]:border-current/25"
             >
               {stats.map(([v, l, s]) => (
-                <Figure key={v} value={t(v)} label={t(l)} source={t(s)} />
+                <Stat key={v} value={t(v)} label={t(l)} source={t(s)} />
               ))}
             </RuleGrid>
           </Reveal>
@@ -273,22 +240,12 @@ export default function HomePage() {
               <p className="mt-7 max-w-[50ch] text-base leading-relaxed opacity-75">
                 {t("home.sec.routing.lead")}
               </p>
-              <Photo
-                src="/photos/counter.webp"
-                alt={t("photo.counter.alt")}
-                caption={t("photo.counter.caption")}
-                credit={CREDITS.counter.credit}
-                creditHref={CREDITS.counter.href}
-                width={1100}
-                height={1375}
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="mt-12"
-                imageClassName="aspect-[5/4] object-cover object-center"
-              />
             </Reveal>
 
             <Reveal delay={80} className="lg:border-l lg:border-border lg:pl-16">
-              <RoutingFan className="w-full" />
+              <Drawn>
+                <RoutingFan className="w-full" />
+              </Drawn>
             </Reveal>
           </div>
         </Frame>
@@ -310,7 +267,9 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={60}>
-            <QuestionToRecords className="mt-14 w-full max-w-2xl" />
+            <Drawn className="mt-14">
+              <QuestionToRecords className="w-full max-w-2xl" />
+            </Drawn>
           </Reveal>
 
           {/* The diff, because the pitch for this product is a diff. */}
@@ -359,21 +318,6 @@ export default function HomePage() {
               </div>
             </div>
           </Reveal>
-
-          <Reveal delay={100}>
-            <Photo
-              src="/photos/seals.webp"
-              alt={t("photo.seals.alt")}
-              caption={t("photo.seals.caption")}
-              credit={CREDITS.seals.credit}
-              creditHref={CREDITS.seals.href}
-              width={1100}
-              height={733}
-              sizes="(max-width: 1408px) 100vw, 1408px"
-              className="mt-16"
-              imageClassName="aspect-[21/8] object-cover object-center"
-            />
-          </Reveal>
         </Frame>
       </Band>
 
@@ -393,15 +337,17 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={60}>
-            <StatutoryClock
-              className="mt-14 w-full max-w-4xl"
-              labels={{
-                filed: t("clock.filed"),
-                deadline: t("clock.deadline"),
-                appealCloses: t("clock.appealCloses"),
-                alt: t("clock.alt"),
-              }}
-            />
+            <Drawn className="mt-14">
+              <StatutoryClock
+                className="w-full max-w-4xl"
+                labels={{
+                  filed: t("clock.filed"),
+                  deadline: t("clock.deadline"),
+                  appealCloses: t("clock.appealCloses"),
+                  alt: t("clock.alt"),
+                }}
+              />
+            </Drawn>
           </Reveal>
 
           <Reveal delay={80}>

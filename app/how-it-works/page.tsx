@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, CircleDashed, XCircle } from "lucide-react";
 
+import { PAGE_LAYOUT } from "@/components/editorial";
 import { Button } from "@/components/ux4g/button";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "How this works, and what is mocked",
@@ -147,7 +149,7 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:py-14">
+    <div className={cn(PAGE_LAYOUT)}>
       <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
         How this works, and what is mocked
       </h1>

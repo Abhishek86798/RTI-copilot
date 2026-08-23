@@ -18,6 +18,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { computeClock, formatDate, parseDateInput } from "@/lib/client/deadlines";
 import { buildFirstAppeal } from "@/lib/client/filing";
 import { deriveStatus, updateApplication } from "@/lib/client/store";
+import { PAGE_LAYOUT } from "@/components/editorial";
+import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useApplication, useHydrated } from "@/lib/client/use-applications";
 import type { Applicant } from "@/lib/client/types";
@@ -110,7 +112,7 @@ export default function ApplicationPage() {
 
   if (!hydrated) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-16">
+      <div className={cn(PAGE_LAYOUT)}>
         <p className="text-muted-foreground">{t("common.loading")}</p>
       </div>
     );
@@ -118,7 +120,7 @@ export default function ApplicationPage() {
 
   if (!application) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-16 text-center">
+      <div className={cn(PAGE_LAYOUT, "text-center")}>
         <h1 className="text-2xl font-bold">This application is not on this device</h1>
         <p className="mt-2 text-muted-foreground">
           Guest applications are stored in the browser that created them. If you
@@ -137,7 +139,7 @@ export default function ApplicationPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-10">
+    <div className={cn(PAGE_LAYOUT)}>
       <StepIndicator current={filed ? 4 : 3} className="mb-8" />
 
       <div data-print="hide" className="mb-6">

@@ -69,7 +69,14 @@ export function IntakeStep({
               {/* Visible label, not a placeholder. The placeholder disappears
                   the moment someone starts typing, which is when a first-time
                   filer most needs to know what the box wanted. */}
-              <Label htmlFor={fieldId}>{t("intake.title")}</Label>
+              {/*
+                The card title directly above already reads "What happened?",
+                so a second visible copy was pure repetition. It stays in the
+                accessibility tree so the field keeps its programmatic label.
+              */}
+              <Label htmlFor={fieldId} className="sr-only">
+                {t("intake.title")}
+              </Label>
               <Textarea
                 id={fieldId}
                 value={value}

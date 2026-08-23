@@ -232,6 +232,87 @@
   color: var(--ux4g-text-neutral-primary, var(--foreground));
 }
 
+/*
+ * Alerts laid out as icon + stacked text, rather than one flex row.
+ *
+ * `.ux4g-alert` ships as `display: flex; align-items: center` and
+ * `.ux4g-alert-content` as `display: flex; align-items: baseline`. Both assume
+ * an alert is a single line: an icon, a short title, and a few words, all side
+ * by side. That is a fair default and it is not what this product's alerts
+ * are. Several carry real block content — the list of extracted reference
+ * numbers, a paragraph plus a button, a quoted sentence to copy — and as flex
+ * siblings the title sat beside the body and squeezed it into a column a few
+ * words wide.
+ *
+ * A two-column grid fixes it properly: the icon holds column one, and the
+ * title and body stack down column two. Single-line alerts render exactly as
+ * before, because one title and one short body still occupy two rows of the
+ * same visual height.
+ */
+.ux4g-alert:not(.ux4g-alert-center) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0.75rem;
+  row-gap: 0.5rem;
+}
+
+.ux4g-alert:not(.ux4g-alert-center) > svg {
+  grid-column: 1;
+  grid-row: 1;
+  /* Optically centred on the first line of the title, not on the icon box. */
+  margin-top: 0.15rem;
+}
+
+.ux4g-alert:not(.ux4g-alert-center) > .ux4g-alert-title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.ux4g-alert:not(.ux4g-alert-center) > .ux4g-alert-content {
+  grid-column: 2;
+  grid-row: 2;
+  /* Stack the body's own blocks too, for the same reason. */
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+/*
+ * Scroll-drawn line art.
+ *
+ * Strokes marked `data-draw` carry `pathLength="1"`, so one dash of length 1
+ * offset by 1 hides them regardless of their real length, and animating the
+ * offset to 0 walks them in. Normalising the length is what lets every stroke
+ * in a diagram finish together without measuring anything in JavaScript.
+ *
+ * `.drawable` is only applied after hydration and never when the reader has
+ * asked for reduced motion, so an un-drawn diagram is never left on screen.
+ * The staggered delays are small on purpose: this is a diagram being drawn,
+ * not a title sequence.
+ */
+.drawable [data-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.drawable[data-drawn="true"] [data-draw] {
+  animation: rti-draw 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.drawable[data-draw-stagger="true"][data-drawn="true"] [data-draw]:nth-child(2) {
+  animation-delay: 90ms;
+}
+.drawable[data-draw-stagger="true"][data-drawn="true"] [data-draw]:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+@keyframes rti-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @layer utilities {
   /* Tuned to ~68ch so long legal text stays readable. */
   .prose-measure {

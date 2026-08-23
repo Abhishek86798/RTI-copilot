@@ -31,7 +31,12 @@ export function SiteHeader() {
       data-print="hide"
       className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
     >
-      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-1.5 px-3 sm:gap-3 sm:px-4">
+      {/*
+        Matches the footer and the landing bands at 88rem with the same
+        gutters. The header sat at 64rem while everything under it sat at
+        88rem, so the wordmark never lined up with the first footer column.
+      */}
+      <div className="mx-auto flex h-16 w-full max-w-[88rem] items-center gap-1.5 px-5 sm:gap-3 sm:px-8 lg:px-12">
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
