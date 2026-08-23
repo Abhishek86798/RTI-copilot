@@ -23,11 +23,20 @@ import { useI18n } from "@/lib/client/i18n";
 import type { Candidate, RoutingResponse } from "@/lib/client/types";
 import { cn } from "@/lib/utils";
 
+/*
+ * Opaque backgrounds, not a translucent tint of the status colour.
+ *
+ * A `bg-success/12` chip composites over whatever is behind it, and these
+ * chips sit inside alert cards that are themselves tinted — which measured at
+ * 3.96:1 against the card, under the 4.5:1 AA needs. An opaque card
+ * background makes the contrast independent of what the chip is placed on,
+ * and the coloured ring keeps the status readable at a glance.
+ */
 const TONE_CLASSES = {
-  strong: "bg-success/12 text-success",
-  likely: "bg-info/12 text-info",
-  possible: "bg-warning/15 text-warning",
-  uncertain: "bg-destructive/12 text-destructive",
+  strong: "bg-card text-success ring-1 ring-success/35",
+  likely: "bg-card text-info ring-1 ring-info/35",
+  possible: "bg-card text-warning ring-1 ring-warning/40",
+  uncertain: "bg-card text-destructive ring-1 ring-destructive/35",
 } as const;
 
 /**
@@ -242,10 +251,10 @@ function CandidateOption({
         <span className="mt-2 flex flex-wrap items-center gap-2 text-xs">
           <span
             className={cn(
-              "rounded-md px-2 py-0.5 font-medium",
+              "rounded-md px-2 py-0.5 font-medium ring-1",
               candidate.authority.level === "central"
-                ? "bg-info/10 text-info"
-                : "bg-warning/15 text-warning"
+                ? "bg-card text-info ring-info/30"
+                : "bg-card text-warning ring-warning/35"
             )}
           >
             {candidate.authority.level === "central"

@@ -134,7 +134,7 @@ function ApplicationRow({ application }: { application: Application }) {
           </span>
         )}
         {application.isDemo && (
-          <span className="rounded-md bg-warning/15 px-2 py-0.5 text-xs font-semibold text-warning">
+          <span className="rounded-md bg-card px-2 py-0.5 text-xs font-semibold text-warning ring-1 ring-warning/35">
             {t("list.example")}
           </span>
         )}

@@ -296,6 +296,65 @@ const en = {
   "footer.portalLink": "Official RTI Online portal",
   "footer.actLink": "The RTI Act, 2005",
 
+  "home.hero.eyebrow": "Right to Information Act, 2005",
+  "home.hero.scroll": "How it works",
+
+  "home.sec.problem.eyebrow": "The problem",
+  "home.sec.problem.title": "Why most first applications fail",
+  "home.sec.problem.lead":
+    "Not because the request was unreasonable. Because of two procedural details nobody tells a first-time filer, and a clock that runs whether or not they are watching it.",
+
+  "home.sec.scale.eyebrow": "The scale of it",
+  "home.sec.scale.title": "This is not a rare problem",
+  "home.sec.scale.lead":
+    "Tens of lakhs of citizens use this law every year, and the machinery meant to enforce it is years behind.",
+
+  "home.sec.routing.eyebrow": "Authority routing",
+  "home.sec.routing.title": "The right office, before you pay",
+  "home.sec.routing.lead":
+    "You describe what happened. We match it against a curated directory of public authorities and show how confident we are — because a wrong match costs you a Section 6(3) transfer and restarts your thirty days.",
+
+  "home.sec.rewrite.eyebrow": "Legal translation",
+  "home.sec.rewrite.title": "Ask for records, not reasons",
+  "home.sec.rewrite.lead":
+    "The Act compels an authority to hand over information it holds. It does not compel anyone to explain themselves. Your grievance is rewritten as the documents that would answer it.",
+
+  "home.sec.clock.eyebrow": "The statutory clock",
+  "home.sec.clock.title": "Thirty days, then thirty more",
+  "home.sec.clock.lead":
+    "Silence past the deadline is a deemed refusal under Section 7(2), and a free First Appeal has to be filed within thirty days of it. We track both and write the appeal the day it becomes available.",
+
+  "home.sec.honest.eyebrow": "Honesty",
+  "home.sec.honest.title": "What is real, and what is mocked",
+  "home.sec.honest.lead":
+    "This is a prototype. It does real work on the two things that sink most first applications, and it does not pretend to do the rest. Nothing is filed with any government system on your behalf.",
+  "home.sec.honest.cta": "See the full list",
+
+  "home.stat.filed.value": "≈53 lakh",
+  "home.stat.filed.label": "RTI applications filed every year",
+  "home.stat.filed.source": "Central and State public authorities combined",
+  "home.stat.pending.value": "4 lakh+",
+  "home.stat.pending.label": "Appeals pending before Information Commissions",
+  "home.stat.pending.source": "29 commissions, as on 30 June 2025",
+  "home.stat.wait.value": "31 months",
+  "home.stat.wait.label": "Typical wait for an appeal to be heard",
+  "home.stat.wait.source": "Longest reported backlog runs to decades",
+  "home.stat.defunct.value": "7 of 29",
+  "home.stat.defunct.label": "Commissions defunct for part of the year",
+  "home.stat.defunct.source": "Report Card on Information Commissions",
+  "home.stat.attrib":
+    "Figures from Satark Nagrik Sangathan's Report Card on Information Commissions and Central Information Commission annual reports.",
+
+  "clock.filed": "Filed",
+  "clock.deadline": "Day 30 — deemed refusal",
+  "clock.appealCloses": "Appeal closes",
+  "clock.alt":
+    "A thirty-day response window running out at a deadline, followed by a thirty-day window in which a free First Appeal can be filed.",
+
+  "home.cta.title": "It takes one paragraph to start",
+  "home.cta.lead":
+    "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
+
   "error.title": "We could not continue",
 } as const;
 
@@ -575,6 +634,65 @@ const hi: Record<StringKey, string> = {
   "footer.howLink": "यह कैसे काम करता है, और क्या नकली है",
   "footer.portalLink": "आधिकारिक आरटीआई ऑनलाइन पोर्टल",
   "footer.actLink": "सूचना का अधिकार अधिनियम, 2005",
+
+  "home.hero.eyebrow": "सूचना का अधिकार अधिनियम, 2005",
+  "home.hero.scroll": "यह कैसे काम करता है",
+
+  "home.sec.problem.eyebrow": "समस्या",
+  "home.sec.problem.title": "पहला आवेदन अक्सर क्यों विफल होता है",
+  "home.sec.problem.lead":
+    "इसलिए नहीं कि माँग अनुचित थी। बल्कि दो प्रक्रियागत बातों के कारण जो पहली बार आवेदन करने वाले को कोई नहीं बताता, और एक घड़ी जो आपके देखे बिना भी चलती रहती है।",
+
+  "home.sec.scale.eyebrow": "इसका विस्तार",
+  "home.sec.scale.title": "यह कोई दुर्लभ समस्या नहीं है",
+  "home.sec.scale.lead":
+    "हर साल लाखों नागरिक इस कानून का उपयोग करते हैं, और इसे लागू करने वाली व्यवस्था वर्षों पीछे चल रही है।",
+
+  "home.sec.routing.eyebrow": "कार्यालय की पहचान",
+  "home.sec.routing.title": "शुल्क देने से पहले, सही कार्यालय",
+  "home.sec.routing.lead":
+    "आप बताइए क्या हुआ। हम उसे लोक प्राधिकरणों की सूची से मिलाते हैं और बताते हैं कि हम कितने आश्वस्त हैं — क्योंकि गलत मिलान पर धारा 6(3) के तहत स्थानांतरण होता है और आपके तीस दिन फिर से शुरू हो जाते हैं।",
+
+  "home.sec.rewrite.eyebrow": "कानूनी अनुवाद",
+  "home.sec.rewrite.title": "कारण नहीं, अभिलेख माँगिए",
+  "home.sec.rewrite.lead":
+    "अधिनियम प्राधिकरण को अपने पास मौजूद सूचना देने के लिए बाध्य करता है। सफ़ाई देने के लिए नहीं। आपकी शिकायत उन दस्तावेज़ों की माँग में बदल दी जाती है जो उसका उत्तर देंगे।",
+
+  "home.sec.clock.eyebrow": "वैधानिक समय-सीमा",
+  "home.sec.clock.title": "तीस दिन, फिर तीस और",
+  "home.sec.clock.lead":
+    "समय-सीमा बीतने पर चुप्पी धारा 7(2) के तहत मानी गई अस्वीकृति है, और उसके तीस दिन के भीतर निःशुल्क प्रथम अपील दाख़िल करनी होती है। हम दोनों पर नज़र रखते हैं और अपील उसी दिन लिख देते हैं।",
+
+  "home.sec.honest.eyebrow": "पारदर्शिता",
+  "home.sec.honest.title": "क्या वास्तविक है, और क्या नकली",
+  "home.sec.honest.lead":
+    "यह एक प्रोटोटाइप है। जो दो बातें अधिकांश पहले आवेदनों को विफल करती हैं, उन पर यह वास्तविक काम करता है, और बाकी का दावा नहीं करता। आपकी ओर से किसी सरकारी प्रणाली में कुछ भी दाख़िल नहीं किया जाता।",
+  "home.sec.honest.cta": "पूरी सूची देखें",
+
+  "home.stat.filed.value": "≈53 लाख",
+  "home.stat.filed.label": "हर साल दाख़िल होने वाले आरटीआई आवेदन",
+  "home.stat.filed.source": "केंद्र और राज्य के लोक प्राधिकरण मिलाकर",
+  "home.stat.pending.value": "4 लाख+",
+  "home.stat.pending.label": "सूचना आयोगों में लंबित अपीलें",
+  "home.stat.pending.source": "29 आयोग, 30 जून 2025 तक",
+  "home.stat.wait.value": "31 माह",
+  "home.stat.wait.label": "अपील की सुनवाई के लिए सामान्य प्रतीक्षा",
+  "home.stat.wait.source": "सबसे लंबी प्रतीक्षा दशकों तक जाती है",
+  "home.stat.defunct.value": "29 में से 7",
+  "home.stat.defunct.label": "वर्ष के कुछ भाग में निष्क्रिय रहे आयोग",
+  "home.stat.defunct.source": "सूचना आयोगों का रिपोर्ट कार्ड",
+  "home.stat.attrib":
+    "आँकड़े सतर्क नागरिक संगठन के “रिपोर्ट कार्ड ऑन इन्फ़ॉर्मेशन कमीशंस” और केंद्रीय सूचना आयोग की वार्षिक रिपोर्टों से।",
+
+  "clock.filed": "दाख़िल",
+  "clock.deadline": "दिन 30 — मानी गई अस्वीकृति",
+  "clock.appealCloses": "अपील की अवधि समाप्त",
+  "clock.alt":
+    "तीस दिन की उत्तर अवधि समय-सीमा पर समाप्त होती है, उसके बाद तीस दिन की वह अवधि जिसमें निःशुल्क प्रथम अपील दाख़िल की जा सकती है।",
+
+  "home.cta.title": "शुरू करने के लिए एक अनुच्छेद काफ़ी है",
+  "home.cta.lead":
+    "कोई खाता नहीं, कोई ड्रॉप-डाउन नहीं, और जब तक आप न कहें आपका लिखा हुआ ब्राउज़र से बाहर नहीं जाता।",
 
   "error.title": "हम आगे नहीं बढ़ सके",
 };
