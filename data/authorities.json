@@ -2,31 +2,65 @@
   {
     "id": "epfo-pension",
     "domain": "pension",
-    "keywords": ["pension", "ppo", "family pension", "epfo", "eps", "retirement benefit", "superannuation", "pension stopped", "pension band"],
+    "keywords": [
+      "pension",
+      "ppo",
+      "family pension",
+      "epfo",
+      "eps",
+      "retirement benefit",
+      "superannuation",
+      "pension stopped",
+      "pension band"
+    ],
     "authorityName": "Employees' Provident Fund Organisation (EPFO)",
     "pioDesignation": "Central Public Information Officer, EPFO Regional Office",
     "appellateAuthority": "First Appellate Authority, EPFO Regional Office (Regional Provident Fund Commissioner)",
     "filingAddress": "EPFO Regional Office holding the PF account — per applicant's jurisdiction",
     "verifyAt": "https://www.epfindia.gov.in",
     "level": "central",
-    "notes": "For pension sanction, family pension, and pension stoppage. PF withdrawal/transfer claims go to epfo-provident-fund instead."
+    "notes": "For pension sanction, family pension, and pension stoppage. PF withdrawal/transfer claims go to epfo-provident-fund instead.",
+    "ministry": "Ministry of Labour and Employment"
   },
   {
     "id": "epfo-provident-fund",
     "domain": "provident_fund",
-    "keywords": ["pf withdrawal", "provident fund", "pf claim", "uan", "pf transfer", "gratuity", "pf balance", "claim rejected", "pf settlement"],
+    "keywords": [
+      "pf withdrawal",
+      "provident fund",
+      "pf claim",
+      "uan",
+      "pf transfer",
+      "gratuity",
+      "pf balance",
+      "claim rejected",
+      "pf settlement"
+    ],
     "authorityName": "Employees' Provident Fund Organisation (EPFO)",
     "pioDesignation": "Central Public Information Officer, EPFO Regional Office",
     "appellateAuthority": "First Appellate Authority, EPFO Regional Office (Regional Provident Fund Commissioner)",
     "filingAddress": "EPFO Regional Office holding the PF account — per applicant's jurisdiction",
     "verifyAt": "https://www.epfindia.gov.in",
     "level": "central",
-    "notes": "For withdrawal/transfer claim delays and rejections. Quote the UAN and claim ID."
+    "notes": "For withdrawal/transfer claim delays and rejections. Quote the UAN and claim ID.",
+    "ministry": "Ministry of Labour and Employment"
   },
   {
     "id": "revenue-land-records",
     "domain": "land_records",
-    "keywords": ["land record", "7/12", "satbara", "mutation", "property title", "revenue department", "jamabandi", "khasra", "khatauni", "survey number", "encroachment"],
+    "keywords": [
+      "land record",
+      "7/12",
+      "satbara",
+      "mutation",
+      "property title",
+      "revenue department",
+      "jamabandi",
+      "khasra",
+      "khatauni",
+      "survey number",
+      "encroachment"
+    ],
     "authorityName": "Office of the Tehsildar / Revenue Department",
     "pioDesignation": "Public Information Officer, Revenue Department (District)",
     "appellateAuthority": "First Appellate Authority, District Collectorate (Additional District Collector)",
@@ -38,7 +72,18 @@
   {
     "id": "police-fir-status",
     "domain": "police",
-    "keywords": ["fir", "police complaint", "investigation status", "police station", "chargesheet", "case diary", "arrest", "custody", "ncr", "police verification"],
+    "keywords": [
+      "fir",
+      "police complaint",
+      "investigation status",
+      "police station",
+      "chargesheet",
+      "case diary",
+      "arrest",
+      "custody",
+      "ncr",
+      "police verification"
+    ],
     "authorityName": "Office of the Superintendent of Police / Commissioner of Police",
     "pioDesignation": "Public Information Officer, District Police Headquarters",
     "appellateAuthority": "First Appellate Authority, Office of the Superintendent / Commissioner of Police",
@@ -50,7 +95,17 @@
   {
     "id": "education-board",
     "domain": "education",
-    "keywords": ["exam result", "marksheet", "answer sheet", "revaluation", "school admission", "education board", "scholarship", "certificate", "migration certificate"],
+    "keywords": [
+      "exam result",
+      "marksheet",
+      "answer sheet",
+      "revaluation",
+      "school admission",
+      "education board",
+      "scholarship",
+      "certificate",
+      "migration certificate"
+    ],
     "authorityName": "State Board of Secondary Education",
     "pioDesignation": "Public Information Officer, State Education Board",
     "appellateAuthority": "First Appellate Authority, State Board of Secondary Education (Secretary)",
@@ -62,7 +117,17 @@
   {
     "id": "ration-pds",
     "domain": "ration",
-    "keywords": ["ration card", "pds", "public distribution", "food supply", "fair price shop", "ration shop", "food grain", "nfsa", "antyodaya"],
+    "keywords": [
+      "ration card",
+      "pds",
+      "public distribution",
+      "food supply",
+      "fair price shop",
+      "ration shop",
+      "food grain",
+      "nfsa",
+      "antyodaya"
+    ],
     "authorityName": "Department of Food, Civil Supplies and Consumer Affairs",
     "pioDesignation": "Public Information Officer, Food & Civil Supplies Department",
     "appellateAuthority": "First Appellate Authority, District Food & Civil Supplies Office",
@@ -73,19 +138,41 @@
   {
     "id": "passport-office",
     "domain": "passport",
-    "keywords": ["passport", "passport delay", "police verification", "psk", "passport seva", "visa", "tatkal", "passport application", "file number"],
+    "keywords": [
+      "passport",
+      "passport delay",
+      "police verification",
+      "psk",
+      "passport seva",
+      "visa",
+      "tatkal",
+      "passport application",
+      "file number"
+    ],
     "authorityName": "Regional Passport Office (RPO)",
     "pioDesignation": "Central Public Information Officer, Regional Passport Office",
     "appellateAuthority": "First Appellate Authority — the Regional Passport Officer of the concerned RPO",
     "filingAddress": "Regional Passport Office for the applicant's jurisdiction (37 RPOs nationwide)",
     "verifyAt": "https://www.passportindia.gov.in/psp/rtiDetails",
     "level": "central",
-    "notes": "Quote the passport file number. Delays often sit with police verification, which is held by the state police, not the RPO."
+    "notes": "Quote the passport file number. Delays often sit with police verification, which is held by the state police, not the RPO.",
+    "ministry": "Ministry of External Affairs"
   },
   {
     "id": "electricity-discom",
     "domain": "electricity",
-    "keywords": ["electricity", "power supply", "electricity bill", "discom", "meter", "connection", "load shedding", "power cut", "transformer", "new connection"],
+    "keywords": [
+      "electricity",
+      "power supply",
+      "electricity bill",
+      "discom",
+      "meter",
+      "connection",
+      "load shedding",
+      "power cut",
+      "transformer",
+      "new connection"
+    ],
     "authorityName": "State Electricity Distribution Company (DISCOM)",
     "pioDesignation": "Public Information Officer, Electricity Distribution Company (Circle/Division Office)",
     "appellateAuthority": "First Appellate Authority, Electricity Distribution Company (Superintending Engineer or equivalent)",
@@ -97,7 +184,21 @@
   {
     "id": "municipal-corporation",
     "domain": "municipal",
-    "keywords": ["municipal", "corporation", "nagar palika", "nagar nigam", "birth certificate", "death certificate", "property tax", "building permission", "garbage", "street light", "road repair", "drainage", "trade licence"],
+    "keywords": [
+      "municipal",
+      "corporation",
+      "nagar palika",
+      "nagar nigam",
+      "birth certificate",
+      "death certificate",
+      "property tax",
+      "building permission",
+      "garbage",
+      "street light",
+      "road repair",
+      "drainage",
+      "trade licence"
+    ],
     "authorityName": "Municipal Corporation / Municipal Council (Urban Local Body)",
     "pioDesignation": "Public Information Officer, Municipal Corporation (Zonal/Ward Office)",
     "appellateAuthority": "First Appellate Authority, Municipal Corporation (Deputy/Additional Commissioner)",
@@ -109,7 +210,17 @@
   {
     "id": "water-supply",
     "domain": "water",
-    "keywords": ["water supply", "water connection", "jal board", "water bill", "tap water", "sewerage", "water shortage", "borewell", "pipeline"],
+    "keywords": [
+      "water supply",
+      "water connection",
+      "jal board",
+      "water bill",
+      "tap water",
+      "sewerage",
+      "water shortage",
+      "borewell",
+      "pipeline"
+    ],
     "authorityName": "Water Supply and Sewerage Board / Municipal Water Department",
     "pioDesignation": "Public Information Officer, Water Supply and Sewerage Board",
     "appellateAuthority": "First Appellate Authority, Water Supply and Sewerage Board (Executive/Superintending Engineer)",
@@ -121,19 +232,41 @@
   {
     "id": "income-tax",
     "domain": "income_tax",
-    "keywords": ["income tax", "tax refund", "itr", "refund status", "pan", "tds", "assessment order", "tax demand", "cpc"],
+    "keywords": [
+      "income tax",
+      "tax refund",
+      "itr",
+      "refund status",
+      "pan",
+      "tds",
+      "assessment order",
+      "tax demand",
+      "cpc"
+    ],
     "authorityName": "Income Tax Department",
     "pioDesignation": "Central Public Information Officer, Office of the jurisdictional Assessing Officer / CPC Bengaluru",
     "appellateAuthority": "First Appellate Authority, Income Tax Department (Additional/Joint Commissioner of the concerned range)",
     "filingAddress": "Jurisdictional Income Tax Office, or CPC Bengaluru for processing and refund matters",
     "verifyAt": "https://www.incometax.gov.in",
     "level": "central",
-    "notes": "Refund and return-processing matters usually sit with CPC Bengaluru; assessment matters with the jurisdictional AO. Quote the PAN and assessment year."
+    "notes": "Refund and return-processing matters usually sit with CPC Bengaluru; assessment matters with the jurisdictional AO. Quote the PAN and assessment year.",
+    "ministry": "Ministry of Finance"
   },
   {
     "id": "rto-transport",
     "domain": "transport",
-    "keywords": ["rto", "driving licence", "vehicle registration", "rc book", "permit", "fitness certificate", "transport office", "learner licence", "challan", "number plate"],
+    "keywords": [
+      "rto",
+      "driving licence",
+      "vehicle registration",
+      "rc book",
+      "permit",
+      "fitness certificate",
+      "transport office",
+      "learner licence",
+      "challan",
+      "number plate"
+    ],
     "authorityName": "Regional Transport Office (RTO)",
     "pioDesignation": "Public Information Officer, Regional Transport Office",
     "appellateAuthority": "First Appellate Authority, Office of the Transport Commissioner / Regional Transport Officer",
@@ -145,7 +278,19 @@
   {
     "id": "government-hospital",
     "domain": "health",
-    "keywords": ["hospital", "medical records", "treatment", "government hospital", "phc", "chc", "ayushman", "medical negligence", "doctor", "discharge summary", "health scheme"],
+    "keywords": [
+      "hospital",
+      "medical records",
+      "treatment",
+      "government hospital",
+      "phc",
+      "chc",
+      "ayushman",
+      "medical negligence",
+      "doctor",
+      "discharge summary",
+      "health scheme"
+    ],
     "authorityName": "District Health Office / Government Hospital",
     "pioDesignation": "Public Information Officer, Office of the Chief Medical Officer / Medical Superintendent",
     "appellateAuthority": "First Appellate Authority, Office of the Chief Medical Officer / Medical Superintendent",
@@ -157,7 +302,17 @@
   {
     "id": "social-welfare-pension",
     "domain": "social_welfare",
-    "keywords": ["widow pension", "old age pension", "disability pension", "social welfare", "scholarship scheme", "welfare scheme", "beneficiary", "pension not credited", "nsap"],
+    "keywords": [
+      "widow pension",
+      "old age pension",
+      "disability pension",
+      "social welfare",
+      "scholarship scheme",
+      "welfare scheme",
+      "beneficiary",
+      "pension not credited",
+      "nsap"
+    ],
     "authorityName": "Department of Social Welfare / Social Justice",
     "pioDesignation": "Public Information Officer, District Social Welfare Office",
     "appellateAuthority": "First Appellate Authority, District Social Welfare Office (District Social Welfare Officer)",
@@ -169,7 +324,17 @@
   {
     "id": "mgnrega-rural",
     "domain": "rural_employment",
-    "keywords": ["mgnrega", "nrega", "job card", "muster roll", "wage payment", "rural employment", "gram rozgar", "work demand", "narega"],
+    "keywords": [
+      "mgnrega",
+      "nrega",
+      "job card",
+      "muster roll",
+      "wage payment",
+      "rural employment",
+      "gram rozgar",
+      "work demand",
+      "narega"
+    ],
     "authorityName": "District Rural Development Agency (DRDA) / Block Development Office",
     "pioDesignation": "Public Information Officer, District Rural Development Agency / Block Development Officer",
     "appellateAuthority": "First Appellate Authority, District Rural Development Agency (Project Director / CEO Zilla Parishad)",
@@ -181,7 +346,16 @@
   {
     "id": "gram-panchayat",
     "domain": "panchayat",
-    "keywords": ["gram panchayat", "panchayat", "sarpanch", "village development", "panchayat fund", "gram sabha", "village road", "panchayat works"],
+    "keywords": [
+      "gram panchayat",
+      "panchayat",
+      "sarpanch",
+      "village development",
+      "panchayat fund",
+      "gram sabha",
+      "village road",
+      "panchayat works"
+    ],
     "authorityName": "Gram Panchayat / Panchayat Samiti",
     "pioDesignation": "Public Information Officer, Gram Panchayat (Panchayat Secretary)",
     "appellateAuthority": "First Appellate Authority, Block Development Office (Block Development Officer)",
@@ -193,31 +367,65 @@
   {
     "id": "public-sector-bank",
     "domain": "banking",
-    "keywords": ["bank", "loan", "bank account", "sbi", "public sector bank", "loan rejected", "kcc", "bank branch", "account frozen", "mudra"],
+    "keywords": [
+      "bank",
+      "loan",
+      "bank account",
+      "sbi",
+      "public sector bank",
+      "loan rejected",
+      "kcc",
+      "bank branch",
+      "account frozen",
+      "mudra"
+    ],
     "authorityName": "Public Sector Bank (Nationalised Bank)",
     "pioDesignation": "Central Public Information Officer, Bank (Zonal/Regional Office)",
     "appellateAuthority": "First Appellate Authority, Bank (General Manager, Zonal/Regional Office)",
     "filingAddress": "Zonal or Regional Office of the bank concerned",
     "verifyAt": "RTI page on the bank's official website",
     "level": "central",
-    "notes": "Only public sector banks are public authorities. Private banks (HDFC, ICICI, Axis and similar) are NOT covered — for those, file with the Reserve Bank of India for information the RBI holds about them."
+    "notes": "Only public sector banks are public authorities. Private banks (HDFC, ICICI, Axis and similar) are NOT covered — for those, file with the Reserve Bank of India for information the RBI holds about them.",
+    "ministry": "Ministry of Finance"
   },
   {
     "id": "railways",
     "domain": "railways",
-    "keywords": ["railway", "train", "irctc", "ticket refund", "pnr", "railway recruitment", "reservation", "tatkal refund", "railway complaint"],
+    "keywords": [
+      "railway",
+      "train",
+      "irctc",
+      "ticket refund",
+      "pnr",
+      "railway recruitment",
+      "reservation",
+      "tatkal refund",
+      "railway complaint"
+    ],
     "authorityName": "Indian Railways (Zonal Railway) / IRCTC",
     "pioDesignation": "Central Public Information Officer, Divisional Railway Manager's Office / IRCTC",
     "appellateAuthority": "First Appellate Authority, Divisional Railway Manager's Office (Senior Divisional Officer) / IRCTC",
     "filingAddress": "Divisional Railway Manager's office of the concerned division, or IRCTC for e-ticketing and refunds",
     "verifyAt": "https://indianrailways.gov.in",
     "level": "central",
-    "notes": "E-ticket refunds sit with IRCTC; station, train and recruitment matters with the zonal/divisional railway. Quote the PNR."
+    "notes": "E-ticket refunds sit with IRCTC; station, train and recruitment matters with the zonal/divisional railway. Quote the PNR.",
+    "ministry": "Ministry of Railways"
   },
   {
     "id": "housing-development-authority",
     "domain": "housing",
-    "keywords": ["housing board", "development authority", "dda", "mhada", "flat allotment", "housing scheme", "plot allotment", "possession", "lottery", "pmay"],
+    "keywords": [
+      "housing board",
+      "development authority",
+      "dda",
+      "mhada",
+      "flat allotment",
+      "housing scheme",
+      "plot allotment",
+      "possession",
+      "lottery",
+      "pmay"
+    ],
     "authorityName": "Housing Board / Development Authority",
     "pioDesignation": "Public Information Officer, Housing Board / Development Authority",
     "appellateAuthority": "First Appellate Authority, Housing Board / Development Authority (Deputy/Additional Commissioner)",
@@ -229,7 +437,15 @@
   {
     "id": "mp-mla-local-area-funds",
     "domain": "local_area_funds",
-    "keywords": ["mplads", "mla fund", "mp fund", "local area development", "constituency fund", "mlalads", "development work"],
+    "keywords": [
+      "mplads",
+      "mla fund",
+      "mp fund",
+      "local area development",
+      "constituency fund",
+      "mlalads",
+      "development work"
+    ],
     "authorityName": "District Collectorate (Nodal Officer, MPLADS/MLALADS)",
     "pioDesignation": "Public Information Officer, District Collectorate",
     "appellateAuthority": "First Appellate Authority, District Collectorate (Additional District Collector)",

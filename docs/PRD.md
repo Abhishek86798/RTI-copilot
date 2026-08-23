@@ -51,11 +51,56 @@ Three capabilities, applied in sequence to every submission:
 
 ## 5. User Flow
 
-1. **Describe** — free-text box: "What happened?" No dropdowns.
-2. **Confirm authority** — AI proposes Public Authority + PIO; user confirms or edits.
-3. **Review draft** — itemized RTI application shown side-by-side with original text, live character counter against the 3,000-char portal limit.
-4. **File** — export as PDF/print, or use alongside RTI Online with fee details.
-5. **Track** — 30-day countdown; auto First Appeal draft on lapse.
+The journey runs end to end inside the product. The citizen is never handed off
+to another site to do the hard part.
+
+**Step 1 — Intelligent intake and AI co-pilot**
+- Free-text grievance input. No dropdowns.
+- Auto-detection of the Public Authority, the subject category, and Section 7(1)
+  life/liberty priority.
+- Auto-refactoring of emotional questions into itemized requests for records and
+  file notings — the form the Act actually compels an answer to.
+
+**Step 2 — Streamlined verification and applicant details**
+- The pre-filled Public Authority is shown with an override option.
+- Applicant details: name, address, state, PIN — plus a BPL fee-waiver toggle.
+- Contrast with the real portal is shown here deliberately: rtionline.gov.in
+  makes a citizen pick Ministry first and then Public Authority within it, which
+  is precisely the knowledge they do not have. We derive both and ask them to
+  confirm.
+
+**Step 3 — Instant mock settlement and receipt**
+- ₹10 mock payment, or a BPL declaration under Section 7(5).
+- A realistic statutory registration number in the portal's own format
+  (`DOPPW/R/E/26/00142`) — the only key the portal later accepts for status
+  checks, appeals and complaints.
+- Downloadable print-ready PDF matching standard RTI application formatting.
+
+**Step 4 — Real-time lifecycle and appeal engine**
+- Citizen dashboard with the live 30-day statutory countdown (48 hours where the
+  Section 7(1) proviso applies).
+- "Simulate +31 Days" demo control to show the deadline lapse and the
+  auto-generated Section 19(1) First Appeal without waiting out a real month.
+
+### On the mock submission portal
+
+Step 3 simulates filing. It does not contact rtionline.gov.in, and nothing
+reaches a real public authority.
+
+This is a deliberate design decision, not a shortcut. The portal exposes no
+public write API, and interfering with a live government system is out of
+bounds. Simulating it is the only correct implementation — and it is what lets
+a reviewer complete the journey from start to finish rather than being handed
+off at the hardest step.
+
+The simulation reproduces what the portal actually enforces, because getting
+these wrong is what costs citizens their fee and their thirty days:
+Section 3 citizenship, Section 6(1) contact details, the Section 7(5) BPL
+certificate requirement, the 3,000-character cap, and the Central-only rule
+that returns a State application without refunding the fee.
+
+Every screen that shows simulated state says so on the screen, not only in
+this document.
 
 ### Entry modes
 
@@ -110,6 +155,11 @@ Core thesis to prove end to end: **plain language in → correctly routed, legal
 | FR-12 | Hindi translation toggle for final draft (routing/drafting logic stays English-first internally). | P2 |
 | FR-13 | NLP extractor scans the grievance for life/liberty markers (e.g. medical emergency, custody, imminent eviction, denial of urgent treatment). If detected, display an urgent badge: "Flagged under Section 7(1): 48-Hour Statutory Window Applicable," and shorten the tracked deadline from 30 days to 48 hours accordingly. | P0 |
 | FR-14 | **Demo-only** control ("Simulate +31 Days") that fast-forwards an application's tracked clock past the response deadline, so the First Appeal auto-draft (FR-9) can be demonstrated without waiting out the real statutory window. Visibly labeled as a demo/testing aid, never exposed as a real dashboard action once an application is genuinely filed with real dates. | P0 |
+| FR-15 | Simulated submission portal: validate an application the way rtionline.gov.in does — Section 3 citizenship, Section 6(1) contact details, the 3,000-character cap, and the Central-only rule — returning every problem at once rather than one per reload. | P0 |
+| FR-16 | Mock settlement: ₹10 payment confirmation, or a Section 7(5) BPL declaration that requires a certificate reference before it is accepted. No real payment gateway is contacted. | P0 |
+| FR-17 | Issue a registration number in the portal's own format (`DOPPW/R/E/26/00142`) on successful submission, persist it, and start the statutory clock from the server's timestamp rather than a self-reported filing date. | P0 |
+| FR-18 | Acknowledgement receipt showing the registration number, authority, ministry, fee basis, and the date a reply is due — the proof of filing the real portal issues. | P0 |
+| FR-19 | Every screen carrying simulated state says so on the screen. The build must never be mistakable for an official government service. | P0 |
 
 ---
 

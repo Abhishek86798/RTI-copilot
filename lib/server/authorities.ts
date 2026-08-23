@@ -12,6 +12,13 @@ export type Authority = {
   /** Official source the user should check to confirm the exact jurisdictional office. */
   verifyAt?: string;
   level: "central" | "state";
+  /**
+   * The Ministry this authority sits under on rtionline.gov.in. The portal
+   * makes citizens pick Ministry first, then Public Authority within it —
+   * knowing which Ministry runs EPFO is precisely the knowledge they lack.
+   * Only Central authorities have one; the portal does not serve State bodies.
+   */
+  ministry?: string;
   /** Domain-specific caveats worth surfacing (exemptions, coverage limits). */
   notes?: string;
 };
