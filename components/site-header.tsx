@@ -37,12 +37,18 @@ export function SiteHeader() {
           href="/"
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
         >
-          <span
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 36 36" 
             aria-hidden="true"
-            className="grid size-8 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground"
+            className="size-8 shrink-0 rounded-full overflow-hidden border border-border shadow-sm"
           >
-            RTI
-          </span>
+            <rect width="36" height="12" fill="#FF9933" />
+            <rect y="12" width="36" height="12" fill="#FFFFFF" />
+            <rect y="24" width="36" height="12" fill="#138808" />
+            <circle cx="18" cy="18" r="3.5" stroke="#000080" strokeWidth="1" fill="none" />
+            <circle cx="18" cy="18" r="0.75" fill="#000080" />
+          </svg>
           <span className="hidden text-base font-bold tracking-tight sm:inline sm:text-lg">
             {t("brand.name")}
           </span>
