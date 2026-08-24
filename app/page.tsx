@@ -274,21 +274,19 @@ export default function HomePage() {
           <Reveal delay={80}>
             <div className="mt-14 grid border-t border-border md:grid-cols-2">
               <div className="border-b border-border py-9 md:border-r md:border-b-0 md:pr-12">
-                <Marker label="Usually refused" className="text-destructive" dim={false} />
+                <Marker label="High Probability of Rejection" className="text-destructive" dim={false} />
                 <blockquote className="mt-6 max-w-[42ch] text-xl leading-snug">
                   &ldquo;Why was my father&apos;s pension stopped without any
                   notice? This is completely unfair and someone needs to explain
                   what happened.&rdquo;
                 </blockquote>
                 <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
-                  An authority can lawfully decline this. It asks for an
-                  explanation, and the Act obliges them to hand over records, not
-                  to justify themselves.
+                  Under Section 2(f), public authorities are not legally bound to provide explanations or justifications. Requests must be strictly limited to existing material records.
                 </p>
               </div>
 
               <div className="py-9 md:pl-12">
-                <Marker label="Must be answered" className="text-success" dim={false} />
+                <Marker label="Statutorily Mandated Response" className="text-success" dim={false} />
                 <ol className="mt-6 border-t border-border">
                   {[
                     "A certified copy of the order discontinuing pension against PPO No. MH/BAN/00123456.",
@@ -310,8 +308,7 @@ export default function HomePage() {
                   ))}
                 </ol>
                 <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
-                  Same grievance. Now it asks for documents that exist on a file,
-                  so refusing it needs a stated exemption under Section 8.
+                  The revised requisition correctly solicits existing material records. Refusal of such a request requires explicit invocation of exemptions strictly under Section 8 or 9.
                 </p>
               </div>
             </div>

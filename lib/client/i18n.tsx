@@ -79,14 +79,14 @@ const en = {
   "theme.light": "Light",
   "theme.dark": "Dark",
   "theme.system": "Match my device",
-  "nav.new": "New application",
-  "nav.mine": "My applications",
-  "nav.manual": "User Manual",
-  "nav.contact": "Contact Us",
-  "nav.faq": "FAQ",
+  "nav.new": "Initiate Requisition",
+  "nav.mine": "Applicant Dashboard",
+  "nav.manual": "Operations Manual",
+  "nav.contact": "Grievance Redressal",
+  "nav.faq": "Statutory Clarifications",
   "nav.payment": "Payment Reconciliation",
-  "nav.how": "How this works",
-  "nav.language": "Language",
+  "nav.how": "System Capabilities",
+  "nav.language": "Language Select",
   "nav.menu": "Menu",
   "nav.skip": "Skip to main content",
 
@@ -140,36 +140,36 @@ const en = {
   "steps.file": "File",
   "steps.track": "Track",
 
-  "intake.title": "What happened?",
+  "intake.title": "Grievance / Subject Matter Description",
   "intake.help":
-    "Write it the way you would tell a friend. Include any dates, and any reference numbers you have — a PPO number, a case number, an application number. We keep those exactly as you write them.",
+    "Furnish factual details of the grievance. Include all relevant reference numbers (e.g., PPO number, FIR, or application number). Submissions are recorded verbatim.",
   "intake.placeholder":
     "For example: My father's pension stopped in April without any notice. We went to the office three times and nobody would explain or show us anything in writing…",
   "intake.words": "words",
   "intake.minWords": "Please write at least 15 words so we can route this accurately.",
-  "intake.submit": "Find the right authority",
-  "intake.working": "Finding the right authority…",
-  "intake.demoTitle": "Or try one of these",
-  "intake.demoHelp": "Prepared examples, so you can see the whole journey before writing your own.",
+  "intake.submit": "Identify Public Authority",
+  "intake.working": "Identifying relevant Public Authority…",
+  "intake.demoTitle": "Pre-configured Exemplars",
+  "intake.demoHelp": "Simulated configurations for procedural demonstration prior to drafting.",
   "intake.privacy": "Your text is sent to our server to be routed and rewritten. It is not stored on our server and is not used to train any model.",
 
-  "confirm.title": "Is this the right office?",
+  "confirm.title": "Authority Designation Verification",
   "confirm.help":
-    "Filing with the wrong authority costs you a Section 6(3) transfer and restarts your 30-day clock. This is the one screen worth reading twice.",
-  "confirm.office": "This office",
+    "Statutory Notice: Misdirected submissions initiate Section 6(3) transfer protocols, restarting the statutory 30-day response period. Strict verification is mandated.",
+  "confirm.office": "Designated Authority",
   "confirm.pio": "Application goes to",
   "confirm.address": "Filing address",
   "confirm.appellate": "If they do not reply, your appeal goes to",
   "confirm.worthKnowing": "Worth knowing",
   "confirm.verify": "Confirm the exact office for your area at",
   "confirm.references": "Details we will keep exactly as you wrote them",
-  "confirm.lowTitle": "We are not confident about this match",
+  "confirm.lowTitle": "Low System Confidence Designation",
   "confirm.lowBody":
     "No authority in our directory clearly holds these records. Please check the department's own website before filing. You can continue, but verify the office first.",
   "confirm.otherOptions": "Other possible offices",
-  "confirm.submit": "Write my application",
-  "confirm.submitUnsure": "Continue anyway",
-  "confirm.working": "Writing your application…",
+  "confirm.submit": "Generate Statutory Draft",
+  "confirm.submitUnsure": "Proceed with Current Selection",
+  "confirm.working": "Generating statutory draft…",
 
   "confidence.strong": "Strong match",
   "confidence.likely": "Likely match",
@@ -179,8 +179,8 @@ const en = {
   "confidence.explainBody":
     "This is our own estimate, not an official figure, and it is not a probability. Treat it as a signal about how carefully to check, not as a guarantee.",
 
-  "draft.title": "Your RTI application",
-  "draft.help": "Every line is editable. You have the final say on what gets filed.",
+  "draft.title": "RTI Requisition Draft",
+  "draft.help": "Draft is subject to applicant review. The applicant retains ultimate responsibility for submitted content.",
   "draft.portalLabel": "Portal-ready text",
   "draft.portalHelp":
     "Paste this into the request box on the portal. It is kept under the 3,000-character limit the portal enforces.",
@@ -189,22 +189,22 @@ const en = {
   "draft.compare": "Compare with what you wrote",
   "draft.yourWords": "Your words",
   "draft.ourDraft": "What we are asking for",
-  "draft.whyChanged": "Why it changed",
+  "draft.whyChanged": "Drafting Rationale",
   "draft.whyChangedBody":
-    "Questions were turned into requests for the records that would answer them. Under Section 2(f) an authority must give you information it holds; it does not have to explain itself or offer an opinion.",
+    "Interrogatives were converted into requests for material records in strict adherence to Section 2(f). Public authorities are statutorily obliged to furnish existing information, not explanations.",
   "draft.items": "Requested records",
   "draft.urgentTitle": "Flagged under Section 7(1): 48-hour window may apply",
   "draft.urgentBody":
     "State this ground in your application. The 48-hour window applies only to genuine life-or-liberty matters. If it does not fit your situation, remove the claim and the normal 30-day deadline applies.",
   "draft.urgentRemove": "This does not apply to me — use the 30-day deadline",
   "draft.urgentRestore": "Restore the 48-hour claim",
-  "draft.submit": "Next: how to file this",
-  "draft.regenerate": "Start over",
+  "draft.submit": "Proceed to Filing Directives",
+  "draft.regenerate": "Restart Drafting Process",
 
-  "file.title": "How to file this",
-  "file.applicantTitle": "Your details",
+  "file.title": "Statutory Filing Directives",
+  "file.applicantTitle": "Applicant Particulars",
   "file.applicantHelp":
-    "Required on the application under the RTI Rules, 2012. Stored only in this browser.",
+    "Mandatory applicant particulars pursuant to the RTI Rules, 2012. Data is retained strictly within local browser storage.",
   "file.name": "Full name",
   "file.address": "Postal address",
   "file.phone": "Phone number",
@@ -213,16 +213,16 @@ const en = {
   "file.bplHelp": "Section 7(5) waives the fee. You must attach a copy of the certificate.",
   "file.fee": "Fee",
   "file.attachments": "Have these ready",
-  "file.stepsTitle": "Steps",
-  "file.openPortal": "Open the portal",
+  "file.stepsTitle": "Procedural Steps",
+  "file.openPortal": "Access Central Portal",
   "file.copyText": "Copy the application text",
   "file.printTitle": "Or file on paper",
   "file.printHelp":
     "Print the application, sign it, and send it by registered post. Keep the posting receipt — it proves your filing date.",
   "file.markFiled": "I have filed this",
-  "file.filedTitle": "Record your filing",
-  "file.filedHelp": "This starts your statutory deadline. Enter the date you actually filed.",
-  "file.filedDate": "Date filed",
+  "file.filedTitle": "Formalize Filing Registration",
+  "file.filedHelp": "This entry initiates the statutory tracking period. Provide the exact date of physical or electronic filing.",
+  "file.filedDate": "Date of Filing",
   "file.regNumber": "Registration number",
   "file.regNumberHelp":
     "The number the portal gave you, or your registered-post tracking number. This is your only proof of filing — keep it.",
@@ -230,8 +230,8 @@ const en = {
   "file.viaApioHelp": "Adds 5 days to the deadline under the proviso to Section 5(2).",
   "file.confirm": "Start the deadline clock",
 
-  "track.title": "Tracking your application",
-  "track.filedOn": "Filed on",
+  "track.title": "Application Status Tracking",
+  "track.filedOn": "Date of Filing",
   "track.deadline": "Reply due by",
   "track.appealBy": "Appeal by",
   "track.basis": "Deadline basis",
@@ -243,10 +243,10 @@ const en = {
     "Fast-forwards this example's clock so you can see the appeal draft itself without waiting a month. Only available on prepared examples, never on something you actually filed.",
   "track.simulateOn": "Clock fast-forwarded by {days} days (demo)",
   "track.simulateReset": "Reset the clock",
-  "track.overdueTitle": "The deadline has passed",
+  "track.overdueTitle": "Statutory Period Lapsed",
   "track.overdueBody":
     "No reply within the statutory period is a deemed refusal under Section 7(2). You can file a First Appeal now, free of charge. We have drafted it below.",
-  "track.appealTitle": "Your First Appeal",
+  "track.appealTitle": "First Appellate Draft",
   "track.appealHelp":
     "Under Section 19(1), addressed to the appellate officer senior to the PIO. No fee is payable on a first appeal.",
   "track.appealDeadlineWarn": "You have {days} days left to file this appeal.",
@@ -262,10 +262,10 @@ const en = {
   "status.appealed": "Appealed",
   "status.resolved": "Resolved",
 
-  "list.title": "My applications",
-  "list.empty": "You have not started an application yet.",
-  "list.emptyCta": "Start your first application",
-  "list.stored": "Stored in this browser only. Clearing your browser data will remove them.",
+  "list.title": "Applicant Dashboard",
+  "list.empty": "No active applications on record.",
+  "list.emptyCta": "Initiate New Requisition",
+  "list.stored": "Data resides strictly within local browser storage. Clearing browser cache will irrevocably purge all records.",
 
   "disclosure.title": "What is real and what is mocked",
   "disclosure.fixture":
@@ -306,36 +306,36 @@ const en = {
   "home.hero.eyebrow": "Right to Information Act, 2005",
   "home.hero.scroll": "How it works",
 
-  "home.sec.problem.eyebrow": "The problem",
-  "home.sec.problem.title": "Why most first applications fail",
+  "home.sec.problem.eyebrow": "Common Deficiencies",
+  "home.sec.problem.title": "Grounds for Rejection under RTI Act, 2005",
   "home.sec.problem.lead":
-    "Not because the request was unreasonable. Because of two procedural details nobody tells a first-time filer, and a clock that runs whether or not they are watching it.",
+    "Statistical analysis indicates a high rejection rate for initial applications due to procedural non-compliance and improper authority designation, leading to inevitable delays.",
 
-  "home.sec.scale.eyebrow": "The scale of it",
-  "home.sec.scale.title": "This is not a rare problem",
+  "home.sec.scale.eyebrow": "Systematic Backlog",
+  "home.sec.scale.title": "Administrative Scale and Scope",
   "home.sec.scale.lead":
-    "Tens of lakhs of citizens use this law every year, and the machinery meant to enforce it is years behind.",
+    "The volume of citizen queries often outpaces administrative processing capacity, necessitating precise drafting and correct initial routing to avoid systematic backlog.",
 
-  "home.sec.routing.eyebrow": "Authority routing",
-  "home.sec.routing.title": "The right office, before you pay",
+  "home.sec.routing.eyebrow": "Authority Routing",
+  "home.sec.routing.title": "Verification of Public Authority",
   "home.sec.routing.lead":
-    "You describe what happened. We match it against a curated directory of public authorities and show how confident we are — because a wrong match costs you a Section 6(3) transfer and restarts your thirty days.",
+    "An automated review matches the grievance against the official directory of public authorities to mitigate Section 6(3) transfer delays and statutory clock resets.",
 
-  "home.sec.rewrite.eyebrow": "Legal translation",
-  "home.sec.rewrite.title": "Ask for records, not reasons",
+  "home.sec.rewrite.eyebrow": "Statutory Translation",
+  "home.sec.rewrite.title": "Drafting Requisites for Information Requests",
   "home.sec.rewrite.lead":
-    "The Act compels an authority to hand over information it holds. It does not compel anyone to explain themselves. Your grievance is rewritten as the documents that would answer it.",
+    "The Act mandates the provision of existing records, not the justification of administrative actions. Queries are transcribed into formal document requisitions compliance with Section 2(f).",
 
-  "home.sec.clock.eyebrow": "The statutory clock",
-  "home.sec.clock.title": "Thirty days, then thirty more",
+  "home.sec.clock.eyebrow": "Statutory Timelines",
+  "home.sec.clock.title": "Section 7 and 19 Compliance",
   "home.sec.clock.lead":
-    "Silence past the deadline is a deemed refusal under Section 7(2), and a free First Appeal has to be filed within thirty days of it. We track both and write the appeal the day it becomes available.",
+    "Non-response within the stipulated 30-day period constitutes a deemed refusal under Section 7(2), mandating the filing of a First Appeal within the subsequent 30-day window.",
 
-  "home.sec.honest.eyebrow": "Honesty",
-  "home.sec.honest.title": "Hackathon Prototype Notice",
+  "home.sec.honest.eyebrow": "Advisory",
+  "home.sec.honest.title": "Prototype Usage Notification",
   "home.sec.honest.lead":
-    "This is a prototype. It does real work on the two things that sink most first applications, and it does not pretend to do the rest. Nothing is filed with any government system on your behalf.",
-  "home.sec.honest.cta": "See the full list",
+    "This system serves strictly as a drafting and routing assistant. It does not interface directly with internal government databases, and no requests are automatically transmitted.",
+  "home.sec.honest.cta": "View full technical limitations",
 
   "home.stat.filed.value": "≈53 lakh",
   "home.stat.filed.label": "RTI applications filed every year",
@@ -662,36 +662,36 @@ const hi: Record<StringKey, string> = {
   "home.hero.eyebrow": "सूचना का अधिकार अधिनियम, 2005",
   "home.hero.scroll": "यह कैसे काम करता है",
 
-  "home.sec.problem.eyebrow": "समस्या",
-  "home.sec.problem.title": "पहला आवेदन अक्सर क्यों विफल होता है",
+  "home.sec.problem.eyebrow": "सामान्य कमियाँ",
+  "home.sec.problem.title": "आरटीआई अधिनियम, 2005 के तहत अस्वीकृति के आधार",
   "home.sec.problem.lead":
-    "इसलिए नहीं कि माँग अनुचित थी। बल्कि दो प्रक्रियागत बातों के कारण जो पहली बार आवेदन करने वाले को कोई नहीं बताता, और एक घड़ी जो आपके देखे बिना भी चलती रहती है।",
+    "प्रक्रियागत अनुपालन न होने और अनुचित प्राधिकरण के चयन के कारण प्रारंभिक आवेदनों की अस्वीकृति दर उच्च पाई गई है, जिससे अनावश्यक विलंब होता है।",
 
-  "home.sec.scale.eyebrow": "इसका विस्तार",
-  "home.sec.scale.title": "यह कोई दुर्लभ समस्या नहीं है",
+  "home.sec.scale.eyebrow": "प्रणालीगत बैकलॉग",
+  "home.sec.scale.title": "प्रशासनिक दायरा और सीमा",
   "home.sec.scale.lead":
-    "हर साल लाखों नागरिक इस कानून का उपयोग करते हैं, और इसे लागू करने वाली व्यवस्था वर्षों पीछे चल रही है।",
+    "नागरिक प्रश्नों की संख्या अक्सर प्रशासनिक प्रसंस्करण क्षमता से अधिक होती है, इसलिए सटीक प्रारूपण और सही प्रारंभिक मार्ग निर्धारण आवश्यक है।",
 
-  "home.sec.routing.eyebrow": "कार्यालय की पहचान",
-  "home.sec.routing.title": "शुल्क देने से पहले, सही कार्यालय",
+  "home.sec.routing.eyebrow": "प्राधिकरण चयन",
+  "home.sec.routing.title": "लोक प्राधिकरण का सत्यापन",
   "home.sec.routing.lead":
-    "आप बताइए क्या हुआ। हम उसे लोक प्राधिकरणों की सूची से मिलाते हैं और बताते हैं कि हम कितने आश्वस्त हैं — क्योंकि गलत मिलान पर धारा 6(3) के तहत स्थानांतरण होता है और आपके तीस दिन फिर से शुरू हो जाते हैं।",
+    "यह प्रणाली सार्वजनिक प्राधिकरणों की आधिकारिक निर्देशिका के साथ शिकायत का मिलान करती है ताकि धारा 6(3) के तहत स्थानांतरण में होने वाले विलंब से बचा जा सके।",
 
-  "home.sec.rewrite.eyebrow": "कानूनी अनुवाद",
-  "home.sec.rewrite.title": "कारण नहीं, अभिलेख माँगिए",
+  "home.sec.rewrite.eyebrow": "वैधानिक अनुवाद",
+  "home.sec.rewrite.title": "सूचना अनुरोधों के लिए प्रारूपण आवश्यकताएं",
   "home.sec.rewrite.lead":
-    "अधिनियम प्राधिकरण को अपने पास मौजूद सूचना देने के लिए बाध्य करता है। सफ़ाई देने के लिए नहीं। आपकी शिकायत उन दस्तावेज़ों की माँग में बदल दी जाती है जो उसका उत्तर देंगे।",
+    "अधिनियम प्रशासनिक कार्रवाइयों के औचित्य को नहीं, बल्कि मौजूदा रिकॉर्ड प्रदान करने को अनिवार्य बनाता है। धारा 2(एफ) के अनुपालन में प्रश्नों को औपचारिक दस्तावेज़ अनुरोधों में बदल दिया जाता है।",
 
   "home.sec.clock.eyebrow": "वैधानिक समय-सीमा",
-  "home.sec.clock.title": "तीस दिन, फिर तीस और",
+  "home.sec.clock.title": "धारा 7 और 19 का अनुपालन",
   "home.sec.clock.lead":
-    "समय-सीमा बीतने पर चुप्पी धारा 7(2) के तहत मानी गई अस्वीकृति है, और उसके तीस दिन के भीतर निःशुल्क प्रथम अपील दाख़िल करनी होती है। हम दोनों पर नज़र रखते हैं और अपील उसी दिन लिख देते हैं।",
+    "निर्धारित 30 दिनों की अवधि के भीतर उत्तर न देना धारा 7(2) के तहत मानी गई अस्वीकृति है, जिसके लिए अगले 30 दिनों के भीतर प्रथम अपील दायर करना अनिवार्य है।",
 
-  "home.sec.honest.eyebrow": "पारदर्शिता",
-  "home.sec.honest.title": "हैकथॉन प्रोटोटाइप सूचना",
+  "home.sec.honest.eyebrow": "परामर्श",
+  "home.sec.honest.title": "प्रोटोटाइप उपयोग की सूचना",
   "home.sec.honest.lead":
-    "यह एक प्रोटोटाइप है। जो दो बातें अधिकांश पहले आवेदनों को विफल करती हैं, उन पर यह वास्तविक काम करता है, और बाकी का दावा नहीं करता। आपकी ओर से किसी सरकारी प्रणाली में कुछ भी दाख़िल नहीं किया जाता।",
-  "home.sec.honest.cta": "पूरी सूची देखें",
+    "यह प्रणाली केवल प्रारूपण और चयन सहायक के रूप में कार्य करती है। यह सीधे सरकारी डेटाबेस से नहीं जुड़ती है, और कोई भी अनुरोध स्वचालित रूप से प्रेषित नहीं होता है।",
+  "home.sec.honest.cta": "पूर्ण तकनीकी सीमाएं देखें",
 
   "home.stat.filed.value": "≈53 लाख",
   "home.stat.filed.label": "हर साल दाख़िल होने वाले आरटीआई आवेदन",
