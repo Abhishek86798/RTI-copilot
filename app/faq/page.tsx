@@ -5,8 +5,8 @@ import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions",
-  description: "Common questions regarding the RTI Online Portal.",
+  title: "Statutory Clarifications",
+  description: "Official clarifications regarding portal operations and statutory constraints.",
 };
 
 export default function FAQPage() {
@@ -36,17 +36,17 @@ export default function FAQPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
       <PageTitle
-        marker={<Marker label="FAQ" />}
-        lead="Common questions and technical guidance for using the portal."
+        marker={<Marker label="Clarifications" />}
+        lead="Official administrative guidance and technical clarifications for portal usage."
       >
-        Frequently Asked Questions
+        Statutory & Technical Clarifications
       </PageTitle>
 
       <section className="mt-16">
         <Rule />
         <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
           <HelpCircle aria-hidden="true" className="size-4 opacity-75" />
-          Common Queries
+          Documented Clarifications
         </h2>
         <div className="mt-8 divide-y divide-border border-y border-border">
           {faqs.map((faq, index) => (

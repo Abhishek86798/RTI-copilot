@@ -14,7 +14,7 @@ export default function PaymentPage() {
     <div className={cn(PAGE_LAYOUT)}>
       <PageTitle
         marker={<Marker label="Payment Reconciliation" />}
-        lead="What to do if your payment was deducted but no registration number was generated."
+        lead="Procedural directives for resolving transaction deductions unacknowledged by registration generation."
       >
         Payment Reconciliation
       </PageTitle>
@@ -27,26 +27,26 @@ export default function PaymentPage() {
         </h2>
         <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
           <p>
-            In certain cases, the fee amount may be deducted from your bank account, but the RTI application registration number is not generated immediately due to network delays or gateway timeouts.
+            In certain cases, the statutory fee amount may be deducted from the applicant's bank account, but the RTI application Registration Number is not generated immediately due to network latency or gateway timeouts.
           </p>
           <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-8 text-destructive">
             <h3 className="text-lg font-semibold tracking-tight">
-              Do not pay again immediately
+              Statutory Notice: Withhold Duplicate Remittance
             </h3>
             <p className="mt-3 leading-relaxed">
-              If your amount is deducted, please wait for at least 24 to 48 working hours. The system automatically attempts to reconcile pending transactions with the payment gateway partner.
+              If a deduction occurs without registration generation, applicants are strictly advised to wait for a mandatory period of 24 to 48 working hours. The portal automatically attempts to reconcile pending transactions with the authorized payment gateway partner.
             </p>
           </div>
           <ul className="list-inside list-disc space-y-4 marker:text-border">
             <li>
-              <span className="font-semibold text-foreground">If reconciled successfully:</span> Your application will be registered and a confirmation email will be sent to your registered email ID.
+              <span className="font-semibold text-foreground">Upon Successful Reconciliation:</span> The application will be formally registered, and an official confirmation email will be dispatched to the registered email ID.
             </li>
             <li>
-              <span className="font-semibold text-foreground">If reconciliation fails:</span> The deducted amount will be automatically refunded to your original payment method within 5-7 working days.
+              <span className="font-semibold text-foreground">Upon Failed Reconciliation:</span> The deducted amount will be automatically refunded to the original payment source within a standard processing window of 5-7 working days.
             </li>
           </ul>
           <p className="mt-8 text-sm">
-            For further assistance regarding a payment that has not been refunded after 7 working days, please contact the Help Desk with your transaction reference number.
+            For further administrative assistance regarding a transaction unrefunded beyond 7 working days, please contact the Grievance Redressal Desk and furnish your payment reference details.
           </p>
         </div>
       </section>

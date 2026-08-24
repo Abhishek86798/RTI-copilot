@@ -7,34 +7,34 @@ import { Button } from "@/components/ux4g/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "User Manual",
-  description: "Instructions for filing an RTI request through this portal.",
+  title: "Citizen Operations Manual",
+  description: "Administrative instructions for submitting statutory requests through this portal.",
 };
 
 export default function ManualPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
       <PageTitle
-        marker={<Marker label="User Manual" />}
-        lead="Step-by-step instructions for submitting your Right to Information application."
+        marker={<Marker label="Operations Manual" />}
+        lead="Administrative directives and procedures for the submission of Right to Information applications."
       >
-        How to Use the Portal
+        Portal Usage Guidelines
       </PageTitle>
 
       <section className="mt-16">
         <Rule />
         <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
           <BookOpen aria-hidden="true" className="size-4 opacity-75" />
-          General Instructions
+          General Directives & Prerequisites
         </h2>
         <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
           <p>
-            Please read these instructions carefully before proceeding to submit your RTI request. This portal allows you to file RTI applications and First Appeals online for all Ministries/Departments and other Public Authorities of the Central Government.
+            Please review these statutory instructions carefully prior to initiating a request. This portal facilitates the electronic submission of RTI applications and First Appeals exclusively for Ministries, Departments, and Public Authorities of the Central Government.
           </p>
           <ul className="list-inside list-disc space-y-4 marker:text-border">
-            <li>Ensure you have a valid email ID and mobile number before starting.</li>
-            <li>Applications for State Government authorities will be rejected without a refund.</li>
-            <li>Supporting documents must be in PDF format and under 1MB in size.</li>
+            <li>Applicants must possess a valid, active email ID and mobile number for authentication.</li>
+            <li>Submissions misdirected to State Government authorities will be summarily rejected without fee refund.</li>
+            <li>All supporting annexures must be submitted in PDF format and shall not exceed 1MB in file size.</li>
           </ul>
         </div>
       </section>
@@ -43,25 +43,25 @@ export default function ManualPage() {
         <Rule />
         <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
           <BookOpen aria-hidden="true" className="size-4 opacity-75" />
-          Filing Process
+          Application Submission Procedures
         </h2>
         <div className="mt-8 space-y-8">
           <div className="border-l-2 border-border pl-6">
-            <h3 className="text-lg font-semibold tracking-tight">Step 1: Draft your request</h3>
+            <h3 className="text-lg font-semibold tracking-tight">Phase 1: Query Drafting</h3>
             <p className="mt-2 text-base leading-relaxed opacity-75">
-              Enter your grievance in simple language. The Copilot assistant will help route it to the correct Public Authority and structure it legally.
+              Submit the grievance text. The system's Copilot module will automatically identify the corresponding Public Authority and format the text into a Section 2(f) compliant draft.
             </p>
           </div>
           <div className="border-l-2 border-border pl-6">
-            <h3 className="text-lg font-semibold tracking-tight">Step 2: Pay the fee</h3>
+            <h3 className="text-lg font-semibold tracking-tight">Phase 2: Fee Remittance</h3>
             <p className="mt-2 text-base leading-relaxed opacity-75">
-              A statutory fee of ₹10 is required. Payment can be made via Internet Banking, Credit/Debit cards, RuPay, or UPI. BPL cardholders are exempt.
+              A statutory processing fee of ₹10 is mandated. Remittance is accepted via Internet Banking, Credit/Debit cards, RuPay, or UPI. Applicants with valid BPL certification are legally exempt.
             </p>
           </div>
           <div className="border-l-2 border-border pl-6">
-            <h3 className="text-lg font-semibold tracking-tight">Step 3: Track your status</h3>
+            <h3 className="text-lg font-semibold tracking-tight">Phase 3: Statutory Tracking</h3>
             <p className="mt-2 text-base leading-relaxed opacity-75">
-              Note down your registration number. You can use it to track your application and file a First Appeal if the 30-day deadline lapses.
+              Retain the generated Registration Number. This identifier is required for tracking administrative progress and for initiating a First Appeal upon expiration of the statutory 30-day period.
             </p>
           </div>
         </div>
