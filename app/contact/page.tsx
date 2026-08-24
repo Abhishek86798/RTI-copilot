@@ -36,7 +36,7 @@ export default function ContactPage() {
             <p className="mt-3 font-mono text-2xl tracking-tight text-foreground">
               011-24010690 / 691
             </p>
-            <p className="mt-3 text-sm text-destructive">
+            <p className="mt-3 text-sm text-warning">
               Note: Due to high call volumes, extended waiting periods may be experienced.
             </p>
             

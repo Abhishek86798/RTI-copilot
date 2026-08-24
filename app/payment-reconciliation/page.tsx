@@ -27,7 +27,7 @@ export default function PaymentPage() {
         </h2>
         <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
           <p>
-            In certain cases, the statutory fee amount may be deducted from the applicant's bank account, but the RTI application Registration Number is not generated immediately due to network latency or gateway timeouts.
+            In certain cases, the statutory fee amount may be deducted from the applicant&rsquo;s bank account, but the RTI application Registration Number is not generated immediately due to network latency or gateway timeouts.
           </p>
           <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-8 text-destructive">
             <h3 className="text-lg font-semibold tracking-tight">

@@ -49,7 +49,7 @@ export default function ManualPage() {
           <div className="border-l-2 border-border pl-6">
             <h3 className="text-lg font-semibold tracking-tight">Phase 1: Query Drafting</h3>
             <p className="mt-2 text-base leading-relaxed opacity-75">
-              Submit the grievance text. The system's Copilot module will automatically identify the corresponding Public Authority and format the text into a Section 2(f) compliant draft.
+              Submit the grievance text. The system&rsquo;s Copilot module will automatically identify the corresponding Public Authority and format the text into a Section 2(f) compliant draft.
             </p>
           </div>
           <div className="border-l-2 border-border pl-6">

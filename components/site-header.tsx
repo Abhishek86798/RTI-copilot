@@ -27,6 +27,15 @@ export function SiteHeader() {
     { href: "/payment-reconciliation", label: t("nav.payment") },
   ];
 
+  /*
+   * Exact-match only. `pathname.startsWith(link.href)` would make
+   * `/applications` also light up `/apply`, since the string "/applications"
+   * starts with "/apply" — two nav items active at once on the dashboard.
+   */
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
   return (
     <header
       data-print="hide"
@@ -37,41 +46,41 @@ export function SiteHeader() {
           href="/"
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 36 36" 
+          {/*
+            A wordmark, not an emblem. A tricolor disc with a navy wheel reads
+            as the National Flag / State Emblem — using anything that reads as
+            a government seal on an independent tool would imply an
+            endorsement that does not exist.
+          */}
+          <span
             aria-hidden="true"
-            className="size-8 shrink-0 rounded-full overflow-hidden border border-border shadow-sm"
+            className="grid size-8 shrink-0 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground"
           >
-            <rect width="36" height="12" fill="#FF9933" />
-            <rect y="12" width="36" height="12" fill="#FFFFFF" />
-            <rect y="24" width="36" height="12" fill="#138808" />
-            <circle cx="18" cy="18" r="3.5" stroke="#000080" strokeWidth="1" fill="none" />
-            <circle cx="18" cy="18" r="0.75" fill="#000080" />
-          </svg>
+            RTI
+          </span>
           <span className="hidden text-base font-bold tracking-tight sm:inline sm:text-lg">
             {t("brand.name")}
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav aria-label="Main" className="ml-8 hidden lg:flex flex-1 items-center gap-8">
+        <nav aria-label="Main" className="ml-8 hidden h-full items-center gap-8 lg:flex">
           {navLinks.map((link) => {
-            const active = pathname.startsWith(link.href);
+            const active = isActive(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative text-sm font-medium transition-colors hover:text-foreground",
-                  active ? "text-foreground" : "text-muted-foreground"
+                  "relative flex h-full items-center border-b-2 text-sm font-medium transition-colors hover:text-foreground",
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                  active
+                    ? "border-foreground text-foreground"
+                    : "border-transparent text-muted-foreground"
                 )}
               >
                 {link.label}
-                {active && (
-                  <span className="absolute -bottom-[22px] left-0 right-0 h-0.5 bg-foreground" />
-                )}
                 {typeof link.count === "number" && link.count > 0 && (
                   <span className="ml-2 rounded-full bg-info px-1.5 py-0.5 text-[0.65rem] font-bold text-info-foreground">
                     {link.count}
@@ -88,10 +97,13 @@ export function SiteHeader() {
           <LanguageToggle className="shrink-0" />
           <AuthControls />
           
-          <button 
-            className="ml-2 flex min-h-12 min-w-12 items-center justify-center rounded-md hover:bg-muted lg:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          <button
+            type="button"
+            className="ml-2 flex min-h-12 min-w-12 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring lg:hidden"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label="Toggle Menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -100,18 +112,22 @@ export function SiteHeader() {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="border-t border-border bg-background lg:hidden">
-          <nav className="flex flex-col px-4 py-4 space-y-5">
+        <div id="mobile-nav" className="border-t border-border bg-background lg:hidden">
+          <nav className="flex flex-col px-2 py-2">
             {navLinks.map((link) => {
-              const active = pathname.startsWith(link.href);
+              const active = isActive(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  aria-current={active ? "page" : undefined}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-2 text-base font-medium transition-colors",
-                    active ? "text-foreground" : "text-muted-foreground"
+                    "flex min-h-12 items-center rounded-md px-3 text-base font-medium transition-colors",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                    active
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
                   {link.label}

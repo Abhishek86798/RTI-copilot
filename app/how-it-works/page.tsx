@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, CircleDashed, XCircle } from "lucide-react";
+import { CheckCircle2, CircleDashed, FlaskConical } from "lucide-react";
 
 import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
 import { Button } from "@/components/ux4g/button";
@@ -94,16 +94,16 @@ const ROWS: Row[] = [
       "Pre-loaded templates utilize static fallback responses in the event of upstream model unavailability, ensuring uninterrupted demonstration flow.",
   },
   {
-    state: "planned",
+    state: "live",
     what: "Cross-Session Data Persistence",
     detail:
-      "Data retention is strictly localized to the active browser session. Persistent cross-device state management is currently pending implementation.",
+      "Signed-in applications are stored server-side and survive a cleared browser or a change of device. Guest mode remains available and stays local-only, by design.",
   },
   {
-    state: "planned",
+    state: "live",
     what: "Automated Notification Systems",
     detail:
-      "Proactive SMS and email alerts regarding deadline expiration are contingent upon the implementation of account persistence and server-side state management.",
+      "A daily server-side sweep checks every filed application against its statutory deadline and emails the applicant when the window is closing or has lapsed.",
   },
   {
     state: "planned",
@@ -120,7 +120,7 @@ const STATE_META = {
     className: "text-success",
   },
   mocked: {
-    icon: XCircle,
+    icon: FlaskConical,
     label: "Simulated Constraints",
     className: "text-warning",
   },
