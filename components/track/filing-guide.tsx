@@ -140,7 +140,7 @@ export function FilingGuide({
                 value={application.applicant.state}
                 onChange={(event) => patchApplicant({ state: event.target.value })}
                 autoComplete="address-level1"
-                className="ux4g-form-select min-h-11 w-full rounded-lg border border-input bg-background px-3 text-base"
+                className="ux4g-form-select min-h-12 w-full rounded-lg border border-input bg-background px-3 text-base"
               >
                 <option value="">{t("file.statePlaceholder")}</option>
                 {INDIAN_STATES.map((name) => (

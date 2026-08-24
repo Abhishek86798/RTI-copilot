@@ -42,7 +42,7 @@ export function LanguageToggle({ className }: { className?: string }) {
             aria-pressed={active}
             aria-label={option.aria}
             className={cn(
-              "min-h-11 cursor-pointer rounded-md px-2.5 text-sm font-medium transition-colors sm:px-3",
+              "min-h-12 cursor-pointer rounded-md px-2.5 text-sm font-medium transition-colors sm:px-3",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               active
                 ? "bg-primary text-primary-foreground"

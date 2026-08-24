@@ -134,7 +134,7 @@ export function AuthorityStep({
             type="button"
             onClick={() => setShowConfidenceHelp((open) => !open)}
             aria-expanded={showConfidenceHelp}
-            className="inline-flex min-h-11 cursor-pointer items-center text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="inline-flex min-h-12 cursor-pointer items-center text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             {t("confidence.explain")}
           </button>

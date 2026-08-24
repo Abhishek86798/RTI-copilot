@@ -141,12 +141,12 @@ export default function ApplicationPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <StepIndicator current={filed ? 4 : 3} className="mb-8" />
+      <StepIndicator current={filed ? 4 : 3} className="mb-12" />
 
-      <div data-print="hide" className="mb-8">
+      <div data-print="hide" className="mb-12">
         <Link
           href="/applications"
-          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium underline-offset-4 opacity-75 hover:opacity-100 hover:underline"
+          className="inline-flex min-h-12 items-center gap-1.5 text-sm font-medium underline-offset-4 opacity-75 hover:opacity-100 hover:underline"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
           {t("nav.mine")}
@@ -171,12 +171,12 @@ export default function ApplicationPage() {
           {application.authority.authorityName}
         </PageTitle>
 
-        <details className="group mt-6">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
-            <FileText aria-hidden="true" className="size-4" />
+        <details className="group mt-10">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2 text-base font-medium underline-offset-4 hover:underline">
+            <FileText aria-hidden="true" className="size-5" />
             View the application text
           </summary>
-          <pre className="mt-3 border-l-2 border-border py-1 pl-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+          <pre className="mt-5 border-l-2 border-border py-2 pl-6 font-mono text-base leading-relaxed whitespace-pre-wrap">
             {application.portalText}
           </pre>
         </details>
@@ -190,7 +190,7 @@ export default function ApplicationPage() {
       {/* Not filed yet -> how to file                                      */}
       {/* ---------------------------------------------------------------- */}
       {!filed && (
-        <div className="mt-10 space-y-10">
+        <div className="mt-16 space-y-16">
           <FilingGuide
             application={application}
             onApplicantChange={handleApplicantChange}
@@ -242,7 +242,7 @@ export default function ApplicationPage() {
       {/* Filed -> countdown, then appeal                                   */}
       {/* ---------------------------------------------------------------- */}
       {filed && (
-        <div className="mt-10 space-y-10">
+        <div className="mt-16 space-y-16">
           <DeadlineTracker
             application={application}
             onSimulate={() =>

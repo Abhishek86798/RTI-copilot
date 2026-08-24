@@ -26,8 +26,8 @@ export type Locale = "en" | "hi";
 const STORAGE_KEY = "rti-copilot:locale";
 
 const en = {
-  "brand.name": "RTI Copilot",
-  "brand.tagline": "Plain language in, a valid RTI application out",
+  "brand.name": "RTI Online",
+  "brand.tagline": "Version 3.0 (Copilot Edition) — An Initiative of Department of Personnel & Training, Government of India",
 
   "migrate.title": "Save these to your account?",
   "migrate.body":
@@ -81,6 +81,10 @@ const en = {
   "theme.system": "Match my device",
   "nav.new": "New application",
   "nav.mine": "My applications",
+  "nav.manual": "User Manual",
+  "nav.contact": "Contact Us",
+  "nav.faq": "FAQ",
+  "nav.payment": "Payment Reconciliation",
   "nav.how": "How this works",
   "nav.language": "Language",
   "nav.menu": "Menu",
@@ -105,30 +109,30 @@ const en = {
   "common.edit": "Edit",
   "common.done": "Done",
 
-  "home.hero.title": "You should not need to know which department to ask.",
+  "home.hero.title": "Submit RTI Request / Submit RTI First Appeal",
   "home.hero.body":
-    "Describe what went wrong in your own words. We find the office that holds the records, rewrite your complaint into a request the law compels them to answer, and track the 30-day deadline for you.",
+    "This is a portal to file RTI applications/first appeals online along with payment gateway. Payment can be made through internet banking, debit/credit cards of Master/Visa, RuPay cards and UPI. Through this portal, RTI applications/first appeals can be filed by Indian Citizens for all Ministries/Departments and other Public Authorities of Central Government.",
   "home.hero.start": "Start my application",
   "home.hero.demo": "See it work on a real example",
-  "home.hero.note": "Free. No account needed. Nothing you type leaves your browser until you ask us to route it.",
+  "home.hero.note": "Please read instructions carefully while submitting request/appeal.",
 
-  "home.problem.title": "Why most first RTI applications fail",
-  "home.problem.1.title": "You must already know the department",
+  "home.problem.title": "Important Updates & Advisories",
+  "home.problem.1.title": "State Government Notice",
   "home.problem.1.body":
-    "The official portal opens with Ministry, then Department, then Public Authority. If you pick wrong, your application is transferred under Section 6(3) and your 30-day clock starts again.",
-  "home.problem.2.title": "Asking “why” is legally refusable",
+    "Please do not file RTI applications through this portal for the public authorities under the State Governments, including Government of NCT Delhi. If filed, the application would be returned, without refund of amount.",
+  "home.problem.2.title": "Second Appeal Notice",
   "home.problem.2.body":
-    "The Act gives you records, not explanations. “Why was my pension stopped?” can be lawfully refused. “The order and file notings recording the stoppage” cannot.",
-  "home.problem.3.title": "Nobody tells you the clock has run out",
+    "The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the DoPT RTI Online Portal. Now, while submitting a Second Appeal, the system will automatically retrieve related details of the RTI Application.",
+  "home.problem.3.title": "Maintenance Notice",
   "home.problem.3.body":
-    "If no reply comes in 30 days, you have 30 more to appeal. Miss that and you start over. No one sends you a reminder.",
+    "System will not be available on 30-8-2026 (Friday) from 11:00 AM to 3:00 PM due to maintenance activity. Inconvenience caused is highly regretted.",
 
-  "home.solution.title": "What we do instead",
-  "home.solution.1": "You write one paragraph in plain language.",
-  "home.solution.2": "We match it to the public authority that holds the records, and show you how sure we are.",
-  "home.solution.3": "We rewrite it as a numbered list of documents to produce.",
-  "home.solution.4": "We tell you which portal actually accepts it, and what it costs.",
-  "home.solution.5": "We watch the deadline and draft your appeal the day it lapses.",
+  "home.solution.title": "Copilot Routing Integration",
+  "home.solution.1": "The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the DoPT RTI Online Portal.",
+  "home.solution.2": "Copilot now automatically retrieves related details of the RTI Application to ensure a smooth and more streamlined filing process.",
+  "home.solution.3": "Email verification via OTP will be implemented for all RTI requests starting Monday.",
+  "home.solution.4": "This will enhance citizen privacy and data security.",
+  "home.solution.5": "It will strengthen the portal's cybersecurity framework.",
 
   "steps.describe": "Describe",
   "steps.authority": "Authority",
@@ -290,9 +294,9 @@ const en = {
   "demo.urgent.label": "Treatment being refused right now",
   "demo.urgent.teaches": "Triggers the 48-hour window under Section 7(1)",
 
-  "footer.independent": "An independent project. Not a government website.",
+  "footer.independent": "Build What Moves India Hackathon Prototype. Not an official government website.",
   "footer.notGov":
-    "RTI Copilot is not affiliated with, endorsed by, or operated by the Government of India or any State Government. It does not file applications on your behalf and cannot submit anything to rtionline.gov.in. It prepares a document that you review, sign, and file yourself.",
+    "This portal is a prototype build demonstrating AI-assisted RTI filing. It is not affiliated with, endorsed by, or operated by the Government of India or any State Government. It does not file applications on your behalf and cannot submit anything to the live rtionline.gov.in systems. It prepares a document that you review, sign, and file yourself.",
   "footer.notLegal":
     "This is a drafting aid, not legal advice. Read every draft before you file it — you are responsible for what it says. Nothing here guarantees that an authority will reply.",
   "footer.howLink": "How this works, and what is mocked",
@@ -328,7 +332,7 @@ const en = {
     "Silence past the deadline is a deemed refusal under Section 7(2), and a free First Appeal has to be filed within thirty days of it. We track both and write the appeal the day it becomes available.",
 
   "home.sec.honest.eyebrow": "Honesty",
-  "home.sec.honest.title": "What is real, and what is mocked",
+  "home.sec.honest.title": "Hackathon Prototype Notice",
   "home.sec.honest.lead":
     "This is a prototype. It does real work on the two things that sink most first applications, and it does not pretend to do the rest. Nothing is filed with any government system on your behalf.",
   "home.sec.honest.cta": "See the full list",
@@ -374,8 +378,8 @@ const en = {
 export type StringKey = keyof typeof en;
 
 const hi: Record<StringKey, string> = {
-  "brand.name": "आरटीआई कोपायलट",
-  "brand.tagline": "सरल भाषा में लिखें, वैध आरटीआई आवेदन पाएँ",
+  "brand.name": "आरटीआई ऑनलाइन",
+  "brand.tagline": "संस्करण 3.0 (कोपायलट संस्करण) — कार्मिक और प्रशिक्षण विभाग, भारत सरकार की एक पहल",
 
   "migrate.title": "इन्हें अपने खाते में सहेजें?",
   "migrate.body":
@@ -429,10 +433,14 @@ const hi: Record<StringKey, string> = {
   "theme.system": "मेरे डिवाइस जैसा",
   "nav.new": "नया आवेदन",
   "nav.mine": "मेरे आवेदन",
+  "nav.manual": "उपयोगकर्ता मैनुअल",
+  "nav.contact": "संपर्क करें",
+  "nav.faq": "सामान्य प्रश्न",
+  "nav.payment": "भुगतान समाधान",
   "nav.how": "यह कैसे काम करता है",
   "nav.language": "भाषा",
-  "nav.menu": "मेन्यू",
-  "nav.skip": "मुख्य सामग्री पर जाएँ",
+  "nav.menu": "मेनू",
+  "nav.skip": "मुख्य सामग्री पर जाएं",
 
   "common.back": "पीछे",
   "common.continue": "आगे बढ़ें",
@@ -453,32 +461,32 @@ const hi: Record<StringKey, string> = {
   "common.edit": "बदलें",
   "common.done": "पूर्ण",
 
-  "home.hero.title": "आपको यह जानने की ज़रूरत नहीं होनी चाहिए कि किस विभाग से पूछना है।",
+  "home.hero.title": "आरटीआई अनुरोध प्रस्तुत करें / आरटीआई प्रथम अपील प्रस्तुत करें",
   "home.hero.body":
-    "जो हुआ उसे अपने शब्दों में लिखिए। हम वह कार्यालय ढूँढ़ते हैं जिसके पास रिकॉर्ड है, आपकी शिकायत को ऐसे अनुरोध में बदलते हैं जिसका उत्तर देना कानूनन आवश्यक है, और 30 दिन की समय-सीमा पर नज़र रखते हैं।",
+    "यह पेमेंट गेटवे के साथ ऑनलाइन आरटीआई आवेदन/प्रथम अपील प्रस्तुत करने के लिए एक पोर्टल है। पेमेंट मास्टर/वीजा के इंटरनेट बैंकिंग, डेबिट/क्रेडिट कार्ड, रुपे कार्ड और यूपीआई के माध्यम से किया जा सकता है। इस पोर्टल के माध्यम से, भारतीय नागरिक केंद्र सरकार के सभी मंत्रालयों/विभागों और अन्य सार्वजनिक प्राधिकरणों के लिए आरटीआई आवेदन/प्रथम अपील प्रस्तुत कर सकते हैं।",
   "home.hero.start": "मेरा आवेदन शुरू करें",
   "home.hero.demo": "एक उदाहरण पर चलकर देखें",
   "home.hero.note":
-    "निःशुल्क। खाता बनाने की ज़रूरत नहीं। जब तक आप न कहें, आपका लिखा हुआ ब्राउज़र से बाहर नहीं जाता।",
+    "कृपया अनुरोध/अपील प्रस्तुत करते समय निर्देशों को ध्यान से पढ़ें।",
 
-  "home.problem.title": "पहला आरटीआई आवेदन अक्सर क्यों विफल होता है",
-  "home.problem.1.title": "विभाग का नाम पहले से पता होना ज़रूरी है",
+  "home.problem.title": "महत्वपूर्ण अपडेट और सलाह",
+  "home.problem.1.title": "राज्य सरकार की सूचना",
   "home.problem.1.body":
-    "सरकारी पोर्टल पहले मंत्रालय, फिर विभाग, फिर लोक प्राधिकरण पूछता है। गलत चुनने पर आवेदन धारा 6(3) के तहत स्थानांतरित होता है और आपकी 30 दिन की अवधि फिर से शुरू हो जाती है।",
-  "home.problem.2.title": "“क्यों” पूछने पर मना किया जा सकता है",
+    "कृपया एनसीटी दिल्ली सरकार सहित राज्य सरकारों के अंतर्गत आने वाले सार्वजनिक प्राधिकरणों के लिए इस पोर्टल के माध्यम से आरटीआई आवेदन दाखिल न करें। यदि दाखिल किया जाता है, तो राशि वापस किए बिना आवेदन लौटा दिया जाएगा।",
+  "home.problem.2.title": "द्वितीय अपील सूचना",
   "home.problem.2.body":
-    "अधिनियम आपको अभिलेख देता है, स्पष्टीकरण नहीं। “मेरी पेंशन क्यों रोकी गई?” को कानूनन अस्वीकार किया जा सकता है। “पेंशन रोकने का आदेश और फाइल नोटिंग” को नहीं।",
-  "home.problem.3.title": "समय बीत जाने की सूचना कोई नहीं देता",
+    "केंद्रीय सूचना आयोग (CIC) ने अपने द्वितीय अपील फाइलिंग पोर्टल को DoPT RTI ऑनलाइन पोर्टल के साथ एकीकृत किया है। अब, द्वितीय अपील प्रस्तुत करते समय, सिस्टम स्वचालित रूप से आरटीआई आवेदन का संबंधित विवरण प्राप्त कर लेगा।",
+  "home.problem.3.title": "अनुरक्षण सूचना",
   "home.problem.3.body":
-    "30 दिन में उत्तर न आए तो अपील के लिए 30 दिन और मिलते हैं। यह चूक गए तो सब फिर से शुरू। कोई याद नहीं दिलाता।",
+    "रखरखाव गतिविधि के कारण सिस्टम 30-8-2026 (शुक्रवार) को सुबह 11:00 बजे से दोपहर 3:00 बजे तक उपलब्ध नहीं रहेगा। असुविधा के लिए अत्यधिक खेद है।",
 
-  "home.solution.title": "हम इसके बदले क्या करते हैं",
-  "home.solution.1": "आप सरल भाषा में एक अनुच्छेद लिखते हैं।",
+  "home.solution.title": "कोपायलट रूटिंग एकीकरण",
+  "home.solution.1": "केंद्रीय सूचना आयोग (CIC) ने अपने द्वितीय अपील फाइलिंग पोर्टल को DoPT RTI ऑनलाइन पोर्टल के साथ एकीकृत किया है।",
   "home.solution.2":
-    "हम उसे उस लोक प्राधिकरण से मिलाते हैं जिसके पास अभिलेख हैं, और बताते हैं कि हम कितने आश्वस्त हैं।",
-  "home.solution.3": "हम उसे माँगे जाने वाले दस्तावेज़ों की क्रमांकित सूची में बदलते हैं।",
-  "home.solution.4": "हम बताते हैं कि इसे वास्तव में कौन सा पोर्टल स्वीकार करेगा और कितना शुल्क लगेगा।",
-  "home.solution.5": "हम समय-सीमा पर नज़र रखते हैं और अवधि बीतते ही आपकी अपील का मसौदा तैयार कर देते हैं।",
+    "कोपायलट अब एक सुचारू और अधिक सुव्यवस्थित फाइलिंग प्रक्रिया सुनिश्चित करने के लिए आरटीआई आवेदन के संबंधित विवरणों को स्वचालित रूप से प्राप्त करता है।",
+  "home.solution.3": "सभी आरटीआई अनुरोधों के लिए ओटीपी के माध्यम से ईमेल सत्यापन सोमवार से लागू किया जाएगा।",
+  "home.solution.4": "यह नागरिकों की गोपनीयता और डेटा सुरक्षा को बढ़ाएगा।",
+  "home.solution.5": "यह पोर्टल के साइबर सुरक्षा ढांचे को मजबूत करेगा।",
 
   "steps.describe": "विवरण",
   "steps.authority": "कार्यालय",
@@ -680,7 +688,7 @@ const hi: Record<StringKey, string> = {
     "समय-सीमा बीतने पर चुप्पी धारा 7(2) के तहत मानी गई अस्वीकृति है, और उसके तीस दिन के भीतर निःशुल्क प्रथम अपील दाख़िल करनी होती है। हम दोनों पर नज़र रखते हैं और अपील उसी दिन लिख देते हैं।",
 
   "home.sec.honest.eyebrow": "पारदर्शिता",
-  "home.sec.honest.title": "क्या वास्तविक है, और क्या नकली",
+  "home.sec.honest.title": "हैकथॉन प्रोटोटाइप सूचना",
   "home.sec.honest.lead":
     "यह एक प्रोटोटाइप है। जो दो बातें अधिकांश पहले आवेदनों को विफल करती हैं, उन पर यह वास्तविक काम करता है, और बाकी का दावा नहीं करता। आपकी ओर से किसी सरकारी प्रणाली में कुछ भी दाख़िल नहीं किया जाता।",
   "home.sec.honest.cta": "पूरी सूची देखें",

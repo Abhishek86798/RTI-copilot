@@ -166,7 +166,7 @@ function ApplyWizard() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <StepIndicator current={STEP_INDEX[step]} className="mb-8" />
+      <StepIndicator current={STEP_INDEX[step]} className="mb-12" />
 
       {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
       <div ref={headingRef} tabIndex={-1} className="outline-none">

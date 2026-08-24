@@ -42,7 +42,7 @@ function CheckboxField({
     <div className={cn("rounded-lg", className)}>
       <label
         htmlFor={id}
-        className="flex min-h-11 cursor-pointer items-start gap-3 py-1.5 select-none"
+        className="flex min-h-12 cursor-pointer items-start gap-3 py-1.5 select-none"
       >
         <Checkbox id={id} aria-describedby={hintId} className="mt-0.5" {...props} />
         <span className="text-sm leading-snug font-medium">{label}</span>

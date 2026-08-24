@@ -116,14 +116,13 @@ export default function HomePage() {
 
           <div className="grid gap-10 py-12 lg:grid-cols-[1.55fr_1fr] lg:gap-16">
             <Reveal>
-              <p className="max-w-[46ch] text-lg leading-relaxed opacity-80 sm:text-xl">
+              <p className="max-w-[70ch] text-lg leading-relaxed opacity-80 sm:text-xl">
                 {t("home.hero.body")}
               </p>
 
               <div className="mt-9 flex flex-wrap gap-3">
                 <Button size="xl" variant="cta" onClick={() => router.push("/apply")}>
                   {t("home.hero.start")}
-                  <ArrowRight aria-hidden="true" />
                 </Button>
                 <Button
                   size="xl"
@@ -131,7 +130,6 @@ export default function HomePage() {
                   onClick={() => router.push(`/apply?case=${DEMO_CASES[0].id}`)}
                 >
                   {t("home.hero.demo")}
-                  <BookOpen aria-hidden="true" />
                 </Button>
               </div>
 
@@ -268,7 +266,7 @@ export default function HomePage() {
 
           <Reveal delay={60}>
             <Drawn className="mt-14">
-              <QuestionToRecords className="w-full max-w-2xl" />
+              <QuestionToRecords className="mx-auto w-full max-w-xl" />
             </Drawn>
           </Reveal>
 
@@ -339,7 +337,7 @@ export default function HomePage() {
           <Reveal delay={60}>
             <Drawn className="mt-14">
               <StatutoryClock
-                className="w-full max-w-4xl"
+                className="mx-auto w-full max-w-5xl"
                 labels={{
                   filed: t("clock.filed"),
                   deadline: t("clock.deadline"),
@@ -379,7 +377,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/how-it-works"
-                className="mt-8 inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-medium"
+                className="mt-8 inline-flex min-h-12 items-center gap-2 border-b border-current pb-1 text-base font-medium"
               >
                 {t("home.sec.honest.cta")}
                 <ArrowRight aria-hidden="true" className="size-4" />

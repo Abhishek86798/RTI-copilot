@@ -59,8 +59,8 @@ export default function ApplicationsPage() {
         {t("list.title")}
       </PageTitle>
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-        <p className="max-w-[46ch] text-sm opacity-75">{t("list.stored")}</p>
+      <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
+        <p className="max-w-[46ch] text-base opacity-75">{t("list.stored")}</p>
         <Button
           size="xl"
           variant="cta"
@@ -75,8 +75,8 @@ export default function ApplicationsPage() {
       </div>
 
       {sorted.length === 0 ? (
-        <div className="mt-10 border-t border-border py-16 text-center">
-          <p className="opacity-75">{t("list.empty")}</p>
+        <div className="mt-14 border-t border-border py-24 text-center">
+          <p className="text-lg opacity-75">{t("list.empty")}</p>
           <Button
             size="xl"
             variant="cta"
@@ -90,7 +90,7 @@ export default function ApplicationsPage() {
         // them: an `hr` is not permitted content inside a `ul`, and inserting
         // one silently breaks the list semantics a screen reader relies on to
         // announce "list, N items".
-        <ul className="mt-10 border-b border-border">
+        <ul className="mt-14 border-b border-border">
           {sorted.map((application) => (
             <li key={application.id} className="border-t border-border">
               <ApplicationRow application={application} />
@@ -120,9 +120,9 @@ function ApplicationRow({ application }: { application: Application }) {
       href={`/applications/${application.id}`}
       className="group block py-7 transition-colors hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
-      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
+      <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-8">
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-4">
             <StatusBadge status={status} />
             {application.isDemo && (
               <span className="rounded-md bg-card px-2 py-0.5 font-mono text-[0.68rem] tracking-[0.14em] text-warning uppercase ring-1 ring-warning/35">
@@ -131,10 +131,10 @@ function ApplicationRow({ application }: { application: Application }) {
             )}
           </div>
 
-          <p className="mt-3 max-w-[34ch] text-lg leading-snug font-semibold tracking-[-0.01em]">
+          <p className="mt-5 max-w-[34ch] text-xl leading-snug font-semibold tracking-[-0.01em]">
             {application.authority.authorityName}
           </p>
-          <p className="mt-2 line-clamp-2 max-w-[58ch] text-sm leading-relaxed opacity-75">
+          <p className="mt-4 line-clamp-2 max-w-[58ch] text-base leading-loose opacity-75">
             {application.grievance}
           </p>
         </div>

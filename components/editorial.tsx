@@ -60,7 +60,7 @@ export function Frame({
  * measure at every breakpoint.
  */
 export const PAGE_LAYOUT =
-  "mx-auto w-full max-w-3xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16";
+  "mx-auto w-full max-w-4xl px-6 py-12 sm:px-12 sm:py-20 lg:px-16 lg:py-28";
 
 /**
  * Vertical rhythm between blocks. Three steps, deliberately few — a scale with
@@ -78,7 +78,7 @@ export function Stack({
   return (
     <div
       className={cn(
-        { sm: "space-y-4", md: "space-y-8", lg: "space-y-12 lg:space-y-16" }[gap],
+        { sm: "space-y-6", md: "space-y-12", lg: "space-y-16 lg:space-y-24" }[gap],
         className
       )}
     >

@@ -91,7 +91,7 @@ export function ThemeToggle({ className }: { className?: string }) {
             aria-label={option.label}
             title={option.label}
             className={cn(
-              "grid min-h-11 min-w-11 cursor-pointer place-items-center rounded-md transition-colors",
+              "grid min-h-12 min-w-12 cursor-pointer place-items-center rounded-md transition-colors",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               active
                 ? "bg-primary text-primary-foreground"

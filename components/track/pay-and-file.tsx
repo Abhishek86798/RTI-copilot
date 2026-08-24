@@ -109,7 +109,7 @@ export function PayAndFile({
               ).map(([value, label]) => (
                 <label
                   key={value}
-                  className={`inline-flex min-h-11 cursor-pointer items-center gap-2 border px-4 text-sm font-medium ${
+                  className={`inline-flex min-h-12 cursor-pointer items-center gap-2 border px-4 text-sm font-medium ${
                     method === value
                       ? "border-foreground bg-card text-foreground"
                       : "border-border opacity-75"
