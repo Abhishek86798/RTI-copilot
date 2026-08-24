@@ -14,11 +14,10 @@ import { FilingGuide } from "@/components/track/filing-guide";
 import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
 import { Receipt } from "@/components/track/receipt";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
 import { computeClock, formatDate, parseDateInput } from "@/lib/client/deadlines";
 import { buildFirstAppeal } from "@/lib/client/filing";
 import { deriveStatus, updateApplication } from "@/lib/client/store";
-import { PAGE_LAYOUT } from "@/components/editorial";
+import { Marker, PAGE_LAYOUT, PageTitle } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useApplication, useHydrated } from "@/lib/client/use-applications";
@@ -113,7 +112,7 @@ export default function ApplicationPage() {
   if (!hydrated) {
     return (
       <div className={cn(PAGE_LAYOUT)}>
-        <p className="text-muted-foreground">{t("common.loading")}</p>
+        <p className="opacity-75">{t("common.loading")}</p>
       </div>
     );
   }
@@ -121,8 +120,10 @@ export default function ApplicationPage() {
   if (!application) {
     return (
       <div className={cn(PAGE_LAYOUT, "text-center")}>
-        <h1 className="text-2xl font-bold">This application is not on this device</h1>
-        <p className="mt-2 text-muted-foreground">
+        <h1 className="text-2xl font-bold tracking-[-0.02em]">
+          This application is not on this device
+        </h1>
+        <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           Guest applications are stored in the browser that created them. If you
           cleared your browser data, or opened this link on another device, it
           will not be here.
@@ -142,10 +143,10 @@ export default function ApplicationPage() {
     <div className={cn(PAGE_LAYOUT)}>
       <StepIndicator current={filed ? 4 : 3} className="mb-8" />
 
-      <div data-print="hide" className="mb-6">
+      <div data-print="hide" className="mb-8">
         <Link
           href="/applications"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium underline-offset-4 opacity-75 hover:opacity-100 hover:underline"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
           {t("nav.mine")}
@@ -155,36 +156,41 @@ export default function ApplicationPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Summary — always visible, so context never scrolls away          */}
       {/* ---------------------------------------------------------------- */}
-      <Card data-print="hide" className="mb-6">
-        <CardHeader>
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div className="min-w-0">
-              <CardTitle as="h1" className="text-lg">
-                {application.authority.authorityName}
-              </CardTitle>
-              <CardDescription>{application.authority.pioDesignation}</CardDescription>
+      <div data-print="hide">
+        <PageTitle
+          marker={
+            <div className="flex flex-wrap items-center gap-3">
+              {/* The step rule above already carries the position, so the
+                  marker names the stage without repeating "05 / 05". */}
+              <Marker label={t(filed ? "steps.track" : "steps.file")} />
+              <StatusBadge status={status} />
             </div>
-            <StatusBadge status={status} />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <details className="group">
-            <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium text-info underline-offset-4 hover:underline">
-              <FileText aria-hidden="true" className="size-4" />
-              View the application text
-            </summary>
-            <pre className="mt-3 rounded-lg bg-muted p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-              {application.portalText}
-            </pre>
-          </details>
-        </CardContent>
-      </Card>
+          }
+          lead={application.authority.pioDesignation}
+        >
+          {application.authority.authorityName}
+        </PageTitle>
+
+        <details className="group mt-6">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
+            <FileText aria-hidden="true" className="size-4" />
+            View the application text
+          </summary>
+          <pre className="mt-3 border-l-2 border-border py-1 pl-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+            {application.portalText}
+          </pre>
+        </details>
+      </div>
+
+      {/* Each section below draws its own leading hairline, so this level
+          must not add one of its own — two rules with nothing between them
+          read as a mistake rather than a division. */}
 
       {/* ---------------------------------------------------------------- */}
       {/* Not filed yet -> how to file                                      */}
       {/* ---------------------------------------------------------------- */}
       {!filed && (
-        <div className="space-y-6">
+        <div className="mt-10 space-y-10">
           <FilingGuide
             application={application}
             onApplicantChange={handleApplicantChange}
@@ -236,7 +242,7 @@ export default function ApplicationPage() {
       {/* Filed -> countdown, then appeal                                   */}
       {/* ---------------------------------------------------------------- */}
       {filed && (
-        <div className="space-y-6">
+        <div className="mt-10 space-y-10">
           <DeadlineTracker
             application={application}
             onSimulate={() =>

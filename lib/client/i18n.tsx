@@ -99,6 +99,8 @@ const en = {
   "common.loading": "Working…",
   "common.step": "Step",
   "common.of": "of",
+  "common.stepDone": "done",
+  "common.stepCurrent": "current step",
   "common.close": "Close",
   "common.edit": "Edit",
   "common.done": "Done",
@@ -150,6 +152,7 @@ const en = {
   "confirm.title": "Is this the right office?",
   "confirm.help":
     "Filing with the wrong authority costs you a Section 6(3) transfer and restarts your 30-day clock. This is the one screen worth reading twice.",
+  "confirm.office": "This office",
   "confirm.pio": "Application goes to",
   "confirm.address": "Filing address",
   "confirm.appellate": "If they do not reply, your appeal goes to",
@@ -444,6 +447,8 @@ const hi: Record<StringKey, string> = {
   "common.loading": "काम चल रहा है…",
   "common.step": "चरण",
   "common.of": "में से",
+  "common.stepDone": "पूर्ण",
+  "common.stepCurrent": "वर्तमान चरण",
   "common.close": "बंद करें",
   "common.edit": "बदलें",
   "common.done": "पूर्ण",
@@ -498,6 +503,7 @@ const hi: Record<StringKey, string> = {
   "confirm.title": "क्या यही सही कार्यालय है?",
   "confirm.help":
     "गलत प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है और 30 दिन की अवधि फिर से शुरू होती है। यह स्क्रीन दो बार पढ़ने लायक है।",
+  "confirm.office": "यह कार्यालय",
   "confirm.pio": "आवेदन यहाँ जाएगा",
   "confirm.address": "दाख़िल करने का पता",
   "confirm.appellate": "उत्तर न मिलने पर अपील यहाँ जाएगी",

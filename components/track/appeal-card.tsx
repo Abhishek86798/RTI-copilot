@@ -5,7 +5,7 @@ import { Gavel, Printer } from "lucide-react";
 
 import { CopyButton } from "@/components/copy-button";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Marker, Rule } from "@/components/editorial";
 import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -42,15 +42,24 @@ export function AppealCard({
   const alreadyFiled = Boolean(appeal?.filedAt);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle as="h2" className="flex items-center gap-2 text-xl">
-          <Gavel aria-hidden="true" className="size-5 text-warning" />
+    <section aria-labelledby="appeal-heading">
+      <Rule />
+
+      <div className="pt-8">
+        <Marker label={t("track.appealTitle")} dim={false} className="text-warning" />
+        <h2
+          id="appeal-heading"
+          className="mt-5 flex items-start gap-3 text-[1.75rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[2.25rem]"
+        >
+          <Gavel aria-hidden="true" className="mt-1.5 size-7 shrink-0 text-warning" />
           {t("track.appealTitle")}
-        </CardTitle>
-        <CardDescription>{t("track.appealHelp")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
+        </h2>
+        <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+          {t("track.appealHelp")}
+        </p>
+      </div>
+
+      <div className="mt-8 space-y-4">
         <div className="space-y-1.5">
           <Label htmlFor="appeal-text">{t("track.appealTitle")}</Label>
           <Textarea
@@ -75,13 +84,13 @@ export function AppealCard({
         </div>
 
         {alreadyFiled ? (
-          <p className="rounded-lg bg-success/8 px-3 py-2 text-sm font-medium text-success">
+          <p className="border-l-2 border-success py-1 pl-4 text-sm font-medium text-success">
             Appeal recorded as filed on {appeal?.filedAt}
             {appeal?.registrationNumber ? ` (${appeal.registrationNumber})` : ""}.
           </p>
         ) : (
           <form
-            className="space-y-4 rounded-lg border border-border p-4"
+            className="space-y-4 border-t border-border pt-6"
             onSubmit={(event) => {
               event.preventDefault();
               onMarkAppealFiled({ filedAt, registrationNumber });
@@ -102,7 +111,7 @@ export function AppealCard({
               <div className="space-y-1.5">
                 <Label htmlFor="appeal-reg">
                   {t("file.regNumber")}{" "}
-                  <span className="font-normal text-muted-foreground">
+                  <span className="font-normal opacity-75">
                     ({t("common.optional")})
                   </span>
                 </Label>
@@ -119,7 +128,7 @@ export function AppealCard({
             </Button>
           </form>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }

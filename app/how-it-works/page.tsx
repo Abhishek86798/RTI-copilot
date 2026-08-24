@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, CircleDashed, XCircle } from "lucide-react";
 
-import { PAGE_LAYOUT } from "@/components/editorial";
+import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
 import { Button } from "@/components/ux4g/button";
 import { cn } from "@/lib/utils";
 
@@ -150,29 +150,28 @@ export default function HowItWorksPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+      <PageTitle
+        marker={<Marker label="How this works" />}
+        lead="RTI Copilot is a prototype. It does real work on the two things that sink most first RTI applications — the wrong office and the wrong phrasing — and it does not pretend to do the rest."
+      >
         How this works, and what is mocked
-      </h1>
-      <p className="prose-measure mt-4 text-lg text-muted-foreground">
-        RTI Copilot is a prototype. It does real work on the two things that
-        sink most first RTI applications — the wrong office and the wrong
-        phrasing — and it does not pretend to do the rest.
-      </p>
+      </PageTitle>
 
       {groups.map((group) => {
         const meta = STATE_META[group.state];
         const Icon = meta.icon;
         return (
-          <section key={group.state} className="mt-10">
-            <h2 className="flex items-center gap-2 text-xl font-bold tracking-tight">
-              <Icon aria-hidden="true" className={`size-5 ${meta.className}`} />
+          <section key={group.state} className="mt-12">
+            <Rule />
+            <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
+              <Icon aria-hidden="true" className={`size-4 ${meta.className}`} />
               {group.heading}
             </h2>
-            <ul className="mt-4 space-y-4">
+            <ul className="mt-5 divide-y divide-border border-t border-border">
               {ROWS.filter((row) => row.state === group.state).map((row) => (
-                <li key={row.what} className="border-l-2 border-border pl-4">
+                <li key={row.what} className="py-5">
                   <p className="font-semibold">{row.what}</p>
-                  <p className="prose-measure mt-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="prose-measure mt-1.5 text-sm leading-relaxed opacity-75">
                     {row.detail}
                   </p>
                 </li>
@@ -182,11 +181,12 @@ export default function HowItWorksPage() {
         );
       })}
 
-      <section className="mt-12 rounded-xl border border-border bg-card p-6">
-        <h2 className="text-xl font-bold tracking-tight">
+      <section className="mt-12">
+        <Rule />
+        <h2 className="pt-8 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance">
           How this would work at real scale
         </h2>
-        <div className="prose-measure mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+        <div className="prose-measure mt-5 space-y-4 text-sm leading-relaxed opacity-75">
           <p>
             <span className="font-semibold text-foreground">
               The directory is the accuracy ceiling, not the model.

@@ -6,11 +6,10 @@ import { AlertTriangle, ArrowRight, Clock, Plus } from "lucide-react";
 import { MigratePrompt } from "@/components/migrate-prompt";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent } from "@/components/ux4g/card";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
-import { PAGE_LAYOUT } from "@/components/editorial";
+import { Marker, PAGE_LAYOUT, PageTitle } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useRemainingLabel } from "@/lib/client/use-remaining-label";
@@ -23,6 +22,10 @@ import { useApplications, useHydrated } from "@/lib/client/use-applications";
  * whatever is closest to its deadline. An RTI filer typically has one or two
  * live applications, months apart — the useful question this list answers is
  * "is anything about to run out?", not "what did I file recently?".
+ *
+ * Set as an index rather than a stack of cards. Rows are separated by a
+ * hairline and the remaining time is the largest thing in each one, because
+ * scanning for what is about to lapse is the only reason to open this page.
  */
 export default function ApplicationsPage() {
   const { t } = useI18n();
@@ -34,7 +37,7 @@ export default function ApplicationsPage() {
   if (!hydrated) {
     return (
       <div className={cn(PAGE_LAYOUT)}>
-        <p className="text-muted-foreground">{t("common.loading")}</p>
+        <p className="opacity-75">{t("common.loading")}</p>
       </div>
     );
   }
@@ -45,42 +48,56 @@ export default function ApplicationsPage() {
         <MigratePrompt count={listGuestApplications().length} />
       )}
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          {t("list.title")}
-        </h1>
-        <Button size="xl" variant="cta" nativeButton={false} render={
-          <Link href="/apply">
-            <Plus aria-hidden="true" />
-            {t("nav.new")}
-          </Link>
-        } />
+      <PageTitle
+        marker={
+          <Marker
+            label={t("list.title")}
+            total={sorted.length > 0 ? sorted.length : undefined}
+          />
+        }
+      >
+        {t("list.title")}
+      </PageTitle>
+
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+        <p className="max-w-[46ch] text-sm opacity-75">{t("list.stored")}</p>
+        <Button
+          size="xl"
+          variant="cta"
+          nativeButton={false}
+          render={
+            <Link href="/apply">
+              <Plus aria-hidden="true" />
+              {t("nav.new")}
+            </Link>
+          }
+        />
       </div>
 
       {sorted.length === 0 ? (
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">{t("list.empty")}</p>
-            <Button
-              size="xl"
-              variant="cta"
-              className="mt-5"
-              nativeButton={false}
-              render={<Link href="/apply">{t("list.emptyCta")}</Link>}
-            />
-          </CardContent>
-        </Card>
+        <div className="mt-10 border-t border-border py-16 text-center">
+          <p className="opacity-75">{t("list.empty")}</p>
+          <Button
+            size="xl"
+            variant="cta"
+            className="mt-6"
+            nativeButton={false}
+            render={<Link href="/apply">{t("list.emptyCta")}</Link>}
+          />
+        </div>
       ) : (
-        <ul className="space-y-3">
+        // Dividers are borders on the list items, not `hr` elements between
+        // them: an `hr` is not permitted content inside a `ul`, and inserting
+        // one silently breaks the list semantics a screen reader relies on to
+        // announce "list, N items".
+        <ul className="mt-10 border-b border-border">
           {sorted.map((application) => (
-            <li key={application.id}>
+            <li key={application.id} className="border-t border-border">
               <ApplicationRow application={application} />
             </li>
           ))}
         </ul>
       )}
-
-      <p className="mt-6 text-sm text-muted-foreground">{t("list.stored")}</p>
     </div>
   );
 }
@@ -101,49 +118,62 @@ function ApplicationRow({ application }: { application: Application }) {
   return (
     <Link
       href={`/applications/${application.id}`}
-      className="block rounded-xl border border-border bg-card p-4 transition-colors hover:border-info hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      className="group block py-7 transition-colors hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <p className="min-w-0 flex-1 text-base font-semibold">
-          {application.authority.authorityName}
-        </p>
-        <StatusBadge status={status} />
-      </div>
-
-      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
-        {application.grievance}
-      </p>
-
-      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-        {clock ? (
-          <span
-            className={
-              clock.isOverdue
-                ? "inline-flex items-center gap-1.5 font-semibold text-destructive"
-                : "inline-flex items-center gap-1.5 text-muted-foreground"
-            }
-          >
-            {clock.isOverdue ? (
-              <AlertTriangle aria-hidden="true" className="size-4" />
-            ) : (
-              <Clock aria-hidden="true" className="size-4" />
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <StatusBadge status={status} />
+            {application.isDemo && (
+              <span className="rounded-md bg-card px-2 py-0.5 font-mono text-[0.68rem] tracking-[0.14em] text-warning uppercase ring-1 ring-warning/35">
+                {t("list.example")}
+              </span>
             )}
-            {remainingLabel(describeRemaining(clock))}
-          </span>
-        ) : (
-          <span className="text-muted-foreground">
-            {t("list.started", { date: formatDate(application.createdAt) })}
-          </span>
-        )}
-        {application.isDemo && (
-          <span className="rounded-md bg-card px-2 py-0.5 text-xs font-semibold text-warning ring-1 ring-warning/35">
-            {t("list.example")}
-          </span>
-        )}
-        <span className="ml-auto inline-flex items-center gap-1 font-medium text-info">
-          {t("list.open")}
-          <ArrowRight aria-hidden="true" className="size-4" />
-        </span>
+          </div>
+
+          <p className="mt-3 max-w-[34ch] text-lg leading-snug font-semibold tracking-[-0.01em]">
+            {application.authority.authorityName}
+          </p>
+          <p className="mt-2 line-clamp-2 max-w-[58ch] text-sm leading-relaxed opacity-75">
+            {application.grievance}
+          </p>
+        </div>
+
+        {/*
+          The countdown is the largest numeral in the row. It is the one thing
+          on this page that changes on its own, and the only reason the list is
+          sorted the way it is.
+        */}
+        <div className="shrink-0 sm:text-right">
+          {clock ? (
+            <>
+              <p
+                className={cn(
+                  "text-[1.6rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums",
+                  clock.isOverdue && "text-destructive"
+                )}
+              >
+                {remainingLabel(describeRemaining(clock))}
+              </p>
+              <p className="mt-2 flex items-center gap-1.5 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75 sm:justify-end">
+                {clock.isOverdue ? (
+                  <AlertTriangle aria-hidden="true" className="size-3.5" />
+                ) : (
+                  <Clock aria-hidden="true" className="size-3.5" />
+                )}
+                {formatDate(clock.responseDeadline)}
+              </p>
+            </>
+          ) : (
+            <p className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+              {t("list.started", { date: formatDate(application.createdAt) })}
+            </p>
+          )}
+          <p className="mt-3 inline-flex items-center gap-1 text-sm font-medium underline-offset-4 group-hover:underline">
+            {t("list.open")}
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </p>
+        </div>
       </div>
     </Link>
   );

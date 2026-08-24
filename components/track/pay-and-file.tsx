@@ -5,7 +5,7 @@ import { AlertTriangle, FlaskConical, IndianRupee, Loader2 } from "lucide-react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Marker, Rule } from "@/components/editorial";
 import { useI18n } from "@/lib/client/i18n";
 import type { Application } from "@/lib/client/store";
 
@@ -72,15 +72,23 @@ export function PayAndFile({
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle as="h2" className="text-xl">
-          {isBpl ? t("pay.bplTitle") : t("pay.title")}
-        </CardTitle>
-        <CardDescription>{isBpl ? t("pay.bplBody") : t("pay.help")}</CardDescription>
-      </CardHeader>
+    <section aria-labelledby="pay-heading">
+      <Rule />
 
-      <CardContent className="space-y-5">
+      <div className="pt-8">
+        <Marker label={isBpl ? t("pay.bplTitle") : t("pay.title")} />
+        <h2
+          id="pay-heading"
+          className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+        >
+          {isBpl ? t("pay.bplTitle") : t("pay.title")}
+        </h2>
+        <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+          {isBpl ? t("pay.bplBody") : t("pay.help")}
+        </p>
+      </div>
+
+      <div className="mt-8 space-y-5">
         {/* FR-19: the disclosure sits on the screen, above the action. */}
         <Alert variant="warning">
           <FlaskConical aria-hidden="true" />
@@ -101,10 +109,10 @@ export function PayAndFile({
               ).map(([value, label]) => (
                 <label
                   key={value}
-                  className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border px-4 text-sm font-medium ${
+                  className={`inline-flex min-h-11 cursor-pointer items-center gap-2 border px-4 text-sm font-medium ${
                     method === value
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border text-muted-foreground"
+                      ? "border-foreground bg-card text-foreground"
+                      : "border-border opacity-75"
                   }`}
                 >
                   <input
@@ -158,8 +166,8 @@ export function PayAndFile({
             </>
           )}
         </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }
 

@@ -7,7 +7,6 @@ import {
   AlertTriangle,
   ExternalLink,
   IndianRupee,
-  Paperclip,
   Printer,
   Siren,
 } from "lucide-react";
@@ -15,7 +14,7 @@ import {
 import { CopyButton } from "@/components/copy-button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Marker, Rule } from "@/components/editorial";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
@@ -78,16 +77,23 @@ export function FilingGuide({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {/* -------------------------------------------------------------- */}
       {/* Applicant details                                              */}
       {/* -------------------------------------------------------------- */}
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl">{t("file.applicantTitle")}</CardTitle>
-          <CardDescription>{t("file.applicantHelp")}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <section aria-labelledby="applicant-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("file.applicantTitle")} />
+          <h2
+            id="applicant-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("file.applicantTitle")}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{t("file.applicantHelp")}</p>
+        </div>
+        <div className="mt-8 space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor={`${fieldPrefix}-name`}>{t("file.name")}</Label>
@@ -194,18 +200,25 @@ export function FilingGuide({
               <p className="text-sm text-muted-foreground">{t("file.bplRefHelp")}</p>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </section>
 
       {/* -------------------------------------------------------------- */}
       {/* Where and how to file                                          */}
       {/* -------------------------------------------------------------- */}
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl">{plan.title}</CardTitle>
-          <CardDescription>{plan.rationale}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-5">
+      <section aria-labelledby="plan-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={plan.title} />
+          <h2
+            id="plan-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {plan.title}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{plan.rationale}</p>
+        </div>
+        <div className="mt-8 space-y-5">
           {plan.warning && (
             <Alert className="border-destructive/40 bg-destructive/6">
               <AlertTriangle aria-hidden="true" className="text-destructive" />
@@ -250,32 +263,29 @@ export function FilingGuide({
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">{t("file.stepsTitle")}</h3>
-            <ol className="mt-2 space-y-2.5">
+            <Marker label={t("file.stepsTitle")} />
+            <ol className="mt-4 divide-y divide-border border-y border-border">
               {plan.steps.map((stepText, index) => (
-                <li key={index} className="flex gap-3">
+                <li key={index} className="flex gap-4 py-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
+                    className="shrink-0 font-mono text-[0.68rem] tracking-[0.14em] tabular-nums opacity-75"
                   >
-                    {index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="pt-0.5 text-sm leading-relaxed">{stepText}</span>
+                  <span className="text-sm leading-relaxed">{stepText}</span>
                 </li>
               ))}
             </ol>
           </div>
 
           <div>
-            <h3 className="flex items-center gap-2 text-sm font-semibold">
-              <Paperclip aria-hidden="true" className="size-4 text-muted-foreground" />
-              {t("file.attachments")}
-            </h3>
-            <ul className="mt-2 space-y-1.5">
+            <Marker label={t("file.attachments")} />
+            <ul className="mt-4 space-y-1.5">
               {plan.attachments.map((attachment, index) => (
                 <li
                   key={index}
-                  className="flex gap-2 text-sm leading-relaxed text-muted-foreground"
+                  className="flex gap-2 text-sm leading-relaxed opacity-75"
                 >
                   <span aria-hidden="true">•</span>
                   <span>{attachment}</span>
@@ -312,18 +322,25 @@ export function FilingGuide({
           </div>
 
           <p className="text-sm text-muted-foreground">{t("file.printHelp")}</p>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
 
       {/* -------------------------------------------------------------- */}
       {/* Record the filing — this is what starts the statutory clock     */}
       {/* -------------------------------------------------------------- */}
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl">{t("file.filedTitle")}</CardTitle>
-          <CardDescription>{t("file.filedHelp")}</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <section aria-labelledby="filed-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("file.filedTitle")} />
+          <h2
+            id="filed-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("file.filedTitle")}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{t("file.filedHelp")}</p>
+        </div>
+        <div className="mt-8 space-y-4">
           <form
             className="space-y-4"
             onSubmit={(event) => {
@@ -377,8 +394,8 @@ export function FilingGuide({
               {t("file.confirm")}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
     </div>
   );
 }

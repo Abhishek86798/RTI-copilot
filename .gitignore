@@ -47,4 +47,5 @@ next-env.d.ts
 # Playwright journey screenshots
 journey-*.png
 ui-*.png
+file-*.png
 undefined/

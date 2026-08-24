@@ -4,7 +4,7 @@ import { CalendarClock, FastForward, FlaskConical, Gavel, RotateCcw, Siren } fro
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ux4g/card";
+import { Marker, Rule } from "@/components/editorial";
 import { Progress } from "@/components/ui/progress";
 import {
   basisKey,
@@ -15,6 +15,7 @@ import {
 import { canSimulate, type Application } from "@/lib/client/guest-storage";
 import { useI18n } from "@/lib/client/i18n";
 import { useRemainingLabel } from "@/lib/client/use-remaining-label";
+import { cn } from "@/lib/utils";
 
 /**
  * Step 5. The half of the pitch that happens after "submit".
@@ -24,9 +25,10 @@ import { useRemainingLabel } from "@/lib/client/use-remaining-label";
  * nobody tells you that a deemed refusal has occurred and a thirty-day appeal
  * window has started running against you.
  *
- * Every date here is computed in `lib/client/deadlines.ts` from the clause it
- * comes from, and the rule being applied is named on screen so the citizen can
- * check it rather than trust it.
+ * So the remaining time is the largest thing on the screen — the one number
+ * this page exists to deliver. Every date here is computed in
+ * `lib/client/deadlines.ts` from the clause it comes from, and the rule being
+ * applied is named on screen so the citizen can check it rather than trust it.
  */
 export function DeadlineTracker({
   application,
@@ -58,110 +60,122 @@ export function DeadlineTracker({
       : "good";
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl">{t("track.title")}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          {application.lifeOrLibertyFlag && (
-            <Alert className="border-destructive/40 bg-destructive/6">
-              <Siren aria-hidden="true" className="text-destructive" />
-              <AlertTitle>48-hour window claimed under Section 7(1)</AlertTitle>
-              <AlertDescription>
-                This application asserts the life-or-liberty proviso, so the
-                deadline below is 48 hours rather than 30 days.
-              </AlertDescription>
-            </Alert>
+    <section aria-labelledby="track-heading">
+      <Rule />
+
+      <div className="pt-8">
+        <Marker label={t("track.title")} />
+        <h2 id="track-heading" className="sr-only">
+          {t("track.title")}
+        </h2>
+      </div>
+
+      {application.lifeOrLibertyFlag && (
+        <Alert className="mt-6 border-destructive/40 bg-destructive/6">
+          <Siren aria-hidden="true" className="text-destructive" />
+          <AlertTitle>48-hour window claimed under Section 7(1)</AlertTitle>
+          <AlertDescription>
+            This application asserts the life-or-liberty proviso, so the deadline
+            below is 48 hours rather than 30 days.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/*
+        The countdown, as text first and at display size. The bar underneath is
+        aria-hidden — a screen reader gets "6 days left", not a percentage.
+      */}
+      <div className="mt-6">
+        <p className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+          {t("track.remaining")}
+        </p>
+        <p
+          className={cn(
+            "mt-3 text-[2.25rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.9rem]",
+            clock.isOverdue && "text-destructive"
           )}
+        >
+          {remainingLabel(describeRemaining(clock))}
+        </p>
+        <Progress value={clock.elapsedFraction * 100} tone={tone} className="mt-5" />
+      </div>
 
-          {/*
-            The countdown, as text first. The bar underneath is aria-hidden —
-            a screen reader gets "6 days left", not a percentage.
-          */}
-          <div>
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="text-sm font-medium text-muted-foreground">
-                {t("track.remaining")}
-              </p>
-              <p
-                className={
-                  clock.isOverdue
-                    ? "text-2xl font-bold text-destructive"
-                    : "text-2xl font-bold"
-                }
-              >
-                {remainingLabel(describeRemaining(clock))}
-              </p>
-            </div>
-            <Progress value={clock.elapsedFraction * 100} tone={tone} className="mt-2" />
-          </div>
+      <dl className="mt-8 grid grid-cols-1 divide-y divide-border border-y border-border sm:grid-cols-3 sm:divide-y-0">
+        <Fact label={t("track.filedOn")}>{formatDate(clock.filedAt)}</Fact>
+        <Fact label={t("track.deadline")} divided>
+          {formatDate(clock.responseDeadline)}
+        </Fact>
+        <Fact label={t("track.appealBy")} divided>
+          {formatDate(clock.appealDeadline)}
+        </Fact>
+      </dl>
 
-          <dl className="grid gap-4 sm:grid-cols-3">
-            <Fact label={t("track.filedOn")}>{formatDate(clock.filedAt)}</Fact>
-            <Fact label={t("track.deadline")}>{formatDate(clock.responseDeadline)}</Fact>
-            <Fact label={t("track.appealBy")}>{formatDate(clock.appealDeadline)}</Fact>
-          </dl>
+      <p className="mt-6 flex items-start gap-2 border-l-2 border-border pl-4 text-sm leading-relaxed">
+        <CalendarClock aria-hidden="true" className="mt-0.5 size-4 shrink-0 opacity-75" />
+        <span>
+          <span className="font-medium">{t("track.basis")}:</span>{" "}
+          <span className="opacity-75">{t(basisKey(clock.basis))}</span>
+        </span>
+      </p>
 
-          <p className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
-            <CalendarClock aria-hidden="true" className="size-4 shrink-0" />
-            <span>
-              <span className="font-medium text-foreground">{t("track.basis")}:</span>{" "}
-              {t(basisKey(clock.basis))}
-            </span>
-          </p>
+      {application.registrationNumber && (
+        <p className="mt-4 text-sm">
+          <span className="font-medium">Registration number: </span>
+          <span className="font-mono">{application.registrationNumber}</span>
+        </p>
+      )}
 
-          {application.registrationNumber && (
-            <p className="text-sm">
-              <span className="font-medium">Registration number: </span>
-              <span className="font-mono">{application.registrationNumber}</span>
-            </p>
-          )}
-
-          {!clock.isOverdue && (
-            <Button type="button" variant="outline" size="xl" onClick={onLogResponse}>
-              {t("track.gotReply")}
-            </Button>
-          )}
-        </CardContent>
-      </Card>
+      {!clock.isOverdue && (
+        <div className="mt-6">
+          <Button type="button" variant="outline" size="xl" onClick={onLogResponse}>
+            {t("track.gotReply")}
+          </Button>
+        </div>
+      )}
 
       {/* -------------------------------------------------------------- */}
       {/* FR-14 demo control                                             */}
       {/* -------------------------------------------------------------- */}
       {canSimulate(application) && (
-        <Card className="border-warning/40 bg-warning/6 ring-warning/25">
-          <CardContent className="space-y-3 pt-2">
-            <p className="flex items-center gap-2 text-sm font-semibold">
-              <FlaskConical aria-hidden="true" className="size-4 text-warning" />
-              Demo control
-            </p>
-            <p className="text-sm text-muted-foreground">{t("track.simulateHelp")}</p>
-            {application.simulatedDaysElapsed ? (
-              <div className="space-y-3">
-                <p className="text-sm font-medium">
-                  {t("track.simulateOn", { days: application.simulatedDaysElapsed })}
-                </p>
-                <Button type="button" variant="outline" size="lg" onClick={onResetSimulation}>
-                  <RotateCcw aria-hidden="true" />
-                  {t("track.simulateReset")}
-                </Button>
-              </div>
-            ) : (
+        <div className="mt-10 border border-warning/40 bg-warning/6 p-5">
+          <Marker
+            label="Demo control"
+            dim={false}
+            className="text-warning"
+          />
+          <p className="mt-3 max-w-[58ch] text-sm leading-relaxed opacity-75">
+            {t("track.simulateHelp")}
+          </p>
+          {application.simulatedDaysElapsed ? (
+            <div className="mt-4 space-y-3">
+              <p className="text-sm font-medium">
+                {t("track.simulateOn", { days: application.simulatedDaysElapsed })}
+              </p>
+              <Button type="button" variant="outline" size="lg" onClick={onResetSimulation}>
+                <RotateCcw aria-hidden="true" />
+                {t("track.simulateReset")}
+              </Button>
+            </div>
+          ) : (
+            <div className="mt-4">
               <Button type="button" variant="outline" size="xl" onClick={onSimulate}>
                 <FastForward aria-hidden="true" />
                 {t("track.simulate")}
               </Button>
-            )}
-          </CardContent>
-        </Card>
+            </div>
+          )}
+          <p className="mt-4 flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+            <FlaskConical aria-hidden="true" className="size-3.5" />
+            Simulated
+          </p>
+        </div>
       )}
 
       {/* -------------------------------------------------------------- */}
       {/* Deadline lapsed                                                */}
       {/* -------------------------------------------------------------- */}
       {clock.isOverdue && !application.appeal?.filedAt && (
-        <Alert className="border-destructive/40 bg-destructive/6">
+        <Alert className="mt-8 border-destructive/40 bg-destructive/6">
           <Gavel aria-hidden="true" className="text-destructive" />
           <AlertTitle>{t("track.overdueTitle")}</AlertTitle>
           <AlertDescription className="space-y-2">
@@ -184,15 +198,25 @@ export function DeadlineTracker({
           </AlertDescription>
         </Alert>
       )}
-    </div>
+    </section>
   );
 }
 
-function Fact({ label, children }: { label: string; children: React.ReactNode }) {
+function Fact({
+  label,
+  children,
+  divided = false,
+}: {
+  label: string;
+  children: React.ReactNode;
+  divided?: boolean;
+}) {
   return (
-    <div>
-      <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
-      <dd className="text-base font-semibold">{children}</dd>
+    <div className={cn("py-5", divided && "sm:border-l sm:border-border sm:pl-8")}>
+      <dt className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+        {label}
+      </dt>
+      <dd className="mt-1.5 text-base font-semibold tabular-nums">{children}</dd>
     </div>
   );
 }
