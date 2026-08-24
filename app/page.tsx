@@ -379,7 +379,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/how-it-works"
-                className="mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-base font-medium"
+                className="mt-8 inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-medium"
               >
                 {t("home.sec.honest.cta")}
                 <ArrowRight aria-hidden="true" className="size-4" />
