@@ -32,28 +32,31 @@ export function applyTheme(theme: Theme) {
   root.setAttribute("data-theme", dark ? "dark" : "light");
 }
 
+function readStoredTheme(): Theme {
+  if (typeof window === "undefined") return "system";
+  try {
+    return (window.localStorage.getItem(STORAGE_KEY) as Theme) ?? "system";
+  } catch {
+    // Private browsing: fall back to following the system.
+    return "system";
+  }
+}
+
 export function ThemeToggle({ className }: { className?: string }) {
   const { t } = useI18n();
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme] = useState<Theme>(readStoredTheme);
 
   useEffect(() => {
-    let stored: Theme = "system";
-    try {
-      stored = (window.localStorage.getItem(STORAGE_KEY) as Theme) ?? "system";
-    } catch {
-      // Private browsing: fall back to following the system.
-    }
-    setTheme(stored);
-    applyTheme(stored);
+    applyTheme(theme);
 
     // Keep following the OS while the choice is "system".
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {
-      if (stored === "system") applyTheme("system");
+      if (theme === "system") applyTheme("system");
     };
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
-  }, []);
+  }, [theme]);
 
   function choose(next: Theme) {
     setTheme(next);
