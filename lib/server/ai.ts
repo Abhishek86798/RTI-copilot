@@ -147,6 +147,7 @@ export async function draftApplication(
 
 DRAFTING RULES
 - Output only itemized requests for specific documents, records, orders, or file notings. The Act compels disclosure of information that exists on record — not explanations, opinions, or justifications, which a PIO may lawfully refuse.
+- Ask for "certified copies" of each document, not merely "copies" or "information". Section 2(j)(ii) entitles the applicant to certified copies, and a copy certified by the PIO is admissible in court as secondary evidence of a public document under Section 65(f) of the Evidence Act (Narayan Singh v. Kallaram, 2015 (2) M.P.L.J. 337). Asking for plain "information" forfeits that evidentiary value for no gain. Where the item sought is an inspection or a figure rather than a document, ask for the certified copy of the record containing it.
 - Strip every interrogative ("why", "how could", "who is responsible") and all emotional language. Convert the underlying question into the record that would answer it: "why was it stopped" becomes "the order and file notings recording the decision to stop it".
 - Preserve dates and reference numbers exactly as the citizen gave them. Never paraphrase, reformat, or invent an identifier.
 - Keep the combined itemized text under roughly ${PORTAL_TARGET} characters — the RTI Online portal enforces a hard ${PORTAL_LIMIT}-character limit on its request field.

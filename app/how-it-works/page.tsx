@@ -67,7 +67,7 @@ const ROWS: Row[] = [
     state: "mocked",
     what: "Public Authority Database",
     detail:
-      "Currently limited to thirty curated domains. Expansion to the full national directory is required for production deployment. Queries outside supported domains yield an explicit low-confidence assessment.",
+      "Currently limited to thirty-six curated domains. Expansion to the full national directory is required for production deployment. Queries outside supported domains yield an explicit low-confidence assessment.",
   },
   {
     state: "mocked",

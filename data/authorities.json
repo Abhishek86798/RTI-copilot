@@ -679,5 +679,121 @@
     "level": "central",
     "notes": "Private telecom operators (Jio, Airtel, Vi) are not under RTI. To get information on private telcos (like tower legality or regulatory fines), citizens must file with TRAI or the DoT.",
     "ministry": "Ministry of Communications"
+  },
+  {
+    "id": "dicgc-deposit-insurance",
+    "domain": "deposit_insurance",
+    "keywords": [
+      "dicgc",
+      "deposit insurance",
+      "bank liquidation",
+      "bank failure",
+      "insured deposit",
+      "bank moratorium",
+      "cooperative bank collapse"
+    ],
+    "authorityName": "Deposit Insurance and Credit Guarantee Corporation (DICGC)",
+    "pioDesignation": "Central Public Information Officer, DICGC",
+    "appellateAuthority": "First Appellate Authority, Chief General Manager, DICGC",
+    "filingAddress": "DICGC, Reserve Bank of India Building, Opp. Mumbai Central Railway Station, Byculla, Mumbai - 400008",
+    "verifyAt": "https://www.dicgc.org.in/RTI",
+    "level": "central",
+    "notes": "A wholly-owned RBI subsidiary that insures deposits when a bank fails or goes into liquidation. Use this when a bank has collapsed or is under moratorium and the depositor is chasing their insured amount — not for ordinary complaints against a working bank.",
+    "ministry": "Ministry of Finance"
+  },
+  {
+    "id": "brbnmpl-currency",
+    "domain": "currency_printing",
+    "keywords": [
+      "brbnmpl",
+      "note mudran",
+      "currency printing",
+      "banknote press",
+      "salboni press",
+      "mysuru press"
+    ],
+    "authorityName": "Bharatiya Reserve Bank Note Mudran Private Limited (BRBNMPL)",
+    "pioDesignation": "Central Public Information Officer, Corporate Office",
+    "appellateAuthority": "First Appellate Authority, Chief General Manager, BRBNMPL Corporate Office",
+    "filingAddress": "BRBNMPL Corporate Office, BTM Layout, Bengaluru, Karnataka - 560029",
+    "verifyAt": "https://www.brbnmpl.co.in/rti-act-2005/",
+    "level": "central",
+    "notes": "Prints currency notes for the RBI. Much of what is asked here is refused under Section 8(1)(a) (security and economic interests of the State); recruitment, tender and administrative records are the realistically disclosable part.",
+    "ministry": "Ministry of Finance"
+  },
+  {
+    "id": "rera-authority",
+    "domain": "real_estate_regulation",
+    "keywords": [
+      "rera",
+      "builder complaint",
+      "occupancy certificate",
+      "illegal construction",
+      "project registration",
+      "flat possession",
+      "real estate regulatory",
+      "builder delay"
+    ],
+    "authorityName": "State Real Estate Regulatory Authority (RERA)",
+    "pioDesignation": "Public Information Officer, State RERA",
+    "appellateAuthority": "First Appellate Authority, State RERA",
+    "filingAddress": "Head office of the Real Estate Regulatory Authority for the applicant's state",
+    "verifyAt": "State RERA portal (for example https://rera.mp.gov.in for Madhya Pradesh)",
+    "level": "state",
+    "notes": "Covers registered project files, builder financial disclosures and occupancy certificates. Quote the RERA project registration number. RERA cannot be asked to justify its own quasi-judicial orders through RTI — that needs an appeal to the Real Estate Appellate Tribunal. Private disputes with no registered developer are outside its remit."
+  },
+  {
+    "id": "high-court-registry",
+    "domain": "judiciary",
+    "keywords": [
+      "high court",
+      "judicial recruitment",
+      "court administration",
+      "court registry",
+      "court tender",
+      "court staff appointment"
+    ],
+    "authorityName": "High Court (Registry)",
+    "pioDesignation": "State Public Information Officer & Additional Registrar (Establishment)",
+    "appellateAuthority": "First Appellate Authority, Registrar General of the High Court",
+    "filingAddress": "Office of the Additional Registrar, principal seat of the High Court having jurisdiction over the applicant's state",
+    "verifyAt": "Official website of the relevant High Court",
+    "level": "state",
+    "notes": "Covers the court's ADMINISTRATIVE side only — staff recruitment, tenders, infrastructure and budgets. Certified copies of case papers by a party to a case go through the High Court Rules for certified copies, not through RTI; records of active litigation are protected."
+  },
+  {
+    "id": "state-information-commission",
+    "domain": "rti_appeals",
+    "keywords": [
+      "state information commission",
+      "second appeal",
+      "information commissioner",
+      "penalty on pio",
+      "rti appeal rejected"
+    ],
+    "authorityName": "State Information Commission",
+    "pioDesignation": "Registrar / Secretary, State Information Commission",
+    "appellateAuthority": "Chief State Information Commissioner",
+    "filingAddress": "State Information Commission of the applicant's state (for example, Information Building, Arera Hills, Bhopal for Madhya Pradesh)",
+    "verifyAt": "State Information Commission portal for the applicant's state",
+    "level": "state",
+    "notes": "This is where a SECOND appeal under Section 19(3) goes when a STATE authority's PIO and First Appellate Authority have both failed you. It is not a place to file an original RTI. It can order disclosure and impose penalties on a PIO under Section 20."
+  },
+  {
+    "id": "central-information-commission",
+    "domain": "rti_appeals",
+    "keywords": [
+      "central information commission",
+      "second appeal central",
+      "cic appeal"
+    ],
+    "authorityName": "Central Information Commission (CIC)",
+    "pioDesignation": "Registrar, Central Information Commission",
+    "appellateAuthority": "Chief Information Commissioner",
+    "filingAddress": "Central Information Commission, Baba Gang Nath Marg, Munirka, New Delhi - 110067",
+    "verifyAt": "https://cic.gov.in",
+    "level": "central",
+    "notes": "Second appeals under Section 19(3) against CENTRAL public authorities only. Filing a state matter here gets it dismissed for want of jurisdiction — state matters go to that state's Information Commission.",
+    "ministry": "Department of Personnel and Training"
   }
 ]
