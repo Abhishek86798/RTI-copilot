@@ -1,56 +1,71 @@
 import type { Metadata } from "next";
-import { Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 
 import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Grievance Redressal / Help Desk",
-  description: "Technical support and contact directives for the RTI Online Portal.",
+  title: "Contact and help",
+  description: "How to get help with this tool, and where to go for official RTI support.",
 };
 
 export default function ContactPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
       <PageTitle
-        marker={<Marker label="Technical Support" />}
-        lead="Directives for submitting technical queries and portal feedback."
+        marker={<Marker label="Help" />}
+        lead="Where to get help with this tool, and where to go for the official portal."
       >
-        Grievance Redressal Desk
+        Contact and help
       </PageTitle>
 
       <section className="mt-16">
         <Rule />
         <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
-          <Phone aria-hidden="true" className="size-4 opacity-75" />
-          Contact Details
+          <Mail aria-hidden="true" className="size-4 opacity-75" />
+          About this tool
         </h2>
         <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
           <p>
-            For any technical query or feedback concerning portal operations, please contact the support desk strictly during stipulated office hours (09:00 Hrs to 17:30 Hrs, Monday to Friday, excluding Gazetted Holidays).
+            This is an independent prototype that helps you draft an RTI application. It is
+            not run by the Government of India, and it has no help desk, no phone line, and
+            no way to look up the status of an application you filed elsewhere.
           </p>
-          <div className="rounded-xl border border-border bg-card p-8">
-            <h3 className="text-sm font-semibold tracking-widest uppercase opacity-60">
-              Telephonic Support
-            </h3>
-            <p className="mt-3 font-mono text-2xl tracking-tight text-foreground">
-              011-24010690 / 691
-            </p>
-            <p className="mt-3 text-sm text-warning">
-              Note: Due to high call volumes, extended waiting periods may be experienced.
-            </p>
-            
-            <div className="my-8 border-t border-border" />
-            
-            <h3 className="text-sm font-semibold tracking-widest uppercase opacity-60">
-              Electronic Mail Support
-            </h3>
-            <p className="mt-3 font-mono text-lg tracking-tight text-foreground">
-              helprtionline-dopt[at]nic[dot]in
-            </p>
-          </div>
+          <p>
+            If something here is broken or confusing, the useful thing to do is report it on
+            the project&rsquo;s issue tracker. There is no support queue behind this page.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <Rule />
+        <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
+          <Mail aria-hidden="true" className="size-4 opacity-75" />
+          Official RTI support
+        </h2>
+        <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
+          <p>
+            For anything about a real RTI application — filing it, paying the fee, tracking
+            it, or appealing — go to the government&rsquo;s own portal. It publishes current
+            contact details for its help desk, which we deliberately do not copy here:
+            reprinting a government phone number on an independent tool sends people to the
+            wrong place with the wrong expectations.
+          </p>
+          <p>
+            <a
+              href="https://rtionline.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline underline-offset-4"
+            >
+              rtionline.gov.in
+            </a>{" "}
+            — the official RTI Online portal, including its help desk contacts.
+          </p>
           <p className="text-sm">
-            Statutory Disclaimer: The Technical Support Desk is not authorized to provide legal counsel regarding the Right to Information Act, nor does it possess jurisdiction to track individual application statuses beyond identifying technical portal failures.
+            Neither this tool nor its authors can give legal advice about the Right to
+            Information Act, or act on your behalf with any public authority.
           </p>
         </div>
       </section>
