@@ -46,8 +46,15 @@ export type RoutingResult = {
  * Below this, the UI must tell the user we're unsure rather than presenting a
  * match. Misrouting costs the citizen a Section 6(3) transfer and restarts the
  * clock, so an honest "verify this" beats a confident wrong answer.
+ *
+ * Set at 0.6, not 0.5, because 0.5 is the model's own "plausible but
+ * unverified" anchor in the system prompt above — it lands there for genuine
+ * guesses. Measured against ten human-written complaints, a floor of 0.5
+ * flagged none of them: an unroutable grievance and a State-body match both
+ * scored exactly 0.50 and passed as confident. A floor must sit above the
+ * score the model assigns when it is admitting doubt, not level with it.
  */
-export const CONFIDENCE_FLOOR = 0.5;
+export const CONFIDENCE_FLOOR = 0.6;
 
 export async function routeGrievance(grievance: string): Promise<RoutingResult> {
   const { authorities: shortlist, noKeywordMatch } = shortlistAuthorities(grievance);
