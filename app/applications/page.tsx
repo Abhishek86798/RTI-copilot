@@ -7,7 +7,7 @@ import { DownloadButton } from "@/components/track/download-button";
 import { MigratePrompt } from "@/components/migrate-prompt";
 import { Panel, PanelList } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/status-badge";
-import { Button } from "@/components/ux4g/button";
+import { buttonVariants } from "@/components/ui/button";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
@@ -64,29 +64,20 @@ export default function ApplicationsPage() {
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-5">
         <p className="max-w-[46ch] text-base opacity-75">{t("list.stored")}</p>
-        <Button
-          size="lg"
-          variant="cta"
-          nativeButton={false}
-          render={
-            <Link href="/apply">
+        <Link href="/apply"
+            className={buttonVariants({ variant: "cta", size: "lg" })}
+          >
               <Plus aria-hidden="true" />
               {t("nav.new")}
             </Link>
-          }
-        />
       </div>
 
       {sorted.length === 0 ? (
         <Panel className="mt-6 py-14 text-center">
           <p className="text-lg opacity-75">{t("list.empty")}</p>
-          <Button
-            size="lg"
-            variant="cta"
-            className="mt-6"
-            nativeButton={false}
-            render={<Link href="/apply">{t("list.emptyCta")}</Link>}
-          />
+          <Link href="/apply"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("list.emptyCta")}</Link>
         </Panel>
       ) : (
         // Dividers are borders on the list items, not `hr` elements between

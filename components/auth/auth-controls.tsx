@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { LogOut, User } from "lucide-react";
 
 import { LoginDialog } from "@/components/auth/login-dialog";
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/client/i18n";
 import { setStoreMode } from "@/lib/client/store";
 import { cn } from "@/lib/utils";
@@ -84,7 +84,7 @@ export function AuthControls() {
    * screen reader from announcing a control that is about to change.
    */
   if (!ready) {
-    return <div aria-busy="true" className="h-12 w-28" />;
+    return <div aria-busy="true" className="h-9 w-24" />;
   }
 
   if (email) {
@@ -103,7 +103,7 @@ export function AuthControls() {
           aria-expanded={menuOpen}
           aria-haspopup="menu"
           className={cn(
-            "grid size-11 cursor-pointer place-items-center rounded-full border border-border bg-card text-sm font-semibold uppercase transition-colors",
+            "grid size-9 cursor-pointer place-items-center rounded-full border border-border bg-card text-sm font-semibold uppercase transition-colors",
             "hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           )}
         >
@@ -142,15 +142,15 @@ export function AuthControls() {
   return (
     <>
       {/*
-        40px, and the only filled control left in the header.
+        36px, and the only filled control left in the header.
 
-        At xl it pushed the control group 16px past a 320px viewport with the
+        At 56px it pushed the control group 16px past a 320px viewport with the
         largest text setting — a horizontal scrollbar on every page, from the
         control that exists to prevent exactly that. It is also the only thing
         in the chrome still carrying the accent, now that the four toggles
         beside it have given theirs up, so it does not need size as well.
       */}
-      <Button size="md" className="whitespace-nowrap" onClick={() => setOpen(true)}>
+      <Button size="default" className="whitespace-nowrap" onClick={() => setOpen(true)}>
         <User aria-hidden="true" />
         {/*
           Icon-only on a phone. `sr-only` rather than `hidden`, so the button

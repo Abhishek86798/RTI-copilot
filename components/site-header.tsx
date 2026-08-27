@@ -141,7 +141,7 @@ export function SiteHeader() {
           
           <button
             type="button"
-            className="ml-1 flex min-h-12 min-w-12 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring xl:hidden"
+            className="ml-1 flex min-h-9 min-w-12 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring xl:hidden"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label="Toggle Menu"
             aria-expanded={isMobileMenuOpen}
@@ -165,7 +165,7 @@ export function SiteHeader() {
                   aria-current={active ? "page" : undefined}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "flex min-h-12 items-center rounded-md px-3 text-base font-medium transition-colors",
+                    "flex min-h-9 items-center rounded-md px-3 text-base font-medium transition-colors",
                     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                     active
                       ? "bg-muted text-foreground"

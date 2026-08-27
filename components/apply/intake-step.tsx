@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { ArrowRight, Loader2, Lock } from "lucide-react";
 
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { Panel, PanelBody } from "@/components/ui/panel";
 import { Marker, PageTitle, Rule } from "@/components/editorial";
 import { FieldError, FieldHint, Label } from "@/components/ui/label";
@@ -70,7 +70,7 @@ export function IntakeStep({
         {t("intake.title")}
       </PageTitle>
 
-      <form onSubmit={handleSubmit} className="mt-5 space-y-4" noValidate>
+      <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
         <Panel>
           <PanelBody className="space-y-2">
             {/*

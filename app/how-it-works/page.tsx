@@ -6,7 +6,7 @@ import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { Section } from "@/components/section";
 import { PAGE_LAYOUT } from "@/components/page-layout";
-import { Button } from "@/components/ux4g/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -206,12 +206,9 @@ export default function HowItWorksPage() {
       </Section>
 
       <div className="mt-10">
-        <Button
-          size="lg"
-          variant="cta"
-          nativeButton={false}
-          render={<Link href="/apply">Access Portal</Link>}
-        />
+        <Link href="/apply"
+            className={buttonVariants({ variant: "cta", size: "lg" })}
+          >Access Portal</Link>
       </div>
       <LastReviewed date="2026-08-23" />
     </div>

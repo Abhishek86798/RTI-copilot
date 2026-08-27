@@ -26,7 +26,7 @@ function FieldHint({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="field-hint"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("text-xs text-muted-foreground", className)}
       {...props}
     />
   )

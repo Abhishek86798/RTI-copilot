@@ -6,8 +6,8 @@ import { Gavel } from "lucide-react";
 
 import { ApplicationHeader } from "@/components/track/application-header";
 import { DeadlineTracker } from "@/components/track/deadline-tracker";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { buttonVariants } from "@/components/ui/button";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { computeClock, formatDate } from "@/lib/client/deadlines";
 import { updateApplication } from "@/lib/client/store";
@@ -49,13 +49,9 @@ export default function TrackApplicationPage() {
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
         </p>
-        <Button
-          size="lg"
-          variant="cta"
-          className="mt-6"
-          nativeButton={false}
-          render={<Link href="/applications">{t("nav.mine")}</Link>}
-        />
+        <Link href="/applications"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("nav.mine")}</Link>
       </div>
     );
   }
@@ -74,15 +70,9 @@ export default function TrackApplicationPage() {
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.notFiledYet")}
           </p>
-          <Button
-            size="lg"
-            variant="cta"
-            className="mt-6"
-            nativeButton={false}
-            render={
-              <Link href={`/applications/${application.id}`}>{t("track.goFile")}</Link>
-            }
-          />
+          <Link href={`/applications/${application.id}`}
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("track.goFile")}</Link>
         </div>
       </div>
     );
@@ -156,16 +146,11 @@ export default function TrackApplicationPage() {
                     })}
                   </p>
                 )}
-                <Button
-                  size="lg"
-                  variant="cta"
-                  nativeButton={false}
-                  render={
-                    <Link href={`/applications/${application.id}/appeal`}>
+                <Link href={`/applications/${application.id}/appeal`}
+            className={buttonVariants({ variant: "cta", size: "lg" })}
+          >
                       {t("appeal.submit")}
                     </Link>
-                  }
-                />
               </AlertDescription>
             </Alert>
           </section>
@@ -182,16 +167,11 @@ export default function TrackApplicationPage() {
               </AlertTitle>
               <AlertDescription className="space-y-4">
                 <p>{t("appeal.submittedHelp")}</p>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  nativeButton={false}
-                  render={
-                    <Link href={`/applications/${application.id}/appeal`}>
+                <Link href={`/applications/${application.id}/appeal`}
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+          >
                       {t("appeal.view")}
                     </Link>
-                  }
-                />
               </AlertDescription>
             </Alert>
           </section>

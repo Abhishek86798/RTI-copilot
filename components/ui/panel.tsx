@@ -67,13 +67,13 @@ export function PanelHeader({
   return (
     <header
       className={cn(
-        "flex flex-wrap items-start justify-between gap-x-6 gap-y-3 border-b border-border px-5 py-4 sm:px-6",
+        "flex flex-wrap items-start justify-between gap-x-6 gap-y-2 border-b border-border px-4 py-3 sm:px-5",
         className
       )}
     >
       <div className="min-w-0">
         {eyebrow && (
-          <p className="mb-1.5 font-mono text-[0.75rem] tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="mb-1 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
             {eyebrow}
           </p>
         )}
@@ -81,7 +81,7 @@ export function PanelHeader({
           {title}
         </h2>
         {description && (
-          <p className="mt-1.5 max-w-[68ch] text-sm leading-[1.6] text-muted-foreground">
+          <p className="mt-1 max-w-[72ch] text-sm leading-[1.55] text-muted-foreground">
             {description}
           </p>
         )}
@@ -99,7 +99,7 @@ export function PanelBody({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn("px-5 py-5 sm:px-6", className)}>{children}</div>;
+  return <div className={cn("p-4 sm:p-5", className)}>{children}</div>;
 }
 
 /**

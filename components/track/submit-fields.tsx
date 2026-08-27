@@ -83,7 +83,7 @@ export function SelectField({
         id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="ux4g-form-select min-h-12 w-full rounded-lg border border-input bg-background px-3 text-base"
+        className="ux4g-form-select h-10 w-full rounded-lg border border-input bg-card px-3 text-base md:text-sm"
       >
         {children}
       </select>

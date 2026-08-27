@@ -14,8 +14,8 @@ import {
 
 import { InfoNotice } from "@/components/notices";
 import { StepActions } from "@/components/apply/step-actions";
-import { Button } from "@/components/ux4g/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Marker, PageTitle } from "@/components/editorial";
 import { confidenceBucket } from "@/lib/client/confidence";
 import { resolveChannel } from "@/lib/client/filing";
@@ -83,7 +83,7 @@ export function AuthorityStep({
       </PageTitle>
 
       {/* Full measure, matching the step rule on both edges. */}
-      <div className="mt-5 space-y-4">
+      <div className="mt-4 space-y-3">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
             <Info aria-hidden="true" className="text-destructive" />

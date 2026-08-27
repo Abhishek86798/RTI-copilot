@@ -16,7 +16,7 @@ import {
 } from "@/components/editorial";
 import { Drawn } from "@/components/drawn";
 import { QuestionToRecords, RoutingFan, StatutoryClock } from "@/components/illustrations";
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { DEMO_CASES } from "@/lib/client/demo-cases";
 import { useI18n } from "@/lib/client/i18n";
 
@@ -374,7 +374,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/how-it-works"
-                className="mt-8 inline-flex min-h-12 items-center gap-2 border-b border-current pb-1 text-base font-medium"
+                className="mt-8 inline-flex min-h-9 items-center gap-2 border-b border-current pb-1 text-base font-medium"
               >
                 {t("home.sec.honest.cta")}
                 <ArrowRight aria-hidden="true" className="size-4" />

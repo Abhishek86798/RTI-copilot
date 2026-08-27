@@ -2,8 +2,8 @@
 
 import { CalendarClock, FastForward, FlaskConical, Gavel, RotateCcw, Siren } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -63,7 +63,7 @@ export function DeadlineTracker({
     <Panel labelledBy="track-heading">
       <PanelHeader id="track-heading" title={t("track.title")} />
 
-      <PanelBody className="space-y-5">
+      <PanelBody className="space-y-4">
       {application.lifeOrLibertyFlag && (
         <Alert className="border-destructive/40 bg-destructive/6">
           <Siren aria-hidden="true" className="text-destructive" />

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { AlertTriangle, FlaskConical, IndianRupee, Loader2 } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { useI18n } from "@/lib/client/i18n";
 import type { Application } from "@/lib/client/store";
@@ -112,7 +112,7 @@ export function PayAndFile({
               ).map(([value, label]) => (
                 <label
                   key={value}
-                  className={`inline-flex min-h-12 cursor-pointer items-center gap-2 border px-4 text-sm font-medium ${
+                  className={`inline-flex min-h-9 cursor-pointer items-center gap-2 border px-4 text-sm font-medium ${
                     method === value
                       ? "border-foreground bg-card text-foreground"
                       : "border-border opacity-75"

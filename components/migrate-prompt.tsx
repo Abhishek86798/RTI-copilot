@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Upload } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/client/i18n";
 import { migrateGuestApplications } from "@/lib/client/migrate";
 import { refresh } from "@/lib/client/store";

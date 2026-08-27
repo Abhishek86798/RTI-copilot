@@ -54,34 +54,23 @@ export function SiteFooter() {
 
   return (
     <footer data-print="hide" className="mt-auto border-t border-border bg-card">
-      <Frame className="py-10 lg:py-12">
+      <Frame className="py-8">
         {/*
-          The disclaimer column is given twice the width of a link column.
-          
-          At 1.6fr it was about 300px wide, which set four paragraphs as a
-          narrow ribbon and made the footer 712px tall — a full screen of
-          chrome under every page on the site. Wider and tighter, it says the
-          same thing in half the height.
-        */}
-        <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]">
-          {/* The disclaimer leads, because it is the part that matters most. */}
-          <div className="max-w-[52ch]">
-            <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
-              {t("brand.name")}
-            </p>
-            <p className="mt-4 text-[0.9375rem] leading-[1.55] font-medium">
-              {t("footer.independent")}
-            </p>
-            <p className="mt-3 text-[0.8125rem] leading-[1.7] opacity-75">{t("footer.notGov")}</p>
-            <p className="mt-2 text-[0.8125rem] leading-[1.7] opacity-75">{t("footer.notLegal")}</p>
-          </div>
+          Links first, in one compact row, then the disclaimer across the full
+          width beneath them.
 
+          Set as a fifth column beside the links, the disclaimer was about
+          300px wide — three paragraphs as a narrow ribbon, which made the
+          footer 567px tall on every page in the site. Across the measure it
+          is the same words in four lines.
+        */}
+        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
+              <h2 className="font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
                 {column.heading}
               </h2>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 space-y-2">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     {"external" in link && link.external ? (
@@ -89,14 +78,14 @@ export function SiteFooter() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm underline-offset-4 hover:underline"
+                        className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm underline-offset-4 hover:underline"
+                        className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                       >
                         {link.label}
                       </Link>
@@ -108,8 +97,20 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-border pt-5">
-          <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
+        {/*
+          The disclaimer stays in full. It is the sentence that keeps this from
+          being mistaken for a government service, and shortening it to save
+          pixels would be saving them in the wrong place.
+        */}
+        <div className="mt-8 border-t border-border pt-5">
+          <p className="text-sm leading-[1.55] font-medium">{t("footer.independent")}</p>
+          <p className="mt-2 max-w-[110ch] text-[0.8125rem] leading-[1.6] text-muted-foreground">
+            {t("footer.notGov")}
+          </p>
+          <p className="mt-1.5 max-w-[110ch] text-[0.8125rem] leading-[1.6] text-muted-foreground">
+            {t("footer.notLegal")}
+          </p>
+          <p className="mt-5 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
             {t("footer.colophon")}
           </p>
         </div>

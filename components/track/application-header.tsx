@@ -56,7 +56,7 @@ export function ApplicationHeader({
         Side by side from `sm` because the authority name is long and the
         controls are short — stacking them wastes the width the name needs.
       */}
-      <div className="mt-2 flex flex-col gap-3 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+      <div className="mt-1.5 flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2.5">
             <p className="font-mono text-[0.75rem] tracking-[0.14em] text-muted-foreground uppercase">
@@ -65,7 +65,7 @@ export function ApplicationHeader({
             <StatusBadge status={status} />
           </div>
 
-          <h1 className="mt-2 text-lg leading-tight font-semibold tracking-[-0.015em] text-balance sm:text-xl">
+          <h1 className="mt-1.5 text-lg leading-tight font-semibold tracking-[-0.015em] text-balance sm:text-xl">
             {application.authority.authorityName}
           </h1>
           <p className="mt-1 text-sm leading-snug text-muted-foreground">

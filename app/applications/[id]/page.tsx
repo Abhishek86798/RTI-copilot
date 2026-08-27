@@ -6,13 +6,13 @@ import { useParams } from "next/navigation";
 
 import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 
-import { Alert, AlertDescription } from "@/components/ux4g/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { FiledDialog } from "@/components/track/filed-dialog";
 import { FilingGuide, type FilingSectionId } from "@/components/track/filing-guide";
 import { FilingStepNav } from "@/components/track/filing-steps";
 import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
-import { Button } from "@/components/ux4g/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { updateApplication } from "@/lib/client/store";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
@@ -92,13 +92,9 @@ export default function SubmitApplicationPage() {
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
         </p>
-        <Button
-          size="lg"
-          variant="cta"
-          className="mt-6"
-          nativeButton={false}
-          render={<Link href="/apply">{t("list.emptyCta")}</Link>}
-        />
+        <Link href="/apply"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("list.emptyCta")}</Link>
       </div>
     );
   }
@@ -152,13 +148,9 @@ export default function SubmitApplicationPage() {
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.alreadyFiled")}
           </p>
-          <Button
-            size="lg"
-            variant="cta"
-            className="mt-6"
-            nativeButton={false}
-            render={<Link href="/applications">{t("receipt.dashboard")}</Link>}
-          />
+          <Link href="/applications"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("receipt.dashboard")}</Link>
         </div>
       )}
 

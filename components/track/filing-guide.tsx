@@ -10,7 +10,7 @@ import {
   ministryGroups,
   ministryOf,
 } from "@/lib/client/authority-directory";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -204,7 +204,7 @@ export function FilingGuide({
             reading "PIN code". Paired, the step fits a screen and every
             control is about as wide as the thing it holds.
           */}
-          <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+          <div className="grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor={`${fieldPrefix}-name`}>{t("file.name")}</Label>
               <Input
@@ -225,7 +225,7 @@ export function FilingGuide({
                 onChange={(event) => patchApplicant({ mobile: event.target.value })}
                 autoComplete="tel"
               />
-              <p className="text-sm text-muted-foreground">{t("file.mobileHelp")}</p>
+              <p className="text-xs text-muted-foreground">{t("file.mobileHelp")}</p>
             </div>
 
             {/* The one field that genuinely needs the full width. */}
@@ -251,7 +251,7 @@ export function FilingGuide({
                 value={application.applicant.state}
                 onChange={(event) => patchApplicant({ state: event.target.value })}
                 autoComplete="address-level1"
-                className="ux4g-form-select min-h-12 w-full rounded-lg border border-input bg-background px-3 text-base"
+                className="ux4g-form-select h-10 w-full rounded-lg border border-input bg-card px-3 text-base md:text-sm"
               >
                 <option value="">{t("file.statePlaceholder")}</option>
                 {INDIAN_STATES.map((name) => (
@@ -276,7 +276,7 @@ export function FilingGuide({
                 }
                 autoComplete="postal-code"
               />
-              <p className="text-sm text-muted-foreground">{t("file.pincodeHelp")}</p>
+              <p className="text-xs text-muted-foreground">{t("file.pincodeHelp")}</p>
             </div>
 
             <RadioField
@@ -349,7 +349,7 @@ export function FilingGuide({
                 onChange={(event) => patchApplicant({ email: event.target.value })}
                 autoComplete="email"
               />
-              <p className="text-sm text-muted-foreground">{t("submit.emailHelp")}</p>
+              <p className="text-xs text-muted-foreground">{t("submit.emailHelp")}</p>
             </div>
           </div>
           </PanelBody>

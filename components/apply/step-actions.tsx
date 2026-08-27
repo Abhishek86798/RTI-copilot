@@ -2,7 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";
 

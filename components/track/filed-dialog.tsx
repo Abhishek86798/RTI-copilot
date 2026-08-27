@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { useI18n } from "@/lib/client/i18n";
 import type { Receipt as ReceiptData } from "./pay-and-file";

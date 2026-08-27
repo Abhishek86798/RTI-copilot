@@ -4,9 +4,9 @@ import { useId } from "react";
 import { AlertTriangle, ArrowRight, Siren } from "lucide-react";
 
 import { StepActions } from "@/components/apply/step-actions";
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Marker, PageTitle } from "@/components/editorial";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";

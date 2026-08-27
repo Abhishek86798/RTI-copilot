@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Printer } from "lucide-react";
 
 import { ApplicationSheet } from "@/components/track/application-sheet";
-import { Button } from "@/components/ux4g/button";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/client/i18n";
 import type { Application } from "@/lib/client/store";
 

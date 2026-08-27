@@ -6,7 +6,7 @@ import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section, Steps } from "@/components/section";
-import { Button } from "@/components/ux4g/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -68,12 +68,9 @@ export default function ManualPage() {
       </Section>
 
       <div className="mt-10">
-        <Button
-          size="lg"
-          variant="cta"
-          nativeButton={false}
-          render={<Link href="/apply">Start an application</Link>}
-        />
+        <Link href="/apply"
+            className={buttonVariants({ variant: "cta", size: "lg" })}
+          >Start an application</Link>
       </div>
       <LastReviewed date="2026-08-23" />
     </div>

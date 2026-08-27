@@ -9,8 +9,8 @@ import { CheckCircle2, Gavel, Printer } from "lucide-react";
 import { Marker } from "@/components/editorial";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { AppealSheet } from "@/components/track/application-sheet";
-import { Alert, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -98,13 +98,9 @@ export default function SubmitAppealPage() {
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
         </p>
-        <Button
-          size="lg"
-          variant="cta"
-          className="mt-6"
-          nativeButton={false}
-          render={<Link href="/applications">{t("nav.mine")}</Link>}
-        />
+        <Link href="/applications"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >{t("nav.mine")}</Link>
       </div>
     );
   }
@@ -126,17 +122,11 @@ export default function SubmitAppealPage() {
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("appeal.notYet")}
           </p>
-          <Button
-            size="lg"
-            variant="cta"
-            className="mt-6"
-            nativeButton={false}
-            render={
-              <Link href={`/applications/${application.id}/track`}>
+          <Link href={`/applications/${application.id}/track`}
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
+          >
                 {t("track.viewStatus")}
               </Link>
-            }
-          />
         </div>
       </div>
     );
@@ -172,16 +162,11 @@ export default function SubmitAppealPage() {
           </pre>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              size="lg"
-              variant="cta"
-              nativeButton={false}
-              render={
-                <Link href={`/applications/${application.id}/track`}>
+            <Link href={`/applications/${application.id}/track`}
+            className={buttonVariants({ variant: "cta", size: "lg" })}
+          >
                   {t("track.viewStatus")}
                 </Link>
-              }
-            />
             <Button type="button" size="lg" variant="outline" onClick={() => setPrinting(true)}>
               <Printer aria-hidden="true" />
               {t("common.print")}
