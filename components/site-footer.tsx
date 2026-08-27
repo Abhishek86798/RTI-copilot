@@ -67,7 +67,7 @@ export function SiteFooter() {
         <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
+              <h2 className="font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
                 {column.heading}
               </h2>
               <ul className="mt-3 space-y-2">
@@ -103,14 +103,14 @@ export function SiteFooter() {
           pixels would be saving them in the wrong place.
         */}
         <div className="mt-8 border-t border-border pt-5">
-          <p className="text-sm leading-[1.55] font-medium">{t("footer.independent")}</p>
-          <p className="mt-2 max-w-[110ch] text-[0.8125rem] leading-[1.6] text-muted-foreground">
+          <p className="text-sm font-medium">{t("footer.independent")}</p>
+          <p className="mt-2 max-w-[110ch] text-xs leading-prose text-muted-foreground">
             {t("footer.notGov")}
           </p>
-          <p className="mt-1.5 max-w-[110ch] text-[0.8125rem] leading-[1.6] text-muted-foreground">
+          <p className="mt-1.5 max-w-[110ch] text-xs leading-prose text-muted-foreground">
             {t("footer.notLegal")}
           </p>
-          <p className="mt-5 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="mt-5 font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
             {t("footer.colophon")}
           </p>
         </div>

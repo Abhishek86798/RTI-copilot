@@ -60,10 +60,10 @@ export default function FAQPage() {
         <div className="grid gap-x-10 border-t border-border sm:grid-cols-2">
           {FAQS.map((faq) => (
             <div key={faq.q} className="border-b border-border py-6">
-              <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
+              <h3 className="text-sm font-semibold tracking-tight">
                 {faq.q}
               </h3>
-              <p className="mt-2 text-sm leading-[1.7] opacity-75">{faq.a}</p>
+              <p className="mt-2 text-sm leading-prose text-muted-foreground">{faq.a}</p>
             </div>
           ))}
         </div>

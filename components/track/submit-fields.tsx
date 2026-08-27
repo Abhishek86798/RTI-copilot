@@ -35,7 +35,7 @@ export function RadioField<T extends string>({
 }) {
   return (
     <fieldset className={cn("space-y-1", className)}>
-      <legend className="mb-1.5 text-sm leading-tight font-medium">{legend}</legend>
+      <legend className="mb-1.5 text-sm font-medium">{legend}</legend>
       <div className="flex flex-wrap gap-x-6 gap-y-2">
         {options.map((option) => (
           <label
@@ -54,7 +54,7 @@ export function RadioField<T extends string>({
           </label>
         ))}
       </div>
-      {hint && <p className="text-xs leading-[1.6] text-muted-foreground">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </fieldset>
   );
 }

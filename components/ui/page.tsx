@@ -40,17 +40,17 @@ export function PageHeader({
     >
       <div className="min-w-0">
         {eyebrow && (
-          <p className="mb-2 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="mb-2 font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
             {eyebrow}
           </p>
         )}
-        <h1 className="max-w-[28ch] text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.02em] text-balance">
+        <h1 className="max-w-[28ch] text-2xl text-balance">
           {title}
         </h1>
       </div>
 
       {lead && (
-        <p className="max-w-[62ch] text-sm leading-[1.65] text-muted-foreground lg:pb-0.5">
+        <p className="max-w-[62ch] text-sm leading-prose text-muted-foreground lg:pb-0.5">
           {lead}
         </p>
       )}

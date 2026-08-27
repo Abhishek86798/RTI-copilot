@@ -80,7 +80,7 @@ export function FilingStepNav({
                 disabled={!reachable}
                 aria-current={active ? "step" : undefined}
                 className={cn(
-                  "inline-flex min-h-10 shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full border px-3.5 text-[0.8125rem] font-medium transition-colors",
+                  "inline-flex min-h-10 shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full border px-3.5 text-xs font-medium transition-colors",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                   "disabled:cursor-not-allowed disabled:opacity-45",
                   active

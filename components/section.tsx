@@ -67,7 +67,7 @@ export function Prose({
   return (
     <div
       className={cn(
-        "space-y-3 text-sm leading-[1.65] text-muted-foreground",
+        "space-y-3 text-sm leading-prose text-muted-foreground",
         "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
         "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-4 [&_ul]:marker:text-border",
         "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-4 [&_ol]:marker:text-border",
@@ -107,10 +107,10 @@ export function Steps({
             {index + 1}
           </span>
           <div className="min-w-0">
-            <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
+            <h3 className="text-sm font-semibold tracking-tight">
               {item.title}
             </h3>
-            <p className="mt-1.5 text-sm leading-[1.7] text-muted-foreground">{item.body}</p>
+            <p className="mt-1.5 text-sm leading-prose text-muted-foreground">{item.body}</p>
           </div>
         </li>
       ))}
@@ -140,7 +140,7 @@ export function Callout({
       )}
     >
       <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-      <div className="mt-2 space-y-3 text-[0.9375rem] leading-[1.65] opacity-90">
+      <div className="mt-2 space-y-3 text-sm opacity-90">
         {children}
       </div>
     </div>

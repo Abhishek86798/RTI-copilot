@@ -95,7 +95,7 @@ export default function SubmitAppealPage() {
     return (
       <div className={cn(PAGE_LAYOUT, "text-center")}>
         <h1 className="text-2xl font-bold tracking-[-0.02em]">{t("track.missingTitle")}</h1>
-        <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
+        <p className="mx-auto mt-3 max-w-[52ch] opacity-75">
           {t("track.missingBody")}
         </p>
         <Link href="/applications"
@@ -119,7 +119,7 @@ export default function SubmitAppealPage() {
           backLabelKey="track.backToStatus"
         />
         <div className="mt-10 border-t border-border pt-8">
-          <p className="max-w-[58ch] leading-relaxed opacity-75">
+          <p className="max-w-[58ch] opacity-75">
             {t("appeal.notYet")}
           </p>
           <Link href={`/applications/${application.id}/track`}
@@ -164,7 +164,7 @@ export default function SubmitAppealPage() {
             <pre
               tabIndex={0}
               aria-label={t("appeal.grounds")}
-              className="max-h-[24rem] overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs leading-[1.65] whitespace-pre-wrap"
+              className="max-h-[24rem] overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs whitespace-pre-wrap"
             >
               {text}
             </pre>
@@ -204,12 +204,12 @@ export default function SubmitAppealPage() {
                   value={text}
                   onChange={(event) => setGrounds(event.target.value)}
                   rows={12}
-                  className="min-h-48 max-h-[22rem] font-mono text-xs leading-[1.65]"
+                  className="min-h-48 max-h-[22rem] font-mono text-xs"
                 />
                 <FieldHint>{t("appeal.groundsHelp")}</FieldHint>
               </div>
 
-              <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm leading-[1.6]">
+              <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm">
                 <span className="font-medium">
                   {t("file.fee")}: {t("submit.feeNil")}
                 </span>{" "}

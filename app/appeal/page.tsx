@@ -145,7 +145,7 @@ export default function AppealPage() {
                         {application.registrationNumber}
                       </p>
                     )}
-                    <p className="mt-2 text-sm leading-relaxed opacity-75">
+                    <p className="mt-2 text-sm opacity-75">
                       {t("appealPage.dueSince", {
                         date: formatDate(clock.responseDeadline),
                         days: Math.max(
@@ -167,7 +167,7 @@ export default function AppealPage() {
       </Section>
 
       <Section label={t("appealPage.aboutSection")} icon={Gavel}>
-        <div className="prose-measure space-y-6 leading-relaxed opacity-75">
+        <div className="prose-measure space-y-6 opacity-75">
           <p>{t("appealPage.about1")}</p>
           <p>{t("appealPage.about2")}</p>
         </div>

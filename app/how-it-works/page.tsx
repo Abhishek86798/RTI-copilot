@@ -161,7 +161,7 @@ export default function HowItWorksPage() {
                 {ROWS.filter((row) => row.state === group.state).map((row) => (
                   <li key={row.what} className="py-3 first:pt-0 last:pb-0">
                     <p className="text-sm font-semibold">{row.what}</p>
-                    <p className="mt-1 text-sm leading-[1.65] text-muted-foreground">
+                    <p className="mt-1 text-sm leading-prose text-muted-foreground">
                       {row.detail}
                     </p>
                   </li>
@@ -172,7 +172,7 @@ export default function HowItWorksPage() {
         })}
 
         <Section label="Production Deployment Considerations">
-          <div className="space-y-3 text-sm leading-[1.65] text-muted-foreground">
+          <div className="space-y-3 text-sm leading-prose text-muted-foreground">
             <p>
               <span className="font-semibold text-foreground">
                 Directory Completeness Dependency.

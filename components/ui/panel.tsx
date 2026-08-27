@@ -73,15 +73,15 @@ export function PanelHeader({
     >
       <div className="min-w-0">
         {eyebrow && (
-          <p className="mb-1 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="mb-1 font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
             {eyebrow}
           </p>
         )}
-        <h2 id={id} tabIndex={id ? -1 : undefined} className="text-base font-semibold tracking-[-0.01em]">
+        <h2 id={id} tabIndex={id ? -1 : undefined} className="text-base font-semibold">
           {title}
         </h2>
         {description && (
-          <p className="mt-1 max-w-[72ch] text-sm leading-[1.55] text-muted-foreground">
+          <p className="mt-1 max-w-[72ch] text-sm leading-prose text-muted-foreground">
             {description}
           </p>
         )}

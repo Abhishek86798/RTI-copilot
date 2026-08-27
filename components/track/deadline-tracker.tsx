@@ -80,12 +80,12 @@ export function DeadlineTracker({
         aria-hidden — a screen reader gets "6 days left", not a percentage.
       */}
       <div>
-        <p className="font-mono text-[0.75rem] tracking-[0.14em] uppercase text-muted-foreground">
+        <p className="font-mono text-2xs tracking-[0.14em] uppercase text-muted-foreground">
           {t("track.remaining")}
         </p>
         <p
           className={cn(
-            "mt-3 text-[2rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.5rem]",
+            "mt-3 text-4xl tabular-nums sm:text-[2.5rem]",
             clock.isOverdue && "text-destructive"
           )}
         >
@@ -104,7 +104,7 @@ export function DeadlineTracker({
         </Fact>
       </dl>
 
-      <p className="flex items-start gap-2 border-l-2 border-border pl-4 text-sm leading-relaxed">
+      <p className="flex items-start gap-2 border-l-2 border-border pl-4 text-sm">
         <CalendarClock aria-hidden="true" className="mt-0.5 size-4 shrink-0 opacity-75" />
         <span>
           <span className="font-medium">{t("track.basis")}:</span>{" "}
@@ -125,10 +125,10 @@ export function DeadlineTracker({
       {/* -------------------------------------------------------------- */}
       {canSimulate(application) && (
         <div className="rounded-lg border border-warning/40 bg-warning/6 p-4">
-          <p className="font-mono text-[0.75rem] tracking-[0.14em] text-warning uppercase">
+          <p className="font-mono text-2xs tracking-[0.14em] text-warning uppercase">
             Demo control
           </p>
-          <p className="mt-2 max-w-[64ch] text-sm leading-[1.7] text-muted-foreground">
+          <p className="mt-2 max-w-[64ch] text-sm text-muted-foreground">
             {t("track.simulateHelp")}
           </p>
           {application.simulatedDaysElapsed ? (
@@ -149,7 +149,7 @@ export function DeadlineTracker({
               </Button>
             </div>
           )}
-          <p className="mt-4 flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
+          <p className="mt-4 flex items-center gap-2 font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
             <FlaskConical aria-hidden="true" className="size-3.5" />
             Simulated
           </p>
@@ -199,7 +199,7 @@ function Fact({
 }) {
   return (
     <div className={cn("py-5", divided && "sm:border-l sm:border-border sm:pl-8")}>
-      <dt className="font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
+      <dt className="font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
         {label}
       </dt>
       <dd className="mt-1.5 text-base font-semibold tabular-nums">{children}</dd>

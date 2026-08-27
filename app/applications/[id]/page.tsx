@@ -89,7 +89,7 @@ export default function SubmitApplicationPage() {
     return (
       <div className={cn(PAGE_LAYOUT, "text-center")}>
         <h1 className="text-2xl font-bold tracking-[-0.02em]">{t("track.missingTitle")}</h1>
-        <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
+        <p className="mx-auto mt-3 max-w-[52ch] opacity-75">
           {t("track.missingBody")}
         </p>
         <Link href="/apply"
@@ -145,7 +145,7 @@ export default function SubmitApplicationPage() {
           an application gets filed twice. */}
       {filed && (
         <div className="mt-10 border-t border-border pt-8">
-          <p className="max-w-[58ch] leading-relaxed opacity-75">
+          <p className="max-w-[58ch] opacity-75">
             {t("track.alreadyFiled")}
           </p>
           <Link href="/applications"

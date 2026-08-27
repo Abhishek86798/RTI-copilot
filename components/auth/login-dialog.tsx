@@ -147,7 +147,7 @@ export function LoginDialog({
         <h2 id="login-title" className="text-2xl font-semibold tracking-tight">
           {pane === "identify" ? "Sign in" : "Enter your code"}
         </h2>
-        <p className="mt-2 max-w-[46ch] text-sm leading-relaxed opacity-75">
+        <p className="mt-2 max-w-[46ch] text-sm opacity-75">
           {pane === "identify"
             ? "Signing in keeps your applications across devices. You can also use this tool without an account."
             : `We sent a code to ${email}.`}

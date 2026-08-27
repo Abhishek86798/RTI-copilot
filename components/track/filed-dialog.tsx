@@ -71,18 +71,18 @@ export function FiledDialog({
 
         <h2
           id="receipt-heading"
-          className="mt-6 text-[1.6rem] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          className="mt-6 text-2xl text-balance sm:text-[1.9rem]"
         >
           {t("receipt.title")}
         </h2>
-        <p className="mt-3 max-w-[42ch] leading-relaxed opacity-75">{t("receipt.saved")}</p>
+        <p className="mt-3 max-w-[42ch] opacity-75">{t("receipt.saved")}</p>
 
         {/*
           The registration number. It is the only key the portal accepts
           afterwards, so it is the one piece of data the dialog carries.
         */}
         <div className="mt-8 w-full border-y border-border py-6">
-          <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
+          <p className="font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
             {t("receipt.regNumber")}
           </p>
           {/*
@@ -97,14 +97,14 @@ export function FiledDialog({
 
         {/* FR-19: a receipt is exactly the artefact someone might mistake for
             an official one, so it says what it is — in one line, here. */}
-        <p className="mt-5 max-w-[46ch] text-sm leading-relaxed text-warning">
+        <p className="mt-5 max-w-[46ch] text-sm text-warning">
           {t("receipt.simulatedShort")}
         </p>
 
         {/* Above the actions, not below them: on a small screen the buttons
             are the last thing in view, and a countdown underneath them
             explained the redirect only to people who scrolled to find it. */}
-        <p className="mt-7 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
+        <p className="mt-7 font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
           {t("receipt.redirect", { seconds: Math.max(seconds, 0) })}
         </p>
 

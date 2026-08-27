@@ -129,7 +129,7 @@ export function Marker({
   return (
     <p
       className={cn(
-        "flex items-baseline gap-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase",
+        "flex items-baseline gap-3 font-mono text-2xs tracking-[0.14em] uppercase",
         className
       )}
     >
@@ -158,7 +158,7 @@ export function Display({
   return (
     <Tag
       className={cn(
-        "max-w-[20ch] text-[1.9rem] leading-[1.05] font-bold tracking-[-0.02em] text-balance",
+        "max-w-[20ch] text-3xl text-balance",
         "sm:text-[2.3rem] lg:text-[2.8rem]",
         className
       )}
@@ -192,11 +192,11 @@ export function PageTitle({
         at, not an argument — at display size on a form it shouted, and it cost
         a third of the first screen before any content appeared.
       */}
-      <h1 className="max-w-[30ch] text-[1.5rem] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[1.75rem]">
+      <h1 className="max-w-[30ch] text-2xl text-balance sm:text-[1.75rem]">
         {children}
       </h1>
       {lead && (
-        <p className="mt-3 max-w-[74ch] text-[0.9375rem] leading-[1.7] opacity-75 sm:text-base">
+        <p className="mt-3 max-w-[74ch] text-sm opacity-75 sm:text-base">
           {lead}
         </p>
       )}
@@ -222,11 +222,11 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <p className="text-[1.9rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.4rem]">
+      <p className="text-3xl tabular-nums tabular-nums sm:text-[2.4rem]">
         {value}
       </p>
-      <p className="mt-4 text-sm leading-snug font-medium">{label}</p>
-      <p className="mt-2 text-xs leading-relaxed opacity-75">{source}</p>
+      <p className="mt-4 text-sm font-medium">{label}</p>
+      <p className="mt-2 text-xs opacity-75">{source}</p>
     </div>
   );
 }

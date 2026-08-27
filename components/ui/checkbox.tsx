@@ -45,7 +45,7 @@ function CheckboxField({
         className="flex min-h-9 cursor-pointer items-start gap-3 py-1.5 select-none"
       >
         <Checkbox id={id} aria-describedby={hintId} className="mt-0.5" {...props} />
-        <span className="text-sm leading-snug font-medium">{label}</span>
+        <span className="text-sm font-medium">{label}</span>
       </label>
       {hint && (
         <p id={hintId} className="mt-0.5 ml-8 text-sm text-muted-foreground">

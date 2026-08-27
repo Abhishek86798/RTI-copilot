@@ -62,17 +62,17 @@ export function ApplicationHeader({
       */}
       <div className="mt-1.5 border-b border-border pb-4">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
             {t(stageKey)}
           </p>
           <StatusBadge status={status} />
         </div>
 
-        <h1 className="mt-1.5 text-base leading-tight font-semibold tracking-[-0.015em] text-balance sm:text-lg">
+        <h1 className="mt-1.5 text-base font-semibold tracking-[-0.015em] text-balance sm:text-lg">
           {application.authority.authorityName}
         </h1>
 
-        <p className="mt-1 text-sm leading-snug text-muted-foreground">
+        <p className="mt-1 text-sm text-muted-foreground">
           {application.authority.pioDesignation}
           {application.registrationNumber && (
             <>

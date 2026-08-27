@@ -11,10 +11,15 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
         /**
          * The one action that moves the journey forward on a given screen.
-         * Blue rather than the navy default so a first-time filer can find
-         * "continue" without reading every button on the page first.
+         *
+         * The same accent as `default`, not a second one. It used to be the
+         * info blue, which meant a filing screen showed a blue "Next" under a
+         * violet "Sign in" — two accents, neither of them meaning anything by
+         * being that colour. There is one accent in this app; what makes the
+         * forward action findable is that it is the only filled button on the
+         * screen.
          */
-        cta: "bg-info text-info-foreground hover:bg-info/90",
+        cta: "bg-primary text-primary-foreground hover:bg-primary/80",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:

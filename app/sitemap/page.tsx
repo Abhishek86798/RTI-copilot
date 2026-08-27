@@ -125,7 +125,7 @@ export default function SitemapPage() {
                   >
                     {link.label}
                   </Link>
-                  <p className="mt-0.5 text-sm leading-[1.6] text-muted-foreground">
+                  <p className="mt-0.5 text-sm leading-prose text-muted-foreground">
                     {link.detail}
                   </p>
                 </li>

@@ -89,7 +89,7 @@ export function IntakeStep({
               rows={6}
               aria-describedby={`${hintId} ${countId}`}
               aria-invalid={showError || undefined}
-              className="max-h-[18rem] min-h-36 border-border bg-background text-sm leading-[1.65] shadow-sm"
+              className="max-h-[18rem] min-h-36 border-border bg-background text-sm shadow-sm"
             />
             <div className="flex flex-wrap items-center justify-between gap-2">
               <FieldHint id={hintId} className="sr-only">
@@ -100,7 +100,7 @@ export function IntakeStep({
                 id={countId}
                 aria-live="polite"
                 className={cn(
-                  "ml-auto font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
+                  "ml-auto font-mono text-2xs tracking-[0.14em] uppercase tabular-nums",
                   tooShort ? "opacity-75" : "text-success"
                 )}
               >

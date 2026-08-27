@@ -36,7 +36,7 @@ export function ErrorNotice({
     >
       <AlertTriangle aria-hidden="true" className="mb-2 size-6 opacity-80" />
       <h3 className="text-base font-semibold tracking-tight">{t("error.title")}</h3>
-      <p className="mt-1.5 text-sm leading-relaxed opacity-90 max-w-[50ch]">{error.userMessage}</p>
+      <p className="mt-1.5 text-sm opacity-90 max-w-[50ch]">{error.userMessage}</p>
       
       {error.retryable && onRetry && (
         <div className="mt-4">

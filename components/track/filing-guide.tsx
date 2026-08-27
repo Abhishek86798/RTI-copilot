@@ -177,7 +177,7 @@ export function FilingGuide({
             </SelectField>
           </div>
 
-          <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm leading-relaxed opacity-75">
+          <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm opacity-75">
             {t("submit.pio")}: <span className="text-foreground">{application.authority.pioDesignation}</span>
           </p>
           </PanelBody>
@@ -410,7 +410,7 @@ export function FilingGuide({
                 aria-hidden="true"
                 className="mt-0.5 size-5 shrink-0 opacity-75"
               />
-              <p className="text-sm leading-relaxed">
+              <p className="text-sm">
                 <span className="font-semibold">
                   {t("file.fee")}:{" "}
                   {application.applicant.isBpl ? t("submit.feeNil") : `₹${RTI_FEE_RUPEES}`}
@@ -447,7 +447,7 @@ export function FilingGuide({
               <FileUp aria-hidden="true" className="mt-0.5 size-5 shrink-0 opacity-75" />
               <div>
                 <p className="text-sm font-medium">{t("submit.supportingNotAvailable")}</p>
-                <p className="mt-1 max-w-[58ch] text-sm leading-relaxed opacity-75">
+                <p className="mt-1 max-w-[58ch] text-sm opacity-75">
                   {t("submit.supportingHelp")}
                 </p>
               </div>
@@ -483,11 +483,11 @@ export function FilingGuide({
 
           <pre
             tabIndex={0}
-            className="max-h-72 overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs leading-[1.65] whitespace-pre-wrap"
+            className="max-h-72 overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs whitespace-pre-wrap"
           >
             {application.portalText}
           </pre>
-          <p className="mt-4 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
+          <p className="mt-4 font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
             {application.portalText.length.toLocaleString("en-IN")} / 3,000{" "}
             {t("draft.chars")}
           </p>

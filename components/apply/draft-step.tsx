@@ -108,7 +108,7 @@ export function DraftStep({
                 id={countId}
                 aria-live="polite"
                 className={cn(
-                  "font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
+                  "font-mono text-2xs tracking-[0.14em] uppercase tabular-nums",
                   overLimit
                     ? "font-semibold text-destructive"
                     : nearLimit
@@ -127,9 +127,9 @@ export function DraftStep({
               rows={12}
               aria-describedby={countId}
               aria-invalid={overLimit || undefined}
-              className="min-h-48 max-h-[24rem] font-mono text-xs leading-[1.65]"
+              className="min-h-48 max-h-[24rem] font-mono text-xs"
             />
-            <p className="max-w-[58ch] text-sm leading-relaxed opacity-75">
+            <p className="max-w-[58ch] text-sm opacity-75">
               {t("draft.portalHelp")}
             </p>
             {overLimit && (
@@ -153,7 +153,7 @@ export function DraftStep({
             scrolls, and hid the end of the citizen's own sentence behind it —
             on the one screen whose purpose is that they read it back.
           */}
-            <p className="max-h-[24rem] overflow-y-auto text-sm leading-[1.7] whitespace-pre-wrap text-muted-foreground">
+            <p className="max-h-[24rem] overflow-y-auto text-sm whitespace-pre-wrap text-muted-foreground">
               {grievance}
             </p>
           </PanelBody>
@@ -168,7 +168,7 @@ export function DraftStep({
       <Panel className="mt-5">
         <PanelHeader title={t("draft.whyChanged")} />
         <PanelBody>
-          <p className="max-w-[74ch] text-sm leading-[1.7] text-muted-foreground">
+          <p className="max-w-[74ch] text-sm text-muted-foreground">
             {t("draft.whyChangedBody")}
           </p>
         </PanelBody>

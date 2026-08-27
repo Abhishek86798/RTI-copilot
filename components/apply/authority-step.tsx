@@ -219,7 +219,7 @@ function CandidateOption({
       />
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-start justify-between gap-3">
-          <span className="max-w-[34ch] text-base leading-snug font-semibold">
+          <span className="max-w-[34ch] text-base font-semibold">
             {candidate.authority.authorityName}
           </span>
           <span
@@ -231,7 +231,7 @@ function CandidateOption({
             {t(bucket.key)}
           </span>
         </span>
-        <span className="mt-2 block max-w-[58ch] text-sm leading-relaxed opacity-75">
+        <span className="mt-2 block max-w-[58ch] text-sm opacity-75">
           {candidate.reason}
         </span>
         <span className="mt-3 flex flex-wrap items-center gap-2">
@@ -282,7 +282,7 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
       </dl>
 
       {authority.notes && (
-        <p className="mt-5 max-w-[58ch] border-l-2 border-border pl-4 text-sm leading-relaxed">
+        <p className="mt-5 max-w-[58ch] border-l-2 border-border pl-4 text-sm">
           <span className="font-semibold">{t("confirm.worthKnowing")}: </span>
           <span className="opacity-75">{authority.notes}</span>
         </p>
@@ -357,7 +357,7 @@ function DetailRow({
         <Icon aria-hidden="true" className="size-4 shrink-0" />
         {label}
       </dt>
-      <dd className="sm:flex-1 text-sm sm:text-base leading-relaxed font-medium">
+      <dd className="sm:flex-1 text-sm sm:text-base font-medium">
         {children}
       </dd>
     </div>

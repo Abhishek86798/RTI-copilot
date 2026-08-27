@@ -93,18 +93,18 @@ export default function HomePage() {
             <Reveal delay={80}>
               <div className="grid grid-cols-2 border-t border-border pt-6 lg:border-t-0 lg:pt-0">
                 <div className="pr-6">
-                  <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
+                  <p className="text-4xl tabular-nums sm:text-[2.6rem]">
                     30
                   </p>
-                  <p className="mt-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
+                  <p className="mt-3 font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
                     Days to reply
                   </p>
                 </div>
                 <div className="border-l border-border pl-6">
-                  <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
+                  <p className="text-4xl tabular-nums sm:text-[2.6rem]">
                     ₹10
                   </p>
-                  <p className="mt-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
+                  <p className="mt-3 font-mono text-2xs tracking-[0.14em] uppercase opacity-75">
                     Fee, or free if BPL
                   </p>
                 </div>
@@ -116,7 +116,7 @@ export default function HomePage() {
 
           <div className="grid gap-8 py-10 lg:grid-cols-[1.55fr_1fr] lg:gap-14">
             <Reveal>
-              <p className="max-w-[74ch] text-base leading-[1.65] opacity-80 sm:text-[1.05rem]">
+              <p className="max-w-[74ch] text-base opacity-80 sm:text-lg">
                 {t("home.hero.body")}
               </p>
 
@@ -164,7 +164,7 @@ export default function HomePage() {
             <Marker index={1} total={TOTAL} label={t("home.sec.problem.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
               <Display>{t("home.sec.problem.title")}</Display>
-              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+              <p className="max-w-[54ch] self-end text-base opacity-75">
                 {t("home.sec.problem.lead")}
               </p>
             </div>
@@ -174,13 +174,13 @@ export default function HomePage() {
             <RuleGrid cols={3} className="mt-10 border-t border-border">
               {problems.map((p, i) => (
                 <div key={p.titleKey}>
-                  <span className="font-mono text-[0.75rem] tracking-[0.16em] opacity-72">
+                  <span className="font-mono text-2xs tracking-[0.14em] opacity-72">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 text-lg leading-snug font-semibold">
+                  <h3 className="mt-4 text-lg font-semibold">
                     {t(p.titleKey)}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed opacity-75">{t(p.bodyKey)}</p>
+                  <p className="mt-3 text-sm opacity-75">{t(p.bodyKey)}</p>
                 </div>
               ))}
             </RuleGrid>
@@ -197,7 +197,7 @@ export default function HomePage() {
             <Marker index={2} total={TOTAL} label={t("home.sec.scale.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
               <Display>{t("home.sec.scale.title")}</Display>
-              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+              <p className="max-w-[54ch] self-end text-base opacity-75">
                 {t("home.sec.scale.lead")}
               </p>
             </div>
@@ -216,7 +216,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="mt-10 max-w-[64ch] border-t border-current/25 pt-6 text-xs leading-relaxed opacity-75">
+            <p className="mt-10 max-w-[64ch] border-t border-current/25 pt-6 text-xs opacity-75">
               {t("home.stat.attrib")}
             </p>
           </Reveal>
@@ -235,7 +235,7 @@ export default function HomePage() {
           <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
             <Reveal>
               <Display>{t("home.sec.routing.title")}</Display>
-              <p className="mt-7 max-w-[50ch] text-base leading-relaxed opacity-75">
+              <p className="mt-7 max-w-[50ch] text-base opacity-75">
                 {t("home.sec.routing.lead")}
               </p>
             </Reveal>
@@ -258,7 +258,7 @@ export default function HomePage() {
             <Marker index={4} total={TOTAL} label={t("home.sec.rewrite.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
               <Display>{t("home.sec.rewrite.title")}</Display>
-              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+              <p className="max-w-[54ch] self-end text-base opacity-75">
                 {t("home.sec.rewrite.lead")}
               </p>
             </div>
@@ -275,12 +275,12 @@ export default function HomePage() {
             <div className="mt-10 grid border-t border-border md:grid-cols-2">
               <div className="border-b border-border py-7 md:border-r md:border-b-0 md:pr-12">
                 <Marker label="High Probability of Rejection" className="text-destructive" dim={false} />
-                <blockquote className="mt-6 max-w-[42ch] text-xl leading-snug">
+                <blockquote className="mt-6 max-w-[42ch] text-xl">
                   &ldquo;Why was my father&apos;s pension stopped without any
                   notice? This is completely unfair and someone needs to explain
                   what happened.&rdquo;
                 </blockquote>
-                <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
+                <p className="mt-6 max-w-[46ch] text-sm opacity-75">
                   Under Section 2(f), public authorities are not legally bound to provide explanations or justifications. Requests must be strictly limited to existing material records.
                 </p>
               </div>
@@ -295,7 +295,7 @@ export default function HomePage() {
                   ].map((item, i) => (
                     <li
                       key={item}
-                      className="flex gap-5 border-b border-border py-4 text-base leading-relaxed"
+                      className="flex gap-5 border-b border-border py-4 text-base"
                     >
                       <span
                         aria-hidden="true"
@@ -307,7 +307,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ol>
-                <p className="mt-6 max-w-[46ch] text-sm leading-relaxed opacity-75">
+                <p className="mt-6 max-w-[46ch] text-sm opacity-75">
                   The revised requisition correctly solicits existing material records. Refusal of such a request requires explicit invocation of exemptions strictly under Section 8 or 9.
                 </p>
               </div>
@@ -325,7 +325,7 @@ export default function HomePage() {
             <Marker index={5} total={TOTAL} label={t("home.sec.clock.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
               <Display>{t("home.sec.clock.title")}</Display>
-              <p className="max-w-[54ch] self-end text-base leading-relaxed opacity-75">
+              <p className="max-w-[54ch] self-end text-base opacity-75">
                 {t("home.sec.clock.lead")}
               </p>
             </div>
@@ -349,10 +349,10 @@ export default function HomePage() {
             <RuleGrid cols={4} className="mt-10 border-t border-border">
               {solutions.map((key, i) => (
                 <div key={key}>
-                  <span className="font-mono text-[0.75rem] tracking-[0.16em] opacity-72">
+                  <span className="font-mono text-2xs tracking-[0.14em] opacity-72">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="mt-4 text-sm leading-relaxed">{t(key)}</p>
+                  <p className="mt-4 text-sm">{t(key)}</p>
                 </div>
               ))}
             </RuleGrid>
@@ -369,7 +369,7 @@ export default function HomePage() {
             <Reveal>
               <Marker label={t("home.sec.honest.eyebrow")} />
               <Display className="mt-8">{t("home.sec.honest.title")}</Display>
-              <p className="mt-7 max-w-[52ch] text-base leading-relaxed opacity-75">
+              <p className="mt-7 max-w-[52ch] text-base opacity-75">
                 {t("home.sec.honest.lead")}
               </p>
               <Link
@@ -382,10 +382,10 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal delay={80} className="lg:border-l lg:border-border lg:pl-16">
-              <h3 className="max-w-[16ch] text-2xl leading-tight font-bold tracking-tight text-balance sm:text-3xl">
+              <h3 className="max-w-[16ch] text-2xl font-bold tracking-tight text-balance sm:text-3xl">
                 {t("home.cta.title")}
               </h3>
-              <p className="mt-5 max-w-[42ch] text-base leading-relaxed opacity-75">
+              <p className="mt-5 max-w-[42ch] text-base opacity-75">
                 {t("home.cta.lead")}
               </p>
               <Button

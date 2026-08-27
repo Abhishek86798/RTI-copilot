@@ -31,21 +31,21 @@ export function ApplicationSheet({ application }: { application: Application }) 
         </p>
       </header>
 
-      <section className="mb-5 text-sm leading-relaxed">
+      <section className="mb-5 text-sm">
         <p>To,</p>
         <p className="font-semibold">{authority.pioDesignation}</p>
         <p>{authority.authorityName}</p>
         <p>{authority.filingAddress}</p>
       </section>
 
-      <section className="mb-5 text-sm leading-relaxed">
+      <section className="mb-5 text-sm">
         <p>
           <span className="font-semibold">Subject:</span> Request for information
           under the Right to Information Act, 2005
         </p>
       </section>
 
-      <section className="mb-5 text-sm leading-relaxed">
+      <section className="mb-5 text-sm">
         <p>Sir/Madam,</p>
         <p className="mt-2">
           I request the following information under Section 6(1) of the Right to
@@ -56,7 +56,7 @@ export function ApplicationSheet({ application }: { application: Application }) 
 
       <section className="mb-5">
         <p className="mb-2 text-sm font-semibold">Information sought:</p>
-        <ol className="space-y-2 text-sm leading-relaxed">
+        <ol className="space-y-2 text-sm">
           {application.items.map((item, index) => (
             <li key={index} className="flex gap-2">
               <span className="font-semibold">{index + 1}.</span>
@@ -67,7 +67,7 @@ export function ApplicationSheet({ application }: { application: Application }) 
       </section>
 
       {application.lifeOrLibertyFlag && (
-        <section className="mb-5 border border-black p-3 text-sm leading-relaxed">
+        <section className="mb-5 border border-black p-3 text-sm">
           <p className="font-semibold">
             Request under the proviso to Section 7(1) — life or liberty
           </p>
@@ -79,7 +79,7 @@ export function ApplicationSheet({ application }: { application: Application }) 
         </section>
       )}
 
-      <section className="mb-5 text-sm leading-relaxed">
+      <section className="mb-5 text-sm">
         <p className="font-semibold">Fee</p>
         {applicant.isBpl ? (
           <p>
@@ -96,14 +96,14 @@ export function ApplicationSheet({ application }: { application: Application }) 
         )}
       </section>
 
-      <section className="mb-5 text-sm leading-relaxed">
+      <section className="mb-5 text-sm">
         <p>
           I request that the information be provided within the period
           prescribed by Section 7(1) of the Act.
         </p>
       </section>
 
-      <section className="mt-8 text-sm leading-relaxed">
+      <section className="mt-8 text-sm">
         <p>Yours faithfully,</p>
         <p className="mt-8">____________________________</p>
         <p className="font-semibold">{applicant.fullName || "[Full name]"}</p>
@@ -133,7 +133,7 @@ export function ApplicationSheet({ application }: { application: Application }) 
 export function AppealSheet({ text }: { text: string }) {
   return (
     <div data-print="only" className="print-sheet hidden text-black">
-      <pre className="text-sm leading-relaxed whitespace-pre-wrap">{text}</pre>
+      <pre className="text-sm whitespace-pre-wrap">{text}</pre>
       <footer className="mt-8 border-t border-black pt-2 text-xs">
         Prepared with RTI Copilot, an independent drafting aid. Not a government
         document and not legal advice. Review before filing.
