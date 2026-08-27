@@ -86,7 +86,7 @@ export function DeadlineTracker({
         aria-hidden — a screen reader gets "6 days left", not a percentage.
       */}
       <div className="mt-6">
-        <p className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+        <p className="font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
           {t("track.remaining")}
         </p>
         <p
@@ -157,7 +157,7 @@ export function DeadlineTracker({
               </Button>
             </div>
           )}
-          <p className="mt-4 flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+          <p className="mt-4 flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
             <FlaskConical aria-hidden="true" className="size-3.5" />
             Simulated
           </p>
@@ -206,7 +206,7 @@ function Fact({
 }) {
   return (
     <div className={cn("py-5", divided && "sm:border-l sm:border-border sm:pl-8")}>
-      <dt className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+      <dt className="font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
         {label}
       </dt>
       <dd className="mt-1.5 text-base font-semibold tabular-nums">{children}</dd>

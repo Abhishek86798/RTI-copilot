@@ -129,7 +129,7 @@ export function Marker({
   return (
     <p
       className={cn(
-        "flex items-baseline gap-3 font-mono text-[0.68rem] tracking-[0.18em] uppercase",
+        "flex items-baseline gap-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase",
         className
       )}
     >
@@ -196,7 +196,7 @@ export function PageTitle({
         {children}
       </h1>
       {lead && (
-        <p className="mt-3 max-w-[74ch] text-[0.9375rem] leading-[1.6] opacity-75 sm:text-base">
+        <p className="mt-3 max-w-[74ch] text-[0.9375rem] leading-[1.7] opacity-75 sm:text-base">
           {lead}
         </p>
       )}

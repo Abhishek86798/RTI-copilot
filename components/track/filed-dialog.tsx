@@ -82,7 +82,7 @@ export function FiledDialog({
           afterwards, so it is the one piece of data the dialog carries.
         */}
         <div className="mt-8 w-full border-y border-border py-6">
-          <p className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+          <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
             {t("receipt.regNumber")}
           </p>
           {/*
@@ -104,7 +104,7 @@ export function FiledDialog({
         {/* Above the actions, not below them: on a small screen the buttons
             are the last thing in view, and a countdown underneath them
             explained the redirect only to people who scrolled to find it. */}
-        <p className="mt-7 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+        <p className="mt-7 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
           {t("receipt.redirect", { seconds: Math.max(seconds, 0) })}
         </p>
 

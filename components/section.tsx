@@ -60,12 +60,12 @@ export function Section({
         labels running down the left, at one x-position, on every screen.
       */}
       <div className="lg:pt-0.5">
-        <h2 className="flex items-center gap-2.5 font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+        <h2 className="flex items-center gap-2.5 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
           {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
           {label}
         </h2>
         {description && (
-          <p className="mt-3 max-w-[42ch] text-sm leading-[1.6] opacity-75">
+          <p className="mt-3 max-w-[42ch] text-sm leading-[1.7] opacity-75">
             {description}
           </p>
         )}
@@ -94,7 +94,7 @@ export function Prose({
   return (
     <div
       className={cn(
-        "prose-measure space-y-4 text-[0.9375rem] leading-[1.65] opacity-75 sm:text-base",
+        "prose-measure space-y-4 text-[0.9375rem] leading-[1.7] opacity-75 sm:text-base",
         "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
         "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:marker:text-border",
         "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:marker:text-border",
@@ -137,7 +137,7 @@ export function Steps({
             <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
               {item.title}
             </h3>
-            <p className="mt-1.5 text-sm leading-[1.6] opacity-75">{item.body}</p>
+            <p className="mt-1.5 text-sm leading-[1.7] opacity-75">{item.body}</p>
           </div>
         </li>
       ))}

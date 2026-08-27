@@ -66,19 +66,19 @@ export function SiteFooter() {
         <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]">
           {/* The disclaimer leads, because it is the part that matters most. */}
           <div className="max-w-[52ch]">
-            <p className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+            <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
               {t("brand.name")}
             </p>
             <p className="mt-4 text-[0.9375rem] leading-[1.55] font-medium">
               {t("footer.independent")}
             </p>
-            <p className="mt-3 text-[0.8125rem] leading-[1.6] opacity-75">{t("footer.notGov")}</p>
-            <p className="mt-2 text-[0.8125rem] leading-[1.6] opacity-75">{t("footer.notLegal")}</p>
+            <p className="mt-3 text-[0.8125rem] leading-[1.7] opacity-75">{t("footer.notGov")}</p>
+            <p className="mt-2 text-[0.8125rem] leading-[1.7] opacity-75">{t("footer.notLegal")}</p>
           </div>
 
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+              <h2 className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
                 {column.heading}
               </h2>
               <ul className="mt-4 space-y-2.5">
@@ -109,7 +109,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 border-t border-border pt-5">
-          <p className="font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+          <p className="font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
             {t("footer.colophon")}
           </p>
         </div>

@@ -91,11 +91,11 @@ export function PayAndFile({
         <h2
           id="pay-heading"
           tabIndex={-1}
-          className="mt-2 max-w-[30ch] text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+          className="mt-2 max-w-[30ch] text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
         >
           {isBpl ? t("pay.bplTitle") : t("pay.title")}
         </h2>
-        <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
+        <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
           {isBpl ? t("pay.bplBody") : t("pay.help")}
         </p>
       </div>

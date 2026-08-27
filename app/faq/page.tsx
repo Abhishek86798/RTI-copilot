@@ -63,7 +63,7 @@ export default function FAQPage() {
               <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
                 {faq.q}
               </h3>
-              <p className="mt-2 text-sm leading-[1.65] opacity-75">{faq.a}</p>
+              <p className="mt-2 text-sm leading-[1.7] opacity-75">{faq.a}</p>
             </div>
           ))}
         </div>

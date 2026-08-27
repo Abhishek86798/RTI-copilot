@@ -107,7 +107,7 @@ export function DraftStep({
               id={countId}
               aria-live="polite"
               className={cn(
-                "font-mono text-[0.68rem] tracking-[0.14em] uppercase tabular-nums",
+                "font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
                 overLimit
                   ? "font-semibold text-destructive"
                   : nearLimit

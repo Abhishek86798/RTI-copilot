@@ -156,11 +156,11 @@ export function FilingGuide({
               // One size, whether the section is stepped through or stacked.
               // Display size belongs to a page title; this is a heading inside
               // one, and every line it saves is a line of form that fits.
-              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+              className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
             >
               {t("submit.authorityTitle")}
             </h2>
-            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.7] opacity-75">
               {t("submit.authorityHelp")}
             </p>
           </div>
@@ -239,11 +239,11 @@ export function FilingGuide({
               // One size, whether the section is stepped through or stacked.
               // Display size belongs to a page title; this is a heading inside
               // one, and every line it saves is a line of form that fits.
-              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+              className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
             >
               {t("file.applicantTitle")}
             </h2>
-            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.7] opacity-75">
               {t("file.applicantHelp")}
             </p>
           </div>
@@ -437,7 +437,7 @@ export function FilingGuide({
               // One size, whether the section is stepped through or stacked.
               // Display size belongs to a page title; this is a heading inside
               // one, and every line it saves is a line of form that fits.
-              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+              className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
             >
               {t("submit.declarationTitle")}
             </h2>
@@ -535,7 +535,7 @@ export function FilingGuide({
               // One size, whether the section is stepped through or stacked.
               // Display size belongs to a page title; this is a heading inside
               // one, and every line it saves is a line of form that fits.
-              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+              className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
             >
               {t("submit.supportingTitle")}
             </h2>
@@ -590,11 +590,11 @@ export function FilingGuide({
               // One size, whether the section is stepped through or stacked.
               // Display size belongs to a page title; this is a heading inside
               // one, and every line it saves is a line of form that fits.
-              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
+              className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
             >
               {t("submit.requestTitle")}
             </h2>
-            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.7] opacity-75">
               {t("submit.requestHelp")}
             </p>
           </div>
@@ -616,7 +616,7 @@ export function FilingGuide({
             <pre className="border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
               {application.portalText}
             </pre>
-            <p className="mt-4 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+            <p className="mt-4 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
               {application.portalText.length.toLocaleString("en-IN")} / 3,000{" "}
               {t("draft.chars")}
             </p>

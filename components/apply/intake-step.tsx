@@ -104,7 +104,7 @@ export function IntakeStep({
               id={countId}
               aria-live="polite"
               className={cn(
-                "ml-auto font-mono text-[0.68rem] tracking-[0.14em] uppercase tabular-nums",
+                "ml-auto font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
                 tooShort ? "opacity-75" : "text-success"
               )}
             >

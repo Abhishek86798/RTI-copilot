@@ -130,7 +130,7 @@ function ApplicationRow({ application }: { application: Application }) {
           <div className="flex flex-wrap items-center gap-4">
             <StatusBadge status={status} />
             {application.isDemo && (
-              <span className="rounded-md bg-card px-2 py-0.5 font-mono text-[0.68rem] tracking-[0.14em] text-warning uppercase ring-1 ring-warning/35">
+              <span className="rounded-md bg-card px-2 py-0.5 font-mono text-[0.75rem] tracking-[0.14em] text-warning uppercase ring-1 ring-warning/35">
                 {t("list.example")}
               </span>
             )}
@@ -154,7 +154,7 @@ function ApplicationRow({ application }: { application: Application }) {
               {application.authority.authorityName}
             </Link>
           </p>
-          <p className="mt-2 line-clamp-2 max-w-[70ch] text-sm leading-[1.6] opacity-75">
+          <p className="mt-2 line-clamp-2 max-w-[70ch] text-sm leading-[1.7] opacity-75">
             {application.grievance}
           </p>
         </div>
@@ -175,7 +175,7 @@ function ApplicationRow({ application }: { application: Application }) {
               >
                 {remainingLabel(describeRemaining(clock))}
               </p>
-              <p className="mt-2 flex items-center gap-1.5 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75 sm:justify-end">
+              <p className="mt-2 flex items-center gap-1.5 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75 sm:justify-end">
                 {clock.isOverdue ? (
                   <AlertTriangle aria-hidden="true" className="size-3.5" />
                 ) : (
@@ -185,7 +185,7 @@ function ApplicationRow({ application }: { application: Application }) {
               </p>
             </>
           ) : (
-            <p className="font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+            <p className="font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
               {t("list.started", { date: formatDate(application.createdAt) })}
             </p>
           )}

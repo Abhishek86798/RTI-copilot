@@ -96,7 +96,7 @@ export default function HomePage() {
                   <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
                     30
                   </p>
-                  <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+                  <p className="mt-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
                     Days to reply
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function HomePage() {
                   <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
                     ₹10
                   </p>
-                  <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+                  <p className="mt-3 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
                     Fee, or free if BPL
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export default function HomePage() {
             <RuleGrid cols={3} className="mt-10 border-t border-border">
               {problems.map((p, i) => (
                 <div key={p.titleKey}>
-                  <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
+                  <span className="font-mono text-[0.75rem] tracking-[0.16em] opacity-72">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-4 text-lg leading-snug font-semibold">
@@ -349,7 +349,7 @@ export default function HomePage() {
             <RuleGrid cols={4} className="mt-10 border-t border-border">
               {solutions.map((key, i) => (
                 <div key={key}>
-                  <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
+                  <span className="font-mono text-[0.75rem] tracking-[0.16em] opacity-72">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="mt-4 text-sm leading-relaxed">{t(key)}</p>

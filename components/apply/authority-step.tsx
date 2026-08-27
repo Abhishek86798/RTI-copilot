@@ -224,7 +224,7 @@ function CandidateOption({
           </span>
           <span
             className={cn(
-              "shrink-0 rounded-full px-2.5 py-0.5 font-mono text-[0.68rem] tracking-[0.12em] uppercase",
+              "shrink-0 rounded-full px-2.5 py-0.5 font-mono text-[0.75rem] tracking-[0.12em] uppercase",
               TONE_CLASSES[bucket.tone]
             )}
           >
@@ -237,7 +237,7 @@ function CandidateOption({
         <span className="mt-3 flex flex-wrap items-center gap-2">
           <span
             className={cn(
-              "rounded-md px-2 py-0.5 font-mono text-[0.68rem] tracking-[0.12em] uppercase ring-1",
+              "rounded-md px-2 py-0.5 font-mono text-[0.75rem] tracking-[0.12em] uppercase ring-1",
               candidate.authority.level === "central"
                 ? "bg-card text-info ring-info/30"
                 : "bg-card text-warning ring-warning/35"

@@ -158,12 +158,12 @@ export default function SubmitAppealPage() {
             <Marker label={t("appeal.acknowledgement")} />
             <h2
               id="appeal-ack"
-              className="mt-2 flex items-center gap-2.5 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
+              className="mt-2 flex items-center gap-2.5 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
             >
               <CheckCircle2 aria-hidden="true" className="size-5 shrink-0 text-success" />
               {t("appeal.submitted", { date: formatDate(submitted) })}
             </h2>
-            <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
+            <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
               {t("appeal.submittedHelp")}
             </p>
           </div>
@@ -197,12 +197,12 @@ export default function SubmitAppealPage() {
               <Marker label={t("appeal.section.grounds")} />
               <h2
                 id="appeal-grounds"
-                className="mt-2 flex items-center gap-2.5 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
+                className="mt-2 flex items-center gap-2.5 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
               >
                 <Gavel aria-hidden="true" className="size-5 shrink-0 text-warning" />
                 {t("nav.appeal")}
               </h2>
-              <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
+              <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
                 {t("track.appealHelp")}
               </p>
             </div>
@@ -242,7 +242,7 @@ export default function SubmitAppealPage() {
               <Marker label={t("appeal.section.confirm")} />
               <h2
                 id="appeal-confirm"
-                className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
+                className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
               >
                 {t("appeal.confirmTitle")}
               </h2>

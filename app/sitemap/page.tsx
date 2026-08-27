@@ -129,7 +129,7 @@ export default function SitemapPage() {
                 >
                   {link.label}
                 </Link>
-                <p className="mt-1 text-sm leading-[1.6] opacity-75">{link.detail}</p>
+                <p className="mt-1 text-sm leading-[1.7] opacity-75">{link.detail}</p>
               </li>
             ))}
           </ul>
