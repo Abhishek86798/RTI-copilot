@@ -93,10 +93,19 @@ export async function updateApplication(
   return row ? toApplication(row) : undefined;
 }
 
-export async function deleteApplication(userId: string, id: string): Promise<void> {
-  await getDb()
+/**
+ * Returns false when the row does not exist or belongs to someone else, so
+ * the caller can answer 404 rather than a confident "deleted". The scoping
+ * was always right — an unscoped delete was never possible — but reporting
+ * success for a row that is still there invites a client to drop it from a
+ * local cache and show the citizen an application that quietly reappears.
+ */
+export async function deleteApplication(userId: string, id: string): Promise<boolean> {
+  const rows = await getDb()
     .delete(applications)
-    .where(and(eq(applications.userId, userId), eq(applications.id, id)));
+    .where(and(eq(applications.userId, userId), eq(applications.id, id)))
+    .returning({ id: applications.id });
+  return rows.length > 0;
 }
 
 type WritableRow = Omit<NewApplicationRow, "id" | "userId" | "createdAt" | "updatedAt">;

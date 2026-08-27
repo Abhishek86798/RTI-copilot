@@ -50,6 +50,7 @@ export async function DELETE(_request: Request, { params }: Params) {
   const userId = await guard();
   if (typeof userId !== "string") return userId;
 
-  await deleteApplication(userId, (await params).id);
+  const deleted = await deleteApplication(userId, (await params).id);
+  if (!deleted) return NextResponse.json({ error: "Not found." }, { status: 404 });
   return NextResponse.json({ ok: true });
 }

@@ -27,7 +27,25 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: MESSAGES[result] }, { status: 401 });
   }
 
+  /*
+   * A deployment with no AUTH_SECRET throws here rather than signing cookies
+   * with a guessable key. Caught so the citizen gets a sentence instead of a
+   * bare 500 whose only explanation is in a log they cannot read — the code
+   * they were sent is spent by now, so an unexplained failure would look like
+   * the code itself was wrong and send them round the loop again.
+   */
+  let token: string;
+  try {
+    token = createSessionToken(email);
+  } catch (caught) {
+    console.error("[auth] cannot sign session:", caught);
+    return NextResponse.json(
+      { error: "Sign-in is not configured on this deployment. You can keep using the tool without an account." },
+      { status: 503 }
+    );
+  }
+
   const response = NextResponse.json({ ok: true, email });
-  response.cookies.set(SESSION_COOKIE, createSessionToken(email), SESSION_COOKIE_OPTIONS);
+  response.cookies.set(SESSION_COOKIE, token, SESSION_COOKIE_OPTIONS);
   return response;
 }
