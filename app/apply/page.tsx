@@ -1,10 +1,11 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { scrollPageToTop } from "@/components/smooth-scroll";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
-import { PAGE_LAYOUT_WIDE } from "@/components/page-layout";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
@@ -72,7 +73,7 @@ function ApplyWizard() {
    * screen with no announcement that anything happened.
    */
   useEffect(() => {
-    window.scrollTo(0, 0);
+    scrollPageToTop();
     headingRef.current?.focus({ preventScroll: true });
   }, [step]);
 
@@ -166,7 +167,7 @@ function ApplyWizard() {
   }
 
   return (
-    <div className={cn(PAGE_LAYOUT_WIDE)}>
+    <div className={cn(PAGE_LAYOUT)}>
       <StepIndicator current={STEP_INDEX[step]} className="mb-12" />
 
       {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
@@ -240,7 +241,7 @@ export default function ApplyPage() {
   return (
     <Suspense
       fallback={
-        <div className={cn(PAGE_LAYOUT_WIDE)}>
+        <div className={cn(PAGE_LAYOUT)}>
           <p className="text-muted-foreground">Loading…</p>
         </div>
       }

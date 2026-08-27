@@ -82,9 +82,8 @@ export function AuthorityStep({
         {t("confirm.title")}
       </PageTitle>
 
-      {/* Capped, not centred — flush with the step rule, but a candidate card
-          a thousand pixels wide reads worse than one at a normal measure. */}
-      <div className="mt-8 max-w-3xl space-y-6">
+      {/* Full measure, matching the step rule on both edges. */}
+      <div className="mt-8 space-y-6">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
             <Info aria-hidden="true" className="text-destructive" />

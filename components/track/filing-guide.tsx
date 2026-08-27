@@ -92,7 +92,7 @@ export function FilingGuide({
   }
 
   return (
-    <div className="max-w-3xl space-y-16">
+    <div className="space-y-16">
       {/* -------------------------------------------------------------- */}
       {/* Scope — the real portal serves Central authorities only          */}
       {/* -------------------------------------------------------------- */}

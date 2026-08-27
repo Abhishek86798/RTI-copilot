@@ -8,7 +8,7 @@ import { ApplicationHeader } from "@/components/track/application-header";
 import { DeadlineTracker } from "@/components/track/deadline-tracker";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { PAGE_LAYOUT_WIDE } from "@/components/page-layout";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { computeClock, formatDate } from "@/lib/client/deadlines";
 import { updateApplication } from "@/lib/client/store";
 import { cn } from "@/lib/utils";
@@ -36,7 +36,7 @@ export default function TrackApplicationPage() {
 
   if (!hydrated) {
     return (
-      <div className={cn(PAGE_LAYOUT_WIDE)}>
+      <div className={cn(PAGE_LAYOUT)}>
         <p className="opacity-75">{t("common.loading")}</p>
       </div>
     );
@@ -44,7 +44,7 @@ export default function TrackApplicationPage() {
 
   if (!application) {
     return (
-      <div className={cn(PAGE_LAYOUT_WIDE, "text-center")}>
+      <div className={cn(PAGE_LAYOUT, "text-center")}>
         <h1 className="text-2xl font-bold tracking-[-0.02em]">{t("track.missingTitle")}</h1>
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
@@ -63,7 +63,7 @@ export default function TrackApplicationPage() {
   /* Not filed yet: there is nothing to track, so send them to file it. */
   if (!application.filedAt) {
     return (
-      <div className={cn(PAGE_LAYOUT_WIDE)}>
+      <div className={cn(PAGE_LAYOUT)}>
         <ApplicationHeader application={application} step={3} stageKey="steps.file" />
         <div className="mt-16 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
@@ -93,7 +93,7 @@ export default function TrackApplicationPage() {
   const appealFiled = Boolean(application.appeal?.filedAt);
 
   return (
-    <div className={cn(PAGE_LAYOUT_WIDE)}>
+    <div className={cn(PAGE_LAYOUT)}>
       <ApplicationHeader application={application} step={4} stageKey="steps.track" />
 
       <div className="mt-16 space-y-16">
