@@ -38,7 +38,7 @@ export function subscribe(listener: () => void): () => void {
   };
 }
 
-/** Called by the provider when Clerk's auth state resolves or changes. */
+/** Called by the header controls when the session resolves or changes. */
 export function setStoreMode(next: "guest" | "account") {
   if (mode === next) return;
   mode = next;

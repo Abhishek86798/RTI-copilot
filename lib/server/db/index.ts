@@ -6,8 +6,7 @@ import * as schema from "./schema";
  * Lazy, because guest mode must work with no database at all.
  *
  * A module-level connection would throw at import time on a clone with no
- * DATABASE_URL and take the guest journey down with it — the same failure the
- * Clerk guard in proxy.ts exists to prevent.
+ * DATABASE_URL and take the guest journey down with it.
  */
 let cached: ReturnType<typeof drizzle<typeof schema>> | null = null;
 

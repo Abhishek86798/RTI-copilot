@@ -93,7 +93,7 @@ export function IntakeStep({
             rows={8}
             aria-describedby={`${hintId} ${countId}`}
             aria-invalid={showError || undefined}
-            className="min-h-52 text-base leading-relaxed"
+            className="min-h-52 text-base leading-relaxed border-border bg-background shadow-sm"
           />
           <div className="flex flex-wrap items-center justify-between gap-2">
             <FieldHint id={hintId} className="sr-only">
@@ -108,8 +108,9 @@ export function IntakeStep({
                 tooShort ? "opacity-75" : "text-success"
               )}
             >
-              {words} {t("intake.words")}
-              {tooShort && ` / ${MIN_WORDS}`}
+              {tooShort
+                ? `${words} / ${MIN_WORDS} ${t("intake.wordsMin")}`
+                : `${words} ${t("intake.words")}`}
             </p>
           </div>
           {showError && <FieldError>{t("intake.minWords")}</FieldError>}

@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { currentUser } from "@/lib/server/auth/current-user";
 import { isDatabaseConfigured } from "@/lib/server/db";
 import {
   deleteApplication,
@@ -13,7 +13,7 @@ async function guard() {
   if (!isDatabaseConfigured()) {
     return NextResponse.json({ error: "Storage is not configured." }, { status: 503 });
   }
-  const { userId } = await auth();
+  const userId = await currentUser();
   if (!userId) return NextResponse.json({ error: "Sign in required." }, { status: 401 });
   return userId;
 }

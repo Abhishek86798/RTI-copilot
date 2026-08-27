@@ -27,7 +27,7 @@ export const applications = pgTable(
   "applications",
   {
     id: text("id").primaryKey(),
-    /** Clerk user id. Guest rows never reach this table. */
+    /** The signed-in citizen's verified email. Guest rows never reach this table. */
     userId: text("user_id").notNull(),
 
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

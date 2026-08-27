@@ -12,7 +12,7 @@ import { computeClock } from "./deadlines";
  *
  * This is not a stripped demo skin. It is the same state shape the signed-in
  * path will persist to Postgres, so the UI reads one type either way and the
- * Clerk/Neon work is a swap of this module's four functions, not a fork of the
+ * Account/Neon work is a swap of this module's four functions, not a fork of the
  * app. Nothing here leaves the browser.
  */
 

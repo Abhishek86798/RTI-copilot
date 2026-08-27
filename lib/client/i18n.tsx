@@ -110,30 +110,30 @@ const en = {
   "common.edit": "Edit",
   "common.done": "Done",
 
-  "home.hero.title": "Submit RTI Request / Submit RTI First Appeal",
+  "home.hero.title": "File an RTI without knowing the department",
   "home.hero.body":
-    "This is a portal to file RTI applications/first appeals online along with payment gateway. Payment can be made through internet banking, debit/credit cards of Master/Visa, RuPay cards and UPI. Through this portal, RTI applications/first appeals can be filed by Indian Citizens for all Ministries/Departments and other Public Authorities of Central Government.",
+    "Describe your problem in plain language. RTI Copilot identifies the correct Public Authority, rewrites your grievance into a valid document request, and tracks the 30-day statutory deadline — so you never miss the window to escalate.",
   "home.hero.start": "Start my application",
   "home.hero.demo": "See it work on a real example",
-  "home.hero.note": "Please read instructions carefully while submitting request/appeal.",
+  "home.hero.note": "No account needed. Your text stays in your browser until you ask us to route it.",
 
-  "home.problem.title": "Important Updates & Advisories",
-  "home.problem.1.title": "State Government Notice",
+  "home.problem.title": "Why most first RTI filings fail",
+  "home.problem.1.title": "Wrong authority",
   "home.problem.1.body":
-    "Please do not file RTI applications through this portal for the public authorities under the State Governments, including Government of NCT Delhi. If filed, the application would be returned, without refund of amount.",
-  "home.problem.2.title": "Second Appeal Notice",
+    "Filing with the wrong Public Authority triggers a Section 6(3) transfer. The clock resets. Your 30 days are gone before anyone reads your request.",
+  "home.problem.2.title": "Wrong phrasing",
   "home.problem.2.body":
-    "The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the DoPT RTI Online Portal. Now, while submitting a Second Appeal, the system will automatically retrieve related details of the RTI Application.",
-  "home.problem.3.title": "Maintenance Notice",
+    "Asking \"why\" instead of asking for a document. Authorities can legally refuse to provide explanations or opinions under Section 2(f). The request must name specific records.",
+  "home.problem.3.title": "Missed deadline",
   "home.problem.3.body":
-    "System will not be available on 30-8-2026 (Friday) from 11:00 AM to 3:00 PM due to maintenance activity. Inconvenience caused is highly regretted.",
+    "No reply within 30 days is a deemed refusal. First-time filers rarely know they have 30 days to appeal — and the window closes without warning.",
 
-  "home.solution.title": "Copilot Routing Integration",
-  "home.solution.1": "The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the DoPT RTI Online Portal.",
-  "home.solution.2": "Copilot now automatically retrieves related details of the RTI Application to ensure a smooth and more streamlined filing process.",
-  "home.solution.3": "Email verification via OTP will be implemented for all RTI requests starting Monday.",
-  "home.solution.4": "This will enhance citizen privacy and data security.",
-  "home.solution.5": "It will strengthen the portal's cybersecurity framework.",
+  "home.solution.title": "What RTI Copilot does",
+  "home.solution.1": "Reads your grievance in plain language — no dropdowns, no government jargon required.",
+  "home.solution.2": "Identifies the correct Public Authority and PIO from a curated directory, avoiding Section 6(3) transfer delays.",
+  "home.solution.3": "Rewrites your complaint into an itemised list of specific document requests that authorities are legally required to answer.",
+  "home.solution.4": "Detects life-or-liberty situations and flags the 48-hour window under Section 7(1) proviso.",
+  "home.solution.5": "Starts the 30-day statutory clock and auto-drafts your First Appeal the moment the deadline lapses.",
 
   "steps.describe": "Describe",
   "steps.authority": "Authority",
@@ -141,12 +141,13 @@ const en = {
   "steps.file": "File",
   "steps.track": "Track",
 
-  "intake.title": "Grievance / Subject Matter Description",
+  "intake.title": "What information are you trying to find?",
   "intake.help":
-    "Furnish factual details of the grievance. Include all relevant reference numbers (e.g., PPO number, FIR, or application number). Submissions are recorded verbatim.",
+    "Write as if explaining it to a friend. Include dates and any reference numbers you have — PPO number, case number, application number. We preserve them exactly.",
   "intake.placeholder":
     "For example: My father's pension stopped in April without any notice. We went to the office three times and nobody would explain or show us anything in writing…",
   "intake.words": "words",
+  "intake.wordsMin": "words minimum",
   "intake.minWords": "Please write at least 15 words so we can route this accurately.",
   "intake.submit": "Identify Public Authority",
   "intake.working": "Identifying relevant Public Authority…",
@@ -289,36 +290,36 @@ const en = {
   "home.hero.eyebrow": "Right to Information Act, 2005",
   "home.hero.scroll": "How it works",
 
-  "home.sec.problem.eyebrow": "Common Deficiencies",
-  "home.sec.problem.title": "Grounds for Rejection under RTI Act, 2005",
+  "home.sec.problem.eyebrow": "Two fixable failure modes",
+  "home.sec.problem.title": "Why RTI applications get rejected or ignored",
   "home.sec.problem.lead":
-    "Statistical analysis indicates a high rejection rate for initial applications due to procedural non-compliance and improper authority designation, leading to inevitable delays.",
+    "Most first filings fail not because the citizen was wrong — but because they picked the wrong office or wrote the wrong kind of sentence. Both are fixable before you submit.",
 
-  "home.sec.scale.eyebrow": "Systematic Backlog",
-  "home.sec.scale.title": "Administrative Scale and Scope",
+  "home.sec.scale.eyebrow": "The scale of the problem",
+  "home.sec.scale.title": "53 lakh RTIs a year. Millions returned or unanswered.",
   "home.sec.scale.lead":
-    "The volume of citizen queries often outpaces administrative processing capacity, necessitating precise drafting and correct initial routing to avoid systematic backlog.",
+    "India's RTI system is vast. Most delays are not caused by bad faith — they are caused by filings that land in the wrong office, or ask the wrong kind of question.",
 
-  "home.sec.routing.eyebrow": "Authority Routing",
-  "home.sec.routing.title": "Verification of Public Authority",
+  "home.sec.routing.eyebrow": "Step one — right office",
+  "home.sec.routing.title": "We find the correct Public Authority",
   "home.sec.routing.lead":
-    "An automated review matches the grievance against the official directory of public authorities to mitigate Section 6(3) transfer delays and statutory clock resets.",
+    "You describe your problem. We match it to the right office from a curated directory — so your application doesn't trigger a Section 6(3) transfer and lose your 30 days.",
 
-  "home.sec.rewrite.eyebrow": "Statutory Translation",
-  "home.sec.rewrite.title": "Drafting Requisites for Information Requests",
+  "home.sec.rewrite.eyebrow": "Step two — right words",
+  "home.sec.rewrite.title": "We rewrite your complaint as a document request",
   "home.sec.rewrite.lead":
-    "The Act mandates the provision of existing records, not the justification of administrative actions. Queries are transcribed into formal document requisitions compliance with Section 2(f).",
+    "The RTI Act compels authorities to provide records, not explanations. We rewrite your grievance into an itemised list of specific documents — in compliance with Section 2(f).",
 
-  "home.sec.clock.eyebrow": "Statutory Timelines",
-  "home.sec.clock.title": "Section 7 and 19 Compliance",
+  "home.sec.clock.eyebrow": "Step three — the deadline",
+  "home.sec.clock.title": "We track the 30-day clock and draft your appeal",
   "home.sec.clock.lead":
-    "Non-response within the stipulated 30-day period constitutes a deemed refusal under Section 7(2), mandating the filing of a First Appeal within the subsequent 30-day window.",
+    "No reply within 30 days is a deemed refusal under Section 7(2). We start the clock the moment you file, and auto-draft your First Appeal when the deadline lapses.",
 
-  "home.sec.honest.eyebrow": "Advisory",
-  "home.sec.honest.title": "Prototype Usage Notification",
+  "home.sec.honest.eyebrow": "What this is",
+  "home.sec.honest.title": "A drafting tool, not a filing service",
   "home.sec.honest.lead":
-    "This system serves strictly as a drafting and routing assistant. It does not interface directly with internal government databases, and no requests are automatically transmitted.",
-  "home.sec.honest.cta": "View full technical limitations",
+    "RTI Copilot prepares your application and tracks your deadline. It does not file on your behalf, and it is not connected to any government system. You review, sign, and file it yourself.",
+  "home.sec.honest.cta": "See exactly what is real and what is mocked",
 
   "home.stat.filed.value": "≈53 lakh",
   "home.stat.filed.label": "RTI applications filed every year",
@@ -573,32 +574,30 @@ const hi: Record<StringKey, string> = {
   "common.edit": "बदलें",
   "common.done": "पूर्ण",
 
-  "home.hero.title": "आरटीआई अनुरोध प्रस्तुत करें / आरटीआई प्रथम अपील प्रस्तुत करें",
+  "home.hero.title": "विभाग जाने बिना आरटीआई दाख़िल करें",
   "home.hero.body":
-    "यह पेमेंट गेटवे के साथ ऑनलाइन आरटीआई आवेदन/प्रथम अपील प्रस्तुत करने के लिए एक पोर्टल है। पेमेंट मास्टर/वीजा के इंटरनेट बैंकिंग, डेबिट/क्रेडिट कार्ड, रुपे कार्ड और यूपीआई के माध्यम से किया जा सकता है। इस पोर्टल के माध्यम से, भारतीय नागरिक केंद्र सरकार के सभी मंत्रालयों/विभागों और अन्य सार्वजनिक प्राधिकरणों के लिए आरटीआई आवेदन/प्रथम अपील प्रस्तुत कर सकते हैं।",
+    "अपनी परेशानी सरल भाषा में लिखें। RTI Copilot सही सार्वजनिक प्राधिकरण पहचानता है, आपकी शिकायत को एक वैध दस्तावेज़ अनुरोध में बदलता है, और 30 दिन की क़ानूनी समय-सीमा पर नज़र रखता है — ताकि आप अपील की खिड़की न चूकें।",
   "home.hero.start": "मेरा आवेदन शुरू करें",
   "home.hero.demo": "एक उदाहरण पर चलकर देखें",
-  "home.hero.note":
-    "कृपया अनुरोध/अपील प्रस्तुत करते समय निर्देशों को ध्यान से पढ़ें।",
+  "home.hero.note": "खाता ज़रूरी नहीं। रूट करने को कहने से पहले आपका टेक्स्ट आपके ब्राउज़र में ही रहता है।",
 
-  "home.problem.title": "महत्वपूर्ण अपडेट और सलाह",
-  "home.problem.1.title": "राज्य सरकार की सूचना",
+  "home.problem.title": "पहली बार के अधिकांश आरटीआई क्यों विफल होते हैं",
+  "home.problem.1.title": "गलत प्राधिकरण",
   "home.problem.1.body":
-    "कृपया एनसीटी दिल्ली सरकार सहित राज्य सरकारों के अंतर्गत आने वाले सार्वजनिक प्राधिकरणों के लिए इस पोर्टल के माध्यम से आरटीआई आवेदन दाखिल न करें। यदि दाखिल किया जाता है, तो राशि वापस किए बिना आवेदन लौटा दिया जाएगा।",
-  "home.problem.2.title": "द्वितीय अपील सूचना",
+    "गलत सार्वजनिक प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है। घड़ी फिर से शुरू होती है। कोई आपका अनुरोध पढ़ने से पहले ही आपके 30 दिन गए।",
+  "home.problem.2.title": "गलत शब्दावली",
   "home.problem.2.body":
-    "केंद्रीय सूचना आयोग (CIC) ने अपने द्वितीय अपील फाइलिंग पोर्टल को DoPT RTI ऑनलाइन पोर्टल के साथ एकीकृत किया है। अब, द्वितीय अपील प्रस्तुत करते समय, सिस्टम स्वचालित रूप से आरटीआई आवेदन का संबंधित विवरण प्राप्त कर लेगा।",
-  "home.problem.3.title": "अनुरक्षण सूचना",
+    "दस्तावेज़ माँगने के बजाय 'क्यों' पूछना। धारा 2(f) के तहत प्राधिकरण क़ानूनी रूप से राय या स्पष्टीकरण देने से मना कर सकते हैं। अनुरोध में विशिष्ट अभिलेखों का नाम होना चाहिए।",
+  "home.problem.3.title": "समय-सीमा चूक",
   "home.problem.3.body":
-    "रखरखाव गतिविधि के कारण सिस्टम 30-8-2026 (शुक्रवार) को सुबह 11:00 बजे से दोपहर 3:00 बजे तक उपलब्ध नहीं रहेगा। असुविधा के लिए अत्यधिक खेद है।",
+    "30 दिनों में कोई जवाब न मिलने पर यह माना हुआ इनकार है। पहली बार दाख़िल करने वाले शायद ही जानते हैं कि उनके पास अपील के लिए 30 दिन हैं — और खिड़की बिना चेतावनी के बंद हो जाती है।",
 
-  "home.solution.title": "कोपायलट रूटिंग एकीकरण",
-  "home.solution.1": "केंद्रीय सूचना आयोग (CIC) ने अपने द्वितीय अपील फाइलिंग पोर्टल को DoPT RTI ऑनलाइन पोर्टल के साथ एकीकृत किया है।",
-  "home.solution.2":
-    "कोपायलट अब एक सुचारू और अधिक सुव्यवस्थित फाइलिंग प्रक्रिया सुनिश्चित करने के लिए आरटीआई आवेदन के संबंधित विवरणों को स्वचालित रूप से प्राप्त करता है।",
-  "home.solution.3": "सभी आरटीआई अनुरोधों के लिए ओटीपी के माध्यम से ईमेल सत्यापन सोमवार से लागू किया जाएगा।",
-  "home.solution.4": "यह नागरिकों की गोपनीयता और डेटा सुरक्षा को बढ़ाएगा।",
-  "home.solution.5": "यह पोर्टल के साइबर सुरक्षा ढांचे को मजबूत करेगा।",
+  "home.solution.title": "RTI Copilot क्या करता है",
+  "home.solution.1": "आपकी शिकायत सरल भाषा में पढ़ता है — कोई ड्रॉपडाउन नहीं, कोई सरकारी जार्गन नहीं चाहिए।",
+  "home.solution.2": "एक क्यूरेटेड डायरेक्टरी से सही सार्वजनिक प्राधिकरण और PIO पहचानता है, धारा 6(3) के स्थानांतरण विलंब से बचाता है।",
+  "home.solution.3": "आपकी शिकायत को दस्तावेज़ अनुरोधों की एक सूची में बदलता है जिसका जवाब देना प्राधिकरण के लिए क़ानूनी रूप से अनिवार्य है।",
+  "home.solution.4": "जीवन-या-स्वतंत्रता की स्थितियाँ पहचानता है और धारा 7(1) के तहत 48 घंटे की खिड़की फ़्लैग करता है।",
+  "home.solution.5": "30-दिन की क़ानूनी घड़ी शुरू करता है और समय-सीमा बीतते ही आपकी प्रथम अपील का मसौदा तैयार करता है।",
 
   "steps.describe": "विवरण",
   "steps.authority": "कार्यालय",
@@ -606,12 +605,13 @@ const hi: Record<StringKey, string> = {
   "steps.file": "दाख़िल",
   "steps.track": "निगरानी",
 
-  "intake.title": "क्या हुआ?",
+  "intake.title": "आप क्या जानकारी खोजना चाह रहे हैं?",
   "intake.help":
     "जैसे किसी मित्र को बताते, वैसे लिखिए। तारीखें और जो भी संदर्भ संख्या आपके पास है — पीपीओ नंबर, केस नंबर, आवेदन संख्या — ज़रूर लिखें। हम उन्हें हूबहू वैसे ही रखते हैं।",
   "intake.placeholder":
     "उदाहरण: मेरे पिता की पेंशन अप्रैल में बिना किसी सूचना के बंद हो गई। हम तीन बार कार्यालय गए, किसी ने न कारण बताया, न कुछ लिखित दिया…",
   "intake.words": "शब्द",
+  "intake.wordsMin": "शब्द न्यूनतम",
   "intake.minWords": "सही कार्यालय ढूँढ़ने के लिए कृपया कम से कम 15 शब्द लिखें।",
   "intake.submit": "सही कार्यालय ढूँढ़ें",
   "intake.working": "सही कार्यालय ढूँढ़ा जा रहा है…",
@@ -756,36 +756,36 @@ const hi: Record<StringKey, string> = {
   "home.hero.eyebrow": "सूचना का अधिकार अधिनियम, 2005",
   "home.hero.scroll": "यह कैसे काम करता है",
 
-  "home.sec.problem.eyebrow": "सामान्य कमियाँ",
+  "home.sec.problem.eyebrow": "दो सुधारने योग्य कारण",
   "home.sec.problem.title": "आरटीआई अधिनियम, 2005 के तहत अस्वीकृति के आधार",
   "home.sec.problem.lead":
     "प्रक्रियागत अनुपालन न होने और अनुचित प्राधिकरण के चयन के कारण प्रारंभिक आवेदनों की अस्वीकृति दर उच्च पाई गई है, जिससे अनावश्यक विलंब होता है।",
 
-  "home.sec.scale.eyebrow": "प्रणालीगत बैकलॉग",
-  "home.sec.scale.title": "प्रशासनिक दायरा और सीमा",
+  "home.sec.scale.eyebrow": "समस्या का पैमाना",
+  "home.sec.scale.title": "साल में 53 लाख आरटीआई। लाखों वापस या अनुत्तरित।",
   "home.sec.scale.lead":
     "नागरिक प्रश्नों की संख्या अक्सर प्रशासनिक प्रसंस्करण क्षमता से अधिक होती है, इसलिए सटीक प्रारूपण और सही प्रारंभिक मार्ग निर्धारण आवश्यक है।",
 
-  "home.sec.routing.eyebrow": "प्राधिकरण चयन",
-  "home.sec.routing.title": "लोक प्राधिकरण का सत्यापन",
+  "home.sec.routing.eyebrow": "पहला चरण — सही कार्यालय",
+  "home.sec.routing.title": "हम सही लोक प्राधिकरण ढूँढते हैं",
   "home.sec.routing.lead":
     "यह प्रणाली सार्वजनिक प्राधिकरणों की आधिकारिक निर्देशिका के साथ शिकायत का मिलान करती है ताकि धारा 6(3) के तहत स्थानांतरण में होने वाले विलंब से बचा जा सके।",
 
-  "home.sec.rewrite.eyebrow": "वैधानिक अनुवाद",
-  "home.sec.rewrite.title": "सूचना अनुरोधों के लिए प्रारूपण आवश्यकताएं",
+  "home.sec.rewrite.eyebrow": "दूसरा चरण — सही शब्द",
+  "home.sec.rewrite.title": "हम आपकी शिकायत को दस्तावेज़ अनुरोध के रूप में लिखते हैं",
   "home.sec.rewrite.lead":
     "अधिनियम प्रशासनिक कार्रवाइयों के औचित्य को नहीं, बल्कि मौजूदा रिकॉर्ड प्रदान करने को अनिवार्य बनाता है। धारा 2(एफ) के अनुपालन में प्रश्नों को औपचारिक दस्तावेज़ अनुरोधों में बदल दिया जाता है।",
 
-  "home.sec.clock.eyebrow": "वैधानिक समय-सीमा",
-  "home.sec.clock.title": "धारा 7 और 19 का अनुपालन",
+  "home.sec.clock.eyebrow": "तीसरा चरण — समय-सीमा",
+  "home.sec.clock.title": "हम 30-दिन की घड़ी ट्रैक करते हैं और अपील का मसौदा बनाते हैं",
   "home.sec.clock.lead":
     "निर्धारित 30 दिनों की अवधि के भीतर उत्तर न देना धारा 7(2) के तहत मानी गई अस्वीकृति है, जिसके लिए अगले 30 दिनों के भीतर प्रथम अपील दायर करना अनिवार्य है।",
 
-  "home.sec.honest.eyebrow": "परामर्श",
-  "home.sec.honest.title": "प्रोटोटाइप उपयोग की सूचना",
+  "home.sec.honest.eyebrow": "यह क्या है",
+  "home.sec.honest.title": "एक मसौदा उपकरण, न कि दाखिल करने की सेवा",
   "home.sec.honest.lead":
     "यह प्रणाली केवल प्रारूपण और चयन सहायक के रूप में कार्य करती है। यह सीधे सरकारी डेटाबेस से नहीं जुड़ती है, और कोई भी अनुरोध स्वचालित रूप से प्रेषित नहीं होता है।",
-  "home.sec.honest.cta": "पूर्ण तकनीकी सीमाएं देखें",
+  "home.sec.honest.cta": "देखें कि क्या असली है और क्या नकली",
 
   "home.stat.filed.value": "≈53 लाख",
   "home.stat.filed.label": "हर साल दाख़िल होने वाले आरटीआई आवेदन",

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-import { AuthControls } from "@/components/auth-controls";
+import { AuthControls } from "@/components/auth/auth-controls";
 import { LanguageToggle } from "@/components/language-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useApplications } from "@/lib/client/use-applications";

@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { currentUser } from "@/lib/server/auth/current-user";
 import { isDatabaseConfigured } from "@/lib/server/db";
 import { createApplication, listApplications } from "@/lib/server/db/applications";
 
@@ -9,16 +9,11 @@ import { createApplication, listApplications } from "@/lib/server/db/application
  * fallback.
  */
 
-async function requireUser() {
-  const { userId } = await auth();
-  return userId;
-}
-
 export async function GET() {
   if (!isDatabaseConfigured()) {
     return NextResponse.json({ error: "Storage is not configured." }, { status: 503 });
   }
-  const userId = await requireUser();
+  const userId = await currentUser();
   if (!userId) return NextResponse.json({ error: "Sign in required." }, { status: 401 });
 
   return NextResponse.json({ applications: await listApplications(userId) });
@@ -28,7 +23,7 @@ export async function POST(request: Request) {
   if (!isDatabaseConfigured()) {
     return NextResponse.json({ error: "Storage is not configured." }, { status: 503 });
   }
-  const userId = await requireUser();
+  const userId = await currentUser();
   if (!userId) return NextResponse.json({ error: "Sign in required." }, { status: 401 });
 
   const body = await request.json().catch(() => null);

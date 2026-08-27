@@ -1,28 +1,24 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 /**
- * Clerk throws on every request when no publishable key is configured, which
- * takes down the guest journey along with the signed-in one — the PRD lists
- * exactly that ("auth as a demo blocker") as a risk to mitigate, and guest
- * mode is meant to need zero external services.
+ * No auth middleware.
  *
- * So the middleware is only installed when Clerk is actually configured. With
- * keys present this behaves exactly as before; without them the app still
- * serves the full guest flow instead of returning 500 on every route.
+ * Sessions are a signed cookie read per-route by `currentUser()`, so there is
+ * nothing to intercept here: an unauthenticated request to an API route gets
+ * its 401 from the route itself, and every page renders for signed-out and
+ * guest visitors alike.
+ *
+ * The file stays because the matcher below still excludes static assets from
+ * the middleware pass, and because the next thing that needs a request hook
+ * (rate limiting, locale detection) belongs here rather than in a new file.
  */
-const isClerkConfigured = Boolean(
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
-);
-
-export default isClerkConfigured
-  ? clerkMiddleware()
-  : () => NextResponse.next();
+export default function proxy() {
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     "/(api|trpc)(.*)",
-    "/__clerk/:path*",
   ],
 };
