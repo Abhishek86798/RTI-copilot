@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HelpCircle } from "lucide-react";
 
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Section } from "@/components/section";
@@ -37,6 +38,8 @@ const FAQS = [
 export default function FAQPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="Common questions" />
+
       <PageTitle
         marker={<Marker label="Questions" />}
         lead="The questions people ask most often, answered plainly."
@@ -63,6 +66,7 @@ export default function FAQPage() {
           ))}
         </div>
       </Section>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Building2, LifeBuoy } from "lucide-react";
 
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section } from "@/components/section";
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="Contact and help" />
+
       <PageTitle
         marker={<Marker label="Help" />}
         lead="Where to get help with this tool, and where to go for the official portal."
@@ -58,6 +61,7 @@ export default function ContactPage() {
           </p>
         </Prose>
       </Section>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }

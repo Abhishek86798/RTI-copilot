@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, CircleDashed, FlaskConical } from "lucide-react";
 
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { Section } from "@/components/section";
 import { PAGE_LAYOUT } from "@/components/page-layout";
@@ -142,6 +143,8 @@ export default function HowItWorksPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="System capabilities and limitations" />
+
       <PageTitle
         marker={<Marker label="System Documentation" />}
         lead="This portal serves as a functional prototype detailing the operational boundaries of the RTI Copilot module. The following documentation outlines live integrations, simulated capabilities, and pending administrative features."
@@ -211,6 +214,7 @@ export default function HowItWorksPage() {
           render={<Link href="/apply">Access Portal</Link>}
         />
       </div>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }

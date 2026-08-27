@@ -193,15 +193,26 @@
    * screens in daylight; small body text is one of the most common reasons a
    * government form gets abandoned halfway.
    */
+  /*
+   * Body size is a base multiplied by --text-scale, which the A- A A+ control
+   * in the header sets on <html>. GIGW expects that control on a government
+   * site: browser zoom satisfies WCAG 1.4.4 on paper, but a reader who does
+   * not know where their browser hides zoom cannot use it, and this audience
+   * skews older and often on a borrowed phone.
+   *
+   * Scaling the root rather than restyling each element means every rem-based
+   * size, gap and control grows with it, so nothing collides at the largest
+   * step.
+   */
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
-    font-size: 17px;
+    font-size: calc(17px * var(--text-scale, 1));
     line-height: 1.6;
   }
   @media (min-width: 768px) {
     body {
-      font-size: 16px;
+      font-size: calc(16px * var(--text-scale, 1));
     }
   }
   /* A focus ring you can actually find with your eyes, on every focusable. */
@@ -311,6 +322,222 @@
   to {
     stroke-dashoffset: 0;
   }
+}
+
+/*
+ * Reader controls: text size and high contrast.
+ *
+ * Both are set as attributes on <html> so they compose with the existing
+ * light/dark choice rather than replacing it, and so the value is readable
+ * before first paint by the inline script in the layout — otherwise the page
+ * renders at the default size and visibly jumps once React hydrates.
+ */
+:root {
+  --text-scale: 1;
+}
+:root[data-text-size="large"] {
+  --text-scale: 1.15;
+}
+:root[data-text-size="larger"] {
+  --text-scale: 1.3;
+}
+
+/*
+ * High contrast is a separate axis from dark mode, not a darker dark.
+ *
+ * WCAG AA asks for 4.5:1; this pushes text to the maximum against its
+ * background, turns every hairline into something actually visible, and
+ * removes the muted-text treatment that the rest of the design leans on. It
+ * is what a reader with low vision needs when the ordinary palette — which
+ * passes AA — still is not enough.
+ */
+:root[data-contrast="high"] {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --border: oklch(0 0 0);
+  --input: oklch(0 0 0);
+  --ring: oklch(0 0 0);
+  --destructive: oklch(0.35 0.18 27);
+  --success: oklch(0.32 0.11 151);
+  --warning: oklch(0.34 0.1 62);
+  --info: oklch(0.3 0.1 241);
+}
+
+:root[data-contrast="high"].dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.18 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0);
+  --input: oklch(1 0 0);
+  --ring: oklch(1 0 0);
+  --destructive: oklch(0.8 0.16 25);
+  --success: oklch(0.85 0.16 155);
+  --warning: oklch(0.87 0.15 85);
+  --info: oklch(0.82 0.13 235);
+}
+
+/*
+ * The design dims secondary text with opacity rather than a second colour.
+ * That is fine at AA and wrong at high contrast, so opacity is neutralised
+ * here — a reader who asked for maximum contrast has asked for exactly this.
+ */
+:root[data-contrast="high"] .opacity-75,
+:root[data-contrast="high"] .opacity-72,
+:root[data-contrast="high"] [class*="opacity-"] {
+  opacity: 1 !important;
+}
+
+:root[data-contrast="high"] * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/*
+ * High contrast has to reach UX4G too.
+ *
+ * Its components key off their own semantic tokens (--ux4g-bg-primary-strong
+ * and friends), not ours, so overriding only our variables left the primary
+ * call to action on every page rendering in mid-tone indigo while the rest of
+ * the page went black on white — the single most important control was the
+ * least readable one.
+ *
+ * Only the colour families are remapped, not the 800-odd spacing, radius and
+ * typography tokens: this changes what the design system looks like, not how
+ * it is built. Status hues keep their identity (error stays red, success
+ * green) but are pushed dark enough to clear contrast against a white ground,
+ * because those colours carry meaning the icons and labels reinforce.
+ */
+:root[data-contrast="high"] {
+  --ux4g-bg-neutral: #fff;
+  --ux4g-bg-neutral-none: transparent;
+  --ux4g-bg-neutral-elevated: #fff;
+  --ux4g-bg-neutral-subtle: #fff;
+  --ux4g-bg-neutral-soft: #f2f2f2;
+  --ux4g-bg-neutral-emphasis: #f2f2f2;
+  --ux4g-bg-neutral-strong: #000;
+  --ux4g-bg-neutral-stronger: #000;
+  --ux4g-bg-neutral-inverse: #000;
+  --ux4g-bg-neutral-disabled: #e6e6e6;
+
+  --ux4g-bg-primary: #fff;
+  --ux4g-bg-primary-subtle: #f2f2f2;
+  --ux4g-bg-primary-soft: #f2f2f2;
+  --ux4g-bg-primary-emphasis: #000;
+  --ux4g-bg-primary-strong: #000;
+  --ux4g-bg-primary-strong-hover: #1a1a1a;
+  --ux4g-bg-primary-stronger: #000;
+  --ux4g-bg-primary-stronger-hover: #1a1a1a;
+
+  --ux4g-bg-error-subtle: #fff;
+  --ux4g-bg-error-soft: #fbeceb;
+  --ux4g-bg-error-strong: #8c0f08;
+  --ux4g-bg-warning-subtle: #fff;
+  --ux4g-bg-warning-soft: #fbf2e3;
+  --ux4g-bg-warning-strong: #6b3f00;
+  --ux4g-bg-success-subtle: #fff;
+  --ux4g-bg-success-soft: #e8f3ec;
+  --ux4g-bg-success-strong: #05512a;
+  --ux4g-bg-info-subtle: #fff;
+  --ux4g-bg-info-soft: #e8eef7;
+  --ux4g-bg-info-strong: #063f75;
+
+  --ux4g-text-neutral-primary: #000;
+  --ux4g-text-neutral-secondary: #000;
+  --ux4g-text-neutral-tertiary: #000;
+  --ux4g-text-neutral-emphasis: #000;
+  --ux4g-text-neutral-inverse: #fff;
+  --ux4g-text-neutral-disabled: #595959;
+  --ux4g-text-default-color: #000;
+  --ux4g-text-brand-primary-default: #000;
+  --ux4g-text-brand-secondary-default: #000;
+  --ux4g-text-brand-tertiary-default: #000;
+  --ux4g-text-link-default-default: #000;
+  --ux4g-text-link-default-hover: #000;
+  --ux4g-text-link-default-visited: #000;
+  --ux4g-text-link-neutral-default: #000;
+  --ux4g-text-status-error: #8c0f08;
+  --ux4g-text-status-warning: #6b3f00;
+  --ux4g-text-status-success: #05512a;
+  --ux4g-text-status-info: #063f75;
+  --ux4g-text-error-default: #8c0f08;
+  --ux4g-text-warning-default: #6b3f00;
+  --ux4g-text-success-default: #05512a;
+  --ux4g-text-info-default: #063f75;
+
+  --ux4g-border-color-neutral-default: #000;
+  --ux4g-border-color-neutral-subtle: #000;
+  --ux4g-border-color-neutral-strong: #000;
+  --ux4g-border-color-neutral-hover: #000;
+  --ux4g-border-color-neutral-active: #000;
+  --ux4g-border-color-neutral-focus: #000;
+  --ux4g-border-color-neutral-elevated: #000;
+  --ux4g-border-color-primary-default: #000;
+  --ux4g-border-color-primary-hover: #000;
+  --ux4g-border-color-primary-active: #000;
+  --ux4g-border-color-primary-strong: #000;
+  --ux4g-alert-bg: #fff;
+  --ux4g-alert-text: #000;
+}
+
+:root[data-contrast="high"].dark {
+  --ux4g-bg-neutral: #000;
+  --ux4g-bg-neutral-elevated: #000;
+  --ux4g-bg-neutral-subtle: #000;
+  --ux4g-bg-neutral-soft: #1a1a1a;
+  --ux4g-bg-neutral-emphasis: #1a1a1a;
+  --ux4g-bg-neutral-strong: #fff;
+  --ux4g-bg-neutral-stronger: #fff;
+  --ux4g-bg-neutral-inverse: #fff;
+  --ux4g-bg-neutral-disabled: #333;
+
+  --ux4g-bg-primary: #000;
+  --ux4g-bg-primary-subtle: #1a1a1a;
+  --ux4g-bg-primary-soft: #1a1a1a;
+  --ux4g-bg-primary-emphasis: #fff;
+  --ux4g-bg-primary-strong: #fff;
+  --ux4g-bg-primary-strong-hover: #e6e6e6;
+  --ux4g-bg-primary-stronger: #fff;
+  --ux4g-bg-primary-stronger-hover: #e6e6e6;
+
+  --ux4g-text-neutral-primary: #fff;
+  --ux4g-text-neutral-secondary: #fff;
+  --ux4g-text-neutral-tertiary: #fff;
+  --ux4g-text-neutral-emphasis: #fff;
+  --ux4g-text-neutral-inverse: #000;
+  --ux4g-text-default-color: #fff;
+  --ux4g-text-brand-primary-default: #fff;
+  --ux4g-text-link-default-default: #fff;
+  --ux4g-text-link-neutral-default: #fff;
+
+  --ux4g-border-color-neutral-default: #fff;
+  --ux4g-border-color-neutral-subtle: #fff;
+  --ux4g-border-color-neutral-strong: #fff;
+  --ux4g-border-color-primary-default: #fff;
+  --ux4g-alert-bg: #000;
+  --ux4g-alert-text: #fff;
 }
 
 @layer utilities {

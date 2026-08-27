@@ -362,6 +362,22 @@ const en = {
   "home.hero.coversNote": "Twenty domains, hand-curated. Central and State.",
 
 
+  "a11y.statement": "Accessibility",
+  "a11y.textSize": "Text size",
+  "a11y.size.normal": "Normal text size",
+  "a11y.size.large": "Larger text size",
+  "a11y.size.larger": "Largest text size",
+  "a11y.contrast": "High contrast",
+
+  "nav.breadcrumb": "Breadcrumb",
+  "nav.home": "Home",
+
+  "footer.col.legal": "Policies",
+  "footer.accessibility": "Accessibility statement",
+  "footer.sitemap": "Sitemap",
+  "footer.policies": "Website policies",
+  "footer.updated": "Page last reviewed",
+
   "footer.col.start": "Start",
   "footer.col.about": "About",
   "footer.col.official": "Official sources",
@@ -717,6 +733,22 @@ const hi: Record<StringKey, string> = {
   "home.hero.covers": "यह किन क्षेत्रों को कवर करता है",
   "home.hero.coversNote": "बीस क्षेत्र, हाथ से चुने गए। केंद्र और राज्य दोनों।",
 
+
+  "a11y.statement": "सुगम्यता",
+  "a11y.textSize": "अक्षर का आकार",
+  "a11y.size.normal": "सामान्य अक्षर आकार",
+  "a11y.size.large": "बड़ा अक्षर आकार",
+  "a11y.size.larger": "सबसे बड़ा अक्षर आकार",
+  "a11y.contrast": "उच्च कंट्रास्ट",
+
+  "nav.breadcrumb": "पथ",
+  "nav.home": "मुख्य पृष्ठ",
+
+  "footer.col.legal": "नीतियाँ",
+  "footer.accessibility": "सुगम्यता विवरण",
+  "footer.sitemap": "साइट मानचित्र",
+  "footer.policies": "वेबसाइट नीतियाँ",
+  "footer.updated": "पृष्ठ की अंतिम समीक्षा",
 
   "footer.col.start": "शुरू करें",
   "footer.col.about": "परिचय",

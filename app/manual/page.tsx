@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ClipboardList, ListChecks } from "lucide-react";
 
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section, Steps } from "@/components/section";
@@ -31,6 +32,8 @@ const STEPS = [
 export default function ManualPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="How to use this tool" />
+
       <PageTitle
         marker={<Marker label="Guide" />}
         lead="What you need before you start, and what happens at each step."
@@ -72,6 +75,7 @@ export default function ManualPage() {
           render={<Link href="/apply">Start an application</Link>}
         />
       </div>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }

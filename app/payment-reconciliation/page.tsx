@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CreditCard, Landmark } from "lucide-react";
 
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Marker, PageTitle } from "@/components/editorial";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Callout, Prose, Section } from "@/components/section";
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 export default function PaymentPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="About the fee step" />
+
       <PageTitle
         marker={<Marker label="Fees" />}
         lead="This prototype simulates the fee step. Here is what that means, and what actually happens on the real portal."
@@ -63,6 +66,7 @@ export default function PaymentPage() {
           </p>
         </Prose>
       </Section>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }
