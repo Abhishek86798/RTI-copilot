@@ -7,7 +7,7 @@ import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ui/button";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Marker, PageTitle } from "@/components/editorial";
+import { PageHeader } from "@/components/ui/page";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PORTAL_CHAR_LIMIT } from "@/lib/client/filing";
@@ -66,12 +66,11 @@ export function DraftStep({
 
   return (
     <div>
-      <PageTitle
-        marker={<Marker index={3} total={4} label={t("steps.draft")} />}
+      <PageHeader
+        eyebrow={`03 / 04 · ${t("steps.draft")}`}
+        title={t("draft.title")}
         lead={t("draft.help")}
-      >
-        {t("draft.title")}
-      </PageTitle>
+      />
 
       {lifeOrLibertyFlag && (
         <Alert className="mt-8 border-destructive/40 bg-destructive/6">

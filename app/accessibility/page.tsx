@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Accessibility, Keyboard, MonitorSmartphone, TriangleAlert } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+
+import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section } from "@/components/section";
 import { cn } from "@/lib/utils";
@@ -55,106 +56,107 @@ const READERS = [
 
 export default function AccessibilityPage() {
   return (
-    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
+    <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="Accessibility statement" />
 
-      <PageTitle
-        marker={<Marker label="Accessibility" />}
+      <PageHeader
+        eyebrow="Accessibility"
+        title={"Accessibility statement"}
         lead="What has been measured, what it was measured with, and what still falls short."
-      >
-        Accessibility statement
-      </PageTitle>
+      />
 
-      <Section label="Standard we aim at" icon={Accessibility}>
-        <Prose>
-          <p>
-            This prototype targets <strong>WCAG 2.1 Level AA</strong>, the standard
-            adopted by <strong>GIGW 3.0</strong> — the Guidelines for Indian Government
-            Websites and Apps issued by the National Informatics Centre under MeitY.
-            The underlying legal duty comes from the Rights of Persons with
-            Disabilities Act, 2016, and the related Indian Standard IS 17802.
-          </p>
-          <p>
-            It is not a government website and is not certified by anyone. Aiming at
-            the government standard is a choice about quality, not a claim of status.
-          </p>
-        </Prose>
-      </Section>
+      <PageGrid>
+        <Section label="Standard we aim at" icon={Accessibility}>
+          <Prose>
+            <p>
+              This prototype targets <strong>WCAG 2.1 Level AA</strong>, the standard
+              adopted by <strong>GIGW 3.0</strong> — the Guidelines for Indian Government
+              Websites and Apps issued by the National Informatics Centre under MeitY.
+              The underlying legal duty comes from the Rights of Persons with
+              Disabilities Act, 2016, and the related Indian Standard IS 17802.
+            </p>
+            <p>
+              It is not a government website and is not certified by anyone. Aiming at
+              the government standard is a choice about quality, not a claim of status.
+            </p>
+          </Prose>
+        </Section>
 
-      <Section label="What conforms today" icon={Keyboard}>
-        <Prose>
-          <ul>
-            {CONFORMS.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </Prose>
-      </Section>
-
-      <Section label="Where it falls short" icon={TriangleAlert}>
-        <Prose>
-          <p>
-            Stated plainly, because an accessibility statement that lists only
-            successes tells a reader nothing they can act on.
-          </p>
-          <ul>
-            {SHORTFALLS.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </Prose>
-      </Section>
-
-      <Section label="Screen reader access" icon={MonitorSmartphone}>
-        <Prose>
-          <p>
-            The pages are built from standard HTML landmarks, headings and form
-            controls, so they should work with any current screen reader. The ones in
-            common use in India are listed below.
-          </p>
-        </Prose>
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full border-collapse text-left text-base">
-            <caption className="sr-only">
-              Screen readers in common use, their platforms, and cost
-            </caption>
-            <thead>
-              <tr className="border-b border-border">
-                <th scope="col" className="py-3 pr-6 font-semibold">Screen reader</th>
-                <th scope="col" className="py-3 pr-6 font-semibold">Platform</th>
-                <th scope="col" className="py-3 font-semibold">Cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              {READERS.map((reader) => (
-                <tr key={reader.name} className="border-b border-border">
-                  <th scope="row" className="py-3 pr-6 font-medium">{reader.name}</th>
-                  <td className="py-3 pr-6 opacity-75">{reader.platform}</td>
-                  <td className="py-3 opacity-75">{reader.cost}</td>
-                </tr>
+        <Section label="What conforms today" icon={Keyboard}>
+          <Prose>
+            <ul>
+              {CONFORMS.map((item) => (
+                <li key={item}>{item}</li>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
+            </ul>
+          </Prose>
+        </Section>
 
-      <Section label="Reporting a problem" icon={TriangleAlert}>
-        <Prose>
-          <p>
-            If something here is unusable with your assistive technology, that is a
-            defect and worth reporting on the project&rsquo;s issue tracker. Saying
-            which page, which technology and what happened makes it fixable.
-          </p>
-          <p>
-            There is no help desk behind this page. For a real RTI application, use
-            the official portal at{" "}
-            <a href="https://rtionline.gov.in" target="_blank" rel="noopener noreferrer">
-              rtionline.gov.in
-            </a>
-            .
-          </p>
-        </Prose>
-      </Section>
+        <Section label="Where it falls short" icon={TriangleAlert}>
+          <Prose>
+            <p>
+              Stated plainly, because an accessibility statement that lists only
+              successes tells a reader nothing they can act on.
+            </p>
+            <ul>
+              {SHORTFALLS.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Prose>
+        </Section>
+
+        <Section label="Screen reader access" icon={MonitorSmartphone}>
+          <Prose>
+            <p>
+              The pages are built from standard HTML landmarks, headings and form
+              controls, so they should work with any current screen reader. The ones in
+              common use in India are listed below.
+            </p>
+          </Prose>
+          <div className="mt-8 overflow-x-auto">
+            <table className="w-full border-collapse text-left text-base">
+              <caption className="sr-only">
+                Screen readers in common use, their platforms, and cost
+              </caption>
+              <thead>
+                <tr className="border-b border-border">
+                  <th scope="col" className="py-3 pr-6 font-semibold">Screen reader</th>
+                  <th scope="col" className="py-3 pr-6 font-semibold">Platform</th>
+                  <th scope="col" className="py-3 font-semibold">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {READERS.map((reader) => (
+                  <tr key={reader.name} className="border-b border-border">
+                    <th scope="row" className="py-3 pr-6 font-medium">{reader.name}</th>
+                    <td className="py-3 pr-6 opacity-75">{reader.platform}</td>
+                    <td className="py-3 opacity-75">{reader.cost}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section label="Reporting a problem" icon={TriangleAlert}>
+          <Prose>
+            <p>
+              If something here is unusable with your assistive technology, that is a
+              defect and worth reporting on the project&rsquo;s issue tracker. Saying
+              which page, which technology and what happened makes it fixable.
+            </p>
+            <p>
+              There is no help desk behind this page. For a real RTI application, use
+              the official portal at{" "}
+              <a href="https://rtionline.gov.in" target="_blank" rel="noopener noreferrer">
+                rtionline.gov.in
+              </a>
+              .
+            </p>
+          </Prose>
+        </Section>
+      </PageGrid>
 
       <LastReviewed date="2026-08-23" />
     </div>

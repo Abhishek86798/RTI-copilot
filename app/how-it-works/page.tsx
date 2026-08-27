@@ -3,8 +3,9 @@ import Link from "next/link";
 import { CheckCircle2, CircleDashed, FlaskConical } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+
 import { Section } from "@/components/section";
+import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -142,68 +143,63 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
+    <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="System capabilities and limitations" />
 
-      <PageTitle
-        marker={<Marker label="System Documentation" />}
+      <PageHeader
+        eyebrow="System Documentation"
+        title={"System Capabilities and Technical Limitations"}
         lead="This portal serves as a functional prototype detailing the operational boundaries of the RTI Copilot module. The following documentation outlines live integrations, simulated capabilities, and pending administrative features."
-      >
-        System Capabilities and Technical Limitations
-      </PageTitle>
+      />
 
-      {groups.map((group) => {
-        const meta = STATE_META[group.state];
-        return (
-          <Section
-            key={group.state}
-            /* The first section sits under PageTitle, which already ends in a
-               hairline; a second one here would read as a mistake. */
-              label={group.heading}
-            icon={meta.icon}
-          >
-            <ul className="divide-y divide-border border-t border-border">
-              {ROWS.filter((row) => row.state === group.state).map((row) => (
-                <li key={row.what} className="py-6">
-                  <p className="font-semibold">{row.what}</p>
-                  <p className="prose-measure mt-2 text-base leading-relaxed opacity-75">
-                    {row.detail}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </Section>
-        );
-      })}
+      <PageGrid>
+        {groups.map((group) => {
+          const meta = STATE_META[group.state];
+          return (
+            <Section key={group.state} label={group.heading} icon={meta.icon}>
+              <ul className="divide-y divide-border">
+                {ROWS.filter((row) => row.state === group.state).map((row) => (
+                  <li key={row.what} className="py-3 first:pt-0 last:pb-0">
+                    <p className="text-sm font-semibold">{row.what}</p>
+                    <p className="mt-1 text-sm leading-[1.65] text-muted-foreground">
+                      {row.detail}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          );
+        })}
 
-      <Section label="Production Deployment Considerations">
-        <div className="prose-measure space-y-6 text-base leading-relaxed opacity-75">
-          <p>
-            <span className="font-semibold text-foreground">
-              Directory Completeness Dependency.
-            </span>{" "}
-            Routing accuracy requires ingestion of complete public authority datasets rather than reliance on generative inference. Models must be strictly bounded to prevent the fabrication of non-existent administrative entities.
-          </p>
-          <p>
-            <span className="font-semibold text-foreground">
-              Confidence Metric Transparency.
-            </span>{" "}
-            High-volume administrative processing demands explicit low-confidence warnings. Mandatory review protocols must remain in place to prevent systemic misdirection of citizen applications.
-          </p>
-          <p>
-            <span className="font-semibold text-foreground">
-              Centralized State Management.
-            </span>{" "}
-            Statutory tracking necessitates server-side persistence. Active monitoring and automated citizen notification are critical to ensuring compliance with strict appellate timelines.
-          </p>
-          <p>
-            <span className="font-semibold text-foreground">
-              Data Privacy and Security Compliance.
-            </span>{" "}
-            Requests frequently contain sensitive personal data, mandating encryption at rest. Submission data must never be utilized for external model training without explicit, documented consent.
-          </p>
-        </div>
-      </Section>
+        <Section label="Production Deployment Considerations">
+          <div className="space-y-3 text-sm leading-[1.65] text-muted-foreground">
+            <p>
+              <span className="font-semibold text-foreground">
+                Directory Completeness Dependency.
+              </span>{" "}
+              Routing accuracy requires ingestion of complete public authority datasets rather than reliance on generative inference. Models must be strictly bounded to prevent the fabrication of non-existent administrative entities.
+            </p>
+            <p>
+              <span className="font-semibold text-foreground">
+                Confidence Metric Transparency.
+              </span>{" "}
+              High-volume administrative processing demands explicit low-confidence warnings. Mandatory review protocols must remain in place to prevent systemic misdirection of citizen applications.
+            </p>
+            <p>
+              <span className="font-semibold text-foreground">
+                Centralized State Management.
+              </span>{" "}
+              Statutory tracking necessitates server-side persistence. Active monitoring and automated citizen notification are critical to ensuring compliance with strict appellate timelines.
+            </p>
+            <p>
+              <span className="font-semibold text-foreground">
+                Data Privacy and Security Compliance.
+              </span>{" "}
+              Requests frequently contain sensitive personal data, mandating encryption at rest. Submission data must never be utilized for external model training without explicit, documented consent.
+            </p>
+          </div>
+        </Section>
+      </PageGrid>
 
       <div className="mt-10">
         <Link href="/apply"

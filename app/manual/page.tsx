@@ -3,7 +3,8 @@ import Link from "next/link";
 import { ClipboardList, ListChecks } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+
+import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section, Steps } from "@/components/section";
 import { buttonVariants } from "@/components/ui/button";
@@ -31,41 +32,42 @@ const STEPS = [
 
 export default function ManualPage() {
   return (
-    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
+    <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="How to use this tool" />
 
-      <PageTitle
-        marker={<Marker label="Guide" />}
+      <PageHeader
+        eyebrow="Guide"
+        title={"How to use this tool"}
         lead="What you need before you start, and what happens at each step."
-      >
-        How to use this tool
-      </PageTitle>
+      />
 
-      <Section label="Before you start" icon={ListChecks}>
-        <Prose>
-          <p>
-            This tool helps you write an RTI application for a Central Government
-            ministry, department, or public authority. It drafts the request — it does
-            not file it for you, and it is not the government&rsquo;s own portal.
-          </p>
-          <ul>
-            <li>
-              An RTI request to a Central authority has to go to a Central authority.
-              State departments have their own portals, and a misdirected request is
-              returned without a refund of the fee.
-            </li>
-            <li>Supporting documents must be PDFs under 1MB.</li>
-            <li>
-              You will need a working email address and mobile number when you file on
-              the real portal.
-            </li>
-          </ul>
-        </Prose>
-      </Section>
+      <PageGrid>
+        <Section label="Before you start" icon={ListChecks}>
+          <Prose>
+            <p>
+              This tool helps you write an RTI application for a Central Government
+              ministry, department, or public authority. It drafts the request — it does
+              not file it for you, and it is not the government&rsquo;s own portal.
+            </p>
+            <ul>
+              <li>
+                An RTI request to a Central authority has to go to a Central authority.
+                State departments have their own portals, and a misdirected request is
+                returned without a refund of the fee.
+              </li>
+              <li>Supporting documents must be PDFs under 1MB.</li>
+              <li>
+                You will need a working email address and mobile number when you file on
+                the real portal.
+              </li>
+            </ul>
+          </Prose>
+        </Section>
 
-      <Section label="The three steps" icon={ClipboardList}>
-        <Steps items={STEPS} />
-      </Section>
+        <Section label="The three steps" icon={ClipboardList}>
+          <Steps items={STEPS} />
+        </Section>
+      </PageGrid>
 
       <div className="mt-10">
         <Link href="/apply"

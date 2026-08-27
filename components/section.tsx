@@ -67,10 +67,10 @@ export function Prose({
   return (
     <div
       className={cn(
-        "prose-measure space-y-4 text-[0.9375rem] leading-[1.7] text-muted-foreground sm:text-base",
+        "space-y-3 text-sm leading-[1.65] text-muted-foreground",
         "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
-        "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:marker:text-border",
-        "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:marker:text-border",
+        "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-4 [&_ul]:marker:text-border",
+        "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-4 [&_ol]:marker:text-border",
         className
       )}
     >
@@ -97,7 +97,7 @@ export function Steps({
       three screens of scrolling for six steps. The numerals keep the reading
       order unambiguous across the wrap.
     */
-    <ol className={cn("grid gap-x-10 gap-y-7 sm:grid-cols-2", className)}>
+    <ol className={cn("space-y-4", className)}>
       {items.map((item, index) => (
         <li key={item.title} className="flex gap-4">
           <span

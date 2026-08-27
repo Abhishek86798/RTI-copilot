@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Gavel, Search } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Section } from "@/components/section";
 import { StatusBadge } from "@/components/status-badge";
@@ -74,12 +74,11 @@ export default function AppealPage() {
     <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current={t("nav.appeal")} />
 
-      <PageTitle
-        marker={<Marker label={t("nav.appeal")} />}
+      <PageHeader
+        eyebrow={t("nav.appeal")}
+        title={t("nav.appeal")}
         lead={t("appealPage.lead")}
-      >
-        {t("nav.appeal")}
-      </PageTitle>
+      />
 
       <Section label={t("appealPage.lookupSection")} icon={Search}>
         <form onSubmit={handleLookup} className="max-w-md space-y-4" noValidate>

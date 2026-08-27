@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { HelpCircle } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+
+import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Section } from "@/components/section";
 import { cn } from "@/lib/utils";
@@ -37,15 +38,14 @@ const FAQS = [
 
 export default function FAQPage() {
   return (
-    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
+    <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="Common questions" />
 
-      <PageTitle
-        marker={<Marker label="Questions" />}
+      <PageHeader
+        eyebrow="Questions"
+        title={"Common questions"}
         lead="The questions people ask most often, answered plainly."
-      >
-        Common questions
-      </PageTitle>
+      />
 
       <Section label="Questions and answers" icon={HelpCircle}>
         {/*

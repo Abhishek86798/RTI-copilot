@@ -11,7 +11,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
-import { Marker, PageTitle } from "@/components/editorial";
+import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
@@ -51,30 +51,24 @@ export default function ApplicationsPage() {
         <MigratePrompt count={listGuestApplications().length} />
       )}
 
-      <PageTitle
-        marker={
-          <Marker
-            label={t("list.title")}
-            total={sorted.length > 0 ? sorted.length : undefined}
-          />
-        }
-      >
-        {t("list.title")}
-      </PageTitle>
-
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-5">
-        <p className="max-w-[46ch] text-base opacity-75">{t("list.stored")}</p>
-        <Link href="/apply"
-            className={buttonVariants({ variant: "cta", size: "lg" })}
+      <PageHeader
+        eyebrow={sorted.length > 0 ? String(sorted.length) : undefined}
+        title={t("list.title")}
+        lead={t("list.stored")}
+        actions={
+          <Link
+            href="/apply"
+            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-1")}
           >
-              <Plus aria-hidden="true" />
-              {t("nav.new")}
-            </Link>
-      </div>
+            <Plus aria-hidden="true" />
+            {t("nav.new")}
+          </Link>
+        }
+      />
 
       {sorted.length === 0 ? (
-        <Panel className="mt-6 py-14 text-center">
-          <p className="text-lg opacity-75">{t("list.empty")}</p>
+        <Panel className="mt-5 py-12 text-center">
+          <p className="text-sm text-muted-foreground">{t("list.empty")}</p>
           <Link href="/apply"
             className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
           >{t("list.emptyCta")}</Link>
@@ -84,7 +78,7 @@ export default function ApplicationsPage() {
         // them: an `hr` is not permitted content inside a `ul`, and inserting
         // one silently breaks the list semantics a screen reader relies on to
         // announce "list, N items".
-        <Panel className="mt-6">
+        <Panel className="mt-5">
           <PanelList>
             {sorted.map((application) => (
               <li key={application.id}>

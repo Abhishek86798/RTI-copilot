@@ -3,7 +3,8 @@ import Link from "next/link";
 import { FileText, LifeBuoy, Scale } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
-import { Marker, PageTitle } from "@/components/editorial";
+
+import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Section } from "@/components/section";
 import { cn } from "@/lib/utils";
@@ -98,42 +99,41 @@ const GROUPS = [
 
 export default function SitemapPage() {
   return (
-    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
+    <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="Sitemap" />
 
-      <PageTitle
-        marker={<Marker label="Index" />}
+      <PageHeader
+        eyebrow="Index"
+        title="Sitemap"
         lead="Every page on this site, grouped by what it is for."
-      >
-        Sitemap
-      </PageTitle>
+      />
 
-      {GROUPS.map((group) => (
-        <Section
-          key={group.heading}
-          label={group.heading}
-          icon={group.icon}
-        >
-          {/*
-            Two columns. An index is scanned, not read — a single column of
-            99px rows put four links on a screen and made the shortest page on
-            the site three screens long.
-          */}
-          <ul className="grid gap-x-10 border-t border-border sm:grid-cols-2">
-            {group.links.map((link) => (
-              <li key={link.href} className="border-b border-border py-4">
-                <Link
-                  href={link.href}
-                  className="text-[0.9375rem] font-medium underline-offset-4 hover:underline"
-                >
-                  {link.label}
-                </Link>
-                <p className="mt-1 text-sm leading-[1.7] opacity-75">{link.detail}</p>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      ))}
+      <PageGrid>
+        {GROUPS.map((group) => (
+          <Section key={group.heading} label={group.heading} icon={group.icon}>
+            {/*
+              An index is scanned, not read. A single column of 99px rows put
+              four links on a screen and made the shortest page on the site
+              three screens long.
+            */}
+            <ul className="divide-y divide-border">
+              {group.links.map((link) => (
+                <li key={link.href} className="py-2.5 first:pt-0 last:pb-0">
+                  <Link
+                    href={link.href}
+                    className="text-sm font-medium underline-offset-4 hover:underline"
+                  >
+                    {link.label}
+                  </Link>
+                  <p className="mt-0.5 text-sm leading-[1.6] text-muted-foreground">
+                    {link.detail}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        ))}
+      </PageGrid>
 
       <LastReviewed date="2026-08-23" />
     </div>

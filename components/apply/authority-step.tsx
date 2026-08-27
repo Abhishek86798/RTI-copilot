@@ -16,7 +16,8 @@ import { InfoNotice } from "@/components/notices";
 import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Marker, PageTitle } from "@/components/editorial";
+import { Marker } from "@/components/editorial";
+import { PageHeader } from "@/components/ui/page";
 import { confidenceBucket } from "@/lib/client/confidence";
 import { resolveChannel } from "@/lib/client/filing";
 import { useI18n } from "@/lib/client/i18n";
@@ -75,12 +76,11 @@ export function AuthorityStep({
 
   return (
     <div>
-      <PageTitle
-        marker={<Marker index={2} total={4} label={t("steps.authority")} />}
+      <PageHeader
+        eyebrow={`02 / 04 · ${t("steps.authority")}`}
+        title={t("confirm.title")}
         lead={t("confirm.help")}
-      >
-        {t("confirm.title")}
-      </PageTitle>
+      />
 
       {/* Full measure, matching the step rule on both edges. */}
       <div className="mt-4 space-y-3">

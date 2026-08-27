@@ -5,7 +5,7 @@ import { ArrowRight, Loader2, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Panel, PanelBody } from "@/components/ui/panel";
-import { Marker, PageTitle, Rule } from "@/components/editorial";
+import { PageHeader } from "@/components/ui/page";
 import { FieldError, FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DEMO_CASES, type DemoCase } from "@/lib/client/demo-cases";
@@ -63,12 +63,11 @@ export function IntakeStep({
 
   return (
     <div>
-      <PageTitle
-        marker={<Marker index={1} total={4} label={t("steps.describe")} />}
+      <PageHeader
+        eyebrow={`01 / 04 · ${t("steps.describe")}`}
+        title={t("intake.title")}
         lead={t("intake.help")}
-      >
-        {t("intake.title")}
-      </PageTitle>
+      />
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
         <Panel>
