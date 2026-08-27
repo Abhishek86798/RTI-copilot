@@ -69,7 +69,9 @@ export function IntakeStep({
         {t("intake.title")}
       </PageTitle>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
+      {/* Capped, not centred. Flush with the step rule above it, but a
+          textarea 1,000 pixels wide is no easier to write in. */}
+      <form onSubmit={handleSubmit} className="mt-8 max-w-3xl space-y-4" noValidate>
         <div className="space-y-2">
           {/*
             The page title directly above already reads "What happened?", so a

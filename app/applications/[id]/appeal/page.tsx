@@ -13,7 +13,7 @@ import { Button } from "@/components/ux4g/button";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { PAGE_LAYOUT } from "@/components/page-layout";
+import { PAGE_LAYOUT_WIDE } from "@/components/page-layout";
 import { computeClock, formatDate } from "@/lib/client/deadlines";
 import { buildFirstAppeal } from "@/lib/client/filing";
 import { updateApplication } from "@/lib/client/store";
@@ -84,7 +84,7 @@ export default function SubmitAppealPage() {
 
   if (!hydrated) {
     return (
-      <div className={cn(PAGE_LAYOUT)}>
+      <div className={cn(PAGE_LAYOUT_WIDE)}>
         <p className="opacity-75">{t("common.loading")}</p>
       </div>
     );
@@ -92,7 +92,7 @@ export default function SubmitAppealPage() {
 
   if (!application) {
     return (
-      <div className={cn(PAGE_LAYOUT, "text-center")}>
+      <div className={cn(PAGE_LAYOUT_WIDE, "text-center")}>
         <h1 className="text-2xl font-bold tracking-[-0.02em]">{t("track.missingTitle")}</h1>
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
@@ -114,7 +114,7 @@ export default function SubmitAppealPage() {
   /* Not yet eligible: the request has not passed its reply deadline. */
   if (!submitted && !clock?.isOverdue) {
     return (
-      <div className={cn(PAGE_LAYOUT)}>
+      <div className={cn(PAGE_LAYOUT_WIDE)}>
         <ApplicationHeader application={application} step={4} stageKey="nav.appeal" />
         <div className="mt-16 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
@@ -137,7 +137,7 @@ export default function SubmitAppealPage() {
   }
 
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT_WIDE)}>
       <ApplicationHeader application={application} step={4} stageKey="nav.appeal" />
 
       {submitted ? (

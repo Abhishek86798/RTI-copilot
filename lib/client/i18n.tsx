@@ -220,7 +220,7 @@ const en = {
   "track.noReply": "No reply received",
   "track.simulate": "Simulate +31 days",
   "track.simulateHelp":
-    "Fast-forwards this example's clock so you can see the appeal draft itself without waiting a month. Only available on prepared examples, never on something you actually filed.",
+    "Fast-forwards this example's clock past the reply deadline, so the appeal step can be reached without waiting a month. Only available on prepared examples, never on something you actually filed.",
   "track.simulateOn": "Clock fast-forwarded by {days} days (demo)",
   "track.simulateReset": "Reset the clock",
   "track.overdueTitle": "Statutory Period Lapsed",
@@ -682,7 +682,7 @@ const hi: Record<StringKey, string> = {
   "track.noReply": "कोई उत्तर नहीं मिला",
   "track.simulate": "+31 दिन आगे बढ़ाएँ",
   "track.simulateHelp":
-    "इस उदाहरण की घड़ी आगे बढ़ाता है ताकि आप महीना भर रुके बिना अपील का मसौदा बनते देख सकें। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
+    "इस उदाहरण की घड़ी उत्तर की समय-सीमा से आगे बढ़ाता है, ताकि महीना भर रुके बिना अपील चरण तक पहुँचा जा सके। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
   "track.simulateOn": "घड़ी {days} दिन आगे बढ़ाई गई (डेमो)",
   "track.simulateReset": "घड़ी वापस करें",
   "track.overdueTitle": "समय-सीमा बीत चुकी है",

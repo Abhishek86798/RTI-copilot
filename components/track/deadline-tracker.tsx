@@ -118,13 +118,6 @@ export function DeadlineTracker({
         </span>
       </p>
 
-      {application.registrationNumber && (
-        <p className="mt-4 text-sm">
-          <span className="font-medium">Registration number: </span>
-          <span className="font-mono">{application.registrationNumber}</span>
-        </p>
-      )}
-
       {!clock.isOverdue && (
         <div className="mt-6">
           <Button type="button" variant="outline" size="xl" onClick={onLogResponse}>

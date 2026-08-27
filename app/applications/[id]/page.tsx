@@ -11,7 +11,7 @@ import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-
 import { Receipt } from "@/components/track/receipt";
 import { Button } from "@/components/ux4g/button";
 import { updateApplication } from "@/lib/client/store";
-import { PAGE_LAYOUT } from "@/components/page-layout";
+import { PAGE_LAYOUT_WIDE } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useApplication, useHydrated } from "@/lib/client/use-applications";
@@ -70,7 +70,7 @@ export default function SubmitApplicationPage() {
 
   if (!hydrated) {
     return (
-      <div className={cn(PAGE_LAYOUT)}>
+      <div className={cn(PAGE_LAYOUT_WIDE)}>
         <p className="opacity-75">{t("common.loading")}</p>
       </div>
     );
@@ -78,7 +78,7 @@ export default function SubmitApplicationPage() {
 
   if (!application) {
     return (
-      <div className={cn(PAGE_LAYOUT, "text-center")}>
+      <div className={cn(PAGE_LAYOUT_WIDE, "text-center")}>
         <h1 className="text-2xl font-bold tracking-[-0.02em]">{t("track.missingTitle")}</h1>
         <p className="mx-auto mt-3 max-w-[52ch] leading-relaxed opacity-75">
           {t("track.missingBody")}
@@ -95,7 +95,7 @@ export default function SubmitApplicationPage() {
   }
 
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT_WIDE)}>
       <ApplicationHeader application={application} step={3} stageKey="steps.file" />
 
       {/* Just filed: the acknowledgement, and nothing under it. */}

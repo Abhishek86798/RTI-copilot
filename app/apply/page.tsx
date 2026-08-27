@@ -4,7 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
-import { PAGE_LAYOUT_WIDE, READABLE_COLUMN } from "@/components/page-layout";
+import { PAGE_LAYOUT_WIDE } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
@@ -188,7 +188,6 @@ function ApplyWizard() {
         )}
 
         {step === "intake" && (
-          <div className={READABLE_COLUMN}>
           <IntakeStep
             value={grievance}
             onChange={(value) => {
@@ -201,11 +200,9 @@ function ApplyWizard() {
             onPickDemo={handlePickDemo}
             loading={loading}
           />
-          </div>
         )}
 
         {step === "authority" && routing && (
-          <div className={READABLE_COLUMN}>
           <AuthorityStep
             routing={routing}
             selectedId={selectedId}
@@ -214,7 +211,6 @@ function ApplyWizard() {
             onSubmit={() => void handleDraft()}
             loading={loading}
           />
-          </div>
         )}
 
         {step === "draft" && draft && (
