@@ -1,6 +1,7 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 /**
@@ -33,13 +34,13 @@ export function RadioField<T extends string>({
   className?: string;
 }) {
   return (
-    <fieldset className={cn("space-y-2", className)}>
-      <legend className="mb-2 text-sm leading-tight font-medium">{legend}</legend>
+    <fieldset className={cn("space-y-1", className)}>
+      <legend className="mb-1.5 text-sm leading-tight font-medium">{legend}</legend>
       <div className="flex flex-wrap gap-x-6 gap-y-2">
         {options.map((option) => (
           <label
             key={option.value}
-            className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm"
+            className="flex min-h-9 cursor-pointer items-center gap-2 text-sm"
           >
             <input
               type="radio"
@@ -47,13 +48,13 @@ export function RadioField<T extends string>({
               value={option.value}
               checked={value === option.value}
               onChange={() => onChange(option.value)}
-              className="size-5 shrink-0 cursor-pointer accent-[var(--primary)]"
+              className="size-4 shrink-0 cursor-pointer accent-[var(--primary)]"
             />
             {option.label}
           </label>
         ))}
       </div>
-      {hint && <p className="text-sm text-muted-foreground">{hint}</p>}
+      {hint && <p className="text-xs leading-[1.6] text-muted-foreground">{hint}</p>}
     </fieldset>
   );
 }
@@ -77,17 +78,12 @@ export function SelectField({
   className?: string;
 }) {
   return (
-    <div className={cn("space-y-1.5", className)}>
+    <div className={cn("space-y-1", className)}>
       <Label htmlFor={id}>{label}</Label>
-      <select
-        id={id}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="ux4g-form-select h-10 w-full rounded-lg border border-input bg-card px-3 text-base md:text-sm"
-      >
+      <Select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
         {children}
-      </select>
-      {hint && <p className="text-sm text-muted-foreground">{hint}</p>}
+      </Select>
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }

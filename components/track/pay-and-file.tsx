@@ -86,7 +86,6 @@ export function PayAndFile({
     <Panel labelledBy="pay-heading">
       <PanelHeader
         id="pay-heading"
-        eyebrow={t("submit.step.pay")}
         title={isBpl ? t("pay.bplTitle") : t("pay.title")}
         description={isBpl ? t("pay.bplBody") : t("pay.help")}
       />

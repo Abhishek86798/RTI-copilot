@@ -86,10 +86,10 @@ export function IntakeStep({
               onChange={(event) => onChange(event.target.value)}
               onBlur={() => setTouched(true)}
               placeholder={t("intake.placeholder")}
-              rows={8}
+              rows={6}
               aria-describedby={`${hintId} ${countId}`}
               aria-invalid={showError || undefined}
-              className="min-h-52 text-base leading-relaxed border-border bg-background shadow-sm"
+              className="max-h-[18rem] min-h-36 border-border bg-background text-sm leading-[1.65] shadow-sm"
             />
             <div className="flex flex-wrap items-center justify-between gap-2">
               <FieldHint id={hintId} className="sr-only">

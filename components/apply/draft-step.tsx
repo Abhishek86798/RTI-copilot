@@ -124,10 +124,10 @@ export function DraftStep({
               id={textId}
               value={portalText}
               onChange={(event) => onPortalTextChange(event.target.value)}
-              rows={16}
+              rows={12}
               aria-describedby={countId}
               aria-invalid={overLimit || undefined}
-              className="min-h-96 font-mono text-sm leading-relaxed"
+              className="min-h-48 max-h-[24rem] font-mono text-xs leading-[1.65]"
             />
             <p className="max-w-[58ch] text-sm leading-relaxed opacity-75">
               {t("draft.portalHelp")}
@@ -153,7 +153,7 @@ export function DraftStep({
             scrolls, and hid the end of the citizen's own sentence behind it —
             on the one screen whose purpose is that they read it back.
           */}
-            <p className="text-sm leading-[1.7] whitespace-pre-wrap text-muted-foreground">
+            <p className="max-h-[24rem] overflow-y-auto text-sm leading-[1.7] whitespace-pre-wrap text-muted-foreground">
               {grievance}
             </p>
           </PanelBody>

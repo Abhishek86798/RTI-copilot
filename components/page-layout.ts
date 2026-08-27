@@ -40,7 +40,7 @@ export const PAGE_FRAME = "mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10";
  * ~90px before a page says anything, and a first screen that opens on its own
  * heading rather than on empty space is worth more than the air.
  */
-export const PAGE_LAYOUT = `${PAGE_FRAME} pt-5 pb-14 sm:pt-7 sm:pb-20`;
+export const PAGE_LAYOUT = `${PAGE_FRAME} pt-4 pb-10 sm:pt-6 sm:pb-14`;
 
 /*
  * There is deliberately only one measure.

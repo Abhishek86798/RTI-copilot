@@ -155,14 +155,14 @@ export default function SubmitApplicationPage() {
       )}
 
       {!filed && (
-        <div className="mt-4" data-filing-step>
+        <div className="mt-3" data-filing-step>
           {/*
             Sticky under the site header, which is 3.5rem tall. The chips are
             the only wayfinding once the form is five screens deep, and on the
             applicant step they would otherwise scroll away before the fields
             they belong to.
           */}
-          <div className="sticky top-14 z-30 -mx-5 mb-6 border-b border-border bg-background px-5 py-2 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
+          <div className="sticky top-14 z-30 -mx-5 mb-4 border-b border-border bg-background px-5 py-2 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
             <FilingStepNav
               steps={FILING_STEPS}
               current={step}
@@ -201,7 +201,7 @@ export default function SubmitApplicationPage() {
             two primary actions on one screen is how someone pays twice.
           */}
           {step !== "pay" && (
-            <div className="mt-8 border-t border-border pt-6">
+            <div className="mt-6 border-t border-border pt-5">
               {blocked.length > 0 && (
                 <Alert variant="destructive" className="mb-6">
                   <AlertTriangle aria-hidden="true" />
@@ -209,17 +209,28 @@ export default function SubmitApplicationPage() {
                 </Alert>
               )}
 
-              <div className="flex flex-wrap items-center gap-3">
-                <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
-                  {t("submit.next")}
-                  <ArrowRight aria-hidden="true" />
-                </Button>
-                {stepIndex > 0 && (
+              {/*
+                Back on the left, forward on the right — where every browser,
+                operating system and paper form puts them. They were sitting
+                side by side in the left corner with the forward action first,
+                which reversed the one convention nobody reads to check.
+
+                The empty span holds the left slot on the first step so "Next"
+                does not slide across when there is nothing to go back to.
+              */}
+              <div className="flex items-center justify-between gap-3">
+                {stepIndex > 0 ? (
                   <Button size="lg" variant="ghost" onClick={goPrevious}>
                     <ArrowLeft aria-hidden="true" />
                     {t("submit.previous")}
                   </Button>
+                ) : (
+                  <span />
                 )}
+                <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
+                  {t("submit.next")}
+                  <ArrowRight aria-hidden="true" />
+                </Button>
               </div>
             </div>
           )}

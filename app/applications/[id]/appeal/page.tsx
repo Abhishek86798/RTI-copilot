@@ -6,10 +6,10 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { CheckCircle2, Gavel, Printer } from "lucide-react";
 
-import { Marker } from "@/components/editorial";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { AppealSheet } from "@/components/track/application-sheet";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { FieldHint, Label } from "@/components/ui/label";
@@ -142,95 +142,85 @@ export default function SubmitAppealPage() {
       />
 
       {submitted ? (
-        <section className="mt-10" aria-labelledby="appeal-ack">
-          <div className="pt-8">
-            <Marker label={t("appeal.acknowledgement")} />
-            <h2
-              id="appeal-ack"
-              className="mt-2 flex items-center gap-2.5 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
+        <Panel className="mt-4" labelledBy="appeal-ack">
+          <PanelHeader
+            id="appeal-ack"
+            title={
+              <span className="flex items-center gap-2">
+                <CheckCircle2 aria-hidden="true" className="size-4 shrink-0 text-success" />
+                {t("appeal.submitted", { date: formatDate(submitted) })}
+              </span>
+            }
+            description={t("appeal.submittedHelp")}
+          />
+          <PanelBody className="space-y-4">
+            {/*
+              The letter at document size, in a capped scroller.
+
+              It was set at page size and ran the full height of the screen —
+              a two-page legal document rendered as if it were the page itself.
+              Nothing about reading it back needs 16px type.
+            */}
+            <pre
+              tabIndex={0}
+              aria-label={t("appeal.grounds")}
+              className="max-h-[24rem] overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs leading-[1.65] whitespace-pre-wrap"
             >
-              <CheckCircle2 aria-hidden="true" className="size-5 shrink-0 text-success" />
-              {t("appeal.submitted", { date: formatDate(submitted) })}
-            </h2>
-            <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
-              {t("appeal.submittedHelp")}
-            </p>
-          </div>
+              {text}
+            </pre>
 
-          <pre className="mt-8 border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-            {text}
-          </pre>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href={`/applications/${application.id}/track`}
-            className={buttonVariants({ variant: "cta", size: "lg" })}
-          >
-                  {t("track.viewStatus")}
-                </Link>
-            <Button type="button" size="lg" variant="outline" onClick={() => setPrinting(true)}>
-              <Printer aria-hidden="true" />
-              {t("common.print")}
-            </Button>
-          </div>
-        </section>
-      ) : (
-        <>
-          <section className="mt-10" aria-labelledby="appeal-grounds">
-            <div className="pt-8">
-              <Marker label={t("appeal.section.grounds")} />
-              <h2
-                id="appeal-grounds"
-                className="mt-2 flex items-center gap-2.5 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Link
+                href={`/applications/${application.id}/track`}
+                className={buttonVariants({ variant: "cta", size: "lg" })}
               >
-                <Gavel aria-hidden="true" className="size-5 shrink-0 text-warning" />
-                {t("nav.appeal")}
-              </h2>
-              <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
-                {t("track.appealHelp")}
-              </p>
+                {t("track.viewStatus")}
+              </Link>
+              <Button type="button" size="lg" variant="outline" onClick={() => setPrinting(true)}>
+                <Printer aria-hidden="true" />
+                {t("common.print")}
+              </Button>
             </div>
-
-            <div className="mt-6 space-y-5">
-              <div>
-                <Marker label={t("appeal.against")} />
-                <p className="mt-3 font-mono text-base">
-                  {application.registrationNumber ?? "—"}
-                </p>
-              </div>
-
-              <div className="space-y-1.5">
+          </PanelBody>
+        </Panel>
+      ) : (
+        <div className="mt-4 space-y-4">
+          <Panel labelledBy="appeal-grounds">
+            <PanelHeader
+              id="appeal-grounds"
+              title={
+                <span className="flex items-center gap-2">
+                  <Gavel aria-hidden="true" className="size-4 shrink-0 text-warning" />
+                  {t("nav.appeal")}
+                </span>
+              }
+              description={t("track.appealHelp")}
+            />
+            <PanelBody className="space-y-4">
+              <div className="space-y-1">
                 <Label htmlFor="appeal-text">{t("appeal.grounds")}</Label>
                 <Textarea
                   id="appeal-text"
                   value={text}
                   onChange={(event) => setGrounds(event.target.value)}
-                  rows={18}
-                  className="min-h-96 font-mono text-sm leading-relaxed"
+                  rows={12}
+                  className="min-h-48 max-h-[22rem] font-mono text-xs leading-[1.65]"
                 />
                 <FieldHint>{t("appeal.groundsHelp")}</FieldHint>
               </div>
 
-              <p className="border-l-2 border-border py-1 pl-4 text-sm leading-relaxed">
-                <span className="font-semibold">
+              <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm leading-[1.6]">
+                <span className="font-medium">
                   {t("file.fee")}: {t("submit.feeNil")}
                 </span>{" "}
-                <span className="opacity-75">{t("appeal.noFee")}</span>
+                <span className="text-muted-foreground">{t("appeal.noFee")}</span>
               </p>
-            </div>
-          </section>
+            </PanelBody>
+          </Panel>
 
-          <section className="mt-10" aria-labelledby="appeal-confirm">
-            <div className="pt-8">
-              <Marker label={t("appeal.section.confirm")} />
-              <h2
-                id="appeal-confirm"
-                className="mt-2 text-[1.25rem] leading-snug font-semibold tracking-[-0.015em]"
-              >
-                {t("appeal.confirmTitle")}
-              </h2>
-            </div>
-
-            <div className="mt-6 space-y-5">
+          <Panel labelledBy="appeal-confirm">
+            <PanelHeader id="appeal-confirm" title={t("appeal.confirmTitle")} />
+            <PanelBody className="space-y-4">
               {/*
                 The one declaration this act needs. Filing had the citizenship
                 declaration; an appeal has this — that the appellant has read
@@ -251,7 +241,7 @@ export default function SubmitAppealPage() {
                 </Alert>
               )}
 
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <Button
                   type="button"
                   size="lg"
@@ -272,19 +262,14 @@ export default function SubmitAppealPage() {
                 >
                   {t("appeal.submit")}
                 </Button>
-                <Button
-                  type="button"
-                  size="lg"
-                  variant="outline"
-                  onClick={() => setPrinting(true)}
-                >
+                <Button type="button" size="lg" variant="outline" onClick={() => setPrinting(true)}>
                   <Printer aria-hidden="true" />
                   {t("common.print")}
                 </Button>
               </div>
-            </div>
-          </section>
-        </>
+            </PanelBody>
+          </Panel>
+        </div>
       )}
 
       {printing && <AppealSheet text={text} />}

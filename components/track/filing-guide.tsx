@@ -4,6 +4,7 @@ import { useId } from "react";
 import { AlertTriangle, FileUp, IndianRupee, Siren } from "lucide-react";
 
 import { INDIAN_STATES } from "@/lib/client/states";
+import { Select } from "@/components/ui/select";
 import { RadioField, SelectField } from "@/components/track/submit-fields";
 import {
   authorityById,
@@ -134,7 +135,6 @@ export function FilingGuide({
         <Panel labelledBy="authority-heading">
           <PanelHeader
             id="authority-heading"
-            eyebrow={t("submit.section.authority")}
             title={t("submit.authorityTitle")}
             description={t("submit.authorityHelp")}
           />
@@ -191,7 +191,6 @@ export function FilingGuide({
         <Panel labelledBy="applicant-heading">
           <PanelHeader
             id="applicant-heading"
-            eyebrow={t("submit.section.applicant")}
             title={t("file.applicantTitle")}
             description={t("file.applicantHelp")}
           />
@@ -204,8 +203,8 @@ export function FilingGuide({
             reading "PIN code". Paired, the step fits a screen and every
             control is about as wide as the thing it holds.
           */}
-          <div className="grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
-            <div className="space-y-1.5">
+          <div className="grid gap-x-5 gap-y-3 sm:grid-cols-2">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-name`}>{t("file.name")}</Label>
               <Input
                 id={`${fieldPrefix}-name`}
@@ -215,7 +214,7 @@ export function FilingGuide({
               />
             </div>
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-mobile`}>{t("file.mobile")}</Label>
               <Input
                 id={`${fieldPrefix}-mobile`}
@@ -244,14 +243,13 @@ export function FilingGuide({
               State and PIN are separate fields on the real form, not part of
               the street address, and it rejects an application without them.
             */}
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-state`}>{t("file.state")}</Label>
-              <select
+              <Select
                 id={`${fieldPrefix}-state`}
                 value={application.applicant.state}
                 onChange={(event) => patchApplicant({ state: event.target.value })}
                 autoComplete="address-level1"
-                className="ux4g-form-select h-10 w-full rounded-lg border border-input bg-card px-3 text-base md:text-sm"
               >
                 <option value="">{t("file.statePlaceholder")}</option>
                 {INDIAN_STATES.map((name) => (
@@ -259,10 +257,10 @@ export function FilingGuide({
                     {name}
                   </option>
                 ))}
-              </select>
+              </Select>
             </div>
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-pincode`}>{t("file.pincode")}</Label>
               <Input
                 id={`${fieldPrefix}-pincode`}
@@ -325,7 +323,7 @@ export function FilingGuide({
               ]}
             />
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-phone`}>
                 {t("file.phone")}{" "}
                 <span className="font-normal opacity-75">({t("common.optional")})</span>
@@ -339,7 +337,7 @@ export function FilingGuide({
               />
             </div>
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor={`${fieldPrefix}-email`}>{t("file.email")}</Label>
               <Input
                 id={`${fieldPrefix}-email`}
@@ -363,11 +361,10 @@ export function FilingGuide({
         <Panel labelledBy="declaration-heading">
           <PanelHeader
             id="declaration-heading"
-            eyebrow={t("submit.section.declaration")}
             title={t("submit.declarationTitle")}
           />
           <PanelBody>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/*
               Section 6(1) confines the right to citizens, and the real form
               makes you assert it before it will take the request. It is a
@@ -437,7 +434,6 @@ export function FilingGuide({
         <Panel labelledBy="supporting-heading">
           <PanelHeader
             id="supporting-heading"
-            eyebrow={t("submit.section.supporting")}
             title={t("submit.supportingTitle")}
           />
           <PanelBody>
@@ -468,7 +464,6 @@ export function FilingGuide({
         <Panel labelledBy="request-heading">
           <PanelHeader
             id="request-heading"
-            eyebrow={t("submit.section.request")}
             title={t("submit.requestTitle")}
             description={t("submit.requestHelp")}
           />
@@ -486,7 +481,10 @@ export function FilingGuide({
             </Alert>
           )}
 
-          <pre className="border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+          <pre
+            tabIndex={0}
+            className="max-h-72 overflow-y-auto rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs leading-[1.65] whitespace-pre-wrap"
+          >
             {application.portalText}
           </pre>
           <p className="mt-4 font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
