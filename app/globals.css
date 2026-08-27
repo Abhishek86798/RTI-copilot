@@ -208,17 +208,25 @@
    * Scaling the root rather than restyling each element means every rem-based
    * size, gap and control grows with it, so nothing collides at the largest
    * step.
+   *
+   * The scale has to sit on <html>, not on body: `rem` resolves against the
+   * root element, so scaling body moved body copy and left every `text-4xl`
+   * heading, `gap-8` and `size-12` exactly where it was. A reader on the
+   * largest step got bigger paragraphs under a heading that had not moved —
+   * the control appeared to half-work, which is worse than not offering it.
    */
+  html {
+    font-size: calc(17px * var(--text-scale, 1));
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: calc(16px * var(--text-scale, 1));
+    }
+  }
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
-    font-size: calc(17px * var(--text-scale, 1));
     line-height: 1.6;
-  }
-  @media (min-width: 768px) {
-    body {
-      font-size: calc(16px * var(--text-scale, 1));
-    }
   }
   /* A focus ring you can actually find with your eyes, on every focusable. */
   :focus-visible {

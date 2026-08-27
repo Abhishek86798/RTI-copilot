@@ -29,6 +29,7 @@ export function ApplicationHeader({
   stageKey,
   backHref,
   backLabelKey,
+  compact = false,
 }: {
   application: Application;
   /** Index into the journey rule. Omit on screens outside the journey. */
@@ -37,9 +38,66 @@ export function ApplicationHeader({
   stageKey: StringKey;
   backHref: string;
   backLabelKey: StringKey;
+  /**
+   * The filing screen's version: identity on one line rather than a display
+   * title, and no status badge.
+   *
+   * Measured on the full version, the first form field sat about 750px down —
+   * a whole viewport of chrome before anything to fill in, on a screen whose
+   * only job is filling things in. Tracking and appealing are read-first
+   * screens where the display title is doing real work, so they keep it.
+   */
+  compact?: boolean;
 }) {
   const { t } = useI18n();
   const status = deriveStatus(application);
+
+  if (compact) {
+    return (
+      <div data-print="hide">
+        {step !== undefined && <StepIndicator current={step} className="mb-6" />}
+
+        {/*
+          Back, identity and the request text on one band. The two halves sit
+          side by side from `sm` because the authority name is long and the
+          controls are short — stacking them wastes the width the name needs.
+        */}
+        <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <div className="min-w-0">
+            <Link
+              href={backHref}
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium underline-offset-4 opacity-75 hover:underline hover:opacity-100"
+            >
+              <ArrowLeft aria-hidden="true" className="size-4" />
+              {t(backLabelKey)}
+            </Link>
+            <h1 className="mt-1 text-xl leading-tight font-bold tracking-[-0.02em] text-balance sm:text-2xl">
+              {application.authority.authorityName}
+            </h1>
+            <p className="mt-1.5 text-sm leading-snug opacity-75">
+              {application.authority.pioDesignation}
+            </p>
+            {application.registrationNumber && (
+              <p className="mt-2 text-sm">
+                <span className="opacity-75">{t("receipt.regNumber")}: </span>
+                <span className="font-mono">{application.registrationNumber}</span>
+              </p>
+            )}
+          </div>
+
+          <details className="group shrink-0 sm:max-w-[22rem]">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
+              <FileText aria-hidden="true" className="size-4" />
+              {t("track.viewText")}
+            </summary>
+            <pre className="mt-3 max-h-64 overflow-y-auto border-l-2 border-border py-2 pl-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+              {application.portalText}
+            </pre>
+          </details>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div data-print="hide">
