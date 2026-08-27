@@ -90,6 +90,7 @@ export function PayAndFile({
         <Marker label={isBpl ? t("pay.bplTitle") : t("pay.title")} />
         <h2
           id="pay-heading"
+          tabIndex={-1}
           className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
         >
           {isBpl ? t("pay.bplTitle") : t("pay.title")}

@@ -77,6 +77,11 @@ const en = {
   "receipt.next":
     "This application is now listed on your Applicant Dashboard. Open it there to watch the reply deadline, record a reply, or file a first appeal.",
   "receipt.download": "Download the application (PDF)",
+  "submit.stepsNav": "Filing steps",
+  "submit.next": "Next",
+  "submit.previous": "Previous",
+  "submit.incomplete": "Fill in the highlighted fields before continuing.",
+
   "auth.signIn": "Sign in",
   "auth.signOut": "Sign out",
   "auth.account": "Account: {email}",
@@ -545,6 +550,11 @@ const hi: Record<StringKey, string> = {
   "receipt.next":
     "यह आवेदन अब आपके आवेदक डैशबोर्ड में दर्ज है। उत्तर की समय-सीमा देखने, उत्तर दर्ज करने या प्रथम अपील दाख़िल करने के लिए इसे वहीं से खोलें।",
   "receipt.download": "आवेदन डाउनलोड करें (PDF)",
+  "submit.stepsNav": "दाख़िल करने के चरण",
+  "submit.next": "आगे",
+  "submit.previous": "पीछे",
+  "submit.incomplete": "आगे बढ़ने से पहले चिह्नित फ़ील्ड भरें।",
+
   "auth.signIn": "साइन इन करें",
   "auth.signOut": "साइन आउट करें",
   "auth.account": "खाता: {email}",
