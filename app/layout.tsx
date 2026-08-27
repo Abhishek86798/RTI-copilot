@@ -4,6 +4,7 @@ import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { AccessibilityBar } from "@/components/accessibility-bar";
 import { SiteHeader } from "@/components/site-header";
+import { Suspense } from "react";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { I18nProvider } from "@/lib/client/i18n";
 import "./globals.css";
@@ -68,7 +69,10 @@ export const viewport: Viewport = {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <I18nProvider>
-      <SmoothScroll />
+      {/* `useSearchParams` inside needs a boundary to prerender around. */}
+      <Suspense fallback={null}>
+        <SmoothScroll />
+      </Suspense>
       {/* First tab stop on every page, for keyboard and switch users. */}
       <a
         href="#main"

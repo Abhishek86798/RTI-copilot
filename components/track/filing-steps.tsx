@@ -9,13 +9,14 @@ import { cn } from "@/lib/utils";
 /**
  * The sub-steps inside filing.
  *
- * A separate device from `StepIndicator`, deliberately. That one draws the
- * four stages of the whole journey and filing is the fourth of them; this
- * draws the parts of that fourth stage. Reusing the same rail for both would
- * say the citizen is on step 2 of 5 when they are on step 4 of 4, part 2.
+ * The only progress indicator in the app. There used to be a second rule above
+ * it numbering the four stages of the whole journey, which meant two
+ * indicators on one screen disagreeing about what step you were on — this one
+ * saying 2 of 5 while the other said 4 of 4.
  *
- * So it is quieter: small chips in a row rather than a numbered rule, sitting
- * under the stage heading rather than above it.
+ * Small chips in a row rather than a numbered rule, sitting under the stage
+ * heading rather than above it, because it is a position within a form and not
+ * the shape of the whole errand.
  *
  * A completed step stays clickable, because going back to correct a typo is
  * the single most common thing anyone does in a long form. A step ahead is

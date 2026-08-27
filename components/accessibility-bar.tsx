@@ -137,10 +137,10 @@ export function AccessibilityBar() {
           ))}
         </nav>
 
-        <div className="flex flex-wrap items-center justify-end gap-y-0.5">
+        <div className="flex flex-wrap items-center justify-end gap-2 gap-y-1">
         <Link
           href="/accessibility"
-          className="inline-flex min-h-8 items-center px-2 underline-offset-4 opacity-75 hover:underline hover:opacity-100"
+          className="inline-flex min-h-7 items-center underline-offset-4 opacity-70 hover:underline hover:opacity-100"
         >
           {t("a11y.statement")}
         </Link>
@@ -148,9 +148,9 @@ export function AccessibilityBar() {
         <div
           role="group"
           aria-label={t("a11y.textSize")}
-          className="ml-2 flex items-center gap-0.5 border-l border-border pl-3"
+          className="inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]"
         >
-          <Type aria-hidden="true" className="mr-1 size-3.5 shrink-0 opacity-75" />
+          <Type aria-hidden="true" className="mx-1 size-3 shrink-0 opacity-60" />
           {SIZES.map((value, index) => (
             <button
               key={value}
@@ -171,54 +171,48 @@ export function AccessibilityBar() {
                  * the box has to stay constant — otherwise the three chips are
                  * different heights and the selected one looks like a mistake.
                  */
-                "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md leading-none font-medium transition-colors",
+                "inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md leading-none transition-colors",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                size === value
-                  ? "bg-primary text-primary-foreground"
-                  : "opacity-75 hover:bg-muted hover:opacity-100"
+                size === value ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
               )}
             >
               {/*
-                Baseline-aligned inline row. As grid children the letter and
-                the sign stacked vertically, which put the − and + underneath
-                the A and made every chip too tall.
+                Three A's on a size ramp, and no plus or minus signs.
+
+                The signs were wrong. The three options are normal, large and
+                larger — there is nothing below normal — but the first chip was
+                drawn "A−", so anyone at the default was told their text had
+                been shrunk, and the button that would restore it was labelled
+                "A". The ramp says what the ramp does without claiming a fourth
+                step that does not exist.
               */}
               <span
                 aria-hidden="true"
                 className={cn(
-                  "inline-flex items-baseline",
-                  index === 0 && "text-[0.7rem]",
-                  index === 1 && "text-[0.85rem]",
-                  index === 2 && "text-[1rem]"
+                  "leading-none",
+                  index === 0 && "text-[0.72rem]",
+                  index === 1 && "text-[0.9rem]",
+                  index === 2 && "text-[1.1rem]"
                 )}
               >
                 A
-                {index !== 1 && (
-                  <span className="text-[0.6em] leading-none">
-                    {index === 0 ? "−" : "+"}
-                  </span>
-                )}
               </span>
             </button>
           ))}
         </div>
 
-        {/* The separator belongs to the group, not to the control — a border
-            on the button itself would cut across its own rounded corner. */}
-        <div className="ml-2 flex items-center border-l border-border pl-3">
+        <div className="flex items-center">
           <button
             type="button"
             onClick={() => setContrast(!high)}
             aria-pressed={high}
             className={cn(
-              "inline-flex min-h-8 cursor-pointer items-center gap-1.5 rounded-md px-2 font-medium transition-colors",
+              "inline-flex min-h-7 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 transition-colors",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              high
-                ? "bg-primary text-primary-foreground"
-                : "opacity-75 hover:bg-muted hover:opacity-100"
+              high ? "bg-muted text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Contrast aria-hidden="true" className="size-3.5 shrink-0" />
+            <Contrast aria-hidden="true" className="size-3 shrink-0" />
             {/*
               Icon-only below sm. With the label shown, the strip wrapped onto
               a second row at 390px, which left a dangling separator and spent
@@ -240,9 +234,7 @@ export function AccessibilityBar() {
           this strip is a single right-aligned row with room to spare, and it
           already wraps gracefully on a phone.
         */}
-        <div className="ml-2 flex items-center border-l border-border pl-3">
-          <ThemeToggle compact />
-        </div>
+        <ThemeToggle compact />
         </div>
       </Frame>
     </div>

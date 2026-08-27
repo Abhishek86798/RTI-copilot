@@ -27,7 +27,7 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label={t("nav.language")}
       className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-card p-0.5",
+        "inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]",
         className
       )}
     >
@@ -42,11 +42,9 @@ export function LanguageToggle({ className }: { className?: string }) {
             aria-pressed={active}
             aria-label={option.aria}
             className={cn(
-              "min-h-12 cursor-pointer rounded-md px-2.5 text-sm font-medium transition-colors sm:px-3",
+              "min-h-9 cursor-pointer rounded-md px-2.5 text-[0.8125rem] font-medium transition-colors sm:px-3",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              active
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              active ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
             )}
           >
             <span className="sm:hidden">{option.short}</span>

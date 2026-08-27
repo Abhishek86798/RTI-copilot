@@ -142,13 +142,15 @@ export function AuthControls() {
   return (
     <>
       {/*
-        `lg`, not `xl`. This sits in the header beside the language toggle and
-        the menu button, and at 320px with the largest text setting the xl
-        chip pushed that group 16px past the viewport — a horizontal scrollbar
-        on every page, which is the reflow failure (WCAG 1.4.10) the text-size
-        control exists to avoid. `lg` is still a 44px target.
+        40px, and the only filled control left in the header.
+
+        At xl it pushed the control group 16px past a 320px viewport with the
+        largest text setting — a horizontal scrollbar on every page, from the
+        control that exists to prevent exactly that. It is also the only thing
+        in the chrome still carrying the accent, now that the four toggles
+        beside it have given theirs up, so it does not need size as well.
       */}
-      <Button size="lg" className="whitespace-nowrap" onClick={() => setOpen(true)}>
+      <Button size="md" className="whitespace-nowrap" onClick={() => setOpen(true)}>
         <User aria-hidden="true" />
         {/*
           Icon-only on a phone. `sr-only` rather than `hidden`, so the button

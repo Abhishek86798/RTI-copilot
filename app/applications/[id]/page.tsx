@@ -136,7 +136,6 @@ export default function SubmitApplicationPage() {
     <div className={cn(PAGE_LAYOUT)}>
       <ApplicationHeader
         application={application}
-        step={3}
         stageKey="steps.file"
         /*
          * Once it is filed there is no previous step to return to — the form

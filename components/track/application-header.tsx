@@ -5,7 +5,6 @@ import { ArrowLeft, FileText } from "lucide-react";
 
 import { Marker, PageTitle } from "@/components/editorial";
 import { StatusBadge } from "@/components/status-badge";
-import { StepIndicator } from "@/components/step-indicator";
 import { deriveStatus, type Application } from "@/lib/client/store";
 import { useI18n } from "@/lib/client/i18n";
 import type { StringKey } from "@/lib/client/i18n";
@@ -18,23 +17,20 @@ import type { StringKey } from "@/lib/client/i18n";
  * has to be stated the same way on each. Otherwise moving between them feels
  * like moving between unrelated screens.
  *
- * The step rail is optional, and only filing passes one. Filing is the last
- * step of Initiate Requisition; tracking and appealing are separate errands
- * begun from the Applicant Dashboard weeks later, and drawing a wizard rail
- * across them implied they were part of a form still being filled in.
+ * There is no progress rail here any more. Filing already draws its own five
+ * chips, and a second rule above them numbering the four stages of the whole
+ * journey was two progress indicators on one screen disagreeing about what
+ * step you were on.
  */
 export function ApplicationHeader({
   application,
-  step,
   stageKey,
   backHref,
   backLabelKey,
   compact = false,
 }: {
   application: Application;
-  /** Index into the journey rule. Omit on screens outside the journey. */
-  step?: number;
-  /** Names the stage under the rule: File, Track, Appeal. */
+  /** Names the stage: File, Track, Appeal. */
   stageKey: StringKey;
   backHref: string;
   backLabelKey: StringKey;
@@ -55,8 +51,6 @@ export function ApplicationHeader({
   if (compact) {
     return (
       <div data-print="hide">
-        {step !== undefined && <StepIndicator current={step} className="mb-5" />}
-
         {/*
           Back, identity and the request text on one band. The two halves sit
           side by side from `sm` because the authority name is long and the
@@ -101,8 +95,6 @@ export function ApplicationHeader({
 
   return (
     <div data-print="hide">
-      {step !== undefined && <StepIndicator current={step} className="mb-8" />}
-
       <div className="mb-8">
         <Link
           href={backHref}
@@ -116,8 +108,6 @@ export function ApplicationHeader({
       <PageTitle
         marker={
           <div className="flex flex-wrap items-center gap-3">
-            {/* The step rule above already carries the position, so the marker
-                names the stage without repeating "04 / 04". */}
             <Marker label={t(stageKey)} />
             <StatusBadge status={status} />
           </div>

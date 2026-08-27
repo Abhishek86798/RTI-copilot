@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Lenis from "lenis";
 
 /**
@@ -65,6 +65,15 @@ export function setPageScrollLocked(locked: boolean) {
 
 export function SmoothScroll() {
   const pathname = usePathname();
+  /*
+   * The query string counts as a navigation too.
+   *
+   * "Back to the previous step" goes from /applications/<id> to
+   * /apply?draft=<id> — a different screen, but `usePathname` alone does not
+   * change for a query-only move, so the reader arrived at the draft step
+   * still scrolled to wherever they had been on the form.
+   */
+  const search = useSearchParams();
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -136,7 +145,7 @@ export function SmoothScroll() {
    */
   useEffect(() => {
     scrollPageToTop();
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }

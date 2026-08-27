@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
 import { ErrorNotice, FixtureNotice } from "@/components/notices";
-import { StepIndicator } from "@/components/step-indicator";
 import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
 import { splitDraftItems } from "@/lib/client/filing";
@@ -19,12 +18,6 @@ import { useApplication, useHydrated } from "@/lib/client/use-applications";
 import type { RoutingResponse } from "@/lib/client/types";
 
 type WizardStep = "intake" | "authority" | "draft";
-
-const STEP_INDEX: Record<WizardStep, number> = {
-  intake: 0,
-  authority: 1,
-  draft: 2,
-};
 
 /**
  * Steps 1–3 of the journey, held in component state.
@@ -193,8 +186,6 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <StepIndicator current={STEP_INDEX[step]} className="mb-8" />
-
       {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
       <div ref={headingRef} tabIndex={-1} className="outline-none">
         {error && (

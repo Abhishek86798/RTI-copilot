@@ -102,8 +102,8 @@ export function ThemeToggle({
       role="group"
       aria-label={t("theme.label")}
       className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-card",
-        compact ? "p-0" : "p-0.5",
+        "inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]",
+        compact ? "" : "p-1",
         className
       )}
     >
@@ -119,14 +119,12 @@ export function ThemeToggle({
             title={option.label}
             className={cn(
               "grid cursor-pointer place-items-center rounded-md transition-colors",
-              compact ? "size-8" : "min-h-12 min-w-12",
+              compact ? "size-7" : "min-h-11 min-w-11",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              active
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              active ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <option.icon aria-hidden="true" className="size-4" />
+            <option.icon aria-hidden="true" className={compact ? "size-3.5" : "size-4"} />
           </button>
         );
       })}
