@@ -108,7 +108,12 @@
   --destructive-foreground: oklch(1 0 0);
   --success: oklch(0.508 0.133 151.024); /* #0b7a3b */
   --success-foreground: oklch(1 0 0);
-  --warning: oklch(0.531 0.119 65.118); /* #9a5b00 */
+  /*
+   * Darkened from the canvas value #9a5b00. Amber text on a 10% amber tint
+   * measured 4.41:1 — just under AA — and the whole point of a warning is
+   * that it is the one people must be able to read.
+   */
+  --warning: oklch(0.495 0.112 65.118);
   --warning-foreground: oklch(1 0 0);
   --info: oklch(0.482 0.137 251.906); /* #0d5fa8 */
   --info-foreground: oklch(1 0 0);

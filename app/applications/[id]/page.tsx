@@ -14,7 +14,7 @@ import { FilingGuide } from "@/components/track/filing-guide";
 import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
 import { Receipt } from "@/components/track/receipt";
 import { Button } from "@/components/ux4g/button";
-import { computeClock, formatDate, parseDateInput } from "@/lib/client/deadlines";
+import { computeClock, formatDate } from "@/lib/client/deadlines";
 import { buildFirstAppeal } from "@/lib/client/filing";
 import { deriveStatus, updateApplication } from "@/lib/client/store";
 import { Marker, PageTitle } from "@/components/editorial";
@@ -188,46 +188,40 @@ export default function ApplicationPage() {
           read as a mistake rather than a division. */}
 
       {/* ---------------------------------------------------------------- */}
-      {/* Not filed yet -> how to file                                      */}
+      {/* Not filed yet -> the portal's own Submit Request form             */}
       {/* ---------------------------------------------------------------- */}
       {!filed && (
         <div className="mt-16 space-y-16">
           <FilingGuide
             application={application}
             onApplicantChange={handleApplicantChange}
-            onMarkFiled={({ filedAt, registrationNumber, viaApio }) => {
-              updateApplication(application.id, {
-                status: "filed",
-                filedAt: parseDateInput(filedAt).toISOString(),
-                registrationNumber: registrationNumber || undefined,
-                viaApio,
-              });
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            onPrint={() => setPrintTarget("application")}
           />
 
           {/*
-            Filing in-app is offered only for Central authorities, because the
-            portal this simulates serves only those. A State application would
-            be returned with the fee kept, so that path stays outward — the
-            filing guide already says where it actually goes.
+            One submission path, for every authority.
+            
+            Filing used to be offered only for Central authorities, with State
+            ones sent away to a separate "record what you filed elsewhere"
+            form that asked the applicant to type in the registration number
+            they had been given. That is third-party behaviour: a portal
+            issues that number, it does not collect it. The scope notice at
+            the top of the form says which authorities this portal actually
+            serves, exactly as the real one does, and the submission itself is
+            the same for all of them.
           */}
-          {application.authority.level === "central" && (
-            <PayAndFile
-              application={application}
-              onFiled={(receipt) => {
-                updateApplication(application.id, {
-                  status: "filed",
-                  filedAt: receipt.filedAt,
-                  registrationNumber: receipt.registrationNumber,
-                  viaApio: false,
-                });
-                setReceipt(receipt);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
-          )}
+          <PayAndFile
+            application={application}
+            onFiled={(receipt) => {
+              updateApplication(application.id, {
+                status: "filed",
+                filedAt: receipt.filedAt,
+                registrationNumber: receipt.registrationNumber,
+                viaApio: false,
+              });
+              setReceipt(receipt);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
         </div>
       )}
 
@@ -266,6 +260,7 @@ export default function ApplicationPage() {
           {clock?.isOverdue && (
             <AppealCard
               appealText={appealText}
+              registrationNumber={application.registrationNumber}
               onAppealTextChange={(value) => {
                 if (application.appeal) {
                   updateApplication(application.id, {
@@ -274,16 +269,18 @@ export default function ApplicationPage() {
                 }
               }}
               appeal={application.appeal}
-              onMarkAppealFiled={({ filedAt, registrationNumber }) => {
+              onSubmitAppeal={() => {
                 if (!application.appeal) return;
+                // The portal records the moment of submission, the way it
+                // recorded the moment of filing. Nothing is typed in.
                 updateApplication(application.id, {
                   status: "appealed",
                   appeal: {
                     ...application.appeal,
-                    filedAt,
-                    registrationNumber: registrationNumber || undefined,
+                    filedAt: new Date().toISOString(),
                   },
                 });
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               onPrint={() => setPrintTarget("appeal")}
             />

@@ -48,7 +48,10 @@ export function PayAndFile({
           filing: {
             authorityId: application.authority.id,
             requestText: application.portalText,
-            applicant: { ...application.applicant, isCitizen: true },
+            // The declaration is a real field on the form now, so send what
+            // was ticked. The server rejects an undeclared request, which is
+            // what the portal it mirrors does.
+            applicant: { ...application.applicant },
           },
         }),
       });

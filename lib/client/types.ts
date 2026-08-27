@@ -77,6 +77,12 @@ export type Applicant = {
   /** Section 7(5): BPL applicants pay no fee, but must attach the certificate. */
   isBpl: boolean;
   /**
+   * Section 6(1) confines the right to citizens, and the real Submit Request
+   * form makes you assert it before it will accept the request. A declaration,
+   * not a verification — nobody checks it, here or there.
+   */
+  isCitizen: boolean;
+  /**
    * Reference for the attached BPL certificate. Section 7(5) makes the
    * exemption depend on producing it, not on claiming it — without one the
    * application is treated as unpaid and returned.
@@ -92,6 +98,7 @@ export const EMPTY_APPLICANT: Applicant = {
   phone: "",
   email: "",
   isBpl: false,
+  isCitizen: false,
 };
 
 export type ApplicationStatus =

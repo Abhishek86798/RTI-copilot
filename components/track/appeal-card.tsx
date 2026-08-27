@@ -1,56 +1,61 @@
 "use client";
 
-import { useState } from "react";
 import { Gavel, Printer } from "lucide-react";
 
 import { Button } from "@/components/ux4g/button";
 import { Marker, Rule } from "@/components/editorial";
-import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { toDateInputValue } from "@/lib/client/deadlines";
+import { formatDate } from "@/lib/client/deadlines";
 import type { AppealDraft } from "@/lib/client/guest-storage";
 import { useI18n } from "@/lib/client/i18n";
 
 /**
- * The First Appeal, drafted the moment the response deadline lapses.
+ * Submit First Appeal.
  *
- * This is the step almost nobody takes, because almost nobody is told it
- * exists. Silence past the statutory period is a deemed refusal under Section
- * 7(2), a First Appeal under Section 19(1) costs nothing, and the window is
- * only thirty days — so the appeal is written and waiting rather than offered
- * as something to go and figure out.
+ * Modelled on the real form, which is deliberately thin: you give the
+ * registration number of the original request, the portal fills in everything
+ * it already knows, you state the grounds, and you submit. No fee is payable
+ * on a first appeal under Section 19(1).
+ *
+ * Here the registration number is not asked for at all — this portal issued it
+ * at filing and can read it back. An earlier version of this screen had the
+ * applicant type it in, along with the date they filed, which is what a
+ * third-party helper would need to do and exactly what a portal must not.
+ *
+ * The grounds are pre-written the moment the deadline lapses rather than left
+ * blank. By then the applicant has been ignored for a month; the document
+ * being already drafted is the point of the feature.
  */
 export function AppealCard({
   appealText,
   onAppealTextChange,
   appeal,
-  onMarkAppealFiled,
+  registrationNumber,
+  onSubmitAppeal,
   onPrint,
 }: {
   appealText: string;
   onAppealTextChange: (value: string) => void;
   appeal?: AppealDraft;
-  onMarkAppealFiled: (details: { filedAt: string; registrationNumber: string }) => void;
+  /** Issued at filing. Shown read-only, the way the real form populates it. */
+  registrationNumber?: string;
+  onSubmitAppeal: () => void;
   onPrint: () => void;
 }) {
   const { t } = useI18n();
-  const [filedAt, setFiledAt] = useState(toDateInputValue());
-  const [registrationNumber, setRegistrationNumber] = useState("");
-
   const alreadyFiled = Boolean(appeal?.filedAt);
 
   return (
     <section aria-labelledby="appeal-heading">
       <Rule />
-
       <div className="pt-8">
-        <Marker label={t("track.appealTitle")} dim={false} className="text-warning" />
+        <Marker label={t("track.appealTitle")} />
         <h2
           id="appeal-heading"
-          className="mt-5 flex items-start gap-3 text-[1.75rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[2.25rem]"
+          className="mt-4 flex items-center gap-3 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] sm:text-[1.9rem]"
         >
-          <Gavel aria-hidden="true" className="mt-1.5 size-7 shrink-0 text-warning" />
+          <Gavel aria-hidden="true" className="size-6 shrink-0 text-warning" />
           {t("track.appealTitle")}
         </h2>
         <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
@@ -58,73 +63,58 @@ export function AppealCard({
         </p>
       </div>
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 space-y-6">
+        {/*
+          Auto-populated, exactly as the real form does once you give it the
+          number — except this portal already has it, so there is nothing to
+          give. Read-only because it is a fact of record, not an input.
+        */}
+        {registrationNumber && (
+          <div>
+            <Marker label={t("appeal.against")} />
+            <p className="mt-3 font-mono text-base">{registrationNumber}</p>
+          </div>
+        )}
+
         <div className="space-y-1.5">
-          <Label htmlFor="appeal-text">{t("track.appealTitle")}</Label>
+          <Label htmlFor="appeal-text">{t("appeal.grounds")}</Label>
           <Textarea
             id="appeal-text"
             value={appealText}
             onChange={(event) => onAppealTextChange(event.target.value)}
             rows={18}
+            readOnly={alreadyFiled}
             className="min-h-96 font-mono text-sm leading-relaxed"
           />
-          <FieldHint>
-            Fill in anything shown in square brackets before you file. Editing
-            here does not change your original application.
-          </FieldHint>
+          <FieldHint>{t("appeal.groundsHelp")}</FieldHint>
         </div>
 
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Button type="button" size="xl" variant="cta" onClick={onPrint}>
-            <Printer aria-hidden="true" />
-            {t("common.print")}
-          </Button>
-        </div>
+        <p className="border-l-2 border-border py-1 pl-4 text-sm leading-relaxed">
+          <span className="font-semibold">
+            {t("file.fee")}: {t("submit.feeNil")}
+          </span>{" "}
+          <span className="opacity-75">{t("appeal.noFee")}</span>
+        </p>
 
         {alreadyFiled ? (
-          <p className="border-l-2 border-success py-1 pl-4 text-sm font-medium text-success">
-            Appeal recorded as filed on {appeal?.filedAt}
-            {appeal?.registrationNumber ? ` (${appeal.registrationNumber})` : ""}.
-          </p>
+          <div className="border-l-2 border-success py-1 pl-4">
+            <p className="text-sm font-medium text-success">
+              {t("appeal.submitted", { date: formatDate(appeal!.filedAt!) })}
+            </p>
+            <p className="mt-1 text-sm leading-relaxed opacity-75">
+              {t("appeal.submittedHelp")}
+            </p>
+          </div>
         ) : (
-          <form
-            className="space-y-4 border-t border-border pt-6"
-            onSubmit={(event) => {
-              event.preventDefault();
-              onMarkAppealFiled({ filedAt, registrationNumber });
-            }}
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="appeal-filed-at">{t("file.filedDate")}</Label>
-                <Input
-                  id="appeal-filed-at"
-                  type="date"
-                  required
-                  value={filedAt}
-                  max={toDateInputValue()}
-                  onChange={(event) => setFiledAt(event.target.value)}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="appeal-reg">
-                  {t("file.regNumber")}{" "}
-                  <span className="font-normal opacity-75">
-                    ({t("common.optional")})
-                  </span>
-                </Label>
-                <Input
-                  id="appeal-reg"
-                  value={registrationNumber}
-                  onChange={(event) => setRegistrationNumber(event.target.value)}
-                  className="font-mono"
-                />
-              </div>
-            </div>
-            <Button type="submit" size="xl">
-              {t("track.markAppealed")}
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button type="button" size="xl" variant="cta" onClick={onSubmitAppeal}>
+              {t("appeal.submit")}
             </Button>
-          </form>
+            <Button type="button" size="xl" variant="outline" onClick={onPrint}>
+              <Printer aria-hidden="true" />
+              {t("common.print")}
+            </Button>
+          </div>
         )}
       </div>
     </section>

@@ -199,7 +199,6 @@ const en = {
   "draft.submit": "Proceed to Filing Directives",
   "draft.regenerate": "Restart Drafting Process",
 
-  "file.title": "Statutory Filing Directives",
   "file.applicantTitle": "Applicant Particulars",
   "file.applicantHelp":
     "Mandatory applicant particulars pursuant to the RTI Rules, 2012. Data is retained strictly within local browser storage.",
@@ -210,22 +209,6 @@ const en = {
   "file.bpl": "I hold a Below Poverty Line (BPL) certificate",
   "file.bplHelp": "Section 7(5) waives the fee. You must attach a copy of the certificate.",
   "file.fee": "Fee",
-  "file.attachments": "Have these ready",
-  "file.stepsTitle": "Procedural Steps",
-  "file.openPortal": "Access Central Portal",
-  "file.printTitle": "Or file on paper",
-  "file.printHelp":
-    "Print the application, sign it, and send it by registered post. Keep the posting receipt — it proves your filing date.",
-  "file.markFiled": "I have filed this",
-  "file.filedTitle": "Formalize Filing Registration",
-  "file.filedHelp": "This entry initiates the statutory tracking period. Provide the exact date of physical or electronic filing.",
-  "file.filedDate": "Date of Filing",
-  "file.regNumber": "Registration number",
-  "file.regNumberHelp":
-    "The number the portal gave you, or your registered-post tracking number. This is your only proof of filing — keep it.",
-  "file.viaApio": "I filed through an Assistant Public Information Officer (APIO)",
-  "file.viaApioHelp": "Adds 5 days to the deadline under the proviso to Section 5(2).",
-  "file.confirm": "Start the deadline clock",
 
   "track.title": "Application Status Tracking",
   "track.filedOn": "Date of Filing",
@@ -384,6 +367,44 @@ const en = {
   "home.cta.title": "It takes one paragraph to start",
   "home.cta.lead":
     "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
+
+  "appeal.against": "Appeal against registration number",
+  "appeal.grounds": "Grounds of appeal",
+  "appeal.groundsHelp":
+    "Pre-written from your original request and the date the reply became due. Edit anything in square brackets before submitting.",
+  "appeal.noFee": "No fee is payable on a first appeal under Section 19(1).",
+  "appeal.submit": "Submit First Appeal",
+  "appeal.submitted": "First Appeal submitted on {date}.",
+  "appeal.submittedHelp":
+    "The First Appellate Authority has 30 days to decide, extendable to 45 with reasons recorded in writing.",
+
+  "submit.stateTitle": "This portal covers Central Government authorities",
+  "submit.stateBody":
+    "The authority matched here is a State public authority. This portal accepts requests for Central Government ministries, departments and public authorities; most States run their own RTI portal. You can still complete and print this request, but file it with your State's portal or by post.",
+  "submit.section.applicant": "Applicant details",
+  "submit.section.declaration": "Declaration and fee",
+  "submit.section.supporting": "Supporting document",
+  "submit.section.request": "Text of the request",
+  "submit.emailHelp":
+    "Your registration number and every reply are sent to this address. It is also what you use to check the status later.",
+  "submit.declarationTitle": "Declaration and fee",
+  "submit.citizen": "I am a citizen of India",
+  "submit.citizenHelp":
+    "Section 6(1) gives the right to request information to citizens. The request cannot be submitted without this declaration.",
+  "submit.feeNil": "Nil",
+  "submit.feeNote": "Payable at the next step by UPI, card or net banking.",
+  "submit.feeExemptNote":
+    "No fee is payable under Section 7(5). Keep the certificate — the authority may ask to see it.",
+  "submit.supportingTitle": "Supporting document",
+  "submit.supportingNotAvailable": "Attachments are not available in this prototype",
+  "submit.supportingHelp":
+    "The real form accepts one PDF of up to 1 MB here. This build has no document store, so nothing can be attached — an upload box that quietly discarded your file would be worse than saying so.",
+  "submit.requestTitle": "Text of the request",
+  "submit.requestHelp":
+    "This is what will be sent to the Public Information Officer. Go back to the draft step to change it.",
+  "submit.urgentTitle": "State the 48-hour ground in the request",
+  "submit.urgentBody":
+    "The shorter deadline under the proviso to Section 7(1) applies only where the ground is claimed in the request itself. Make sure this sentence appears in the text below.",
 
   "error.title": "System Exception Encountered",
 } as const;
@@ -568,7 +589,6 @@ const hi: Record<StringKey, string> = {
   "draft.submit": "आगे: इसे कैसे दाख़िल करें",
   "draft.regenerate": "फिर से शुरू करें",
 
-  "file.title": "इसे कैसे दाख़िल करें",
   "file.applicantTitle": "आपका विवरण",
   "file.applicantHelp":
     "आरटीआई नियम, 2012 के अंतर्गत आवेदन पर आवश्यक। केवल इसी ब्राउज़र में सुरक्षित रहता है।",
@@ -579,22 +599,6 @@ const hi: Record<StringKey, string> = {
   "file.bpl": "मेरे पास गरीबी रेखा से नीचे (बीपीएल) का प्रमाणपत्र है",
   "file.bplHelp": "धारा 7(5) के तहत शुल्क माफ़ है। प्रमाणपत्र की प्रति संलग्न करना अनिवार्य है।",
   "file.fee": "शुल्क",
-  "file.attachments": "ये तैयार रखें",
-  "file.stepsTitle": "चरण",
-  "file.openPortal": "पोर्टल खोलें",
-  "file.printTitle": "या कागज़ पर दाख़िल करें",
-  "file.printHelp":
-    "आवेदन प्रिंट करें, हस्ताक्षर करें और पंजीकृत डाक से भेजें। डाक की रसीद संभालकर रखें — वही आपकी तिथि का प्रमाण है।",
-  "file.markFiled": "मैंने इसे दाख़िल कर दिया है",
-  "file.filedTitle": "अपना दाख़िला दर्ज करें",
-  "file.filedHelp": "इससे आपकी वैधानिक समय-सीमा शुरू होती है। वही तिथि लिखें जब आपने वास्तव में दाख़िल किया।",
-  "file.filedDate": "दाख़िल करने की तिथि",
-  "file.regNumber": "पंजीकरण संख्या",
-  "file.regNumberHelp":
-    "पोर्टल से मिली संख्या, या पंजीकृत डाक की ट्रैकिंग संख्या। यही आपके दाख़िले का एकमात्र प्रमाण है — इसे संभालकर रखें।",
-  "file.viaApio": "मैंने सहायक लोक सूचना अधिकारी (APIO) के माध्यम से दाख़िल किया",
-  "file.viaApioHelp": "धारा 5(2) के परंतुक के तहत समय-सीमा में 5 दिन जुड़ते हैं।",
-  "file.confirm": "समय-सीमा शुरू करें",
 
   "track.title": "आपके आवेदन की स्थिति",
   "track.filedOn": "दाख़िल किया गया",
@@ -753,6 +757,44 @@ const hi: Record<StringKey, string> = {
   "home.cta.title": "शुरू करने के लिए एक अनुच्छेद काफ़ी है",
   "home.cta.lead":
     "कोई खाता नहीं, कोई ड्रॉप-डाउन नहीं, और जब तक आप न कहें आपका लिखा हुआ ब्राउज़र से बाहर नहीं जाता।",
+
+  "appeal.against": "इस पंजीकरण संख्या के विरुद्ध अपील",
+  "appeal.grounds": "अपील के आधार",
+  "appeal.groundsHelp":
+    "आपके मूल अनुरोध और उत्तर की नियत तिथि से पहले ही तैयार। जमा करने से पहले कोष्ठक में दिया कुछ भी बदल लें।",
+  "appeal.noFee": "धारा 19(1) के तहत प्रथम अपील पर कोई शुल्क देय नहीं है।",
+  "appeal.submit": "प्रथम अपील जमा करें",
+  "appeal.submitted": "प्रथम अपील {date} को जमा की गई।",
+  "appeal.submittedHelp":
+    "प्रथम अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक बढ़ाया जा सकता है।",
+
+  "submit.stateTitle": "यह पोर्टल केंद्र सरकार के प्राधिकरणों के लिए है",
+  "submit.stateBody":
+    "यहाँ मिलान किया गया प्राधिकरण राज्य का लोक प्राधिकरण है। यह पोर्टल केंद्र सरकार के मंत्रालयों, विभागों और लोक प्राधिकरणों के अनुरोध स्वीकार करता है; अधिकतर राज्यों का अपना आरटीआई पोर्टल है। आप यह अनुरोध पूरा करके प्रिंट कर सकते हैं, पर इसे अपने राज्य के पोर्टल पर या डाक से दाख़िल करें।",
+  "submit.section.applicant": "आवेदक का विवरण",
+  "submit.section.declaration": "घोषणा और शुल्क",
+  "submit.section.supporting": "सहायक दस्तावेज़",
+  "submit.section.request": "अनुरोध का पाठ",
+  "submit.emailHelp":
+    "आपकी पंजीकरण संख्या और हर उत्तर इसी पते पर भेजा जाता है। बाद में स्थिति देखने के लिए भी यही उपयोग होता है।",
+  "submit.declarationTitle": "घोषणा और शुल्क",
+  "submit.citizen": "मैं भारत का नागरिक हूँ",
+  "submit.citizenHelp":
+    "धारा 6(1) सूचना माँगने का अधिकार नागरिकों को देती है। इस घोषणा के बिना अनुरोध जमा नहीं किया जा सकता।",
+  "submit.feeNil": "शून्य",
+  "submit.feeNote": "अगले चरण में यूपीआई, कार्ड या नेट बैंकिंग से देय।",
+  "submit.feeExemptNote":
+    "धारा 7(5) के तहत कोई शुल्क देय नहीं। प्रमाणपत्र संभालकर रखें — प्राधिकरण उसे देखने को कह सकता है।",
+  "submit.supportingTitle": "सहायक दस्तावेज़",
+  "submit.supportingNotAvailable": "इस प्रोटोटाइप में संलग्नक उपलब्ध नहीं हैं",
+  "submit.supportingHelp":
+    "वास्तविक फ़ॉर्म यहाँ 1 एमबी तक की एक पीडीएफ़ स्वीकार करता है। इस बिल्ड में दस्तावेज़ संग्रह नहीं है, इसलिए कुछ संलग्न नहीं किया जा सकता — ऐसा अपलोड बॉक्स जो आपकी फ़ाइल चुपचाप हटा दे, यह कहने से बुरा होता।",
+  "submit.requestTitle": "अनुरोध का पाठ",
+  "submit.requestHelp":
+    "यही लोक सूचना अधिकारी को भेजा जाएगा। इसे बदलने के लिए मसौदा चरण पर वापस जाएँ।",
+  "submit.urgentTitle": "अनुरोध में 48 घंटे का आधार लिखें",
+  "submit.urgentBody":
+    "धारा 7(1) के परंतुक की छोटी समय-सीमा तभी लागू होती है जब यह आधार अनुरोध में ही लिखा हो। सुनिश्चित करें कि नीचे दिए पाठ में यह वाक्य मौजूद है।",
 
   "error.title": "हम आगे नहीं बढ़ सके",
 };

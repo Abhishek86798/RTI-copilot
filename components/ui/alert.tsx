@@ -9,10 +9,19 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: "bg-card text-card-foreground",
-        destructive: "border-destructive/20 bg-destructive/10 text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current",
-        info: "border-info/20 bg-info/10 text-info *:data-[slot=alert-description]:text-info/90 *:[svg]:text-current",
-        success: "border-success/20 bg-success/10 text-success *:data-[slot=alert-description]:text-success/90 *:[svg]:text-current",
-        warning: "border-warning/30 bg-warning/10 text-warning *:data-[slot=alert-description]:text-warning/90 *:[svg]:text-current",
+        /*
+         * Status text sits on a 10% tint of its own hue, which leaves very
+         * little contrast headroom — and the description used to be dropped to
+         * 90% opacity on top of that, which pushed it under AA. Warning failed
+         * at 3.73:1 against its own background.
+         *
+         * The description now carries the full status colour, and the tokens
+         * themselves are dark enough that status-on-tint clears 4.5:1.
+         */
+        destructive: "border-destructive/20 bg-destructive/10 text-destructive *:data-[slot=alert-description]:text-destructive *:[svg]:text-current",
+        info: "border-info/20 bg-info/10 text-info *:data-[slot=alert-description]:text-info *:[svg]:text-current",
+        success: "border-success/20 bg-success/10 text-success *:data-[slot=alert-description]:text-success *:[svg]:text-current",
+        warning: "border-warning/30 bg-warning/10 text-warning *:data-[slot=alert-description]:text-warning *:[svg]:text-current",
       },
     },
     defaultVariants: {
