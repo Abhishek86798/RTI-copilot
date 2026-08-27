@@ -67,7 +67,7 @@ export default function AppealPage() {
       setError(t("appealPage.notFound"));
       return;
     }
-    router.push(`/applications/${match.id}`);
+    router.push(`/applications/${match.id}/appeal`);
   }
 
   return (
@@ -132,7 +132,7 @@ export default function AppealPage() {
               return (
                 <li key={application.id} className="py-6">
                   <Link
-                    href={`/applications/${application.id}`}
+                    href={`/applications/${application.id}/appeal`}
                     className="group block underline-offset-4"
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">

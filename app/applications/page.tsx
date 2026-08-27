@@ -118,7 +118,16 @@ function ApplicationRow({ application }: { application: Application }) {
 
   return (
     <Link
-      href={`/applications/${application.id}`}
+      /*
+         Filing and tracking are separate pages now, so a row has to point at
+         the one that matches the application's stage — sending a filed
+         request back to the submission form is how you file it twice.
+      */
+      href={
+        application.filedAt
+          ? `/applications/${application.id}/track`
+          : `/applications/${application.id}`
+      }
       className="group block py-7 transition-colors hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-8">

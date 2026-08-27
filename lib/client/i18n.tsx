@@ -378,6 +378,28 @@ const en = {
   "appeal.submittedHelp":
     "The First Appellate Authority has 30 days to decide, extendable to 45 with reasons recorded in writing.",
 
+  "track.viewText": "View the application text",
+  "track.missingTitle": "This application is not on this device",
+  "track.missingBody":
+    "Applications are stored in the browser that created them. If you cleared your browser data, or opened this link on another device, it will not be here.",
+  "track.alreadyFiled":
+    "This request has already been filed. Its registration number and deadline are on the tracking page.",
+  "track.notFiledYet":
+    "This request has not been filed yet, so there is nothing to track. Complete the submission first.",
+  "track.goFile": "Go to the submission form",
+
+  "appeal.view": "View the appeal",
+  "appeal.notYet":
+    "An appeal under Section 19(1) becomes available once the reply deadline passes without a decision. This request is still within its statutory period.",
+  "appeal.acknowledgement": "Acknowledgement",
+  "appeal.section.grounds": "Grounds of appeal",
+  "appeal.section.confirm": "Confirm and submit",
+  "appeal.confirmTitle": "Confirm and submit",
+  "appeal.confirmLabel": "I have read the appeal above and it says what I intend to say",
+  "appeal.confirmHelp":
+    "This is submitted in your name to the First Appellate Authority. Nothing is sent until you confirm.",
+  "appeal.confirmRequired": "Confirm you have read the appeal before submitting it.",
+
   "nav.appeal": "Submit First Appeal",
   "appealPage.lead":
     "If 30 days have passed with no reply, or the reply does not answer what you asked, you can appeal to the First Appellate Authority. No fee is payable.",
@@ -817,6 +839,28 @@ const hi: Record<StringKey, string> = {
   "appeal.submitted": "प्रथम अपील {date} को जमा की गई।",
   "appeal.submittedHelp":
     "प्रथम अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक बढ़ाया जा सकता है।",
+
+  "track.viewText": "आवेदन का पाठ देखें",
+  "track.missingTitle": "यह आवेदन इस डिवाइस पर नहीं है",
+  "track.missingBody":
+    "आवेदन उसी ब्राउज़र में सुरक्षित रहते हैं जिसमें बनाए गए थे। यदि आपने ब्राउज़र डेटा मिटाया है, या यह लिंक किसी दूसरे डिवाइस पर खोला है, तो यह यहाँ नहीं मिलेगा।",
+  "track.alreadyFiled":
+    "यह अनुरोध पहले ही दाख़िल हो चुका है। इसकी पंजीकरण संख्या और समय-सीमा निगरानी पृष्ठ पर है।",
+  "track.notFiledYet":
+    "यह अनुरोध अभी दाख़िल नहीं हुआ है, इसलिए निगरानी के लिए कुछ नहीं है। पहले जमा करने की प्रक्रिया पूरी करें।",
+  "track.goFile": "जमा करने के फ़ॉर्म पर जाएँ",
+
+  "appeal.view": "अपील देखें",
+  "appeal.notYet":
+    "धारा 19(1) के तहत अपील तभी उपलब्ध होती है जब उत्तर की समय-सीमा बिना निर्णय के बीत जाए। यह अनुरोध अभी अपनी वैधानिक अवधि के भीतर है।",
+  "appeal.acknowledgement": "पावती",
+  "appeal.section.grounds": "अपील के आधार",
+  "appeal.section.confirm": "पुष्टि करें और जमा करें",
+  "appeal.confirmTitle": "पुष्टि करें और जमा करें",
+  "appeal.confirmLabel": "मैंने ऊपर दी गई अपील पढ़ ली है और यह वही कहती है जो मैं कहना चाहता/चाहती हूँ",
+  "appeal.confirmHelp":
+    "यह आपके नाम से प्रथम अपीलीय प्राधिकारी को भेजी जाएगी। पुष्टि करने तक कुछ नहीं भेजा जाता।",
+  "appeal.confirmRequired": "जमा करने से पहले पुष्टि करें कि आपने अपील पढ़ ली है।",
 
   "nav.appeal": "प्रथम अपील जमा करें",
   "appealPage.lead":
