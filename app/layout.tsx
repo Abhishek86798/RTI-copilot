@@ -2,10 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
-import { AccountGate } from "@/components/account-gate";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { isAuthConfigured } from "@/lib/client/auth-config";
 import { I18nProvider } from "@/lib/client/i18n";
 import "./globals.css";
 
@@ -70,7 +68,6 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <I18nProvider>
       <SmoothScroll />
-      <AccountGate />
       {/* First tab stop on every page, for keyboard and switch users. */}
       <a
         href="#main"
@@ -87,23 +84,8 @@ function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const shell = <Shell>{children}</Shell>;
-
-  /*
-   * Clerk is imported at runtime, and only when it is configured.
-   *
-   * A static `import { ClerkProvider } from "@clerk/nextjs"` throws on every
-   * request when the publishable key is missing — even on pages that never
-   * render it — which returned 500 for the entire guest journey. Guest mode is
-   * a shipped path that is meant to need no external service, so the SDK is
-   * loaded behind the flag rather than at module scope.
-   */
-  let tree = shell;
-  if (isAuthConfigured) {
-    const { ClerkProvider } = await import("@clerk/nextjs");
-    tree = <ClerkProvider>{shell}</ClerkProvider>;
-  }
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  const tree = <Shell>{children}</Shell>;
 
   return (
     <html
