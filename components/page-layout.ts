@@ -21,3 +21,22 @@
  */
 export const PAGE_LAYOUT =
   "mx-auto w-full max-w-4xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
+
+/**
+ * The same page, widened for a screen that puts two things side by side.
+ *
+ * Used by the drafting journey, where the draft and the citizen's original
+ * words sit in adjacent columns. At the standard measure that split leaves
+ * each column too narrow to read, so the step that needs the room gets it —
+ * and the steps that do not still hold their content to a readable column of
+ * their own, rather than letting a form stretch to 1100 pixels because one of
+ * its siblings needed the space.
+ *
+ * Padding and vertical rhythm are identical to PAGE_LAYOUT, so moving between
+ * a wide step and a narrow one does not shift the header or the step rule.
+ */
+export const PAGE_LAYOUT_WIDE =
+  "mx-auto w-full max-w-6xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
+
+/** Readable column for content inside a wide page. */
+export const READABLE_COLUMN = "max-w-3xl";

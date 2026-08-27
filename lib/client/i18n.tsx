@@ -94,8 +94,6 @@ const en = {
   "common.continue": "Continue",
   "common.cancel": "Cancel",
   "common.delete": "Delete",
-  "common.copy": "Copy",
-  "common.copied": "Copied",
   "common.print": "Print or save as PDF",
   "common.tryAgain": "Try again",
   "common.optional": "optional",
@@ -181,9 +179,9 @@ const en = {
 
   "draft.title": "RTI Requisition Draft",
   "draft.help": "Draft is subject to applicant review. The applicant retains ultimate responsibility for submitted content.",
-  "draft.portalLabel": "Portal-ready text",
+  "draft.portalLabel": "Your application text",
   "draft.portalHelp":
-    "Paste this into the request box on the portal. It is kept under the 3,000-character limit the portal enforces.",
+    "This is the text that will be submitted with your application. It is kept within the 3,000-character limit the RTI request field allows.",
   "draft.chars": "characters",
   "draft.overLimit": "Over the portal's 3,000-character limit. Shorten it, or attach the full version as a PDF.",
   "draft.compare": "Compare with what you wrote",
@@ -215,7 +213,6 @@ const en = {
   "file.attachments": "Have these ready",
   "file.stepsTitle": "Procedural Steps",
   "file.openPortal": "Access Central Portal",
-  "file.copyText": "Copy the application text",
   "file.printTitle": "Or file on paper",
   "file.printHelp":
     "Print the application, sign it, and send it by registered post. Keep the posting receipt — it proves your filing date.",
@@ -462,8 +459,6 @@ const hi: Record<StringKey, string> = {
   "common.continue": "आगे बढ़ें",
   "common.cancel": "रद्द करें",
   "common.delete": "हटाएँ",
-  "common.copy": "कॉपी करें",
-  "common.copied": "कॉपी हो गया",
   "common.print": "प्रिंट करें या पीडीएफ बनाएँ",
   "common.tryAgain": "फिर कोशिश करें",
   "common.optional": "वैकल्पिक",
@@ -552,9 +547,9 @@ const hi: Record<StringKey, string> = {
 
   "draft.title": "आपका आरटीआई आवेदन",
   "draft.help": "हर पंक्ति बदली जा सकती है। क्या दाख़िल होगा, यह अंततः आप तय करते हैं।",
-  "draft.portalLabel": "पोर्टल के लिए तैयार पाठ",
+  "draft.portalLabel": "आपके आवेदन का पाठ",
   "draft.portalHelp":
-    "इसे पोर्टल के अनुरोध बॉक्स में चिपकाएँ। यह पोर्टल की 3,000 अक्षरों की सीमा के भीतर रखा गया है।",
+    "यही पाठ आपके आवेदन के साथ जमा किया जाएगा। यह आरटीआई अनुरोध क्षेत्र की 3,000 अक्षरों की सीमा के भीतर रखा गया है।",
   "draft.chars": "अक्षर",
   "draft.overLimit":
     "पोर्टल की 3,000 अक्षरों की सीमा से अधिक। इसे छोटा करें, या पूरा संस्करण पीडीएफ के रूप में संलग्न करें।",
@@ -587,7 +582,6 @@ const hi: Record<StringKey, string> = {
   "file.attachments": "ये तैयार रखें",
   "file.stepsTitle": "चरण",
   "file.openPortal": "पोर्टल खोलें",
-  "file.copyText": "आवेदन का पाठ कॉपी करें",
   "file.printTitle": "या कागज़ पर दाख़िल करें",
   "file.printHelp":
     "आवेदन प्रिंट करें, हस्ताक्षर करें और पंजीकृत डाक से भेजें। डाक की रसीद संभालकर रखें — वही आपकी तिथि का प्रमाण है।",

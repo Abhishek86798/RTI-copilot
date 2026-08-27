@@ -11,7 +11,6 @@ import {
   Siren,
 } from "lucide-react";
 
-import { CopyButton } from "@/components/copy-button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
 import { Marker, Rule } from "@/components/editorial";
@@ -246,7 +245,6 @@ export function FilingGuide({
                 <p className="rounded-lg bg-card p-3 font-mono text-sm text-foreground ring-1 ring-border">
                   {URGENCY_LINE}
                 </p>
-                <CopyButton value={URGENCY_LINE} size="lg" label="Copy this line" />
               </AlertDescription>
             </Alert>
           )}
@@ -295,11 +293,6 @@ export function FilingGuide({
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <CopyButton
-              value={application.portalText}
-              label={t("file.copyText")}
-              variant="cta"
-            />
             {plan.url && (
               <Button
                 type="button"

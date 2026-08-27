@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Gavel, Printer } from "lucide-react";
 
-import { CopyButton } from "@/components/copy-button";
 import { Button } from "@/components/ux4g/button";
 import { Marker, Rule } from "@/components/editorial";
 import { Input } from "@/components/ui/input";
@@ -76,8 +75,7 @@ export function AppealCard({
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row">
-          <CopyButton value={appealText} variant="cta" />
-          <Button type="button" size="xl" variant="outline" onClick={onPrint}>
+          <Button type="button" size="xl" variant="cta" onClick={onPrint}>
             <Printer aria-hidden="true" />
             {t("common.print")}
           </Button>

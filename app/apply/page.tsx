@@ -4,7 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
-import { PAGE_LAYOUT } from "@/components/page-layout";
+import { PAGE_LAYOUT_WIDE, READABLE_COLUMN } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
@@ -166,7 +166,7 @@ function ApplyWizard() {
   }
 
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT_WIDE)}>
       <StepIndicator current={STEP_INDEX[step]} className="mb-12" />
 
       {/* Focus lands here on each step change; -1 keeps it out of tab order. */}
@@ -188,6 +188,7 @@ function ApplyWizard() {
         )}
 
         {step === "intake" && (
+          <div className={READABLE_COLUMN}>
           <IntakeStep
             value={grievance}
             onChange={(value) => {
@@ -200,9 +201,11 @@ function ApplyWizard() {
             onPickDemo={handlePickDemo}
             loading={loading}
           />
+          </div>
         )}
 
         {step === "authority" && routing && (
+          <div className={READABLE_COLUMN}>
           <AuthorityStep
             routing={routing}
             selectedId={selectedId}
@@ -211,6 +214,7 @@ function ApplyWizard() {
             onSubmit={() => void handleDraft()}
             loading={loading}
           />
+          </div>
         )}
 
         {step === "draft" && draft && (
@@ -241,7 +245,7 @@ export default function ApplyPage() {
   return (
     <Suspense
       fallback={
-        <div className={cn(PAGE_LAYOUT)}>
+        <div className={cn(PAGE_LAYOUT_WIDE)}>
           <p className="text-muted-foreground">Loading…</p>
         </div>
       }

@@ -82,7 +82,7 @@ export function buildFilingPlan(
         "Open rtionline.gov.in and choose “Submit Request”.",
         "Tick the guidelines checkbox and fill in your name, address, and contact details exactly as written below.",
         "Select the Ministry or Department, then the public authority named below.",
-        "Paste the portal-ready text into the “Text for RTI Request Application” box.",
+        "Enter your application text — shown on the review screen — in the “Text for RTI Request Application” box.",
         options.isBpl ? `${payStep} Then submit.` : `${payStep} and submit.`,
         "Save the registration number the portal shows you. Enter it on the next screen so we can track your 30-day deadline.",
       ],
@@ -101,7 +101,7 @@ export function buildFilingPlan(
       : `₹${RTI_FEE_RUPEES}. States differ in how they take it — a state RTI portal, an Indian Postal Order made out to the Accounts Officer, a demand draft, or a court fee stamp. Check your state's rules before paying.`,
     steps: [
       "Check whether your state runs its own RTI portal. Many do; several still take applications only on paper.",
-      "If it does, file there using the portal-ready text below.",
+      "If it does, file there using the application text shown on the review screen.",
       "If it does not, print the application, sign it, and send it by registered post to the address shown below — keep the posting receipt, it is your proof of the filing date.",
       options.isBpl ? payStep : `${payStep} in the manner your state prescribes.`,
       "Come back and record the filing date so we can track your 30-day deadline.",
