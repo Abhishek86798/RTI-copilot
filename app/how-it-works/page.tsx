@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, CircleDashed, FlaskConical } from "lucide-react";
 
-import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
+import { Marker, PageTitle } from "@/components/editorial";
+import { Section } from "@/components/section";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Button } from "@/components/ux4g/button";
 import { cn } from "@/lib/utils";
 
@@ -147,36 +149,33 @@ export default function HowItWorksPage() {
         System Capabilities and Technical Limitations
       </PageTitle>
 
-      {groups.map((group) => {
+      {groups.map((group, index) => {
         const meta = STATE_META[group.state];
-        const Icon = meta.icon;
         return (
-          <section key={group.state} className="mt-12">
-            <Rule />
-            <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
-              <Icon aria-hidden="true" className={`size-4 ${meta.className}`} />
-              {group.heading}
-            </h2>
-            <ul className="mt-5 divide-y divide-border border-t border-border">
+          <Section
+            key={group.state}
+            /* The first section sits under PageTitle, which already ends in a
+               hairline; a second one here would read as a mistake. */
+            first={index === 0}
+            label={group.heading}
+            icon={meta.icon}
+          >
+            <ul className="divide-y divide-border border-t border-border">
               {ROWS.filter((row) => row.state === group.state).map((row) => (
-                <li key={row.what} className="py-5">
+                <li key={row.what} className="py-6">
                   <p className="font-semibold">{row.what}</p>
-                  <p className="prose-measure mt-1.5 text-sm leading-relaxed opacity-75">
+                  <p className="prose-measure mt-2 text-base leading-relaxed opacity-75">
                     {row.detail}
                   </p>
                 </li>
               ))}
             </ul>
-          </section>
+          </Section>
         );
       })}
 
-      <section className="mt-12">
-        <Rule />
-        <h2 className="pt-8 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance">
-          Production Deployment Considerations
-        </h2>
-        <div className="prose-measure mt-5 space-y-4 text-sm leading-relaxed opacity-75">
+      <Section label="Production Deployment Considerations">
+        <div className="prose-measure space-y-6 text-base leading-relaxed opacity-75">
           <p>
             <span className="font-semibold text-foreground">
               Directory Completeness Dependency.
@@ -202,9 +201,9 @@ export default function HowItWorksPage() {
             Requests frequently contain sensitive personal data, mandating encryption at rest. Submission data must never be utilized for external model training without explicit, documented consent.
           </p>
         </div>
-      </section>
+      </Section>
 
-      <div className="mt-10">
+      <div className="mt-16">
         <Button
           size="xl"
           variant="cta"

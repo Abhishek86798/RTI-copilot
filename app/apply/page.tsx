@@ -4,7 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
-import { PAGE_LAYOUT } from "@/components/editorial";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";

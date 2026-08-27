@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  *
  * THE SCALE — compose from these rather than inventing a value:
  *   Frame      horizontal measure, one for the whole app
- *   PAGE_LAYOUT  standard tool-page wrapper classes
+ *   PAGE_LAYOUT  standard page wrapper (components/page-layout.ts)
  *   Stack      vertical rhythm between blocks inside a page
  *   Band       full-bleed section, hairline-separated
  */
@@ -47,20 +47,11 @@ export function Frame({
   );
 }
 
-/**
- * The layout every tool page uses for its outer wrapper.
- *
- * Exported as a class string rather than a component because these pages each
- * own their root element for other reasons; what they must not own is their
- * own idea of spacing. Before this, four routes carried four different values
- * (py-8, py-10, py-14, py-16) and the app quietly stopped feeling like one
- * product by the third screen.
- *
- * Gutters match `Frame`, so a form page and a landing band align to the same
- * measure at every breakpoint.
+/*
+ * PAGE_LAYOUT deliberately does NOT live here. This is a client module, and a
+ * plain constant exported from one reaches a Server Component as `undefined`.
+ * It sits in `components/page-layout.ts` so both sides can import it.
  */
-export const PAGE_LAYOUT =
-  "mx-auto w-full max-w-4xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
 
 /**
  * Vertical rhythm between blocks. Three steps, deliberately few — a scale with

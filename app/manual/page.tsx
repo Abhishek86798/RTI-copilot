@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ClipboardList, ListChecks } from "lucide-react";
 
-import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
+import { Marker, PageTitle } from "@/components/editorial";
+import { PAGE_LAYOUT } from "@/components/page-layout";
+import { Prose, Section, Steps } from "@/components/section";
 import { Button } from "@/components/ux4g/button";
 import { cn } from "@/lib/utils";
 
@@ -36,51 +38,31 @@ export default function ManualPage() {
         How to use this tool
       </PageTitle>
 
-      <section className="mt-16">
-        <Rule />
-        <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
-          <ListChecks aria-hidden="true" className="size-4 opacity-75" />
-          Before you start
-        </h2>
-        <div className="prose-measure mt-8 space-y-6 text-base leading-relaxed opacity-75">
+      <Section first label="Before you start" icon={ListChecks}>
+        <Prose>
           <p>
-            This tool helps you write an RTI application for a Central Government ministry,
-            department, or public authority. It drafts the request — it does not file it for
-            you, and it is not the government&rsquo;s own portal.
+            This tool helps you write an RTI application for a Central Government
+            ministry, department, or public authority. It drafts the request — it does
+            not file it for you, and it is not the government&rsquo;s own portal.
           </p>
-          <ul className="list-inside list-disc space-y-4 marker:text-border">
-            <li>An RTI request to a Central authority has to go to a Central authority. State departments have their own portals, and a misdirected request is returned without a refund of the fee.</li>
-            <li>Supporting documents must be PDFs under 1MB.</li>
-            <li>You will need a working email address and mobile number when you file on the real portal.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="mt-16">
-        <Rule />
-        <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
-          <ClipboardList aria-hidden="true" className="size-4 opacity-75" />
-          The three steps
-        </h2>
-        <ol className="mt-8 space-y-10">
-          {STEPS.map((step, index) => (
-            <li key={step.title} className="flex gap-5">
-              <span
-                aria-hidden="true"
-                className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-sm tabular-nums"
-              >
-                {index + 1}
-              </span>
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
-                <p className="prose-measure mt-2 text-base leading-relaxed opacity-75">
-                  {step.body}
-                </p>
-              </div>
+          <ul>
+            <li>
+              An RTI request to a Central authority has to go to a Central authority.
+              State departments have their own portals, and a misdirected request is
+              returned without a refund of the fee.
             </li>
-          ))}
-        </ol>
-      </section>
+            <li>Supporting documents must be PDFs under 1MB.</li>
+            <li>
+              You will need a working email address and mobile number when you file on
+              the real portal.
+            </li>
+          </ul>
+        </Prose>
+      </Section>
+
+      <Section label="The three steps" icon={ClipboardList}>
+        <Steps items={STEPS} />
+      </Section>
 
       <div className="mt-16">
         <Button
