@@ -24,6 +24,7 @@ export function SmoothScroll() {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     let lenis: Lenis | null = null;
     let frame = 0;
+    let observer: MutationObserver | null = null;
 
     function start() {
       if (lenis) return;
@@ -42,9 +43,25 @@ export function SmoothScroll() {
         frame = requestAnimationFrame(raf);
       }
       frame = requestAnimationFrame(raf);
+
+      // Fix for random scroll locking: React's dynamic DOM updates (like wizard step changes)
+      // sometimes happen too fast or outside ResizeObserver's catch. This forces Lenis
+      // to recalculate the page height whenever the DOM mutates.
+      observer = new MutationObserver(() => {
+        lenis?.resize();
+      });
+      observer.observe(document.body, { 
+        childList: true, 
+        subtree: true, 
+        characterData: true 
+      });
     }
 
     function stop() {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
       cancelAnimationFrame(frame);
       lenis?.destroy();
       lenis = null;

@@ -129,56 +129,7 @@ export function IntakeStep({
             </>
           )}
         </Button>
-
-        <p className="flex items-start gap-2 text-sm opacity-75">
-          <Lock aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
-          {t("intake.privacy")}
-        </p>
       </form>
-
-      <section aria-labelledby="demo-heading" className="mt-14">
-        <Rule />
-        <h2 id="demo-heading" className="sr-only">
-          {t("intake.demoTitle")}
-        </h2>
-        <div className="pt-8">
-          <Marker label={t("intake.demoTitle")} />
-          <p className="mt-3 max-w-[52ch] text-sm leading-relaxed opacity-75">
-            {t("intake.demoHelp")}
-          </p>
-        </div>
-
-        {/*
-          Hairline-divided cells rather than bordered cards, so the examples
-          read as a footnote to the form above and not as three more decisions
-          of equal weight to the one being asked.
-        */}
-        <ul className="mt-6 grid grid-cols-1 border-t border-border sm:grid-cols-3">
-          {DEMO_CASES.map((demo) => (
-            <li
-              key={demo.id}
-              className="border-b border-border sm:border-b-0 sm:border-l sm:first:border-l-0"
-            >
-              <button
-                type="button"
-                onClick={() => onPickDemo(demo)}
-                disabled={loading}
-                className={cn(
-                  "h-full w-full cursor-pointer px-0 py-5 text-left transition-colors sm:px-6 sm:first:pl-0",
-                  "hover:bg-card",
-                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                  "disabled:cursor-not-allowed disabled:opacity-60"
-                )}
-              >
-                <span className="block text-sm font-semibold">{t(demo.labelKey)}</span>
-                <span className="mt-1.5 block text-sm leading-relaxed opacity-75">
-                  {t(demo.teachesKey)}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
   );
 }

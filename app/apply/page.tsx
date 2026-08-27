@@ -72,7 +72,8 @@ function ApplyWizard() {
    * screen with no announcement that anything happened.
    */
   useEffect(() => {
-    headingRef.current?.focus();
+    window.scrollTo(0, 0);
+    headingRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   const handleRoute = useCallback(
