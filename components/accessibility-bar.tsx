@@ -98,16 +98,27 @@ export function AccessibilityBar() {
 
   return (
     <div data-print="hide" className="border-b border-border bg-card">
-      <Frame className="flex min-h-11 flex-wrap items-center justify-end gap-x-4 gap-y-1 py-1">
+      {/*
+        A utility strip, not a second navigation bar. It stays above the main
+        header because that is where a reader who needs it looks first and
+        where GIGW-conforming sites put it — but it is kept to a single tight
+        row, right-aligned, with hairline-separated groups, so it reads as
+        chrome rather than competing with the nav beneath it.
+      */}
+      <Frame className="flex min-h-10 flex-wrap items-center justify-end gap-y-1 py-1 text-xs">
         <Link
           href="/accessibility"
-          className="text-xs underline-offset-4 opacity-75 hover:underline hover:opacity-100"
+          className="inline-flex min-h-8 items-center px-2 underline-offset-4 opacity-75 hover:underline hover:opacity-100"
         >
           {t("a11y.statement")}
         </Link>
 
-        <div role="group" aria-label={t("a11y.textSize")} className="flex items-center gap-1">
-          <Type aria-hidden="true" className="size-3.5 opacity-75" />
+        <div
+          role="group"
+          aria-label={t("a11y.textSize")}
+          className="ml-2 flex items-center gap-0.5 border-l border-border pl-3"
+        >
+          <Type aria-hidden="true" className="mr-1 size-3.5 shrink-0 opacity-75" />
           {SIZES.map((value, index) => (
             <button
               key={value}
@@ -117,44 +128,74 @@ export function AccessibilityBar() {
               /*
                * The glyphs A− A A+ are a visual shorthand, not something a
                * screen reader can make sense of, so each button carries a real
-               * name and the +/− sign itself is hidden from the reader.
+               * name and the sign itself is hidden from the reader.
                */
               aria-label={t(`a11y.size.${value}` as "a11y.size.normal")}
               title={t(`a11y.size.${value}` as "a11y.size.normal")}
               className={cn(
-                "grid min-h-9 min-w-9 cursor-pointer place-items-center rounded-md leading-none font-medium transition-colors",
+                /*
+                 * A fixed 32px box with the glyph centred inside it. The
+                 * letters step up in size to show what each button does, so
+                 * the box has to stay constant — otherwise the three chips are
+                 * different heights and the selected one looks like a mistake.
+                 */
+                "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md leading-none font-medium transition-colors",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                index === 0 && "text-xs",
-                index === 1 && "text-sm",
-                index === 2 && "text-base",
                 size === value
                   ? "bg-primary text-primary-foreground"
                   : "opacity-75 hover:bg-muted hover:opacity-100"
               )}
             >
-              A
-              <span aria-hidden="true" className="text-[0.6em]">
-                {index === 0 ? "−" : index === 2 ? "+" : ""}
+              {/*
+                Baseline-aligned inline row. As grid children the letter and
+                the sign stacked vertically, which put the − and + underneath
+                the A and made every chip too tall.
+              */}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "inline-flex items-baseline",
+                  index === 0 && "text-[0.7rem]",
+                  index === 1 && "text-[0.85rem]",
+                  index === 2 && "text-[1rem]"
+                )}
+              >
+                A
+                {index !== 1 && (
+                  <span className="text-[0.6em] leading-none">
+                    {index === 0 ? "−" : "+"}
+                  </span>
+                )}
               </span>
             </button>
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={() => setContrast(!high)}
-          aria-pressed={high}
-          className={cn(
-            "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-md px-2 text-xs font-medium transition-colors",
-            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-            high
-              ? "bg-primary text-primary-foreground"
-              : "opacity-75 hover:bg-muted hover:opacity-100"
-          )}
-        >
-          <Contrast aria-hidden="true" className="size-3.5" />
-          {t("a11y.contrast")}
-        </button>
+        {/* The separator belongs to the group, not to the control — a border
+            on the button itself would cut across its own rounded corner. */}
+        <div className="ml-2 flex items-center border-l border-border pl-3">
+          <button
+            type="button"
+            onClick={() => setContrast(!high)}
+            aria-pressed={high}
+            className={cn(
+              "inline-flex min-h-8 cursor-pointer items-center gap-1.5 rounded-md px-2 font-medium transition-colors",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+              high
+                ? "bg-primary text-primary-foreground"
+                : "opacity-75 hover:bg-muted hover:opacity-100"
+            )}
+          >
+            <Contrast aria-hidden="true" className="size-3.5 shrink-0" />
+            {/*
+              Icon-only below sm. With the label shown, the strip wrapped onto
+              a second row at 390px, which left a dangling separator and spent
+              two rows of a small screen on chrome. The button keeps its
+              accessible name either way.
+            */}
+            <span className="sr-only sm:not-sr-only">{t("a11y.contrast")}</span>
+          </button>
+        </div>
       </Frame>
     </div>
   );
