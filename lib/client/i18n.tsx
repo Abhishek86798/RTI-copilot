@@ -73,7 +73,9 @@ const en = {
   "receipt.feePaid": "₹10 paid",
   "receipt.feeExempt": "Exempt under Section 7(5)",
   "receipt.dueBy": "Reply due by",
-  "receipt.track": "Track this application",
+  "receipt.dashboard": "Go to Applicant Dashboard",
+  "receipt.next":
+    "This application is now listed on your Applicant Dashboard. Open it there to watch the reply deadline, record a reply, or file a first appeal.",
   "receipt.download": "Download the application (PDF)",
   "theme.label": "Colour theme",
   "theme.light": "Light",
@@ -91,6 +93,7 @@ const en = {
   "nav.skip": "Skip to main content",
 
   "common.back": "Back",
+  "common.backStep": "Back to the previous step",
   "common.continue": "Continue",
   "common.cancel": "Cancel",
   "common.delete": "Delete",
@@ -384,10 +387,12 @@ const en = {
   "track.missingBody":
     "Applications are stored in the browser that created them. If you cleared your browser data, or opened this link on another device, it will not be here.",
   "track.alreadyFiled":
-    "This request has already been filed. Its registration number and deadline are on the tracking page.",
+    "This request has already been filed. Open it from the Applicant Dashboard to watch its reply deadline or to appeal.",
   "track.notFiledYet":
     "This request has not been filed yet, so there is nothing to track. Complete the submission first.",
   "track.goFile": "Go to the submission form",
+  "track.backToStatus": "Application status",
+  "track.viewStatus": "View application status",
 
   "appeal.view": "View the appeal",
   "appeal.notYet":
@@ -532,7 +537,9 @@ const hi: Record<StringKey, string> = {
   "receipt.feePaid": "₹10 भुगतान किया गया",
   "receipt.feeExempt": "धारा 7(5) के तहत छूट",
   "receipt.dueBy": "उत्तर देय तिथि",
-  "receipt.track": "इस आवेदन को ट्रैक करें",
+  "receipt.dashboard": "आवेदक डैशबोर्ड पर जाएँ",
+  "receipt.next":
+    "यह आवेदन अब आपके आवेदक डैशबोर्ड में दर्ज है। उत्तर की समय-सीमा देखने, उत्तर दर्ज करने या प्रथम अपील दाख़िल करने के लिए इसे वहीं से खोलें।",
   "receipt.download": "आवेदन डाउनलोड करें (PDF)",
   "theme.label": "रंग थीम",
   "theme.light": "उजला",
@@ -550,6 +557,7 @@ const hi: Record<StringKey, string> = {
   "nav.skip": "मुख्य सामग्री पर जाएं",
 
   "common.back": "पीछे",
+  "common.backStep": "पिछले चरण पर वापस जाएँ",
   "common.continue": "आगे बढ़ें",
   "common.cancel": "रद्द करें",
   "common.delete": "हटाएँ",
@@ -845,10 +853,12 @@ const hi: Record<StringKey, string> = {
   "track.missingBody":
     "आवेदन उसी ब्राउज़र में सुरक्षित रहते हैं जिसमें बनाए गए थे। यदि आपने ब्राउज़र डेटा मिटाया है, या यह लिंक किसी दूसरे डिवाइस पर खोला है, तो यह यहाँ नहीं मिलेगा।",
   "track.alreadyFiled":
-    "यह अनुरोध पहले ही दाख़िल हो चुका है। इसकी पंजीकरण संख्या और समय-सीमा निगरानी पृष्ठ पर है।",
+    "यह अनुरोध पहले ही दाख़िल हो चुका है। उत्तर की समय-सीमा देखने या अपील करने के लिए इसे आवेदक डैशबोर्ड से खोलें।",
   "track.notFiledYet":
     "यह अनुरोध अभी दाख़िल नहीं हुआ है, इसलिए निगरानी के लिए कुछ नहीं है। पहले जमा करने की प्रक्रिया पूरी करें।",
   "track.goFile": "जमा करने के फ़ॉर्म पर जाएँ",
+  "track.backToStatus": "आवेदन की स्थिति",
+  "track.viewStatus": "आवेदन की स्थिति देखें",
 
   "appeal.view": "अपील देखें",
   "appeal.notYet":

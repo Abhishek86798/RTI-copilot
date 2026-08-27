@@ -76,7 +76,7 @@ export function AuthorityStep({
   return (
     <div>
       <PageTitle
-        marker={<Marker index={2} total={5} label={t("steps.authority")} />}
+        marker={<Marker index={2} total={4} label={t("steps.authority")} />}
         lead={t("confirm.help")}
       >
         {t("confirm.title")}

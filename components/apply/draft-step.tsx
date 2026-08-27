@@ -39,6 +39,7 @@ export function DraftStep({
   lifeOrLibertyReason,
   onToggleUrgency,
   onBack,
+  backLoading,
   onSubmit,
 }: {
   grievance: string;
@@ -48,6 +49,8 @@ export function DraftStep({
   lifeOrLibertyReason: string;
   onToggleUrgency: (next: boolean) => void;
   onBack: () => void;
+  /** True while going back has to re-ask the router for the shortlist. */
+  backLoading?: boolean;
   onSubmit: () => void;
 }) {
   const { t } = useI18n();
@@ -63,7 +66,7 @@ export function DraftStep({
   return (
     <div>
       <PageTitle
-        marker={<Marker index={3} total={5} label={t("steps.draft")} />}
+        marker={<Marker index={3} total={4} label={t("steps.draft")} />}
         lead={t("draft.help")}
       >
         {t("draft.title")}
@@ -168,7 +171,7 @@ export function DraftStep({
         </p>
       </section>
 
-      <StepActions onBack={onBack}>
+      <StepActions onBack={onBack} backDisabled={backLoading}>
         <Button type="button" size="xl" variant="cta" onClick={onSubmit}>
           {t("draft.submit")}
           <ArrowRight aria-hidden="true" />

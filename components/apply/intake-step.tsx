@@ -63,7 +63,7 @@ export function IntakeStep({
   return (
     <div>
       <PageTitle
-        marker={<Marker index={1} total={5} label={t("steps.describe")} />}
+        marker={<Marker index={1} total={4} label={t("steps.describe")} />}
         lead={t("intake.help")}
       >
         {t("intake.title")}

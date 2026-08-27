@@ -13,36 +13,45 @@ import type { StringKey } from "@/lib/client/i18n";
 /**
  * The context every screen about one application shares.
  *
- * Filing, tracking and appealing are three separate pages now, each reachable
- * on its own URL — but they are all the same application, so the identity of
- * it has to be stated the same way on each. Otherwise moving between them
- * feels like moving between unrelated screens.
+ * Filing, tracking and appealing are three separate pages, each reachable on
+ * its own URL — but they are all the same application, so the identity of it
+ * has to be stated the same way on each. Otherwise moving between them feels
+ * like moving between unrelated screens.
+ *
+ * The step rail is optional, and only filing passes one. Filing is the last
+ * step of Initiate Requisition; tracking and appealing are separate errands
+ * begun from the Applicant Dashboard weeks later, and drawing a wizard rail
+ * across them implied they were part of a form still being filled in.
  */
 export function ApplicationHeader({
   application,
   step,
   stageKey,
+  backHref,
+  backLabelKey,
 }: {
   application: Application;
-  /** Index into the five-step rule. */
-  step: number;
+  /** Index into the journey rule. Omit on screens outside the journey. */
+  step?: number;
   /** Names the stage under the rule: File, Track, Appeal. */
   stageKey: StringKey;
+  backHref: string;
+  backLabelKey: StringKey;
 }) {
   const { t } = useI18n();
   const status = deriveStatus(application);
 
   return (
     <div data-print="hide">
-      <StepIndicator current={step} className="mb-12" />
+      {step !== undefined && <StepIndicator current={step} className="mb-12" />}
 
       <div className="mb-12">
         <Link
-          href="/applications"
+          href={backHref}
           className="inline-flex min-h-12 items-center gap-1.5 text-sm font-medium underline-offset-4 opacity-75 hover:underline hover:opacity-100"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
-          {t("nav.mine")}
+          {t(backLabelKey)}
         </Link>
       </div>
 
@@ -50,7 +59,7 @@ export function ApplicationHeader({
         marker={
           <div className="flex flex-wrap items-center gap-3">
             {/* The step rule above already carries the position, so the marker
-                names the stage without repeating "05 / 05". */}
+                names the stage without repeating "04 / 04". */}
             <Marker label={t(stageKey)} />
             <StatusBadge status={status} />
           </div>

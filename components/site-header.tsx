@@ -29,11 +29,21 @@ export function SiteHeader() {
   ];
 
   /*
-   * Exact-match only. `pathname.startsWith(link.href)` would make
-   * `/applications` also light up `/apply`, since the string "/applications"
-   * starts with "/apply" — two nav items active at once on the dashboard.
+   * `/applications/<id>` is the filing screen — step 4 of Initiate
+   * Requisition, not a dashboard screen — so it lights up the nav item the
+   * citizen has been under since step 1. Its own sub-routes (`/track`,
+   * `/appeal`) are separate errands begun from the dashboard, and belong to
+   * the dashboard's nav item.
+   */
+  const isFilingScreen = /^\/applications\/[^/]+$/.test(pathname);
+
+  /*
+   * Otherwise segment-prefix matching. A bare `pathname.startsWith(href)`
+   * would make `/applications` also light up `/apply`, since the string
+   * "/applications" starts with "/apply" — two nav items active at once.
    */
   function isActive(href: string) {
+    if (isFilingScreen) return href === "/apply";
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 

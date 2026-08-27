@@ -8,16 +8,18 @@ export const JOURNEY_STEPS: { id: string; labelKey: StringKey }[] = [
   { id: "authority", labelKey: "steps.authority" },
   { id: "draft", labelKey: "steps.draft" },
   { id: "file", labelKey: "steps.file" },
-  { id: "track", labelKey: "steps.track" },
 ];
 
 /**
- * Five steps, always all five visible.
+ * Four steps, always all four visible.
  *
- * Showing the whole path — including the parts that come after filing — is the
- * point. The official portal gives no sense of how much is left or that
- * anything happens after you press submit, and "how much more of this is
- * there?" is the question that decides whether someone finishes.
+ * Showing the whole path up front is the point: the official portal gives no
+ * sense of how much is left, and "how much more of this is there?" is the
+ * question that decides whether someone finishes.
+ *
+ * The rail stops at filing because the journey does. Tracking is not a fifth
+ * step — it is what happens weeks later, from the Applicant Dashboard, and
+ * drawing it here made a finished application look unfinished.
  *
  * Set as a hairline rule with numbered mono markers beneath, which is the same
  * device the landing page uses to number its argument. The rule is the
@@ -46,7 +48,7 @@ export function StepIndicator({
       className={cn("w-full", className)}
       data-print="hide"
     >
-      <ol className="grid grid-cols-5 gap-x-2">
+      <ol className="grid grid-cols-4 gap-x-2">
         {JOURNEY_STEPS.map((step, index) => {
           const done = index < current;
           const active = index === current;

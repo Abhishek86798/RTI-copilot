@@ -116,7 +116,12 @@ export default function SubmitAppealPage() {
   if (!submitted && !clock?.isOverdue) {
     return (
       <div className={cn(PAGE_LAYOUT)}>
-        <ApplicationHeader application={application} step={4} stageKey="nav.appeal" />
+        <ApplicationHeader
+          application={application}
+          stageKey="nav.appeal"
+          backHref={`/applications/${application.id}/track`}
+          backLabelKey="track.backToStatus"
+        />
         <div className="mt-16 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("appeal.notYet")}
@@ -128,7 +133,7 @@ export default function SubmitAppealPage() {
             nativeButton={false}
             render={
               <Link href={`/applications/${application.id}/track`}>
-                {t("receipt.track")}
+                {t("track.viewStatus")}
               </Link>
             }
           />
@@ -139,7 +144,12 @@ export default function SubmitAppealPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <ApplicationHeader application={application} step={4} stageKey="nav.appeal" />
+      <ApplicationHeader
+        application={application}
+        stageKey="nav.appeal"
+        backHref={`/applications/${application.id}/track`}
+        backLabelKey="track.backToStatus"
+      />
 
       {submitted ? (
         <section className="mt-16" aria-labelledby="appeal-ack">
@@ -169,7 +179,7 @@ export default function SubmitAppealPage() {
               nativeButton={false}
               render={
                 <Link href={`/applications/${application.id}/track`}>
-                  {t("receipt.track")}
+                  {t("track.viewStatus")}
                 </Link>
               }
             />

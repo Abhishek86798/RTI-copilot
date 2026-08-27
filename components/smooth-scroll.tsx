@@ -48,6 +48,21 @@ export function scrollPageToTop() {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
+/**
+ * Hold the page still while a modal is open.
+ *
+ * A native `<dialog>` makes the page behind it inert to clicks and to the
+ * accessibility tree, but not to the wheel — and Lenis is intercepting the
+ * wheel for the whole document, so without this the background scrolls under
+ * an open dialog. Both halves are needed: the attribute stops native
+ * scrolling, `stop()` stops the one Lenis is animating.
+ */
+export function setPageScrollLocked(locked: boolean) {
+  document.documentElement.toggleAttribute("data-scroll-locked", locked);
+  if (locked) instance?.stop();
+  else instance?.start();
+}
+
 export function SmoothScroll() {
   const pathname = usePathname();
 
