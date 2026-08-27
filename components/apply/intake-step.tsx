@@ -69,6 +69,11 @@ export function IntakeStep({
         {t("intake.title")}
       </PageTitle>
 
+      {/*
+        Full measure, matching the step rule above it on both edges. Capping
+        it left the block short on the right and reading as left-shifted
+        inside its own frame.
+      */}
       <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
         <div className="space-y-2">
           {/*

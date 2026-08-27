@@ -9,7 +9,8 @@ import { Button } from "@/components/ux4g/button";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
 import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
 import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
-import { Marker, PAGE_LAYOUT, PageTitle } from "@/components/editorial";
+import { Marker, PageTitle } from "@/components/editorial";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/client/i18n";
 import { useRemainingLabel } from "@/lib/client/use-remaining-label";
@@ -117,7 +118,16 @@ function ApplicationRow({ application }: { application: Application }) {
 
   return (
     <Link
-      href={`/applications/${application.id}`}
+      /*
+         Filing and tracking are separate pages now, so a row has to point at
+         the one that matches the application's stage — sending a filed
+         request back to the submission form is how you file it twice.
+      */
+      href={
+        application.filedAt
+          ? `/applications/${application.id}/track`
+          : `/applications/${application.id}`
+      }
       className="group block py-7 transition-colors hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-8">

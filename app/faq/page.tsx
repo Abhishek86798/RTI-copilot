@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { HelpCircle } from "lucide-react";
 
-import { Marker, PAGE_LAYOUT, PageTitle, Rule } from "@/components/editorial";
+import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
+import { Marker, PageTitle } from "@/components/editorial";
+import { PAGE_LAYOUT } from "@/components/page-layout";
+import { Section } from "@/components/section";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -35,6 +38,8 @@ const FAQS = [
 export default function FAQPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
+      <Breadcrumbs current="Common questions" />
+
       <PageTitle
         marker={<Marker label="Questions" />}
         lead="The questions people ask most often, answered plainly."
@@ -42,16 +47,16 @@ export default function FAQPage() {
         Common questions
       </PageTitle>
 
-      <section className="mt-16">
-        <Rule />
-        <h2 className="flex items-center gap-2 pt-8 font-mono text-[0.68rem] tracking-[0.18em] uppercase">
-          <HelpCircle aria-hidden="true" className="size-4 opacity-75" />
-          Questions and answers
-        </h2>
-        <div className="mt-8 divide-y divide-border border-y border-border">
+      <Section first label="Questions and answers" icon={HelpCircle}>
+        {/*
+          Divided by hairlines rather than boxed. A question and its answer are
+          one block of running text, and a border on four sides of each would
+          add five frames to a page that is only ever read top to bottom.
+        */}
+        <div className="divide-y divide-border border-t border-border">
           {FAQS.map((faq) => (
-            <div key={faq.q} className="py-8">
-              <h3 className="max-w-[42ch] text-lg font-semibold leading-snug tracking-tight">
+            <div key={faq.q} className="py-8 first:pt-8">
+              <h3 className="max-w-[46ch] text-lg leading-snug font-semibold tracking-tight">
                 {faq.q}
               </h3>
               <p className="prose-measure mt-4 text-base leading-relaxed opacity-75">
@@ -60,7 +65,8 @@ export default function FAQPage() {
             </div>
           ))}
         </div>
-      </section>
+      </Section>
+      <LastReviewed date="2026-08-23" />
     </div>
   );
 }

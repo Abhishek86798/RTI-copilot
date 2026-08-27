@@ -94,8 +94,6 @@ const en = {
   "common.continue": "Continue",
   "common.cancel": "Cancel",
   "common.delete": "Delete",
-  "common.copy": "Copy",
-  "common.copied": "Copied",
   "common.print": "Print or save as PDF",
   "common.tryAgain": "Try again",
   "common.optional": "optional",
@@ -181,9 +179,9 @@ const en = {
 
   "draft.title": "RTI Requisition Draft",
   "draft.help": "Draft is subject to applicant review. The applicant retains ultimate responsibility for submitted content.",
-  "draft.portalLabel": "Portal-ready text",
+  "draft.portalLabel": "Your application text",
   "draft.portalHelp":
-    "Paste this into the request box on the portal. It is kept under the 3,000-character limit the portal enforces.",
+    "This is the text that will be submitted with your application. It is kept within the 3,000-character limit the RTI request field allows.",
   "draft.chars": "characters",
   "draft.overLimit": "Over the portal's 3,000-character limit. Shorten it, or attach the full version as a PDF.",
   "draft.compare": "Compare with what you wrote",
@@ -201,7 +199,6 @@ const en = {
   "draft.submit": "Proceed to Filing Directives",
   "draft.regenerate": "Restart Drafting Process",
 
-  "file.title": "Statutory Filing Directives",
   "file.applicantTitle": "Applicant Particulars",
   "file.applicantHelp":
     "Mandatory applicant particulars pursuant to the RTI Rules, 2012. Data is retained strictly within local browser storage.",
@@ -212,23 +209,6 @@ const en = {
   "file.bpl": "I hold a Below Poverty Line (BPL) certificate",
   "file.bplHelp": "Section 7(5) waives the fee. You must attach a copy of the certificate.",
   "file.fee": "Fee",
-  "file.attachments": "Have these ready",
-  "file.stepsTitle": "Procedural Steps",
-  "file.openPortal": "Access Central Portal",
-  "file.copyText": "Copy the application text",
-  "file.printTitle": "Or file on paper",
-  "file.printHelp":
-    "Print the application, sign it, and send it by registered post. Keep the posting receipt — it proves your filing date.",
-  "file.markFiled": "I have filed this",
-  "file.filedTitle": "Formalize Filing Registration",
-  "file.filedHelp": "This entry initiates the statutory tracking period. Provide the exact date of physical or electronic filing.",
-  "file.filedDate": "Date of Filing",
-  "file.regNumber": "Registration number",
-  "file.regNumberHelp":
-    "The number the portal gave you, or your registered-post tracking number. This is your only proof of filing — keep it.",
-  "file.viaApio": "I filed through an Assistant Public Information Officer (APIO)",
-  "file.viaApioHelp": "Adds 5 days to the deadline under the proviso to Section 5(2).",
-  "file.confirm": "Start the deadline clock",
 
   "track.title": "Application Status Tracking",
   "track.filedOn": "Date of Filing",
@@ -240,7 +220,7 @@ const en = {
   "track.noReply": "No reply received",
   "track.simulate": "Simulate +31 days",
   "track.simulateHelp":
-    "Fast-forwards this example's clock so you can see the appeal draft itself without waiting a month. Only available on prepared examples, never on something you actually filed.",
+    "Fast-forwards this example's clock past the reply deadline, so the appeal step can be reached without waiting a month. Only available on prepared examples, never on something you actually filed.",
   "track.simulateOn": "Clock fast-forwarded by {days} days (demo)",
   "track.simulateReset": "Reset the clock",
   "track.overdueTitle": "Statutory Period Lapsed",
@@ -362,6 +342,22 @@ const en = {
   "home.hero.coversNote": "Twenty domains, hand-curated. Central and State.",
 
 
+  "a11y.statement": "Accessibility",
+  "a11y.textSize": "Text size",
+  "a11y.size.normal": "Normal text size",
+  "a11y.size.large": "Larger text size",
+  "a11y.size.larger": "Largest text size",
+  "a11y.contrast": "High contrast",
+
+  "nav.breadcrumb": "Breadcrumb",
+  "nav.home": "Home",
+
+  "footer.col.legal": "Policies",
+  "footer.accessibility": "Accessibility statement",
+  "footer.sitemap": "Sitemap",
+  "footer.policies": "Website policies",
+  "footer.updated": "Page last reviewed",
+
   "footer.col.start": "Start",
   "footer.col.about": "About",
   "footer.col.official": "Official sources",
@@ -371,6 +367,116 @@ const en = {
   "home.cta.title": "It takes one paragraph to start",
   "home.cta.lead":
     "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
+
+  "appeal.against": "Appeal against registration number",
+  "appeal.grounds": "Grounds of appeal",
+  "appeal.groundsHelp":
+    "Pre-written from your original request and the date the reply became due. Edit anything in square brackets before submitting.",
+  "appeal.noFee": "No fee is payable on a first appeal under Section 19(1).",
+  "appeal.submit": "Submit First Appeal",
+  "appeal.submitted": "First Appeal submitted on {date}.",
+  "appeal.submittedHelp":
+    "The First Appellate Authority has 30 days to decide, extendable to 45 with reasons recorded in writing.",
+
+  "track.viewText": "View the application text",
+  "track.missingTitle": "This application is not on this device",
+  "track.missingBody":
+    "Applications are stored in the browser that created them. If you cleared your browser data, or opened this link on another device, it will not be here.",
+  "track.alreadyFiled":
+    "This request has already been filed. Its registration number and deadline are on the tracking page.",
+  "track.notFiledYet":
+    "This request has not been filed yet, so there is nothing to track. Complete the submission first.",
+  "track.goFile": "Go to the submission form",
+
+  "appeal.view": "View the appeal",
+  "appeal.notYet":
+    "An appeal under Section 19(1) becomes available once the reply deadline passes without a decision. This request is still within its statutory period.",
+  "appeal.acknowledgement": "Acknowledgement",
+  "appeal.section.grounds": "Grounds of appeal",
+  "appeal.section.confirm": "Confirm and submit",
+  "appeal.confirmTitle": "Confirm and submit",
+  "appeal.confirmLabel": "I have read the appeal above and it says what I intend to say",
+  "appeal.confirmHelp":
+    "This is submitted in your name to the First Appellate Authority. Nothing is sent until you confirm.",
+  "appeal.confirmRequired": "Confirm you have read the appeal before submitting it.",
+
+  "nav.appeal": "Submit First Appeal",
+  "appealPage.lead":
+    "If 30 days have passed with no reply, or the reply does not answer what you asked, you can appeal to the First Appellate Authority. No fee is payable.",
+  "appealPage.lookupSection": "Find your request",
+  "appealPage.regNumber": "Registration number",
+  "appealPage.regNumberHelp":
+    "The number issued when you filed. It is on your acknowledgement and in the email we sent.",
+  "appealPage.find": "Find request",
+  "appealPage.notFound":
+    "No filed request on this device carries that number. Check it against your acknowledgement.",
+  "appealPage.eligibleSection": "Ready to appeal",
+  "appealPage.noneTitle": "Nothing is ready to appeal",
+  "appealPage.noneFiled":
+    "You have not filed a request yet. An appeal can only follow one.",
+  "appealPage.noneEligible":
+    "None of your filed requests has passed its reply deadline. An appeal under Section 19(1) becomes available once the statutory period lapses without a decision.",
+  "appealPage.dueSince": "Reply was due on {date}. {days} days left to appeal.",
+  "appealPage.aboutSection": "About the first appeal",
+  "appealPage.about1":
+    "A First Appeal goes to an officer senior to the Public Information Officer within the same public authority — not to a court, and not to the Information Commission. It costs nothing.",
+  "appealPage.about2":
+    "The appellate authority has 30 days to decide, extendable to 45 with reasons recorded in writing. Your own window to appeal is 30 days from the date the reply became due.",
+
+  "submit.section.authority": "Public authority",
+  "submit.authorityTitle": "Public authority details",
+  "submit.authorityHelp":
+    "Pre-selected from what you described. Change either dropdown if you know the request belongs somewhere else — filing with the wrong authority costs a Section 6(3) transfer and restarts the 30-day clock.",
+  "submit.ministry": "Ministry / Department / Apex body",
+  "submit.publicAuthority": "Public authority",
+  "submit.publicAuthorityHint": "Your request will be filed with this public authority.",
+  "submit.pio": "Public Information Officer",
+
+  "file.mobile": "Mobile number",
+  "file.mobileHelp": "Used for SMS alerts about this request.",
+  "file.gender": "Gender",
+  "file.gender.male": "Male",
+  "file.gender.female": "Female",
+  "file.gender.third": "Third gender",
+  "file.country": "Country",
+  "file.country.india": "India",
+  "file.country.other": "Other",
+  "file.countryHelp":
+    "The right under Section 6(1) follows citizenship, not residence — an Indian citizen living abroad may still file.",
+  "file.areaStatus": "Status",
+  "file.area.rural": "Rural",
+  "file.area.urban": "Urban",
+  "file.education": "Educational status",
+  "file.education.literate": "Literate",
+  "file.education.illiterate": "Illiterate",
+
+  "submit.stateTitle": "This portal covers Central Government authorities",
+  "submit.stateBody":
+    "The authority matched here is a State public authority. This portal accepts requests for Central Government ministries, departments and public authorities; most States run their own RTI portal. You can still complete and print this request, but file it with your State's portal or by post.",
+  "submit.section.applicant": "Applicant details",
+  "submit.section.declaration": "Declaration and fee",
+  "submit.section.supporting": "Supporting document",
+  "submit.section.request": "Text of the request",
+  "submit.emailHelp":
+    "Your registration number and every reply are sent to this address. It is also what you use to check the status later.",
+  "submit.declarationTitle": "Declaration and fee",
+  "submit.citizen": "I am a citizen of India",
+  "submit.citizenHelp":
+    "Section 6(1) gives the right to request information to citizens. The request cannot be submitted without this declaration.",
+  "submit.feeNil": "Nil",
+  "submit.feeNote": "Payable at the next step by UPI, card or net banking.",
+  "submit.feeExemptNote":
+    "No fee is payable under Section 7(5). Keep the certificate — the authority may ask to see it.",
+  "submit.supportingTitle": "Supporting document",
+  "submit.supportingNotAvailable": "Attachments are not available in this prototype",
+  "submit.supportingHelp":
+    "The real form accepts one PDF of up to 1 MB here. This build has no document store, so nothing can be attached — an upload box that quietly discarded your file would be worse than saying so.",
+  "submit.requestTitle": "Text of the request",
+  "submit.requestHelp":
+    "This is what will be sent to the Public Information Officer. Go back to the draft step to change it.",
+  "submit.urgentTitle": "State the 48-hour ground in the request",
+  "submit.urgentBody":
+    "The shorter deadline under the proviso to Section 7(1) applies only where the ground is claimed in the request itself. Make sure this sentence appears in the text below.",
 
   "error.title": "System Exception Encountered",
 } as const;
@@ -446,8 +552,6 @@ const hi: Record<StringKey, string> = {
   "common.continue": "आगे बढ़ें",
   "common.cancel": "रद्द करें",
   "common.delete": "हटाएँ",
-  "common.copy": "कॉपी करें",
-  "common.copied": "कॉपी हो गया",
   "common.print": "प्रिंट करें या पीडीएफ बनाएँ",
   "common.tryAgain": "फिर कोशिश करें",
   "common.optional": "वैकल्पिक",
@@ -536,9 +640,9 @@ const hi: Record<StringKey, string> = {
 
   "draft.title": "आपका आरटीआई आवेदन",
   "draft.help": "हर पंक्ति बदली जा सकती है। क्या दाख़िल होगा, यह अंततः आप तय करते हैं।",
-  "draft.portalLabel": "पोर्टल के लिए तैयार पाठ",
+  "draft.portalLabel": "आपके आवेदन का पाठ",
   "draft.portalHelp":
-    "इसे पोर्टल के अनुरोध बॉक्स में चिपकाएँ। यह पोर्टल की 3,000 अक्षरों की सीमा के भीतर रखा गया है।",
+    "यही पाठ आपके आवेदन के साथ जमा किया जाएगा। यह आरटीआई अनुरोध क्षेत्र की 3,000 अक्षरों की सीमा के भीतर रखा गया है।",
   "draft.chars": "अक्षर",
   "draft.overLimit":
     "पोर्टल की 3,000 अक्षरों की सीमा से अधिक। इसे छोटा करें, या पूरा संस्करण पीडीएफ के रूप में संलग्न करें।",
@@ -557,7 +661,6 @@ const hi: Record<StringKey, string> = {
   "draft.submit": "आगे: इसे कैसे दाख़िल करें",
   "draft.regenerate": "फिर से शुरू करें",
 
-  "file.title": "इसे कैसे दाख़िल करें",
   "file.applicantTitle": "आपका विवरण",
   "file.applicantHelp":
     "आरटीआई नियम, 2012 के अंतर्गत आवेदन पर आवश्यक। केवल इसी ब्राउज़र में सुरक्षित रहता है।",
@@ -568,23 +671,6 @@ const hi: Record<StringKey, string> = {
   "file.bpl": "मेरे पास गरीबी रेखा से नीचे (बीपीएल) का प्रमाणपत्र है",
   "file.bplHelp": "धारा 7(5) के तहत शुल्क माफ़ है। प्रमाणपत्र की प्रति संलग्न करना अनिवार्य है।",
   "file.fee": "शुल्क",
-  "file.attachments": "ये तैयार रखें",
-  "file.stepsTitle": "चरण",
-  "file.openPortal": "पोर्टल खोलें",
-  "file.copyText": "आवेदन का पाठ कॉपी करें",
-  "file.printTitle": "या कागज़ पर दाख़िल करें",
-  "file.printHelp":
-    "आवेदन प्रिंट करें, हस्ताक्षर करें और पंजीकृत डाक से भेजें। डाक की रसीद संभालकर रखें — वही आपकी तिथि का प्रमाण है।",
-  "file.markFiled": "मैंने इसे दाख़िल कर दिया है",
-  "file.filedTitle": "अपना दाख़िला दर्ज करें",
-  "file.filedHelp": "इससे आपकी वैधानिक समय-सीमा शुरू होती है। वही तिथि लिखें जब आपने वास्तव में दाख़िल किया।",
-  "file.filedDate": "दाख़िल करने की तिथि",
-  "file.regNumber": "पंजीकरण संख्या",
-  "file.regNumberHelp":
-    "पोर्टल से मिली संख्या, या पंजीकृत डाक की ट्रैकिंग संख्या। यही आपके दाख़िले का एकमात्र प्रमाण है — इसे संभालकर रखें।",
-  "file.viaApio": "मैंने सहायक लोक सूचना अधिकारी (APIO) के माध्यम से दाख़िल किया",
-  "file.viaApioHelp": "धारा 5(2) के परंतुक के तहत समय-सीमा में 5 दिन जुड़ते हैं।",
-  "file.confirm": "समय-सीमा शुरू करें",
 
   "track.title": "आपके आवेदन की स्थिति",
   "track.filedOn": "दाख़िल किया गया",
@@ -596,7 +682,7 @@ const hi: Record<StringKey, string> = {
   "track.noReply": "कोई उत्तर नहीं मिला",
   "track.simulate": "+31 दिन आगे बढ़ाएँ",
   "track.simulateHelp":
-    "इस उदाहरण की घड़ी आगे बढ़ाता है ताकि आप महीना भर रुके बिना अपील का मसौदा बनते देख सकें। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
+    "इस उदाहरण की घड़ी उत्तर की समय-सीमा से आगे बढ़ाता है, ताकि महीना भर रुके बिना अपील चरण तक पहुँचा जा सके। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
   "track.simulateOn": "घड़ी {days} दिन आगे बढ़ाई गई (डेमो)",
   "track.simulateReset": "घड़ी वापस करें",
   "track.overdueTitle": "समय-सीमा बीत चुकी है",
@@ -718,6 +804,22 @@ const hi: Record<StringKey, string> = {
   "home.hero.coversNote": "बीस क्षेत्र, हाथ से चुने गए। केंद्र और राज्य दोनों।",
 
 
+  "a11y.statement": "सुगम्यता",
+  "a11y.textSize": "अक्षर का आकार",
+  "a11y.size.normal": "सामान्य अक्षर आकार",
+  "a11y.size.large": "बड़ा अक्षर आकार",
+  "a11y.size.larger": "सबसे बड़ा अक्षर आकार",
+  "a11y.contrast": "उच्च कंट्रास्ट",
+
+  "nav.breadcrumb": "पथ",
+  "nav.home": "मुख्य पृष्ठ",
+
+  "footer.col.legal": "नीतियाँ",
+  "footer.accessibility": "सुगम्यता विवरण",
+  "footer.sitemap": "साइट मानचित्र",
+  "footer.policies": "वेबसाइट नीतियाँ",
+  "footer.updated": "पृष्ठ की अंतिम समीक्षा",
+
   "footer.col.start": "शुरू करें",
   "footer.col.about": "परिचय",
   "footer.col.official": "आधिकारिक स्रोत",
@@ -727,6 +829,116 @@ const hi: Record<StringKey, string> = {
   "home.cta.title": "शुरू करने के लिए एक अनुच्छेद काफ़ी है",
   "home.cta.lead":
     "कोई खाता नहीं, कोई ड्रॉप-डाउन नहीं, और जब तक आप न कहें आपका लिखा हुआ ब्राउज़र से बाहर नहीं जाता।",
+
+  "appeal.against": "इस पंजीकरण संख्या के विरुद्ध अपील",
+  "appeal.grounds": "अपील के आधार",
+  "appeal.groundsHelp":
+    "आपके मूल अनुरोध और उत्तर की नियत तिथि से पहले ही तैयार। जमा करने से पहले कोष्ठक में दिया कुछ भी बदल लें।",
+  "appeal.noFee": "धारा 19(1) के तहत प्रथम अपील पर कोई शुल्क देय नहीं है।",
+  "appeal.submit": "प्रथम अपील जमा करें",
+  "appeal.submitted": "प्रथम अपील {date} को जमा की गई।",
+  "appeal.submittedHelp":
+    "प्रथम अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक बढ़ाया जा सकता है।",
+
+  "track.viewText": "आवेदन का पाठ देखें",
+  "track.missingTitle": "यह आवेदन इस डिवाइस पर नहीं है",
+  "track.missingBody":
+    "आवेदन उसी ब्राउज़र में सुरक्षित रहते हैं जिसमें बनाए गए थे। यदि आपने ब्राउज़र डेटा मिटाया है, या यह लिंक किसी दूसरे डिवाइस पर खोला है, तो यह यहाँ नहीं मिलेगा।",
+  "track.alreadyFiled":
+    "यह अनुरोध पहले ही दाख़िल हो चुका है। इसकी पंजीकरण संख्या और समय-सीमा निगरानी पृष्ठ पर है।",
+  "track.notFiledYet":
+    "यह अनुरोध अभी दाख़िल नहीं हुआ है, इसलिए निगरानी के लिए कुछ नहीं है। पहले जमा करने की प्रक्रिया पूरी करें।",
+  "track.goFile": "जमा करने के फ़ॉर्म पर जाएँ",
+
+  "appeal.view": "अपील देखें",
+  "appeal.notYet":
+    "धारा 19(1) के तहत अपील तभी उपलब्ध होती है जब उत्तर की समय-सीमा बिना निर्णय के बीत जाए। यह अनुरोध अभी अपनी वैधानिक अवधि के भीतर है।",
+  "appeal.acknowledgement": "पावती",
+  "appeal.section.grounds": "अपील के आधार",
+  "appeal.section.confirm": "पुष्टि करें और जमा करें",
+  "appeal.confirmTitle": "पुष्टि करें और जमा करें",
+  "appeal.confirmLabel": "मैंने ऊपर दी गई अपील पढ़ ली है और यह वही कहती है जो मैं कहना चाहता/चाहती हूँ",
+  "appeal.confirmHelp":
+    "यह आपके नाम से प्रथम अपीलीय प्राधिकारी को भेजी जाएगी। पुष्टि करने तक कुछ नहीं भेजा जाता।",
+  "appeal.confirmRequired": "जमा करने से पहले पुष्टि करें कि आपने अपील पढ़ ली है।",
+
+  "nav.appeal": "प्रथम अपील जमा करें",
+  "appealPage.lead":
+    "यदि 30 दिन बीत गए और कोई उत्तर नहीं आया, या उत्तर आपके प्रश्न का समाधान नहीं करता, तो आप प्रथम अपीलीय प्राधिकारी के पास अपील कर सकते हैं। कोई शुल्क देय नहीं है।",
+  "appealPage.lookupSection": "अपना अनुरोध ढूँढ़ें",
+  "appealPage.regNumber": "पंजीकरण संख्या",
+  "appealPage.regNumberHelp":
+    "दाख़िल करते समय जारी की गई संख्या। यह आपकी पावती और भेजे गए ईमेल में है।",
+  "appealPage.find": "अनुरोध ढूँढ़ें",
+  "appealPage.notFound":
+    "इस डिवाइस पर दाख़िल किसी अनुरोध की यह संख्या नहीं है। अपनी पावती से मिलान करें।",
+  "appealPage.eligibleSection": "अपील के लिए तैयार",
+  "appealPage.noneTitle": "अपील के लिए कुछ तैयार नहीं है",
+  "appealPage.noneFiled":
+    "आपने अभी कोई अनुरोध दाख़िल नहीं किया है। अपील उसी के बाद हो सकती है।",
+  "appealPage.noneEligible":
+    "आपके किसी भी दाख़िल अनुरोध की उत्तर अवधि अभी समाप्त नहीं हुई है। वैधानिक अवधि बिना निर्णय बीतने पर धारा 19(1) के तहत अपील उपलब्ध होती है।",
+  "appealPage.dueSince": "उत्तर की नियत तिथि {date} थी। अपील के लिए {days} दिन शेष।",
+  "appealPage.aboutSection": "प्रथम अपील के बारे में",
+  "appealPage.about1":
+    "प्रथम अपील उसी लोक प्राधिकरण के भीतर लोक सूचना अधिकारी से वरिष्ठ अधिकारी के पास जाती है — न्यायालय या सूचना आयोग के पास नहीं। इस पर कोई शुल्क नहीं लगता।",
+  "appealPage.about2":
+    "अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक। आपके पास अपील करने के लिए उत्तर की नियत तिथि से 30 दिन होते हैं।",
+
+  "submit.section.authority": "लोक प्राधिकरण",
+  "submit.authorityTitle": "लोक प्राधिकरण का विवरण",
+  "submit.authorityHelp":
+    "आपके विवरण से पहले ही चुना गया। यदि आप जानते हैं कि अनुरोध कहीं और जाना चाहिए तो कोई भी विकल्प बदल लें — ग़लत प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है और 30 दिन की अवधि फिर से शुरू होती है।",
+  "submit.ministry": "मंत्रालय / विभाग / शीर्ष निकाय",
+  "submit.publicAuthority": "लोक प्राधिकरण",
+  "submit.publicAuthorityHint": "आपका अनुरोध इसी लोक प्राधिकरण के पास दाख़िल होगा।",
+  "submit.pio": "लोक सूचना अधिकारी",
+
+  "file.mobile": "मोबाइल नंबर",
+  "file.mobileHelp": "इस अनुरोध के एसएमएस अलर्ट के लिए।",
+  "file.gender": "लिंग",
+  "file.gender.male": "पुरुष",
+  "file.gender.female": "महिला",
+  "file.gender.third": "तृतीय लिंग",
+  "file.country": "देश",
+  "file.country.india": "भारत",
+  "file.country.other": "अन्य",
+  "file.countryHelp":
+    "धारा 6(1) का अधिकार नागरिकता से जुड़ा है, निवास से नहीं — विदेश में रहने वाला भारतीय नागरिक भी आवेदन कर सकता है।",
+  "file.areaStatus": "स्थिति",
+  "file.area.rural": "ग्रामीण",
+  "file.area.urban": "शहरी",
+  "file.education": "शैक्षिक स्थिति",
+  "file.education.literate": "साक्षर",
+  "file.education.illiterate": "निरक्षर",
+
+  "submit.stateTitle": "यह पोर्टल केंद्र सरकार के प्राधिकरणों के लिए है",
+  "submit.stateBody":
+    "यहाँ मिलान किया गया प्राधिकरण राज्य का लोक प्राधिकरण है। यह पोर्टल केंद्र सरकार के मंत्रालयों, विभागों और लोक प्राधिकरणों के अनुरोध स्वीकार करता है; अधिकतर राज्यों का अपना आरटीआई पोर्टल है। आप यह अनुरोध पूरा करके प्रिंट कर सकते हैं, पर इसे अपने राज्य के पोर्टल पर या डाक से दाख़िल करें।",
+  "submit.section.applicant": "आवेदक का विवरण",
+  "submit.section.declaration": "घोषणा और शुल्क",
+  "submit.section.supporting": "सहायक दस्तावेज़",
+  "submit.section.request": "अनुरोध का पाठ",
+  "submit.emailHelp":
+    "आपकी पंजीकरण संख्या और हर उत्तर इसी पते पर भेजा जाता है। बाद में स्थिति देखने के लिए भी यही उपयोग होता है।",
+  "submit.declarationTitle": "घोषणा और शुल्क",
+  "submit.citizen": "मैं भारत का नागरिक हूँ",
+  "submit.citizenHelp":
+    "धारा 6(1) सूचना माँगने का अधिकार नागरिकों को देती है। इस घोषणा के बिना अनुरोध जमा नहीं किया जा सकता।",
+  "submit.feeNil": "शून्य",
+  "submit.feeNote": "अगले चरण में यूपीआई, कार्ड या नेट बैंकिंग से देय।",
+  "submit.feeExemptNote":
+    "धारा 7(5) के तहत कोई शुल्क देय नहीं। प्रमाणपत्र संभालकर रखें — प्राधिकरण उसे देखने को कह सकता है।",
+  "submit.supportingTitle": "सहायक दस्तावेज़",
+  "submit.supportingNotAvailable": "इस प्रोटोटाइप में संलग्नक उपलब्ध नहीं हैं",
+  "submit.supportingHelp":
+    "वास्तविक फ़ॉर्म यहाँ 1 एमबी तक की एक पीडीएफ़ स्वीकार करता है। इस बिल्ड में दस्तावेज़ संग्रह नहीं है, इसलिए कुछ संलग्न नहीं किया जा सकता — ऐसा अपलोड बॉक्स जो आपकी फ़ाइल चुपचाप हटा दे, यह कहने से बुरा होता।",
+  "submit.requestTitle": "अनुरोध का पाठ",
+  "submit.requestHelp":
+    "यही लोक सूचना अधिकारी को भेजा जाएगा। इसे बदलने के लिए मसौदा चरण पर वापस जाएँ।",
+  "submit.urgentTitle": "अनुरोध में 48 घंटे का आधार लिखें",
+  "submit.urgentBody":
+    "धारा 7(1) के परंतुक की छोटी समय-सीमा तभी लागू होती है जब यह आधार अनुरोध में ही लिखा हो। सुनिश्चित करें कि नीचे दिए पाठ में यह वाक्य मौजूद है।",
 
   "error.title": "हम आगे नहीं बढ़ सके",
 };

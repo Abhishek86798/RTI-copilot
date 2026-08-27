@@ -19,6 +19,12 @@ export type Authority = {
   pioDesignation: string;
   /** Officer a First Appeal goes to under Section 19(1). */
   appellateAuthority: string;
+  /**
+   * The Ministry, Department or apex body this authority sits under — the
+   * first of the two dropdowns the real Submit Request form opens with.
+   * Absent on State authorities, which answer to a state government instead.
+   */
+  ministry?: string;
   filingAddress: string;
   verifyAt?: string;
   /**
@@ -66,16 +72,46 @@ export type DraftResponse = {
 export type FilingChannel = "rti-online-central" | "state-portal" | "post";
 
 /** Applicant details required on the application by RTI Rules, 2012. */
+/** The three the real form offers, in its order. */
+export type Gender = "male" | "female" | "third";
+/** "Status" on the real form — where the applicant lives. */
+export type AreaStatus = "rural" | "urban";
+export type EducationalStatus = "literate" | "illiterate";
+
 export type Applicant = {
   fullName: string;
+  /**
+   * Asked because the real form asks. It is not used for routing, drafting or
+   * the deadline — it exists on the statutory form, so it exists here, and it
+   * is optional in practice the way it is there.
+   */
+  gender?: Gender;
   address: string;
   /** The portal asks for state and PIN separately from the street address. */
   state: string;
   pincode: string;
+  /** "Mobile Number (For receiving SMS alerts)" on the real form. */
+  mobile: string;
+  /** A separate landline field on the real form, and genuinely optional. */
   phone: string;
   email: string;
+  /**
+   * The real form defaults Country to India and offers Other, because the
+   * right under Section 6(1) follows citizenship rather than residence — an
+   * Indian citizen abroad may still file.
+   */
+  country: "india" | "other";
+  /** Rural or urban. Collected for departmental statistics, not for routing. */
+  areaStatus?: AreaStatus;
+  educationalStatus?: EducationalStatus;
   /** Section 7(5): BPL applicants pay no fee, but must attach the certificate. */
   isBpl: boolean;
+  /**
+   * Section 6(1) confines the right to citizens, and the real Submit Request
+   * form makes you assert it before it will accept the request. A declaration,
+   * not a verification — nobody checks it, here or there.
+   */
+  isCitizen: boolean;
   /**
    * Reference for the attached BPL certificate. Section 7(5) makes the
    * exemption depend on producing it, not on claiming it — without one the
@@ -86,12 +122,15 @@ export type Applicant = {
 
 export const EMPTY_APPLICANT: Applicant = {
   fullName: "",
+  mobile: "",
+  country: "india",
   address: "",
   state: "",
   pincode: "",
   phone: "",
   email: "",
   isBpl: false,
+  isCitizen: false,
 };
 
 export type ApplicationStatus =

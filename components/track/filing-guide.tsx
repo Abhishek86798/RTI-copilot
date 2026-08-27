@@ -1,98 +1,188 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId } from "react";
+import { AlertTriangle, FileUp, IndianRupee, Siren } from "lucide-react";
 
 import { INDIAN_STATES } from "@/lib/client/states";
+import { RadioField, SelectField } from "@/components/track/submit-fields";
 import {
-  AlertTriangle,
-  ExternalLink,
-  IndianRupee,
-  Printer,
-  Siren,
-} from "lucide-react";
-
-import { CopyButton } from "@/components/copy-button";
+  authorityById,
+  ministryGroups,
+  ministryOf,
+} from "@/lib/client/authority-directory";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Button } from "@/components/ux4g/button";
 import { Marker, Rule } from "@/components/editorial";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { FieldHint, Label } from "@/components/ui/label";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { toDateInputValue } from "@/lib/client/deadlines";
-import { buildFilingPlan } from "@/lib/client/filing";
+import { RTI_FEE_RUPEES } from "@/lib/client/filing";
 import type { Application } from "@/lib/client/guest-storage";
 import { useI18n } from "@/lib/client/i18n";
-import type { Applicant } from "@/lib/client/types";
+import type { Applicant, Authority } from "@/lib/client/types";
 
 /**
- * The sentence that actually invokes the proviso to Section 7(1).
+ * The sentence that invokes the proviso to Section 7(1).
  *
- * Detecting urgency is only half the job — the 48-hour window applies only
- * where the ground is claimed in the application. Handing over the exact
- * wording is the difference between a flag on a screen and a shorter deadline
- * the PIO is bound by.
+ * The 48-hour window is not automatic — it applies only where the ground is
+ * claimed in the application itself, so the applicant is shown the exact
+ * wording that has to appear in the request text.
  */
 const URGENCY_LINE =
   "This request concerns the life and liberty of a person and a reply is sought within 48 hours as provided in the proviso to Section 7(1) of the Right to Information Act, 2005.";
 
 /**
- * Step 4. What to actually do with the draft, in the order it has to be done.
+ * Step 4 — Submit RTI Request.
  *
- * The official portal tells you none of this until after you have paid: which
- * portal accepts this authority, what the fee is, what has to be attached, and
- * that a State application filed centrally is returned with the fee kept. All
- * of it is derived from the authority we already routed to, so the citizen is
- * never asked to supply knowledge they came here because they lacked.
+ * This is the portal's own submission form, not instructions for filling in
+ * somebody else's. That distinction is the whole point of the screen: an
+ * earlier version of it read like a help site, walking the applicant through
+ * opening rtionline.gov.in, pasting text into it, and then coming back here to
+ * type in the registration number they were given. A portal issues that
+ * number; it does not ask for it.
+ *
+ * The fields mirror the real Submit Request form and are in its order:
+ * applicant details, state and PIN, citizenship declaration, BPL status and
+ * certificate, supporting document, then the request text. The public
+ * authority is already resolved — that is the two-level Ministry → Public
+ * Authority dropdown the real portal opens with, answered upstream by routing
+ * so the applicant never has to know the answer to it.
+ *
+ * Submission, fee and acknowledgement are handled by `PayAndFile` below, which
+ * posts to `/api/file` and receives a registration number in the portal's own
+ * format.
  */
 export function FilingGuide({
   application,
   onApplicantChange,
-  onMarkFiled,
-  onPrint,
+  onAuthorityChange,
 }: {
   application: Application;
   onApplicantChange: (applicant: Applicant) => void;
-  onMarkFiled: (details: {
-    filedAt: string;
-    registrationNumber: string;
-    viaApio: boolean;
-  }) => void;
-  onPrint: () => void;
+  /**
+   * Routing pre-selects the authority; this lets the applicant override it.
+   * The real form makes them choose from scratch, which is the hardest thing
+   * about filing an RTI — but a guess they cannot correct would be worse.
+   */
+  onAuthorityChange: (authority: Authority) => void;
 }) {
   const { t } = useI18n();
   const fieldPrefix = useId();
 
-  const [filedAt, setFiledAt] = useState(toDateInputValue());
-  const [registrationNumber, setRegistrationNumber] = useState("");
-  const [viaApio, setViaApio] = useState(false);
+  const isState = application.authority.level === "state";
+  const groups = ministryGroups();
 
-  const plan = buildFilingPlan(application.authority, {
-    isBpl: application.applicant.isBpl,
-    overPortalLimit: application.portalText.length > 3000,
-  });
+  /*
+   * Group from the directory by id, not from the stored snapshot.
+   *
+   * An application saved before `ministry` existed on Authority — or seeded
+   * from a demo fixture that never carried it — has the field undefined, which
+   * silently sorted it under "State public authorities" and left both
+   * dropdowns showing a body that had nothing to do with the request. The id
+   * is the identity; everything else on the snapshot is a copy that can go
+   * stale.
+   */
+  const canonical = authorityById(application.authority.id) ?? application.authority;
+  const selectedMinistry = ministryOf(canonical);
+  const authoritiesInMinistry =
+    groups.find((group) => group.ministry === selectedMinistry)?.authorities ?? [];
 
   function patchApplicant(patch: Partial<Applicant>) {
     onApplicantChange({ ...application.applicant, ...patch });
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-16">
+      {/* -------------------------------------------------------------- */}
+      {/* Scope — the real portal serves Central authorities only          */}
+      {/* -------------------------------------------------------------- */}
+      {isState && (
+        <Alert className="border-warning/40 bg-warning/8">
+          <AlertTriangle aria-hidden="true" className="text-warning" />
+          <AlertTitle>{t("submit.stateTitle")}</AlertTitle>
+          <AlertDescription>{t("submit.stateBody")}</AlertDescription>
+        </Alert>
+      )}
+
+      {/* -------------------------------------------------------------- */}
+      {/* Public authority — the two-level choice the real form opens with */}
+      {/* -------------------------------------------------------------- */}
+      <section aria-labelledby="authority-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("submit.section.authority")} />
+          <h2
+            id="authority-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("submit.authorityTitle")}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            {t("submit.authorityHelp")}
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <SelectField
+            id={`${fieldPrefix}-ministry`}
+            label={t("submit.ministry")}
+            value={selectedMinistry}
+            onChange={(ministry) => {
+              // Moving ministry has to move the authority with it, or the two
+              // dropdowns disagree and the request files against whichever one
+              // the server happens to read.
+              const group = groups.find((entry) => entry.ministry === ministry);
+              if (group?.authorities[0]) onAuthorityChange(group.authorities[0]);
+            }}
+          >
+            {groups.map((group) => (
+              <option key={group.ministry} value={group.ministry}>
+                {group.ministry}
+              </option>
+            ))}
+          </SelectField>
+
+          <SelectField
+            id={`${fieldPrefix}-authority`}
+            label={t("submit.publicAuthority")}
+            value={application.authority.id}
+            onChange={(id) => {
+              const next = authoritiesInMinistry.find((entry) => entry.id === id);
+              if (next) onAuthorityChange(next);
+            }}
+            hint={t("submit.publicAuthorityHint")}
+          >
+            {authoritiesInMinistry.map((authority) => (
+              <option key={authority.id} value={authority.id}>
+                {authority.authorityName}
+              </option>
+            ))}
+          </SelectField>
+        </div>
+
+        <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm leading-relaxed opacity-75">
+          {t("submit.pio")}: <span className="text-foreground">{application.authority.pioDesignation}</span>
+        </p>
+      </section>
+
       {/* -------------------------------------------------------------- */}
       {/* Applicant details                                              */}
       {/* -------------------------------------------------------------- */}
       <section aria-labelledby="applicant-heading">
         <Rule />
         <div className="pt-8">
-          <Marker label={t("file.applicantTitle")} />
+          <Marker label={t("submit.section.applicant")} />
           <h2
             id="applicant-heading"
             className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
           >
             {t("file.applicantTitle")}
           </h2>
-          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{t("file.applicantHelp")}</p>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            {t("file.applicantHelp")}
+          </p>
         </div>
+
         <div className="mt-8 space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
@@ -105,17 +195,30 @@ export function FilingGuide({
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor={`${fieldPrefix}-phone`}>{t("file.phone")}</Label>
+              <Label htmlFor={`${fieldPrefix}-mobile`}>{t("file.mobile")}</Label>
               <Input
-                id={`${fieldPrefix}-phone`}
+                id={`${fieldPrefix}-mobile`}
                 type="tel"
                 inputMode="tel"
-                value={application.applicant.phone}
-                onChange={(event) => patchApplicant({ phone: event.target.value })}
+                value={application.applicant.mobile}
+                onChange={(event) => patchApplicant({ mobile: event.target.value })}
                 autoComplete="tel"
               />
+              <p className="text-sm text-muted-foreground">{t("file.mobileHelp")}</p>
             </div>
           </div>
+
+          <RadioField
+            legend={t("file.gender")}
+            name={`${fieldPrefix}-gender`}
+            value={application.applicant.gender}
+            onChange={(gender) => patchApplicant({ gender })}
+            options={[
+              { value: "male", label: t("file.gender.male") },
+              { value: "female", label: t("file.gender.female") },
+              { value: "third", label: t("file.gender.third") },
+            ]}
+          />
 
           <div className="space-y-1.5">
             <Label htmlFor={`${fieldPrefix}-address`}>{t("file.address")}</Label>
@@ -129,7 +232,7 @@ export function FilingGuide({
           </div>
 
           {/*
-            State and PIN are separate fields on the portal, not part of the
+            State and PIN are separate fields on the real form, not part of the
             street address, and it rejects an application without them.
           */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -144,7 +247,9 @@ export function FilingGuide({
               >
                 <option value="">{t("file.statePlaceholder")}</option>
                 {INDIAN_STATES.map((name) => (
-                  <option key={name} value={name}>{name}</option>
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -156,12 +261,63 @@ export function FilingGuide({
                 maxLength={6}
                 value={application.applicant.pincode}
                 onChange={(event) =>
-                  patchApplicant({ pincode: event.target.value.replace(/\D/g, "").slice(0, 6) })
+                  patchApplicant({
+                    pincode: event.target.value.replace(/\D/g, "").slice(0, 6),
+                  })
                 }
                 autoComplete="postal-code"
               />
               <p className="text-sm text-muted-foreground">{t("file.pincodeHelp")}</p>
             </div>
+          </div>
+
+          <RadioField
+            legend={t("file.country")}
+            name={`${fieldPrefix}-country`}
+            value={application.applicant.country}
+            onChange={(country) => patchApplicant({ country })}
+            options={[
+              { value: "india", label: t("file.country.india") },
+              { value: "other", label: t("file.country.other") },
+            ]}
+            hint={t("file.countryHelp")}
+          />
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <RadioField
+              legend={t("file.areaStatus")}
+              name={`${fieldPrefix}-area`}
+              value={application.applicant.areaStatus}
+              onChange={(areaStatus) => patchApplicant({ areaStatus })}
+              options={[
+                { value: "rural", label: t("file.area.rural") },
+                { value: "urban", label: t("file.area.urban") },
+              ]}
+            />
+            <RadioField
+              legend={t("file.education")}
+              name={`${fieldPrefix}-education`}
+              value={application.applicant.educationalStatus}
+              onChange={(educationalStatus) => patchApplicant({ educationalStatus })}
+              options={[
+                { value: "literate", label: t("file.education.literate") },
+                { value: "illiterate", label: t("file.education.illiterate") },
+              ]}
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor={`${fieldPrefix}-phone`}>
+              {t("file.phone")}{" "}
+              <span className="font-normal opacity-75">({t("common.optional")})</span>
+            </Label>
+            <Input
+              id={`${fieldPrefix}-phone`}
+              type="tel"
+              inputMode="tel"
+              value={application.applicant.phone}
+              onChange={(event) => patchApplicant({ phone: event.target.value })}
+            />
           </div>
 
           <div className="space-y-1.5">
@@ -174,7 +330,39 @@ export function FilingGuide({
               onChange={(event) => patchApplicant({ email: event.target.value })}
               autoComplete="email"
             />
+            <p className="text-sm text-muted-foreground">{t("submit.emailHelp")}</p>
           </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* Declaration and fee status                                     */}
+      {/* -------------------------------------------------------------- */}
+      <section aria-labelledby="declaration-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("submit.section.declaration")} />
+          <h2
+            id="declaration-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("submit.declarationTitle")}
+          </h2>
+        </div>
+
+        <div className="mt-8 space-y-4">
+          {/*
+            Section 6(1) confines the right to citizens, and the real form
+            makes you assert it before it will take the request. It is a
+            declaration, not a verification — nobody checks it, here or there.
+          */}
+          <CheckboxField
+            id={`${fieldPrefix}-citizen`}
+            checked={application.applicant.isCitizen ?? false}
+            onChange={(event) => patchApplicant({ isCitizen: event.target.checked })}
+            label={t("submit.citizen")}
+            hint={t("submit.citizenHelp")}
+          />
 
           <CheckboxField
             id={`${fieldPrefix}-bpl`}
@@ -186,215 +374,113 @@ export function FilingGuide({
 
           {/*
             s.7(5) waives the fee on production of the certificate, not on the
-            claim alone. Asking for the reference here is what stops a citizen
-            filing a fee-exempt application that is returned as unpaid.
+            claim alone. Asking for the reference here is what stops someone
+            filing a fee-exempt request that is returned as unpaid.
           */}
           {application.applicant.isBpl && (
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 pl-8">
               <Label htmlFor={`${fieldPrefix}-bplref`}>{t("file.bplRef")}</Label>
               <Input
                 id={`${fieldPrefix}-bplref`}
                 value={application.applicant.bplCertificateRef ?? ""}
-                onChange={(event) => patchApplicant({ bplCertificateRef: event.target.value })}
+                onChange={(event) =>
+                  patchApplicant({ bplCertificateRef: event.target.value })
+                }
               />
               <p className="text-sm text-muted-foreground">{t("file.bplRefHelp")}</p>
             </div>
           )}
-        </div>
-      </section>
 
-      {/* -------------------------------------------------------------- */}
-      {/* Where and how to file                                          */}
-      {/* -------------------------------------------------------------- */}
-      <section aria-labelledby="plan-heading">
-        <Rule />
-        <div className="pt-8">
-          <Marker label={plan.title} />
-          <h2
-            id="plan-heading"
-            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
-          >
-            {plan.title}
-          </h2>
-          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{plan.rationale}</p>
-        </div>
-        <div className="mt-8 space-y-5">
-          {plan.warning && (
-            <Alert className="border-destructive/40 bg-destructive/6">
-              <AlertTriangle aria-hidden="true" className="text-destructive" />
-              <AlertTitle>Do not use the central portal for this</AlertTitle>
-              <AlertDescription>{plan.warning}</AlertDescription>
-            </Alert>
-          )}
-
-          {/*
-            The 48-hour window is not automatic — it applies only if the ground
-            is actually claimed in the application. Flagging it on the draft
-            screen and then going quiet here is how someone files an urgent
-            request on a 30-day clock without realising.
-          */}
-          {application.lifeOrLibertyFlag && (
-            <Alert className="border-destructive/40 bg-destructive/6">
-              <Siren aria-hidden="true" className="text-destructive" />
-              <AlertTitle>Claim the 48-hour window in the application itself</AlertTitle>
-              <AlertDescription className="space-y-3">
-                <p>
-                  The shorter deadline under the proviso to Section 7(1) is not
-                  automatic — it applies only if you state the ground. Add this
-                  line at the top of the request text before you submit it.
-                </p>
-                <p className="rounded-lg bg-card p-3 font-mono text-sm text-foreground ring-1 ring-border">
-                  {URGENCY_LINE}
-                </p>
-                <CopyButton value={URGENCY_LINE} size="lg" label="Copy this line" />
-              </AlertDescription>
-            </Alert>
-          )}
-
-          <div className="flex items-start gap-3 rounded-lg bg-muted p-4">
-            <IndianRupee aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
-            <div>
-              <p className="text-sm font-semibold">
+          <div className="flex items-start gap-3 border-l-2 border-border py-1 pl-4">
+            <IndianRupee
+              aria-hidden="true"
+              className="mt-0.5 size-5 shrink-0 opacity-75"
+            />
+            <p className="text-sm leading-relaxed">
+              <span className="font-semibold">
                 {t("file.fee")}:{" "}
-                {plan.feeRupees === 0 ? "No fee payable" : `₹${plan.feeRupees}`}
-              </p>
-              <p className="mt-0.5 text-sm text-muted-foreground">{plan.feeNote}</p>
-            </div>
+                {application.applicant.isBpl ? t("submit.feeNil") : `₹${RTI_FEE_RUPEES}`}
+              </span>{" "}
+              <span className="opacity-75">
+                {application.applicant.isBpl
+                  ? t("submit.feeExemptNote")
+                  : t("submit.feeNote")}
+              </span>
+            </p>
           </div>
-
-          <div>
-            <Marker label={t("file.stepsTitle")} />
-            <ol className="mt-4 divide-y divide-border border-y border-border">
-              {plan.steps.map((stepText, index) => (
-                <li key={index} className="flex gap-4 py-4">
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 font-mono text-[0.68rem] tracking-[0.14em] tabular-nums opacity-75"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm leading-relaxed">{stepText}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div>
-            <Marker label={t("file.attachments")} />
-            <ul className="mt-4 space-y-1.5">
-              {plan.attachments.map((attachment, index) => (
-                <li
-                  key={index}
-                  className="flex gap-2 text-sm leading-relaxed opacity-75"
-                >
-                  <span aria-hidden="true">•</span>
-                  <span>{attachment}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <CopyButton
-              value={application.portalText}
-              label={t("file.copyText")}
-              variant="cta"
-            />
-            {plan.url && (
-              <Button
-                type="button"
-                size="xl"
-                variant="outline"
-                nativeButton={false}
-                render={
-                  <a href={plan.url} target="_blank" rel="noopener noreferrer">
-                    {t("file.openPortal")}
-                    <ExternalLink aria-hidden="true" />
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </a>
-                }
-              />
-            )}
-            <Button type="button" size="xl" variant="outline" onClick={onPrint}>
-              <Printer aria-hidden="true" />
-              {t("common.print")}
-            </Button>
-          </div>
-
-          <p className="text-sm text-muted-foreground">{t("file.printHelp")}</p>
         </div>
       </section>
 
       {/* -------------------------------------------------------------- */}
-      {/* Record the filing — this is what starts the statutory clock     */}
+      {/* Supporting document                                            */}
       {/* -------------------------------------------------------------- */}
-      <section aria-labelledby="filed-heading">
+      <section aria-labelledby="supporting-heading">
         <Rule />
         <div className="pt-8">
-          <Marker label={t("file.filedTitle")} />
+          <Marker label={t("submit.section.supporting")} />
           <h2
-            id="filed-heading"
+            id="supporting-heading"
             className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
           >
-            {t("file.filedTitle")}
+            {t("submit.supportingTitle")}
           </h2>
-          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">{t("file.filedHelp")}</p>
         </div>
-        <div className="mt-8 space-y-4">
-          <form
-            className="space-y-4"
-            onSubmit={(event) => {
-              event.preventDefault();
-              onMarkFiled({ filedAt, registrationNumber, viaApio });
-            }}
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor={`${fieldPrefix}-filed-at`}>{t("file.filedDate")}</Label>
-                <Input
-                  id={`${fieldPrefix}-filed-at`}
-                  type="date"
-                  required
-                  value={filedAt}
-                  // A future filing date would start the clock early and put
-                  // the appeal window in the wrong place.
-                  max={toDateInputValue()}
-                  onChange={(event) => setFiledAt(event.target.value)}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor={`${fieldPrefix}-reg`}>
-                  {t("file.regNumber")}{" "}
-                  <span className="font-normal text-muted-foreground">
-                    ({t("common.optional")})
-                  </span>
-                </Label>
-                <Input
-                  id={`${fieldPrefix}-reg`}
-                  value={registrationNumber}
-                  onChange={(event) => setRegistrationNumber(event.target.value)}
-                  aria-describedby={`${fieldPrefix}-reg-hint`}
-                  className="font-mono"
-                />
-                <FieldHint id={`${fieldPrefix}-reg-hint`}>
-                  {t("file.regNumberHelp")}
-                </FieldHint>
-              </div>
+        <div className="mt-8">
+          {/*
+            Disclosed rather than faked. The real form takes one PDF up to 1MB
+            here; this build has no document store, and an upload control that
+            silently discarded the file would be worse than saying so.
+          */}
+          <div className="flex items-start gap-3 border border-dashed border-border p-5">
+            <FileUp aria-hidden="true" className="mt-0.5 size-5 shrink-0 opacity-75" />
+            <div>
+              <p className="text-sm font-medium">{t("submit.supportingNotAvailable")}</p>
+              <p className="mt-1 max-w-[58ch] text-sm leading-relaxed opacity-75">
+                {t("submit.supportingHelp")}
+              </p>
             </div>
-
-            <CheckboxField
-              id={`${fieldPrefix}-apio`}
-              checked={viaApio}
-              onChange={(event) => setViaApio(event.target.checked)}
-              label={t("file.viaApio")}
-              hint={t("file.viaApioHelp")}
-            />
-
-            <Button type="submit" size="xl" variant="cta" className="w-full sm:w-auto">
-              {t("file.confirm")}
-            </Button>
-          </form>
+          </div>
         </div>
+      </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* Text of the request                                            */}
+      {/* -------------------------------------------------------------- */}
+      <section aria-labelledby="request-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("submit.section.request")} />
+          <h2
+            id="request-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("submit.requestTitle")}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            {t("submit.requestHelp")}
+          </p>
+        </div>
+
+        {application.lifeOrLibertyFlag && (
+          <Alert className="mt-8 border-destructive/40 bg-destructive/6">
+            <Siren aria-hidden="true" className="text-destructive" />
+            <AlertTitle>{t("submit.urgentTitle")}</AlertTitle>
+            <AlertDescription className="space-y-3">
+              <p>{t("submit.urgentBody")}</p>
+              <p className="border-l-2 border-destructive/40 py-1 pl-4 font-mono text-sm text-foreground">
+                {URGENCY_LINE}
+              </p>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <pre className="mt-8 border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+          {application.portalText}
+        </pre>
+        <p className="mt-4 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+          {application.portalText.length.toLocaleString("en-IN")} / 3,000{" "}
+          {t("draft.chars")}
+        </p>
       </section>
     </div>
   );

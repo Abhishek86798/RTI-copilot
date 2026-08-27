@@ -25,6 +25,9 @@ const EPFO_PENSION: Authority = {
   pioDesignation: "Central Public Information Officer, EPFO Regional Office",
   appellateAuthority:
     "First Appellate Authority, EPFO Regional Office (Regional Provident Fund Commissioner)",
+  // Matches data/authorities.json. A fixture that omits a field the live
+  // response carries is a fixture that tests a different shape than production.
+  ministry: "Ministry of Labour and Employment",
   filingAddress:
     "EPFO Regional Office holding the PF account — per applicant's jurisdiction",
   verifyAt: "https://www.epfindia.gov.in",

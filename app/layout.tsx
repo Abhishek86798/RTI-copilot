@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
+import { AccessibilityBar } from "@/components/accessibility-bar";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { I18nProvider } from "@/lib/client/i18n";
@@ -75,6 +76,7 @@ function Shell({ children }: { children: React.ReactNode }) {
       >
         Skip to main content
       </a>
+      <AccessibilityBar />
       <SiteHeader />
       <main id="main" className="flex-1">
         {children}
@@ -99,13 +101,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         {/*
-          Runs before paint so a dark-mode user never sees a white flash. It
-          sets both hooks: `.dark` for our Tailwind styles and data-theme for
-          UX4G's, which keys its palette off the attribute.
+          Runs before paint so a dark-mode user never sees a white flash, and
+          so a reader who chose larger text or high contrast never sees the
+          page render at the default and then jump.
+
+          It sets every hook at once: `.dark` for our Tailwind styles,
+          data-theme for UX4G's palette, and data-text-size / data-contrast
+          for the reader controls in the accessibility bar.
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("rti-copilot:theme")||"system";var d=t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);document.documentElement.setAttribute("data-theme",d?"dark":"light");}catch(e){}})()`,
+            __html: `(function(){try{var r=document.documentElement;var t=localStorage.getItem("rti-copilot:theme")||"system";var d=t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);r.classList.toggle("dark",d);r.setAttribute("data-theme",d?"dark":"light");var s=localStorage.getItem("rti-copilot:text-size");if(s==="large"||s==="larger")r.setAttribute("data-text-size",s);if(localStorage.getItem("rti-copilot:contrast")==="high")r.setAttribute("data-contrast","high");}catch(e){}})()`,
           }}
         />
       </head>

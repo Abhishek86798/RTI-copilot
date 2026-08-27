@@ -1,169 +1,144 @@
-"use client";
+import type { LucideIcon } from "lucide-react";
 
-import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * The page's editorial rhythm, in one place.
+ * Section and body vocabulary for the reading pages — the guide, the FAQ, the
+ * contact page, the fee explainer, and the honesty page.
  *
- * Government sites go wrong in one of two directions: everything crammed edge
- * to edge so nothing has a hierarchy, or so much decoration that the content
- * disappears. This aims between them — wide gutters, a hard limit on line
- * length, and a numbered marker on every section so a reader always knows
- * where they are in the argument and how much is left.
+ * These five had each hand-rolled the same idiom: a `<Rule />`, a mono heading
+ * with an icon and `pt-8`, then a `prose-measure … opacity-75` wrapper. Five
+ * copies meant five slightly different rhythms, and the first copy on every
+ * page drew a hairline immediately below the one `PageTitle` already draws —
+ * two rules with an empty band between them, which reads as a mistake rather
+ * than a division.
  *
- * The numbering is not decoration. This page makes a five-part case to someone
- * who is already sceptical of government websites, and a visible "02 / 05"
- * tells them how long that case is before they commit to reading it.
+ * Deliberately not in `components/editorial`: that module is `"use client"`,
+ * and these pages are Server Components. Nothing here needs the browser, so
+ * keeping it server-rendered costs the reader no JavaScript.
  */
 
 export function Section({
-  id,
+  label,
+  icon: Icon,
   children,
+  /**
+   * The first section on a page sits directly under `PageTitle`, which already
+   * ends in a hairline. Drawing a second one here is the double-rule bug.
+   */
+  first = false,
   className,
-  tone = "default",
 }: {
-  id?: string;
+  label: string;
+  icon?: LucideIcon;
   children: React.ReactNode;
+  first?: boolean;
   className?: string;
-  /** `alt` lifts the band onto the card colour to separate it from its neighbours. */
-  tone?: "default" | "alt" | "invert";
 }) {
   return (
     <section
-      id={id}
       className={cn(
-        // Generous, and it grows with the viewport rather than staying fixed —
-        // the whole point of the wide layout is lost at 1440 if the padding
-        // was tuned for 768.
-        "scroll-mt-24 py-20 sm:py-28 lg:py-36",
-        tone === "alt" && "bg-card",
-        tone === "invert" && "bg-primary text-primary-foreground",
+        first ? "mt-12" : "mt-16 border-t border-border pt-12",
         className
       )}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-12">{children}</div>
+      <h2 className="flex items-center gap-2.5 font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+        {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
+        {label}
+      </h2>
+      <div className="mt-8">{children}</div>
     </section>
   );
 }
 
-export function SectionHeader({
-  index,
-  total,
-  eyebrow,
-  title,
-  lead,
+/**
+ * Running text at one measure, one leading, one weight.
+ *
+ * Lists use `list-outside` with real padding so a wrapped line aligns under
+ * the text rather than under the bullet — `list-inside`, which these pages
+ * were using, puts the second line back at the marker's left edge and breaks
+ * the left rag of every multi-line item.
+ */
+export function Prose({
+  children,
   className,
-  invert = false,
 }: {
-  /** Zero-padded on render: 1 becomes "01". */
-  index?: number;
-  total?: number;
-  eyebrow?: string;
-  title: string;
-  lead?: string;
+  children: React.ReactNode;
   className?: string;
-  invert?: boolean;
 }) {
   return (
-    <Reveal className={cn("mb-12 lg:mb-16", className)}>
-      {(index !== undefined || eyebrow) && (
-        <div
-          className={cn(
-            "mb-5 flex items-center gap-3 text-xs font-semibold tracking-[0.14em] uppercase",
-            invert ? "text-primary-foreground/85" : "text-muted-foreground"
-          )}
-        >
-          {index !== undefined && (
-            <>
-              <span className={invert ? "text-primary-foreground" : "text-primary"}>
-                {String(index).padStart(2, "0")}
-              </span>
-              <span
-                aria-hidden="true"
-                className={cn(
-                  "h-px w-8",
-                  invert ? "bg-primary-foreground/40" : "bg-border"
-                )}
-              />
-            </>
-          )}
-          {eyebrow && <span>{eyebrow}</span>}
-          {total !== undefined && (
-            <span className={invert ? "text-primary-foreground/75" : "text-muted-foreground"}>
-              / {String(total).padStart(2, "0")}
-            </span>
-          )}
-        </div>
+    <div
+      className={cn(
+        "prose-measure space-y-6 text-base leading-relaxed opacity-75",
+        "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
+        "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-3 [&_ul]:pl-5 [&_ul]:marker:text-border",
+        "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-3 [&_ol]:pl-5 [&_ol]:marker:text-border",
+        className
       )}
-
-      {/*
-        Large, tightly-led, and capped at ~18 characters per line on desktop.
-        A 60-character headline set across a 1200px measure is unreadable no
-        matter how big it is.
-      */}
-      <h2
-        className={cn(
-          "max-w-[20ch] text-3xl leading-[1.1] font-bold tracking-tight text-balance",
-          "sm:text-4xl lg:text-[2.75rem]"
-        )}
-      >
-        {title}
-      </h2>
-
-      {lead && (
-        <p
-          className={cn(
-            "mt-6 max-w-[52ch] text-lg leading-relaxed sm:text-xl",
-            invert ? "text-primary-foreground/90" : "text-muted-foreground"
-          )}
-        >
-          {lead}
-        </p>
-      )}
-    </Reveal>
+    >
+      {children}
+    </div>
   );
 }
 
 /**
- * A large statistic with its source underneath.
- *
- * Every figure on this page has to be attributable — an unsourced number on a
- * page about government accountability undercuts the entire argument — so the
- * caption is a required prop rather than an optional one.
+ * A numbered list of steps, aligned so the text column is straight regardless
+ * of how tall each step runs.
  */
-export function Stat({
-  value,
-  label,
-  source,
-  invert = false,
+export function Steps({
+  items,
+  className,
 }: {
-  value: string;
-  label: string;
-  source: string;
-  invert?: boolean;
+  items: { title: string; body: string }[];
+  className?: string;
 }) {
   return (
-    <div>
-      <p
-        className={cn(
-          "text-4xl font-bold tracking-tight tabular-nums sm:text-5xl",
-          invert ? "text-primary-foreground" : "text-primary"
-        )}
-      >
-        {value}
-      </p>
-      <p className={cn("mt-3 text-base font-medium", invert && "text-primary-foreground")}>
-        {label}
-      </p>
-      <p
-        className={cn(
-          "mt-1 text-sm",
-          invert ? "text-primary-foreground/85" : "text-muted-foreground"
-        )}
-      >
-        {source}
-      </p>
+    <ol className={cn("space-y-10", className)}>
+      {items.map((item, index) => (
+        <li key={item.title} className="flex gap-5">
+          <span
+            aria-hidden="true"
+            className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-sm tabular-nums"
+          >
+            {index + 1}
+          </span>
+          <div className="min-w-0">
+            <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
+            <p className="prose-measure mt-2 text-base leading-relaxed opacity-75">
+              {item.body}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/**
+ * A callout that must not inherit the muted body treatment around it — the
+ * "no money changes hands here" notice is the most important sentence on the
+ * fee page and was being rendered at 75% opacity inside a `Prose` block.
+ */
+export function Callout({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-xl border border-warning/30 bg-warning/10 p-6 sm:p-8",
+        className
+      )}
+    >
+      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+      <div className="mt-3 space-y-4 text-base leading-relaxed opacity-90">
+        {children}
+      </div>
     </div>
   );
 }

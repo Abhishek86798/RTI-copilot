@@ -21,6 +21,7 @@ export function SiteHeader() {
   const navLinks = [
     { href: "/apply", label: t("nav.new") },
     { href: "/applications", label: t("nav.mine"), count: applications.length },
+    { href: "/appeal", label: t("nav.appeal") },
     { href: "/manual", label: t("nav.manual") },
     { href: "/contact", label: t("nav.contact") },
     { href: "/faq", label: t("nav.faq") },
@@ -58,7 +59,13 @@ export function SiteHeader() {
           >
             RTI
           </span>
-          <span className="hidden text-base font-bold tracking-tight sm:inline sm:text-lg">
+          {/*
+            `sr-only` rather than `hidden` below the sm breakpoint. The badge
+            beside this is aria-hidden, so hiding the wordmark outright left
+            the home link with no accessible name at all on a phone — axe
+            flagged it as a serious link-name violation on every page.
+          */}
+          <span className="sr-only text-base font-bold tracking-tight sm:not-sr-only sm:text-lg">
             {t("brand.name")}
           </span>
         </Link>

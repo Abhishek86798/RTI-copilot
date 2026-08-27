@@ -21,95 +21,20 @@ export const RTI_FEE_RUPEES = 10;
 export const PORTAL_CHAR_LIMIT = 3000;
 export const CENTRAL_PORTAL_URL = "https://rtionline.gov.in";
 
-export type FilingPlan = {
-  channel: FilingChannel;
-  /** Heading for the filing step. */
-  title: string;
-  /** One line on why this channel and not another. */
-  rationale: string;
-  /** Link to open, when the channel has one. */
-  url?: string;
-  /** Fee payable, already accounting for a BPL exemption. */
-  feeRupees: number;
-  feeNote: string;
-  /** Ordered steps. First entry is what to do first, literally. */
-  steps: string[];
-  /** Things to have ready before starting. */
-  attachments: string[];
-  /** Shown as a warning callout when present. */
-  warning?: string;
-};
-
+/**
+ * Central or State.
+ *
+ * The submission form uses this to say which authorities this portal actually
+ * serves, the way the real one does — rtionline.gov.in covers Central
+ * Government public authorities, and most States run their own portal.
+ *
+ * The step-by-step "how to file it somewhere else" plan that used to live
+ * beside this is gone: this platform takes the submission itself, so
+ * instructions for carrying the text to another site described a product we
+ * are not.
+ */
 export function resolveChannel(authority: Authority): FilingChannel {
   return authority.level === "central" ? "rti-online-central" : "state-portal";
-}
-
-export function buildFilingPlan(
-  authority: Authority,
-  options: { isBpl: boolean; overPortalLimit: boolean }
-): FilingPlan {
-  const feeRupees = options.isBpl ? 0 : RTI_FEE_RUPEES;
-  // The steps must agree with feeRupees above. A BPL applicant told to
-  // "pay the Rs 10 fee" pays money the Act exempts them from.
-  const payStep = options.isBpl
-    ? "Attach your BPL certificate. No fee is payable — do not pay one."
-    : `Pay the ₹${RTI_FEE_RUPEES} fee`;
-  const feeNote = options.isBpl
-    ? "No fee. Section 7(5) exempts applicants below the poverty line — but you must attach a copy of your BPL certificate, or the application will be treated as unpaid and returned."
-    : `₹${RTI_FEE_RUPEES}, payable by UPI, net banking, or a Master/Visa/RuPay card. Keep the payment receipt.`;
-
-  const attachments = [
-    options.isBpl
-      ? "A copy of your BPL certificate issued by the appropriate government (mandatory for the fee exemption)."
-      : "Proof of fee payment — the portal receipt, or the Indian Postal Order if filing by post.",
-  ];
-
-  if (options.overPortalLimit) {
-    attachments.push(
-      "Your full itemized request as a PDF, attached under “Supporting Document”. The portal caps the request box at 3,000 characters and expects longer requests as an attachment."
-    );
-  }
-
-  if (resolveChannel(authority) === "rti-online-central") {
-    return {
-      channel: "rti-online-central",
-      title: "File on the central RTI Online portal",
-      rationale: `${authority.authorityName} is a Central Government public authority, so rtionline.gov.in accepts it.`,
-      url: CENTRAL_PORTAL_URL,
-      feeRupees,
-      feeNote,
-      steps: [
-        "Open rtionline.gov.in and choose “Submit Request”.",
-        "Tick the guidelines checkbox and fill in your name, address, and contact details exactly as written below.",
-        "Select the Ministry or Department, then the public authority named below.",
-        "Paste the portal-ready text into the “Text for RTI Request Application” box.",
-        options.isBpl ? `${payStep} Then submit.` : `${payStep} and submit.`,
-        "Save the registration number the portal shows you. Enter it on the next screen so we can track your 30-day deadline.",
-      ],
-      attachments,
-    };
-  }
-
-  return {
-    channel: "state-portal",
-    title: "File with the State authority — not on the central portal",
-    rationale: `${authority.authorityName} is a State public authority. It is handled by your state government, not by the Centre.`,
-    url: authority.verifyAt?.startsWith("http") ? authority.verifyAt : undefined,
-    feeRupees,
-    feeNote: options.isBpl
-      ? feeNote
-      : `₹${RTI_FEE_RUPEES}. States differ in how they take it — a state RTI portal, an Indian Postal Order made out to the Accounts Officer, a demand draft, or a court fee stamp. Check your state's rules before paying.`,
-    steps: [
-      "Check whether your state runs its own RTI portal. Many do; several still take applications only on paper.",
-      "If it does, file there using the portal-ready text below.",
-      "If it does not, print the application, sign it, and send it by registered post to the address shown below — keep the posting receipt, it is your proof of the filing date.",
-      options.isBpl ? payStep : `${payStep} in the manner your state prescribes.`,
-      "Come back and record the filing date so we can track your 30-day deadline.",
-    ],
-    attachments,
-    warning:
-      "Do not file this on rtionline.gov.in. That portal covers Central Government authorities only, and a State application submitted there is returned to you without a refund of the fee.",
-  };
 }
 
 /**

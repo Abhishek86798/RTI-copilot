@@ -1,10 +1,11 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { scrollPageToTop } from "@/components/smooth-scroll";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { AuthorityStep } from "@/components/apply/authority-step";
-import { PAGE_LAYOUT } from "@/components/editorial";
+import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
@@ -72,7 +73,7 @@ function ApplyWizard() {
    * screen with no announcement that anything happened.
    */
   useEffect(() => {
-    window.scrollTo(0, 0);
+    scrollPageToTop();
     headingRef.current?.focus({ preventScroll: true });
   }, [step]);
 
@@ -216,7 +217,6 @@ function ApplyWizard() {
         {step === "draft" && draft && (
           <DraftStep
             grievance={grievance}
-            items={draft.items}
             portalText={portalText}
             onPortalTextChange={handlePortalTextChange}
             lifeOrLibertyFlag={urgent}

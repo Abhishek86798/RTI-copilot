@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 /**
@@ -19,16 +20,45 @@ import Lenis from "lenis";
  * phone that is already struggling; scrolling that lags behind the thumb reads
  * as the page being broken, not as polish.
  */
+
+/**
+ * The live instance, module-scoped so the rest of the app can hand its scroll
+ * requests to whatever is actually driving the page.
+ *
+ * Taking over scrolling means taking over responsibility for it. `window
+ * .scrollTo` no longer reliably moves a Lenis page — Lenis reasserts its own
+ * position on the next frame — so any code that wants the top of the page has
+ * to ask through here or be silently ignored.
+ */
+let instance: Lenis | null = null;
+
+/**
+ * Jump to the top of the page.
+ *
+ * `immediate` on purpose: this is used for navigation and for wizard steps,
+ * where the reader is being shown a different screen, and animating a
+ * thousand-pixel scroll to get there is disorienting rather than smooth.
+ */
+export function scrollPageToTop() {
+  if (instance) {
+    instance.scrollTo(0, { immediate: true });
+    return;
+  }
+  // Reduced motion, or before Lenis has started.
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
 export function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let lenis: Lenis | null = null;
     let frame = 0;
     let observer: MutationObserver | null = null;
 
     function start() {
-      if (lenis) return;
-      lenis = new Lenis({
+      if (instance) return;
+      instance = new Lenis({
         // Short enough that the page still feels directly manipulated.
         duration: 0.9,
         easing: (t: number) => 1 - Math.pow(1 - t, 3),
@@ -39,21 +69,22 @@ export function SmoothScroll() {
       });
 
       function raf(time: number) {
-        lenis?.raf(time);
+        instance?.raf(time);
         frame = requestAnimationFrame(raf);
       }
       frame = requestAnimationFrame(raf);
 
-      // Fix for random scroll locking: React's dynamic DOM updates (like wizard step changes)
-      // sometimes happen too fast or outside ResizeObserver's catch. This forces Lenis
-      // to recalculate the page height whenever the DOM mutates.
+      // React's dynamic DOM updates — a wizard step changing, a panel opening
+      // — can land outside what ResizeObserver catches, leaving Lenis with a
+      // stale page height and the scroll apparently locked. Recalculate on any
+      // mutation.
       observer = new MutationObserver(() => {
-        lenis?.resize();
+        instance?.resize();
       });
-      observer.observe(document.body, { 
-        childList: true, 
-        subtree: true, 
-        characterData: true 
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
       });
     }
 
@@ -63,8 +94,8 @@ export function SmoothScroll() {
         observer = null;
       }
       cancelAnimationFrame(frame);
-      lenis?.destroy();
-      lenis = null;
+      instance?.destroy();
+      instance = null;
     }
 
     function sync() {
@@ -79,6 +110,18 @@ export function SmoothScroll() {
       stop();
     };
   }, []);
+
+  /*
+   * Start every route at the top.
+   *
+   * Next resets the scroll itself on navigation, but it does so through the
+   * window — which Lenis then overrides on its next frame, landing the reader
+   * partway down a page they have never seen. Following a link from the foot
+   * of the FAQ opened the next page already scrolled past its own heading.
+   */
+  useEffect(() => {
+    scrollPageToTop();
+  }, [pathname]);
 
   return null;
 }

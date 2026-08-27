@@ -63,7 +63,13 @@ export function FixtureNotice({ className }: { className?: string }) {
   const { t } = useI18n();
 
   return (
-    <Alert className={cn("border-warning/40 bg-warning/8", className)}>
+    /*
+       role="status" rather than the Alert default of role="alert". This
+       appears when a call falls back to a saved response — worth announcing,
+       but not worth interrupting whatever the reader is in the middle of.
+       WCAG 4.1.3 wants the polite role for exactly this case.
+    */
+    <Alert role="status" className={cn("border-warning/40 bg-warning/8", className)}>
       <FlaskConical aria-hidden="true" className="text-warning" />
       <AlertTitle>Showing a saved response</AlertTitle>
       <AlertDescription>{t("disclosure.fixture")}</AlertDescription>
@@ -82,7 +88,12 @@ export function InfoNotice({
   className?: string;
 }) {
   return (
-    <Alert className={cn("border-info/30 bg-info/6", className)}>
+    /*
+       Not a live region at all. This carries static explanatory content that
+       is present when the page renders, and role="alert" made a screen reader
+       announce it out of document order on every load.
+    */
+    <Alert role="note" className={cn("border-info/30 bg-info/6", className)}>
       <Info aria-hidden="true" className="text-info" />
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>{children}</AlertDescription>

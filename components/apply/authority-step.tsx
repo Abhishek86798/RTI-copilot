@@ -2,7 +2,6 @@
 
 import { useId, useState } from "react";
 import {
-  ArrowLeft,
   ArrowRight,
   Building2,
   ExternalLink,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { InfoNotice } from "@/components/notices";
+import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ux4g/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Marker, PageTitle, Rule } from "@/components/editorial";
@@ -82,6 +82,7 @@ export function AuthorityStep({
         {t("confirm.title")}
       </PageTitle>
 
+      {/* Full measure, matching the step rule on both edges. */}
       <div className="mt-8 space-y-6">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
@@ -156,33 +157,27 @@ export function AuthorityStep({
         </div>
       )}
 
-      <div className="mt-10 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <Button type="button" size="xl" variant="outline" onClick={onBack} disabled={loading} className="order-2 sm:order-1">
-          <ArrowLeft aria-hidden="true" className="mr-2" />
-          {t("common.back")}
-        </Button>
-        
+      <StepActions onBack={onBack} backDisabled={loading}>
         <Button
           type="button"
           size="xl"
           variant={routing.lowConfidence ? "outline" : "cta"}
           onClick={onSubmit}
           disabled={loading || !selectedId}
-          className="order-1 sm:order-2"
         >
           {loading ? (
             <>
-              <Loader2 aria-hidden="true" className="animate-spin mr-2" />
+              <Loader2 aria-hidden="true" className="animate-spin" />
               {t("confirm.working")}
             </>
           ) : (
             <>
               {routing.lowConfidence ? t("confirm.submitUnsure") : t("confirm.submit")}
-              <ArrowRight aria-hidden="true" className="ml-2" />
+              <ArrowRight aria-hidden="true" />
             </>
           )}
         </Button>
-      </div>
+      </StepActions>
     </div>
   );
 }

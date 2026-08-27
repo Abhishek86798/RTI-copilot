@@ -36,6 +36,14 @@ export function SiteFooter() {
       links: [{ label: t("footer.howLink"), href: "/how-it-works" }],
     },
     {
+      heading: t("footer.col.legal"),
+      links: [
+        { label: t("footer.accessibility"), href: "/accessibility" },
+        { label: t("footer.policies"), href: "/policies" },
+        { label: t("footer.sitemap"), href: "/sitemap" },
+      ],
+    },
+    {
       heading: t("footer.col.official"),
       links: [
         { label: t("footer.portalLink"), href: "https://rtionline.gov.in", external: true },
@@ -47,7 +55,7 @@ export function SiteFooter() {
   return (
     <footer data-print="hide" className="mt-auto border-t border-border bg-card">
       <Frame className="py-14 lg:py-20">
-        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
           {/* The disclaimer leads, because it is the part that matters most. */}
           <div className="max-w-[42ch]">
             <p className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
