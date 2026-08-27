@@ -7,7 +7,6 @@ import { Menu, X } from "lucide-react";
 
 import { AuthControls } from "@/components/auth/auth-controls";
 import { LanguageToggle } from "@/components/language-toggle";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useApplications } from "@/lib/client/use-applications";
 import { useI18n } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";
@@ -80,8 +79,17 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav aria-label="Main" className="ml-8 hidden h-full items-center gap-8 lg:flex">
+        {/*
+          Desktop navigation, from `xl` rather than `lg`.
+
+          Seven items whose labels are phrases — "Initiate Requisition",
+          "Applicant Dashboard", "Submit First Appeal" — need about 1250px
+          once the wordmark and the three control groups are placed. Showing
+          them from 1024px left every laptop between those two widths with a
+          header that wrapped each label onto two lines and overlapped the
+          controls. The burger carries 1024–1280px instead, where it fits.
+        */}
+        <nav aria-label="Main" className="ml-6 hidden h-full items-center gap-5 xl:flex 2xl:ml-8 2xl:gap-7">
           {navLinks.map((link) => {
             const active = isActive(link.href);
             return (
@@ -90,7 +98,10 @@ export function SiteHeader() {
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex h-full items-center border-b-2 text-sm font-medium transition-colors hover:text-foreground",
+                  // `whitespace-nowrap` because every label here is a phrase:
+                  // without it "Initiate Requisition" breaks after the first
+                  // word and doubles the header's height.
+                  "relative flex h-full items-center whitespace-nowrap border-b-2 text-sm font-medium transition-colors hover:text-foreground",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                   active
                     ? "border-foreground text-foreground"
@@ -110,13 +121,12 @@ export function SiteHeader() {
 
         {/* Right Controls */}
         <div className="ml-auto flex shrink-0 items-center gap-2">
-          <ThemeToggle className="hidden sm:inline-flex shrink-0" />
           <LanguageToggle className="shrink-0" />
           <AuthControls />
           
           <button
             type="button"
-            className="ml-2 flex min-h-12 min-w-12 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring lg:hidden"
+            className="ml-1 flex min-h-12 min-w-12 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring xl:hidden"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label="Toggle Menu"
             aria-expanded={isMobileMenuOpen}
@@ -127,9 +137,9 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation — `xl:hidden` must track the burger above it. */}
       {isMobileMenuOpen && (
-        <div id="mobile-nav" className="border-t border-border bg-background lg:hidden">
+        <div id="mobile-nav" className="border-t border-border bg-background xl:hidden">
           <nav className="flex flex-col px-2 py-2">
             {navLinks.map((link) => {
               const active = isActive(link.href);

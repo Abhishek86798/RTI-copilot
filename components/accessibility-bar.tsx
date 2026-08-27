@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Contrast, Type } from "lucide-react";
 
 import { Frame } from "@/components/editorial";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useI18n } from "@/lib/client/i18n";
 import { cn } from "@/lib/utils";
 
@@ -195,6 +196,21 @@ export function AccessibilityBar() {
             */}
             <span className="sr-only sm:not-sr-only">{t("a11y.contrast")}</span>
           </button>
+        </div>
+
+        {/*
+          Theme sits with the other display preferences rather than in the
+          main bar below.
+
+          It is the same kind of setting as contrast and text size — how the
+          page looks, chosen once and rarely revisited — and it was costing
+          150px in a bar that needed 1427px to fit 1408px of container, which
+          pushed the last nav item under the controls. Here it costs nothing:
+          this strip is a single right-aligned row with room to spare, and it
+          already wraps gracefully on a phone.
+        */}
+        <div className="ml-2 flex items-center border-l border-border pl-3">
+          <ThemeToggle compact />
         </div>
       </Frame>
     </div>

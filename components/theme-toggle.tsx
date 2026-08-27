@@ -42,7 +42,24 @@ function readStoredTheme(): Theme {
   }
 }
 
-export function ThemeToggle({ className }: { className?: string }) {
+/**
+ * `compact` shrinks the chips from a 48px touch target to 32px, to sit in the
+ * utility strip beside the text-size and contrast controls, which are already
+ * at that scale.
+ *
+ * It is opt-in rather than the default because 48px is the size these should
+ * be wherever a finger is the input. The strip is a dense mouse-and-keyboard
+ * row on desktop and wraps to its own line on a phone, where the buttons
+ * still have space around them — 32px there is the same trade the A− A A+
+ * chips beside it already make.
+ */
+export function ThemeToggle({
+  className,
+  compact = false,
+}: {
+  className?: string;
+  compact?: boolean;
+}) {
   const { t } = useI18n();
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<Theme>("system");
@@ -85,7 +102,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       role="group"
       aria-label={t("theme.label")}
       className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-card p-0.5",
+        "inline-flex items-center rounded-lg border border-border bg-card",
+        compact ? "p-0" : "p-0.5",
         className
       )}
     >
@@ -100,7 +118,8 @@ export function ThemeToggle({ className }: { className?: string }) {
             aria-label={option.label}
             title={option.label}
             className={cn(
-              "grid min-h-12 min-w-12 cursor-pointer place-items-center rounded-md transition-colors",
+              "grid cursor-pointer place-items-center rounded-md transition-colors",
+              compact ? "size-8" : "min-h-12 min-w-12",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               active
                 ? "bg-primary text-primary-foreground"
