@@ -23,12 +23,20 @@ import { cn } from "@/lib/utils";
  * someone reach the fee and be sent back four screens by the server.
  */
 
+/**
+ * Short labels, not the section headings.
+ *
+ * The headings ("Pay the application fee") name the work; the chips only need
+ * to name the place, and five phrase-length labels overflow one row at the
+ * page measure — which pushed the fifth step off the edge where nobody would
+ * find it.
+ */
 export const FILING_STEP_LABELS: Record<FilingStepId, StringKey> = {
-  authority: "submit.section.authority",
-  applicant: "submit.section.applicant",
-  declaration: "submit.section.declaration",
-  request: "submit.section.request",
-  pay: "pay.title",
+  authority: "submit.step.authority",
+  applicant: "submit.step.applicant",
+  declaration: "submit.step.declaration",
+  request: "submit.step.request",
+  pay: "submit.step.pay",
 };
 
 export function FilingStepNav({
@@ -50,7 +58,7 @@ export function FilingStepNav({
 
   return (
     <nav aria-label={t("submit.stepsNav")} className={className}>
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-2">
+      <ol className="flex flex-nowrap items-center gap-x-1.5 overflow-x-auto sm:gap-x-2">
         {steps.map((step, index) => {
           const active = step === current;
           const done = isComplete(step) && index < currentIndex;
@@ -71,7 +79,7 @@ export function FilingStepNav({
                 disabled={!reachable}
                 aria-current={active ? "step" : undefined}
                 className={cn(
-                  "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors",
+                  "inline-flex min-h-11 shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full border px-3.5 text-sm font-medium transition-colors",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                   "disabled:cursor-not-allowed disabled:opacity-45",
                   active
@@ -88,7 +96,20 @@ export function FilingStepNav({
                     {index + 1}
                   </span>
                 )}
-                {t(FILING_STEP_LABELS[step])}
+                {/*
+                  Five phrase-length labels wrap to two rows at this measure,
+                  and the band is sticky — so a wrapped row costs 121px of
+                  every screen rather than 121px once. Below `lg` only the
+                  current step spells itself out; the rest are numbers, which
+                  is enough to show position and to click back to. The full
+                  label stays in the accessible name either way.
+                */}
+                <span className={cn(active ? "inline" : "hidden lg:inline")}>
+                  {t(FILING_STEP_LABELS[step])}
+                </span>
+                <span className="sr-only lg:hidden">
+                  {!active && t(FILING_STEP_LABELS[step])}
+                </span>
                 {/*
                   State in text, not colour alone — the chips differ by fill,
                   which is invisible to a screen reader and to anyone who

@@ -159,6 +159,7 @@ export default function SubmitApplicationPage() {
          */
         backHref={filed ? "/applications" : `/apply?draft=${application.id}`}
         backLabelKey={filed ? "nav.mine" : "common.backStep"}
+        compact={!filed}
       />
 
       {/* Already filed: say so, and hand over. Re-showing the form here is how
@@ -179,16 +180,23 @@ export default function SubmitApplicationPage() {
       )}
 
       {!filed && (
-        <div className="mt-10" data-filing-step>
-          <FilingStepNav
-            steps={FILING_STEPS}
-            current={step}
-            isComplete={(candidate) =>
-              stepProblems(candidate, application, application.portalText).length === 0
-            }
-            onSelect={goTo}
-            className="mb-10"
-          />
+        <div className="mt-6" data-filing-step>
+          {/*
+            Sticky under the site header, which is 4rem tall. The chips are
+            the only wayfinding once the form is five screens deep, and on the
+            applicant step they would otherwise scroll away before the fields
+            they belong to.
+          */}
+          <div className="sticky top-16 z-30 -mx-6 mb-8 border-b border-border bg-background px-6 py-2.5 sm:-mx-12 sm:px-12 lg:-mx-16 lg:px-16">
+            <FilingStepNav
+              steps={FILING_STEPS}
+              current={step}
+              isComplete={(candidate) =>
+                stepProblems(candidate, application, application.portalText).length === 0
+              }
+              onSelect={goTo}
+            />
+          </div>
 
           {step === "pay" ? (
             <PayAndFile

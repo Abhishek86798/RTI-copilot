@@ -13,6 +13,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Marker, Rule } from "@/components/editorial";
 import { CheckboxField } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -110,7 +111,12 @@ export function FilingGuide({
   const shows = (section: FilingSectionId) => !only || only.includes(section);
 
   return (
-    <div className="space-y-16">
+    /*
+     * The 16-unit rhythm separates sections on a page that shows all of them.
+     * Stepped through one at a time there is nothing to separate, and the gap
+     * became a blank band under the step chips.
+     */
+    <div className={only ? "space-y-10" : "space-y-16"}>
       {/* -------------------------------------------------------------- */}
       {/* Scope — the real portal serves Central authorities only          */}
       {/* -------------------------------------------------------------- */}
@@ -127,13 +133,23 @@ export function FilingGuide({
       {/* -------------------------------------------------------------- */}
       {shows("authority") && (
         <section aria-labelledby="authority-heading">
-          <Rule />
-          <div className="pt-8">
+          {/* The rule separates one section from the next; stepped through,
+              the step chips above are already the boundary. */}
+          {!only && <Rule />}
+          <div className={only ? "" : "pt-8"}>
             <Marker label={t("submit.section.authority")} />
             <h2
               id="authority-heading"
               tabIndex={-1}
-              className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+              className={cn(
+              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
+              // Display size belongs to a page title. Stepped through, this is
+              // a section heading inside one, and the smaller size buys back a
+              // line of the form.
+              only
+                ? "text-xl leading-tight sm:text-2xl"
+                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
+            )}
             >
               {t("submit.authorityTitle")}
             </h2>
@@ -191,13 +207,23 @@ export function FilingGuide({
       {/* -------------------------------------------------------------- */}
       {shows("applicant") && (
         <section aria-labelledby="applicant-heading">
-          <Rule />
-          <div className="pt-8">
+          {/* The rule separates one section from the next; stepped through,
+              the step chips above are already the boundary. */}
+          {!only && <Rule />}
+          <div className={only ? "" : "pt-8"}>
             <Marker label={t("submit.section.applicant")} />
             <h2
               id="applicant-heading"
               tabIndex={-1}
-              className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+              className={cn(
+              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
+              // Display size belongs to a page title. Stepped through, this is
+              // a section heading inside one, and the smaller size buys back a
+              // line of the form.
+              only
+                ? "text-xl leading-tight sm:text-2xl"
+                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
+            )}
             >
               {t("file.applicantTitle")}
             </h2>
@@ -364,13 +390,23 @@ export function FilingGuide({
       {/* -------------------------------------------------------------- */}
       {shows("declaration") && (
         <section aria-labelledby="declaration-heading">
-          <Rule />
-          <div className="pt-8">
+          {/* The rule separates one section from the next; stepped through,
+              the step chips above are already the boundary. */}
+          {!only && <Rule />}
+          <div className={only ? "" : "pt-8"}>
             <Marker label={t("submit.section.declaration")} />
             <h2
               id="declaration-heading"
               tabIndex={-1}
-              className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+              className={cn(
+              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
+              // Display size belongs to a page title. Stepped through, this is
+              // a section heading inside one, and the smaller size buys back a
+              // line of the form.
+              only
+                ? "text-xl leading-tight sm:text-2xl"
+                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
+            )}
             >
               {t("submit.declarationTitle")}
             </h2>
@@ -443,13 +479,23 @@ export function FilingGuide({
       {/* -------------------------------------------------------------- */}
       {shows("supporting") && (
         <section aria-labelledby="supporting-heading">
-          <Rule />
-          <div className="pt-8">
+          {/* The rule separates one section from the next; stepped through,
+              the step chips above are already the boundary. */}
+          {!only && <Rule />}
+          <div className={only ? "" : "pt-8"}>
             <Marker label={t("submit.section.supporting")} />
             <h2
               id="supporting-heading"
               tabIndex={-1}
-              className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+              className={cn(
+              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
+              // Display size belongs to a page title. Stepped through, this is
+              // a section heading inside one, and the smaller size buys back a
+              // line of the form.
+              only
+                ? "text-xl leading-tight sm:text-2xl"
+                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
+            )}
             >
               {t("submit.supportingTitle")}
             </h2>
@@ -478,13 +524,23 @@ export function FilingGuide({
       {/* -------------------------------------------------------------- */}
       {shows("request") && (
         <section aria-labelledby="request-heading">
-          <Rule />
-          <div className="pt-8">
+          {/* The rule separates one section from the next; stepped through,
+              the step chips above are already the boundary. */}
+          {!only && <Rule />}
+          <div className={only ? "" : "pt-8"}>
             <Marker label={t("submit.section.request")} />
             <h2
               id="request-heading"
               tabIndex={-1}
-              className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+              className={cn(
+              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
+              // Display size belongs to a page title. Stepped through, this is
+              // a section heading inside one, and the smaller size buys back a
+              // line of the form.
+              only
+                ? "text-xl leading-tight sm:text-2xl"
+                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
+            )}
             >
               {t("submit.requestTitle")}
             </h2>
