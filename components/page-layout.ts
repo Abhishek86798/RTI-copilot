@@ -38,5 +38,12 @@ export const PAGE_LAYOUT =
 export const PAGE_LAYOUT_WIDE =
   "mx-auto w-full max-w-6xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
 
-/** Readable column for content inside a wide page. */
-export const READABLE_COLUMN = "max-w-3xl";
+/**
+ * Readable column for content inside a wide page.
+ *
+ * `mx-auto` is the point of it. Without it the column pinned itself to the
+ * left of the wider measure and left a third of the screen empty on the right,
+ * so the steps that do not need the extra width looked misaligned against the
+ * one that does.
+ */
+export const READABLE_COLUMN = "mx-auto w-full max-w-3xl";

@@ -33,7 +33,6 @@ import { cn } from "@/lib/utils";
  */
 export function DraftStep({
   grievance,
-  items,
   portalText,
   onPortalTextChange,
   lifeOrLibertyFlag,
@@ -43,7 +42,6 @@ export function DraftStep({
   onSubmit,
 }: {
   grievance: string;
-  items: string[];
   portalText: string;
   onPortalTextChange: (value: string) => void;
   lifeOrLibertyFlag: boolean;
@@ -145,57 +143,30 @@ export function DraftStep({
           aria-label={t("draft.compare")}
           className="border-t border-border pt-6 lg:sticky lg:top-24 lg:self-start lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
         >
-          <Marker label={t("draft.compare")} dim={false} />
-
-          <div className="mt-6">
-            <Marker label={t("draft.yourWords")} />
-            {/*
-              Capped and scrollable. A long grievance would otherwise push the
-              explanation below the fold and undo the point of the panel.
-
-              tabIndex makes the scroll box reachable by keyboard: a region
-              that scrolls but cannot be focused is content a keyboard user
-              simply cannot read past the first screenful.
-            */}
-            <p
-              tabIndex={0}
-              role="group"
-              aria-label={t("draft.yourWords")}
-              className="mt-3 max-h-56 overflow-y-auto pr-2 text-sm leading-relaxed whitespace-pre-wrap opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-            >
-              {grievance}
-            </p>
-          </div>
-
-          <div className="mt-8 border-t border-border pt-6">
-            <Marker label={t("draft.ourDraft")} />
-            <ol
-              tabIndex={0}
-              aria-label={t("draft.ourDraft")}
-              className="mt-3 max-h-72 space-y-3 overflow-y-auto pr-2 text-sm leading-relaxed opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-            >
-              {items.map((item, index) => (
-                <li key={index} className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-[0.68rem] tracking-[0.14em] tabular-nums opacity-75"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="mt-8 border-t border-border pt-6">
-            <p className="text-sm font-semibold">{t("draft.whyChanged")}</p>
-            <p className="mt-2 text-sm leading-relaxed opacity-75">
-              {t("draft.whyChangedBody")}
-            </p>
-          </div>
+          <Marker label={t("draft.yourWords")} dim={false} />
+          {/*
+            No height cap and no inner scrollbar. Boxing this into a scrolling
+            panel put a second scroll region inside a page that already
+            scrolls, and hid the end of the citizen's own sentence behind it —
+            on the one screen whose purpose is that they read it back.
+          */}
+          <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap opacity-90">
+            {grievance}
+          </p>
         </aside>
       </div>
+
+      {/*
+        Below the two columns rather than squeezed beside them. This explains
+        the rewrite rather than participating in the comparison, and it reads
+        badly at sidebar width.
+      */}
+      <section className="mt-12 border-t border-border pt-8">
+        <Marker label={t("draft.whyChanged")} dim={false} />
+        <p className="mt-4 max-w-[70ch] leading-relaxed opacity-75">
+          {t("draft.whyChangedBody")}
+        </p>
+      </section>
 
       <StepActions onBack={onBack}>
         <Button type="button" size="xl" variant="cta" onClick={onSubmit}>

@@ -51,7 +51,15 @@ export function PayAndFile({
             // The declaration is a real field on the form now, so send what
             // was ticked. The server rejects an undeclared request, which is
             // what the portal it mirrors does.
-            applicant: { ...application.applicant },
+            //
+            // `phone` on the API is the mobile number — it is validated as
+            // one. The form splits mobile from landline the way the real form
+            // does, so the mobile is what crosses the boundary, with the
+            // landline as a fallback for applications saved before the split.
+            applicant: {
+              ...application.applicant,
+              phone: application.applicant.mobile || application.applicant.phone,
+            },
           },
         }),
       });

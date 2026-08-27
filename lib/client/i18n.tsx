@@ -378,6 +378,56 @@ const en = {
   "appeal.submittedHelp":
     "The First Appellate Authority has 30 days to decide, extendable to 45 with reasons recorded in writing.",
 
+  "nav.appeal": "Submit First Appeal",
+  "appealPage.lead":
+    "If 30 days have passed with no reply, or the reply does not answer what you asked, you can appeal to the First Appellate Authority. No fee is payable.",
+  "appealPage.lookupSection": "Find your request",
+  "appealPage.regNumber": "Registration number",
+  "appealPage.regNumberHelp":
+    "The number issued when you filed. It is on your acknowledgement and in the email we sent.",
+  "appealPage.find": "Find request",
+  "appealPage.notFound":
+    "No filed request on this device carries that number. Check it against your acknowledgement.",
+  "appealPage.eligibleSection": "Ready to appeal",
+  "appealPage.noneTitle": "Nothing is ready to appeal",
+  "appealPage.noneFiled":
+    "You have not filed a request yet. An appeal can only follow one.",
+  "appealPage.noneEligible":
+    "None of your filed requests has passed its reply deadline. An appeal under Section 19(1) becomes available once the statutory period lapses without a decision.",
+  "appealPage.dueSince": "Reply was due on {date}. {days} days left to appeal.",
+  "appealPage.aboutSection": "About the first appeal",
+  "appealPage.about1":
+    "A First Appeal goes to an officer senior to the Public Information Officer within the same public authority — not to a court, and not to the Information Commission. It costs nothing.",
+  "appealPage.about2":
+    "The appellate authority has 30 days to decide, extendable to 45 with reasons recorded in writing. Your own window to appeal is 30 days from the date the reply became due.",
+
+  "submit.section.authority": "Public authority",
+  "submit.authorityTitle": "Public authority details",
+  "submit.authorityHelp":
+    "Pre-selected from what you described. Change either dropdown if you know the request belongs somewhere else — filing with the wrong authority costs a Section 6(3) transfer and restarts the 30-day clock.",
+  "submit.ministry": "Ministry / Department / Apex body",
+  "submit.publicAuthority": "Public authority",
+  "submit.publicAuthorityHint": "Your request will be filed with this public authority.",
+  "submit.pio": "Public Information Officer",
+
+  "file.mobile": "Mobile number",
+  "file.mobileHelp": "Used for SMS alerts about this request.",
+  "file.gender": "Gender",
+  "file.gender.male": "Male",
+  "file.gender.female": "Female",
+  "file.gender.third": "Third gender",
+  "file.country": "Country",
+  "file.country.india": "India",
+  "file.country.other": "Other",
+  "file.countryHelp":
+    "The right under Section 6(1) follows citizenship, not residence — an Indian citizen living abroad may still file.",
+  "file.areaStatus": "Status",
+  "file.area.rural": "Rural",
+  "file.area.urban": "Urban",
+  "file.education": "Educational status",
+  "file.education.literate": "Literate",
+  "file.education.illiterate": "Illiterate",
+
   "submit.stateTitle": "This portal covers Central Government authorities",
   "submit.stateBody":
     "The authority matched here is a State public authority. This portal accepts requests for Central Government ministries, departments and public authorities; most States run their own RTI portal. You can still complete and print this request, but file it with your State's portal or by post.",
@@ -767,6 +817,56 @@ const hi: Record<StringKey, string> = {
   "appeal.submitted": "प्रथम अपील {date} को जमा की गई।",
   "appeal.submittedHelp":
     "प्रथम अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक बढ़ाया जा सकता है।",
+
+  "nav.appeal": "प्रथम अपील जमा करें",
+  "appealPage.lead":
+    "यदि 30 दिन बीत गए और कोई उत्तर नहीं आया, या उत्तर आपके प्रश्न का समाधान नहीं करता, तो आप प्रथम अपीलीय प्राधिकारी के पास अपील कर सकते हैं। कोई शुल्क देय नहीं है।",
+  "appealPage.lookupSection": "अपना अनुरोध ढूँढ़ें",
+  "appealPage.regNumber": "पंजीकरण संख्या",
+  "appealPage.regNumberHelp":
+    "दाख़िल करते समय जारी की गई संख्या। यह आपकी पावती और भेजे गए ईमेल में है।",
+  "appealPage.find": "अनुरोध ढूँढ़ें",
+  "appealPage.notFound":
+    "इस डिवाइस पर दाख़िल किसी अनुरोध की यह संख्या नहीं है। अपनी पावती से मिलान करें।",
+  "appealPage.eligibleSection": "अपील के लिए तैयार",
+  "appealPage.noneTitle": "अपील के लिए कुछ तैयार नहीं है",
+  "appealPage.noneFiled":
+    "आपने अभी कोई अनुरोध दाख़िल नहीं किया है। अपील उसी के बाद हो सकती है।",
+  "appealPage.noneEligible":
+    "आपके किसी भी दाख़िल अनुरोध की उत्तर अवधि अभी समाप्त नहीं हुई है। वैधानिक अवधि बिना निर्णय बीतने पर धारा 19(1) के तहत अपील उपलब्ध होती है।",
+  "appealPage.dueSince": "उत्तर की नियत तिथि {date} थी। अपील के लिए {days} दिन शेष।",
+  "appealPage.aboutSection": "प्रथम अपील के बारे में",
+  "appealPage.about1":
+    "प्रथम अपील उसी लोक प्राधिकरण के भीतर लोक सूचना अधिकारी से वरिष्ठ अधिकारी के पास जाती है — न्यायालय या सूचना आयोग के पास नहीं। इस पर कोई शुल्क नहीं लगता।",
+  "appealPage.about2":
+    "अपीलीय प्राधिकारी को 30 दिन में निर्णय देना होता है, लिखित कारण दर्ज करके 45 दिन तक। आपके पास अपील करने के लिए उत्तर की नियत तिथि से 30 दिन होते हैं।",
+
+  "submit.section.authority": "लोक प्राधिकरण",
+  "submit.authorityTitle": "लोक प्राधिकरण का विवरण",
+  "submit.authorityHelp":
+    "आपके विवरण से पहले ही चुना गया। यदि आप जानते हैं कि अनुरोध कहीं और जाना चाहिए तो कोई भी विकल्प बदल लें — ग़लत प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है और 30 दिन की अवधि फिर से शुरू होती है।",
+  "submit.ministry": "मंत्रालय / विभाग / शीर्ष निकाय",
+  "submit.publicAuthority": "लोक प्राधिकरण",
+  "submit.publicAuthorityHint": "आपका अनुरोध इसी लोक प्राधिकरण के पास दाख़िल होगा।",
+  "submit.pio": "लोक सूचना अधिकारी",
+
+  "file.mobile": "मोबाइल नंबर",
+  "file.mobileHelp": "इस अनुरोध के एसएमएस अलर्ट के लिए।",
+  "file.gender": "लिंग",
+  "file.gender.male": "पुरुष",
+  "file.gender.female": "महिला",
+  "file.gender.third": "तृतीय लिंग",
+  "file.country": "देश",
+  "file.country.india": "भारत",
+  "file.country.other": "अन्य",
+  "file.countryHelp":
+    "धारा 6(1) का अधिकार नागरिकता से जुड़ा है, निवास से नहीं — विदेश में रहने वाला भारतीय नागरिक भी आवेदन कर सकता है।",
+  "file.areaStatus": "स्थिति",
+  "file.area.rural": "ग्रामीण",
+  "file.area.urban": "शहरी",
+  "file.education": "शैक्षिक स्थिति",
+  "file.education.literate": "साक्षर",
+  "file.education.illiterate": "निरक्षर",
 
   "submit.stateTitle": "यह पोर्टल केंद्र सरकार के प्राधिकरणों के लिए है",
   "submit.stateBody":

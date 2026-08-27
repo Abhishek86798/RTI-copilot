@@ -220,7 +220,6 @@ function ApplyWizard() {
         {step === "draft" && draft && (
           <DraftStep
             grievance={grievance}
-            items={draft.items}
             portalText={portalText}
             onPortalTextChange={handlePortalTextChange}
             lifeOrLibertyFlag={urgent}

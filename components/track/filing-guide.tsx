@@ -4,6 +4,12 @@ import { useId } from "react";
 import { AlertTriangle, FileUp, IndianRupee, Siren } from "lucide-react";
 
 import { INDIAN_STATES } from "@/lib/client/states";
+import { RadioField, SelectField } from "@/components/track/submit-fields";
+import {
+  authorityById,
+  ministryGroups,
+  ministryOf,
+} from "@/lib/client/authority-directory";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Marker, Rule } from "@/components/editorial";
 import { CheckboxField } from "@/components/ui/checkbox";
@@ -13,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RTI_FEE_RUPEES } from "@/lib/client/filing";
 import type { Application } from "@/lib/client/guest-storage";
 import { useI18n } from "@/lib/client/i18n";
-import type { Applicant } from "@/lib/client/types";
+import type { Applicant, Authority } from "@/lib/client/types";
 
 /**
  * The sentence that invokes the proviso to Section 7(1).
@@ -49,14 +55,37 @@ const URGENCY_LINE =
 export function FilingGuide({
   application,
   onApplicantChange,
+  onAuthorityChange,
 }: {
   application: Application;
   onApplicantChange: (applicant: Applicant) => void;
+  /**
+   * Routing pre-selects the authority; this lets the applicant override it.
+   * The real form makes them choose from scratch, which is the hardest thing
+   * about filing an RTI — but a guess they cannot correct would be worse.
+   */
+  onAuthorityChange: (authority: Authority) => void;
 }) {
   const { t } = useI18n();
   const fieldPrefix = useId();
 
   const isState = application.authority.level === "state";
+  const groups = ministryGroups();
+
+  /*
+   * Group from the directory by id, not from the stored snapshot.
+   *
+   * An application saved before `ministry` existed on Authority — or seeded
+   * from a demo fixture that never carried it — has the field undefined, which
+   * silently sorted it under "State public authorities" and left both
+   * dropdowns showing a body that had nothing to do with the request. The id
+   * is the identity; everything else on the snapshot is a copy that can go
+   * stale.
+   */
+  const canonical = authorityById(application.authority.id) ?? application.authority;
+  const selectedMinistry = ministryOf(canonical);
+  const authoritiesInMinistry =
+    groups.find((group) => group.ministry === selectedMinistry)?.authorities ?? [];
 
   function patchApplicant(patch: Partial<Applicant>) {
     onApplicantChange({ ...application.applicant, ...patch });
@@ -74,6 +103,67 @@ export function FilingGuide({
           <AlertDescription>{t("submit.stateBody")}</AlertDescription>
         </Alert>
       )}
+
+      {/* -------------------------------------------------------------- */}
+      {/* Public authority — the two-level choice the real form opens with */}
+      {/* -------------------------------------------------------------- */}
+      <section aria-labelledby="authority-heading">
+        <Rule />
+        <div className="pt-8">
+          <Marker label={t("submit.section.authority")} />
+          <h2
+            id="authority-heading"
+            className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          >
+            {t("submit.authorityTitle")}
+          </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            {t("submit.authorityHelp")}
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <SelectField
+            id={`${fieldPrefix}-ministry`}
+            label={t("submit.ministry")}
+            value={selectedMinistry}
+            onChange={(ministry) => {
+              // Moving ministry has to move the authority with it, or the two
+              // dropdowns disagree and the request files against whichever one
+              // the server happens to read.
+              const group = groups.find((entry) => entry.ministry === ministry);
+              if (group?.authorities[0]) onAuthorityChange(group.authorities[0]);
+            }}
+          >
+            {groups.map((group) => (
+              <option key={group.ministry} value={group.ministry}>
+                {group.ministry}
+              </option>
+            ))}
+          </SelectField>
+
+          <SelectField
+            id={`${fieldPrefix}-authority`}
+            label={t("submit.publicAuthority")}
+            value={application.authority.id}
+            onChange={(id) => {
+              const next = authoritiesInMinistry.find((entry) => entry.id === id);
+              if (next) onAuthorityChange(next);
+            }}
+            hint={t("submit.publicAuthorityHint")}
+          >
+            {authoritiesInMinistry.map((authority) => (
+              <option key={authority.id} value={authority.id}>
+                {authority.authorityName}
+              </option>
+            ))}
+          </SelectField>
+        </div>
+
+        <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm leading-relaxed opacity-75">
+          {t("submit.pio")}: <span className="text-foreground">{application.authority.pioDesignation}</span>
+        </p>
+      </section>
 
       {/* -------------------------------------------------------------- */}
       {/* Applicant details                                              */}
@@ -105,17 +195,30 @@ export function FilingGuide({
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor={`${fieldPrefix}-phone`}>{t("file.phone")}</Label>
+              <Label htmlFor={`${fieldPrefix}-mobile`}>{t("file.mobile")}</Label>
               <Input
-                id={`${fieldPrefix}-phone`}
+                id={`${fieldPrefix}-mobile`}
                 type="tel"
                 inputMode="tel"
-                value={application.applicant.phone}
-                onChange={(event) => patchApplicant({ phone: event.target.value })}
+                value={application.applicant.mobile}
+                onChange={(event) => patchApplicant({ mobile: event.target.value })}
                 autoComplete="tel"
               />
+              <p className="text-sm text-muted-foreground">{t("file.mobileHelp")}</p>
             </div>
           </div>
+
+          <RadioField
+            legend={t("file.gender")}
+            name={`${fieldPrefix}-gender`}
+            value={application.applicant.gender}
+            onChange={(gender) => patchApplicant({ gender })}
+            options={[
+              { value: "male", label: t("file.gender.male") },
+              { value: "female", label: t("file.gender.female") },
+              { value: "third", label: t("file.gender.third") },
+            ]}
+          />
 
           <div className="space-y-1.5">
             <Label htmlFor={`${fieldPrefix}-address`}>{t("file.address")}</Label>
@@ -166,6 +269,55 @@ export function FilingGuide({
               />
               <p className="text-sm text-muted-foreground">{t("file.pincodeHelp")}</p>
             </div>
+          </div>
+
+          <RadioField
+            legend={t("file.country")}
+            name={`${fieldPrefix}-country`}
+            value={application.applicant.country}
+            onChange={(country) => patchApplicant({ country })}
+            options={[
+              { value: "india", label: t("file.country.india") },
+              { value: "other", label: t("file.country.other") },
+            ]}
+            hint={t("file.countryHelp")}
+          />
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <RadioField
+              legend={t("file.areaStatus")}
+              name={`${fieldPrefix}-area`}
+              value={application.applicant.areaStatus}
+              onChange={(areaStatus) => patchApplicant({ areaStatus })}
+              options={[
+                { value: "rural", label: t("file.area.rural") },
+                { value: "urban", label: t("file.area.urban") },
+              ]}
+            />
+            <RadioField
+              legend={t("file.education")}
+              name={`${fieldPrefix}-education`}
+              value={application.applicant.educationalStatus}
+              onChange={(educationalStatus) => patchApplicant({ educationalStatus })}
+              options={[
+                { value: "literate", label: t("file.education.literate") },
+                { value: "illiterate", label: t("file.education.illiterate") },
+              ]}
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor={`${fieldPrefix}-phone`}>
+              {t("file.phone")}{" "}
+              <span className="font-normal opacity-75">({t("common.optional")})</span>
+            </Label>
+            <Input
+              id={`${fieldPrefix}-phone`}
+              type="tel"
+              inputMode="tel"
+              value={application.applicant.phone}
+              onChange={(event) => patchApplicant({ phone: event.target.value })}
+            />
           </div>
 
           <div className="space-y-1.5">

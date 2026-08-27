@@ -195,6 +195,9 @@ export default function ApplicationPage() {
           <FilingGuide
             application={application}
             onApplicantChange={handleApplicantChange}
+            onAuthorityChange={(authority) =>
+              updateApplication(application.id, { authority })
+            }
           />
 
           {/*

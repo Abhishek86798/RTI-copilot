@@ -21,6 +21,7 @@ export function SiteHeader() {
   const navLinks = [
     { href: "/apply", label: t("nav.new") },
     { href: "/applications", label: t("nav.mine"), count: applications.length },
+    { href: "/appeal", label: t("nav.appeal") },
     { href: "/manual", label: t("nav.manual") },
     { href: "/contact", label: t("nav.contact") },
     { href: "/faq", label: t("nav.faq") },
