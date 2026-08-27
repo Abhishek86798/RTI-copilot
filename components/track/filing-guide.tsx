@@ -11,7 +11,7 @@ import {
   ministryOf,
 } from "@/lib/client/authority-directory";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Marker, Rule } from "@/components/editorial";
+import { Marker } from "@/components/editorial";
 import { CheckboxField } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -116,7 +116,7 @@ export function FilingGuide({
      * Stepped through one at a time there is nothing to separate, and the gap
      * became a blank band under the step chips.
      */
-    <div className={only ? "space-y-10" : "space-y-16"}>
+    <div className={only ? "space-y-10" : "space-y-10"}>
       {/* -------------------------------------------------------------- */}
       {/* Scope — the real portal serves Central authorities only          */}
       {/* -------------------------------------------------------------- */}
@@ -132,73 +132,82 @@ export function FilingGuide({
       {/* Public authority — the two-level choice the real form opens with */}
       {/* -------------------------------------------------------------- */}
       {shows("authority") && (
-        <section aria-labelledby="authority-heading">
-          {/* The rule separates one section from the next; stepped through,
-              the step chips above are already the boundary. */}
-          {!only && <Rule />}
-          <div className={only ? "" : "pt-8"}>
+        <section
+          aria-labelledby="authority-heading"
+          className={cn(
+            !only && "border-t border-border pt-8",
+            /*
+              The label beside the fields, not above them.
+
+              Stacked, a section spent four lines on its own heading
+              and standfirst before the first input, and left the
+              right half of the page empty while doing it. Set as two
+              columns the same section is a third of the height and
+              uses the width it already had.
+            */
+            "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12"
+          )}
+        >
+          <div>
             <Marker label={t("submit.section.authority")} />
             <h2
               id="authority-heading"
               tabIndex={-1}
-              className={cn(
-              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
-              // Display size belongs to a page title. Stepped through, this is
-              // a section heading inside one, and the smaller size buys back a
-              // line of the form.
-              only
-                ? "text-xl leading-tight sm:text-2xl"
-                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
-            )}
+              // One size, whether the section is stepped through or stacked.
+              // Display size belongs to a page title; this is a heading inside
+              // one, and every line it saves is a line of form that fits.
+              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
             >
               {t("submit.authorityTitle")}
             </h2>
-            <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
               {t("submit.authorityHelp")}
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <SelectField
-              id={`${fieldPrefix}-ministry`}
-              label={t("submit.ministry")}
-              value={selectedMinistry}
-              onChange={(ministry) => {
-                // Moving ministry has to move the authority with it, or the two
-                // dropdowns disagree and the request files against whichever one
-                // the server happens to read.
-                const group = groups.find((entry) => entry.ministry === ministry);
-                if (group?.authorities[0]) onAuthorityChange(group.authorities[0]);
-              }}
-            >
-              {groups.map((group) => (
-                <option key={group.ministry} value={group.ministry}>
-                  {group.ministry}
-                </option>
-              ))}
-            </SelectField>
+          <div className="mt-5 lg:mt-0">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <SelectField
+                id={`${fieldPrefix}-ministry`}
+                label={t("submit.ministry")}
+                value={selectedMinistry}
+                onChange={(ministry) => {
+                  // Moving ministry has to move the authority with it, or the two
+                  // dropdowns disagree and the request files against whichever one
+                  // the server happens to read.
+                  const group = groups.find((entry) => entry.ministry === ministry);
+                  if (group?.authorities[0]) onAuthorityChange(group.authorities[0]);
+                }}
+              >
+                {groups.map((group) => (
+                  <option key={group.ministry} value={group.ministry}>
+                    {group.ministry}
+                  </option>
+                ))}
+              </SelectField>
 
-            <SelectField
-              id={`${fieldPrefix}-authority`}
-              label={t("submit.publicAuthority")}
-              value={application.authority.id}
-              onChange={(id) => {
-                const next = authoritiesInMinistry.find((entry) => entry.id === id);
-                if (next) onAuthorityChange(next);
-              }}
-              hint={t("submit.publicAuthorityHint")}
-            >
-              {authoritiesInMinistry.map((authority) => (
-                <option key={authority.id} value={authority.id}>
-                  {authority.authorityName}
-                </option>
-              ))}
-            </SelectField>
+              <SelectField
+                id={`${fieldPrefix}-authority`}
+                label={t("submit.publicAuthority")}
+                value={application.authority.id}
+                onChange={(id) => {
+                  const next = authoritiesInMinistry.find((entry) => entry.id === id);
+                  if (next) onAuthorityChange(next);
+                }}
+                hint={t("submit.publicAuthorityHint")}
+              >
+                {authoritiesInMinistry.map((authority) => (
+                  <option key={authority.id} value={authority.id}>
+                    {authority.authorityName}
+                  </option>
+                ))}
+              </SelectField>
+            </div>
+
+            <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm leading-relaxed opacity-75">
+              {t("submit.pio")}: <span className="text-foreground">{application.authority.pioDesignation}</span>
+            </p>
           </div>
-
-          <p className="mt-4 border-l-2 border-border py-1 pl-4 text-sm leading-relaxed opacity-75">
-            {t("submit.pio")}: <span className="text-foreground">{application.authority.pioDesignation}</span>
-          </p>
         </section>
       )}
 
@@ -206,34 +215,49 @@ export function FilingGuide({
       {/* Applicant details                                              */}
       {/* -------------------------------------------------------------- */}
       {shows("applicant") && (
-        <section aria-labelledby="applicant-heading">
-          {/* The rule separates one section from the next; stepped through,
-              the step chips above are already the boundary. */}
-          {!only && <Rule />}
-          <div className={only ? "" : "pt-8"}>
+        <section
+          aria-labelledby="applicant-heading"
+          className={cn(
+            !only && "border-t border-border pt-8",
+            /*
+              The label beside the fields, not above them.
+
+              Stacked, a section spent four lines on its own heading
+              and standfirst before the first input, and left the
+              right half of the page empty while doing it. Set as two
+              columns the same section is a third of the height and
+              uses the width it already had.
+            */
+            "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12"
+          )}
+        >
+          <div>
             <Marker label={t("submit.section.applicant")} />
             <h2
               id="applicant-heading"
               tabIndex={-1}
-              className={cn(
-              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
-              // Display size belongs to a page title. Stepped through, this is
-              // a section heading inside one, and the smaller size buys back a
-              // line of the form.
-              only
-                ? "text-xl leading-tight sm:text-2xl"
-                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
-            )}
+              // One size, whether the section is stepped through or stacked.
+              // Display size belongs to a page title; this is a heading inside
+              // one, and every line it saves is a line of form that fits.
+              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
             >
               {t("file.applicantTitle")}
             </h2>
-            <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
               {t("file.applicantHelp")}
             </p>
           </div>
 
-          <div className="mt-8 space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
+          <div className="mt-5 lg:mt-0">
+            {/*
+              One grid for the whole particulars form, two fields to a row.
+
+              Set as a stack of full-width rows it ran past a thousand pixels
+              for eleven short fields, and put a 780px-wide box under a label
+              reading "PIN code". Paired, the step fits a screen and every
+              control is about as wide as the thing it holds.
+            */}
+            <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor={`${fieldPrefix}-name`}>{t("file.name")}</Label>
                 <Input
@@ -243,6 +267,7 @@ export function FilingGuide({
                   autoComplete="name"
                 />
               </div>
+
               <div className="space-y-1.5">
                 <Label htmlFor={`${fieldPrefix}-mobile`}>{t("file.mobile")}</Label>
                 <Input
@@ -255,36 +280,23 @@ export function FilingGuide({
                 />
                 <p className="text-sm text-muted-foreground">{t("file.mobileHelp")}</p>
               </div>
-            </div>
 
-            <RadioField
-              legend={t("file.gender")}
-              name={`${fieldPrefix}-gender`}
-              value={application.applicant.gender}
-              onChange={(gender) => patchApplicant({ gender })}
-              options={[
-                { value: "male", label: t("file.gender.male") },
-                { value: "female", label: t("file.gender.female") },
-                { value: "third", label: t("file.gender.third") },
-              ]}
-            />
+              {/* The one field that genuinely needs the full width. */}
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor={`${fieldPrefix}-address`}>{t("file.address")}</Label>
+                <Textarea
+                  id={`${fieldPrefix}-address`}
+                  value={application.applicant.address}
+                  onChange={(event) => patchApplicant({ address: event.target.value })}
+                  rows={2}
+                  autoComplete="street-address"
+                />
+              </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor={`${fieldPrefix}-address`}>{t("file.address")}</Label>
-              <Textarea
-                id={`${fieldPrefix}-address`}
-                value={application.applicant.address}
-                onChange={(event) => patchApplicant({ address: event.target.value })}
-                rows={3}
-                autoComplete="street-address"
-              />
-            </div>
-
-            {/*
-              State and PIN are separate fields on the real form, not part of the
-              street address, and it rejects an application without them.
-            */}
-            <div className="grid gap-4 sm:grid-cols-2">
+              {/*
+                State and PIN are separate fields on the real form, not part of
+                the street address, and it rejects an application without them.
+              */}
               <div className="space-y-1.5">
                 <Label htmlFor={`${fieldPrefix}-state`}>{t("file.state")}</Label>
                 <select
@@ -302,6 +314,7 @@ export function FilingGuide({
                   ))}
                 </select>
               </div>
+
               <div className="space-y-1.5">
                 <Label htmlFor={`${fieldPrefix}-pincode`}>{t("file.pincode")}</Label>
                 <Input
@@ -318,21 +331,31 @@ export function FilingGuide({
                 />
                 <p className="text-sm text-muted-foreground">{t("file.pincodeHelp")}</p>
               </div>
-            </div>
 
-            <RadioField
-              legend={t("file.country")}
-              name={`${fieldPrefix}-country`}
-              value={application.applicant.country}
-              onChange={(country) => patchApplicant({ country })}
-              options={[
-                { value: "india", label: t("file.country.india") },
-                { value: "other", label: t("file.country.other") },
-              ]}
-              hint={t("file.countryHelp")}
-            />
+              <RadioField
+                legend={t("file.gender")}
+                name={`${fieldPrefix}-gender`}
+                value={application.applicant.gender}
+                onChange={(gender) => patchApplicant({ gender })}
+                options={[
+                  { value: "male", label: t("file.gender.male") },
+                  { value: "female", label: t("file.gender.female") },
+                  { value: "third", label: t("file.gender.third") },
+                ]}
+              />
 
-            <div className="grid gap-6 sm:grid-cols-2">
+              <RadioField
+                legend={t("file.country")}
+                name={`${fieldPrefix}-country`}
+                value={application.applicant.country}
+                onChange={(country) => patchApplicant({ country })}
+                options={[
+                  { value: "india", label: t("file.country.india") },
+                  { value: "other", label: t("file.country.other") },
+                ]}
+                hint={t("file.countryHelp")}
+              />
+
               <RadioField
                 legend={t("file.areaStatus")}
                 name={`${fieldPrefix}-area`}
@@ -343,6 +366,7 @@ export function FilingGuide({
                   { value: "urban", label: t("file.area.urban") },
                 ]}
               />
+
               <RadioField
                 legend={t("file.education")}
                 name={`${fieldPrefix}-education`}
@@ -353,33 +377,33 @@ export function FilingGuide({
                   { value: "illiterate", label: t("file.education.illiterate") },
                 ]}
               />
-            </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor={`${fieldPrefix}-phone`}>
-                {t("file.phone")}{" "}
-                <span className="font-normal opacity-75">({t("common.optional")})</span>
-              </Label>
-              <Input
-                id={`${fieldPrefix}-phone`}
-                type="tel"
-                inputMode="tel"
-                value={application.applicant.phone}
-                onChange={(event) => patchApplicant({ phone: event.target.value })}
-              />
-            </div>
+              <div className="space-y-1.5">
+                <Label htmlFor={`${fieldPrefix}-phone`}>
+                  {t("file.phone")}{" "}
+                  <span className="font-normal opacity-75">({t("common.optional")})</span>
+                </Label>
+                <Input
+                  id={`${fieldPrefix}-phone`}
+                  type="tel"
+                  inputMode="tel"
+                  value={application.applicant.phone}
+                  onChange={(event) => patchApplicant({ phone: event.target.value })}
+                />
+              </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor={`${fieldPrefix}-email`}>{t("file.email")}</Label>
-              <Input
-                id={`${fieldPrefix}-email`}
-                type="email"
-                inputMode="email"
-                value={application.applicant.email}
-                onChange={(event) => patchApplicant({ email: event.target.value })}
-                autoComplete="email"
-              />
-              <p className="text-sm text-muted-foreground">{t("submit.emailHelp")}</p>
+              <div className="space-y-1.5">
+                <Label htmlFor={`${fieldPrefix}-email`}>{t("file.email")}</Label>
+                <Input
+                  id={`${fieldPrefix}-email`}
+                  type="email"
+                  inputMode="email"
+                  value={application.applicant.email}
+                  onChange={(event) => patchApplicant({ email: event.target.value })}
+                  autoComplete="email"
+                />
+                <p className="text-sm text-muted-foreground">{t("submit.emailHelp")}</p>
+              </div>
             </div>
           </div>
         </section>
@@ -389,86 +413,95 @@ export function FilingGuide({
       {/* Declaration and fee status                                     */}
       {/* -------------------------------------------------------------- */}
       {shows("declaration") && (
-        <section aria-labelledby="declaration-heading">
-          {/* The rule separates one section from the next; stepped through,
-              the step chips above are already the boundary. */}
-          {!only && <Rule />}
-          <div className={only ? "" : "pt-8"}>
+        <section
+          aria-labelledby="declaration-heading"
+          className={cn(
+            !only && "border-t border-border pt-8",
+            /*
+              The label beside the fields, not above them.
+
+              Stacked, a section spent four lines on its own heading
+              and standfirst before the first input, and left the
+              right half of the page empty while doing it. Set as two
+              columns the same section is a third of the height and
+              uses the width it already had.
+            */
+            "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12"
+          )}
+        >
+          <div>
             <Marker label={t("submit.section.declaration")} />
             <h2
               id="declaration-heading"
               tabIndex={-1}
-              className={cn(
-              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
-              // Display size belongs to a page title. Stepped through, this is
-              // a section heading inside one, and the smaller size buys back a
-              // line of the form.
-              only
-                ? "text-xl leading-tight sm:text-2xl"
-                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
-            )}
+              // One size, whether the section is stepped through or stacked.
+              // Display size belongs to a page title; this is a heading inside
+              // one, and every line it saves is a line of form that fits.
+              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
             >
               {t("submit.declarationTitle")}
             </h2>
           </div>
 
-          <div className="mt-8 space-y-4">
-            {/*
-              Section 6(1) confines the right to citizens, and the real form
-              makes you assert it before it will take the request. It is a
-              declaration, not a verification — nobody checks it, here or there.
-            */}
-            <CheckboxField
-              id={`${fieldPrefix}-citizen`}
-              checked={application.applicant.isCitizen ?? false}
-              onChange={(event) => patchApplicant({ isCitizen: event.target.checked })}
-              label={t("submit.citizen")}
-              hint={t("submit.citizenHelp")}
-            />
-
-            <CheckboxField
-              id={`${fieldPrefix}-bpl`}
-              checked={application.applicant.isBpl}
-              onChange={(event) => patchApplicant({ isBpl: event.target.checked })}
-              label={t("file.bpl")}
-              hint={t("file.bplHelp")}
-            />
-
-            {/*
-              s.7(5) waives the fee on production of the certificate, not on the
-              claim alone. Asking for the reference here is what stops someone
-              filing a fee-exempt request that is returned as unpaid.
-            */}
-            {application.applicant.isBpl && (
-              <div className="space-y-1.5 pl-8">
-                <Label htmlFor={`${fieldPrefix}-bplref`}>{t("file.bplRef")}</Label>
-                <Input
-                  id={`${fieldPrefix}-bplref`}
-                  value={application.applicant.bplCertificateRef ?? ""}
-                  onChange={(event) =>
-                    patchApplicant({ bplCertificateRef: event.target.value })
-                  }
-                />
-                <p className="text-sm text-muted-foreground">{t("file.bplRefHelp")}</p>
-              </div>
-            )}
-
-            <div className="flex items-start gap-3 border-l-2 border-border py-1 pl-4">
-              <IndianRupee
-                aria-hidden="true"
-                className="mt-0.5 size-5 shrink-0 opacity-75"
+          <div className="mt-5 lg:mt-0">
+            <div className="space-y-4">
+              {/*
+                Section 6(1) confines the right to citizens, and the real form
+                makes you assert it before it will take the request. It is a
+                declaration, not a verification — nobody checks it, here or there.
+              */}
+              <CheckboxField
+                id={`${fieldPrefix}-citizen`}
+                checked={application.applicant.isCitizen ?? false}
+                onChange={(event) => patchApplicant({ isCitizen: event.target.checked })}
+                label={t("submit.citizen")}
+                hint={t("submit.citizenHelp")}
               />
-              <p className="text-sm leading-relaxed">
-                <span className="font-semibold">
-                  {t("file.fee")}:{" "}
-                  {application.applicant.isBpl ? t("submit.feeNil") : `₹${RTI_FEE_RUPEES}`}
-                </span>{" "}
-                <span className="opacity-75">
-                  {application.applicant.isBpl
-                    ? t("submit.feeExemptNote")
-                    : t("submit.feeNote")}
-                </span>
-              </p>
+
+              <CheckboxField
+                id={`${fieldPrefix}-bpl`}
+                checked={application.applicant.isBpl}
+                onChange={(event) => patchApplicant({ isBpl: event.target.checked })}
+                label={t("file.bpl")}
+                hint={t("file.bplHelp")}
+              />
+
+              {/*
+                s.7(5) waives the fee on production of the certificate, not on the
+                claim alone. Asking for the reference here is what stops someone
+                filing a fee-exempt request that is returned as unpaid.
+              */}
+              {application.applicant.isBpl && (
+                <div className="space-y-1.5 pl-8">
+                  <Label htmlFor={`${fieldPrefix}-bplref`}>{t("file.bplRef")}</Label>
+                  <Input
+                    id={`${fieldPrefix}-bplref`}
+                    value={application.applicant.bplCertificateRef ?? ""}
+                    onChange={(event) =>
+                      patchApplicant({ bplCertificateRef: event.target.value })
+                    }
+                  />
+                  <p className="text-sm text-muted-foreground">{t("file.bplRefHelp")}</p>
+                </div>
+              )}
+
+              <div className="flex items-start gap-3 border-l-2 border-border py-1 pl-4">
+                <IndianRupee
+                  aria-hidden="true"
+                  className="mt-0.5 size-5 shrink-0 opacity-75"
+                />
+                <p className="text-sm leading-relaxed">
+                  <span className="font-semibold">
+                    {t("file.fee")}:{" "}
+                    {application.applicant.isBpl ? t("submit.feeNil") : `₹${RTI_FEE_RUPEES}`}
+                  </span>{" "}
+                  <span className="opacity-75">
+                    {application.applicant.isBpl
+                      ? t("submit.feeExemptNote")
+                      : t("submit.feeNote")}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -478,41 +511,51 @@ export function FilingGuide({
       {/* Supporting document                                            */}
       {/* -------------------------------------------------------------- */}
       {shows("supporting") && (
-        <section aria-labelledby="supporting-heading">
-          {/* The rule separates one section from the next; stepped through,
-              the step chips above are already the boundary. */}
-          {!only && <Rule />}
-          <div className={only ? "" : "pt-8"}>
+        <section
+          aria-labelledby="supporting-heading"
+          className={cn(
+            !only && "border-t border-border pt-8",
+            /*
+              The label beside the fields, not above them.
+
+              Stacked, a section spent four lines on its own heading
+              and standfirst before the first input, and left the
+              right half of the page empty while doing it. Set as two
+              columns the same section is a third of the height and
+              uses the width it already had.
+            */
+            "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12"
+          )}
+        >
+          <div>
             <Marker label={t("submit.section.supporting")} />
             <h2
               id="supporting-heading"
               tabIndex={-1}
-              className={cn(
-              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
-              // Display size belongs to a page title. Stepped through, this is
-              // a section heading inside one, and the smaller size buys back a
-              // line of the form.
-              only
-                ? "text-xl leading-tight sm:text-2xl"
-                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
-            )}
+              // One size, whether the section is stepped through or stacked.
+              // Display size belongs to a page title; this is a heading inside
+              // one, and every line it saves is a line of form that fits.
+              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
             >
               {t("submit.supportingTitle")}
             </h2>
           </div>
-          <div className="mt-8">
-            {/*
-              Disclosed rather than faked. The real form takes one PDF up to 1MB
-              here; this build has no document store, and an upload control that
-              silently discarded the file would be worse than saying so.
-            */}
-            <div className="flex items-start gap-3 border border-dashed border-border p-5">
-              <FileUp aria-hidden="true" className="mt-0.5 size-5 shrink-0 opacity-75" />
-              <div>
-                <p className="text-sm font-medium">{t("submit.supportingNotAvailable")}</p>
-                <p className="mt-1 max-w-[58ch] text-sm leading-relaxed opacity-75">
-                  {t("submit.supportingHelp")}
-                </p>
+
+          <div className="mt-5 lg:mt-0">
+            <div>
+              {/*
+                Disclosed rather than faked. The real form takes one PDF up to 1MB
+                here; this build has no document store, and an upload control that
+                silently discarded the file would be worse than saying so.
+              */}
+              <div className="flex items-start gap-3 border border-dashed border-border p-5">
+                <FileUp aria-hidden="true" className="mt-0.5 size-5 shrink-0 opacity-75" />
+                <div>
+                  <p className="text-sm font-medium">{t("submit.supportingNotAvailable")}</p>
+                  <p className="mt-1 max-w-[58ch] text-sm leading-relaxed opacity-75">
+                    {t("submit.supportingHelp")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -523,52 +566,61 @@ export function FilingGuide({
       {/* Text of the request                                            */}
       {/* -------------------------------------------------------------- */}
       {shows("request") && (
-        <section aria-labelledby="request-heading">
-          {/* The rule separates one section from the next; stepped through,
-              the step chips above are already the boundary. */}
-          {!only && <Rule />}
-          <div className={only ? "" : "pt-8"}>
+        <section
+          aria-labelledby="request-heading"
+          className={cn(
+            !only && "border-t border-border pt-8",
+            /*
+              The label beside the fields, not above them.
+
+              Stacked, a section spent four lines on its own heading
+              and standfirst before the first input, and left the
+              right half of the page empty while doing it. Set as two
+              columns the same section is a third of the height and
+              uses the width it already had.
+            */
+            "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12"
+          )}
+        >
+          <div>
             <Marker label={t("submit.section.request")} />
             <h2
               id="request-heading"
               tabIndex={-1}
-              className={cn(
-              "mt-3 max-w-[30ch] font-bold tracking-[-0.02em] text-balance",
-              // Display size belongs to a page title. Stepped through, this is
-              // a section heading inside one, and the smaller size buys back a
-              // line of the form.
-              only
-                ? "text-xl leading-tight sm:text-2xl"
-                : "mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] sm:text-[1.9rem]"
-            )}
+              // One size, whether the section is stepped through or stacked.
+              // Display size belongs to a page title; this is a heading inside
+              // one, and every line it saves is a line of form that fits.
+              className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
             >
               {t("submit.requestTitle")}
             </h2>
-            <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            <p className="mt-2 max-w-[42ch] text-sm leading-[1.6] opacity-75">
               {t("submit.requestHelp")}
             </p>
           </div>
 
-          {application.lifeOrLibertyFlag && (
-            <Alert className="mt-8 border-destructive/40 bg-destructive/6">
-              <Siren aria-hidden="true" className="text-destructive" />
-              <AlertTitle>{t("submit.urgentTitle")}</AlertTitle>
-              <AlertDescription className="space-y-3">
-                <p>{t("submit.urgentBody")}</p>
-                <p className="border-l-2 border-destructive/40 py-1 pl-4 font-mono text-sm text-foreground">
-                  {URGENCY_LINE}
-                </p>
-              </AlertDescription>
-            </Alert>
-          )}
+          <div className="mt-5 lg:mt-0">
+            {application.lifeOrLibertyFlag && (
+              <Alert className="border-destructive/40 bg-destructive/6">
+                <Siren aria-hidden="true" className="text-destructive" />
+                <AlertTitle>{t("submit.urgentTitle")}</AlertTitle>
+                <AlertDescription className="space-y-3">
+                  <p>{t("submit.urgentBody")}</p>
+                  <p className="border-l-2 border-destructive/40 py-1 pl-4 font-mono text-sm text-foreground">
+                    {URGENCY_LINE}
+                  </p>
+                </AlertDescription>
+              </Alert>
+            )}
 
-          <pre className="mt-8 border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-            {application.portalText}
-          </pre>
-          <p className="mt-4 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
-            {application.portalText.length.toLocaleString("en-IN")} / 3,000{" "}
-            {t("draft.chars")}
-          </p>
+            <pre className="border-l-2 border-border py-2 pl-6 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+              {application.portalText}
+            </pre>
+            <p className="mt-4 font-mono text-[0.68rem] tracking-[0.14em] uppercase opacity-75">
+              {application.portalText.length.toLocaleString("en-IN")} / 3,000{" "}
+              {t("draft.chars")}
+            </p>
+          </div>
         </section>
       )}
     </div>

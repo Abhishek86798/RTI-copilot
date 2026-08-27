@@ -91,7 +91,7 @@ export function DeadlineTracker({
         </p>
         <p
           className={cn(
-            "mt-3 text-[2.25rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.9rem]",
+            "mt-3 text-[2rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.5rem]",
             clock.isOverdue && "text-destructive"
           )}
         >
@@ -120,7 +120,7 @@ export function DeadlineTracker({
 
       {!clock.isOverdue && (
         <div className="mt-6">
-          <Button type="button" variant="outline" size="xl" onClick={onLogResponse}>
+          <Button type="button" variant="outline" size="lg" onClick={onLogResponse}>
             {t("track.gotReply")}
           </Button>
         </div>
@@ -151,7 +151,7 @@ export function DeadlineTracker({
             </div>
           ) : (
             <div className="mt-4">
-              <Button type="button" variant="outline" size="xl" onClick={onSimulate}>
+              <Button type="button" variant="outline" size="lg" onClick={onSimulate}>
                 <FastForward aria-hidden="true" />
                 {t("track.simulate")}
               </Button>

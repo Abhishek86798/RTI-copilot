@@ -54,18 +54,26 @@ export function SiteFooter() {
 
   return (
     <footer data-print="hide" className="mt-auto border-t border-border bg-card">
-      <Frame className="py-14 lg:py-20">
-        <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
+      <Frame className="py-10 lg:py-12">
+        {/*
+          The disclaimer column is given twice the width of a link column.
+          
+          At 1.6fr it was about 300px wide, which set four paragraphs as a
+          narrow ribbon and made the footer 712px tall — a full screen of
+          chrome under every page on the site. Wider and tighter, it says the
+          same thing in half the height.
+        */}
+        <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]">
           {/* The disclaimer leads, because it is the part that matters most. */}
-          <div className="max-w-[42ch]">
+          <div className="max-w-[52ch]">
             <p className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
               {t("brand.name")}
             </p>
-            <p className="mt-5 text-base leading-relaxed font-medium">
+            <p className="mt-4 text-[0.9375rem] leading-[1.55] font-medium">
               {t("footer.independent")}
             </p>
-            <p className="mt-4 text-sm leading-relaxed opacity-75">{t("footer.notGov")}</p>
-            <p className="mt-3 text-sm leading-relaxed opacity-75">{t("footer.notLegal")}</p>
+            <p className="mt-3 text-[0.8125rem] leading-[1.6] opacity-75">{t("footer.notGov")}</p>
+            <p className="mt-2 text-[0.8125rem] leading-[1.6] opacity-75">{t("footer.notLegal")}</p>
           </div>
 
           {columns.map((column) => (
@@ -73,7 +81,7 @@ export function SiteFooter() {
               <h2 className="font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
                 {column.heading}
               </h2>
-              <ul className="mt-5 space-y-3.5">
+              <ul className="mt-4 space-y-2.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     {"external" in link && link.external ? (
@@ -100,7 +108,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-14 border-t border-border pt-6">
+        <div className="mt-10 border-t border-border pt-5">
           <p className="font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
             {t("footer.colophon")}
           </p>

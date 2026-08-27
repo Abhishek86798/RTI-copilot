@@ -61,10 +61,10 @@ export default function ApplicationsPage() {
         {t("list.title")}
       </PageTitle>
 
-      <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-5">
         <p className="max-w-[46ch] text-base opacity-75">{t("list.stored")}</p>
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           nativeButton={false}
           render={
@@ -77,10 +77,10 @@ export default function ApplicationsPage() {
       </div>
 
       {sorted.length === 0 ? (
-        <div className="mt-14 border-t border-border py-24 text-center">
+        <div className="mt-8 border-t border-border py-16 text-center">
           <p className="text-lg opacity-75">{t("list.empty")}</p>
           <Button
-            size="xl"
+            size="lg"
             variant="cta"
             className="mt-6"
             nativeButton={false}
@@ -92,7 +92,7 @@ export default function ApplicationsPage() {
         // them: an `hr` is not permitted content inside a `ul`, and inserting
         // one silently breaks the list semantics a screen reader relies on to
         // announce "list, N items".
-        <ul className="mt-14 border-b border-border">
+        <ul className="mt-8 border-b border-border">
           {sorted.map((application) => (
             <li key={application.id} className="border-t border-border">
               <ApplicationRow application={application} />
@@ -124,8 +124,8 @@ function ApplicationRow({ application }: { application: Application }) {
       beside it. Nesting a button inside an anchor would be invalid markup and
       would give the row two conflicting activation behaviours.
     */
-    <div className="group relative py-7 transition-colors hover:bg-card">
-      <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-8">
+    <div className="group relative py-5 transition-colors hover:bg-card">
+      <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-4">
             <StatusBadge status={status} />
@@ -136,7 +136,7 @@ function ApplicationRow({ application }: { application: Application }) {
             )}
           </div>
 
-          <p className="mt-5 max-w-[34ch] text-xl leading-snug font-semibold tracking-[-0.01em]">
+          <p className="mt-3 max-w-[40ch] text-base leading-snug font-semibold tracking-[-0.01em]">
             <Link
               /*
                  Filing and tracking are separate pages, so a row has to point
@@ -154,7 +154,7 @@ function ApplicationRow({ application }: { application: Application }) {
               {application.authority.authorityName}
             </Link>
           </p>
-          <p className="mt-4 line-clamp-2 max-w-[58ch] text-base leading-loose opacity-75">
+          <p className="mt-2 line-clamp-2 max-w-[70ch] text-sm leading-[1.6] opacity-75">
             {application.grievance}
           </p>
         </div>
@@ -169,7 +169,7 @@ function ApplicationRow({ application }: { application: Application }) {
             <>
               <p
                 className={cn(
-                  "text-[1.6rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums",
+                  "text-[1.35rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums",
                   clock.isOverdue && "text-destructive"
                 )}
               >
@@ -199,7 +199,7 @@ function ApplicationRow({ application }: { application: Application }) {
       {/* Raised above the stretched link so it stays clickable in its own
           right. This is where the PDF lives now — the filing confirmation
           hands over rather than carrying it. */}
-      <div className="relative z-10 mt-6">
+      <div className="relative z-10 mt-4">
         <DownloadButton application={application} />
       </div>
     </div>

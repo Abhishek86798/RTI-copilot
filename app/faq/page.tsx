@@ -49,19 +49,21 @@ export default function FAQPage() {
 
       <Section first label="Questions and answers" icon={HelpCircle}>
         {/*
-          Divided by hairlines rather than boxed. A question and its answer are
-          one block of running text, and a border on four sides of each would
-          add five frames to a page that is only ever read top to bottom.
+          Two columns from `sm`, divided by hairlines rather than boxed.
+
+          A question and its answer are one block of running text, and a border
+          on four sides of each would add five frames to a page that is only
+          ever read top to bottom. Set in a single column they ran to two and a
+          half screens for five short answers; paired, the whole set is visible
+          at once, which is the only way anyone scans an FAQ.
         */}
-        <div className="divide-y divide-border border-t border-border">
+        <div className="grid gap-x-10 border-t border-border sm:grid-cols-2">
           {FAQS.map((faq) => (
-            <div key={faq.q} className="py-8 first:pt-8">
-              <h3 className="max-w-[46ch] text-lg leading-snug font-semibold tracking-tight">
+            <div key={faq.q} className="border-b border-border py-6">
+              <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
                 {faq.q}
               </h3>
-              <p className="prose-measure mt-4 text-base leading-relaxed opacity-75">
-                {faq.a}
-              </p>
+              <p className="mt-2 text-sm leading-[1.65] opacity-75">{faq.a}</p>
             </div>
           ))}
         </div>

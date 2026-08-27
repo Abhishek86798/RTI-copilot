@@ -1,5 +1,5 @@
 /**
- * The layout every page uses for its outer wrapper.
+ * The one measure, and the padding a page hangs off it.
  *
  * This lives in its own module, with no `"use client"` directive, and that is
  * the whole reason the file exists. It used to sit in `components/editorial`,
@@ -15,12 +15,32 @@
  *
  * Keep it importable from both sides: a page should never have to know whether
  * it is a Server or a Client Component to get its own margins right.
- *
- * Gutters match `Frame` in `components/editorial`, so a form page and a
- * landing band align to the same measure at every breakpoint.
  */
-export const PAGE_LAYOUT =
-  "mx-auto w-full max-w-4xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
+
+/**
+ * Measure and gutters. The header, the footer, every page and every landing
+ * band align to this and to nothing else.
+ *
+ * They used not to. The chrome ran to 1,408px while page content stopped at
+ * 896, so the wordmark, the nav and the footer columns all began nearly 160px
+ * to the left of the page's own title — every screen had two competing left
+ * edges, which is most of why the app read as unstructured rather than as one
+ * document.
+ *
+ * 1,152px, because that is about as wide as a column of running text can go
+ * before it needs help. Past it, prose is capped inside a section rather than
+ * the frame being widened further.
+ */
+export const PAGE_FRAME = "mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10";
+
+/**
+ * A page's outer wrapper: the frame, plus vertical breathing room.
+ *
+ * Deliberately tight at the top. The two bars of chrome above it already cost
+ * ~90px before a page says anything, and a first screen that opens on its own
+ * heading rather than on empty space is worth more than the air.
+ */
+export const PAGE_LAYOUT = `${PAGE_FRAME} pt-5 pb-14 sm:pt-7 sm:pb-20`;
 
 /*
  * There is deliberately only one measure.

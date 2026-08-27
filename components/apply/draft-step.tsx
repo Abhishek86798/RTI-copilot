@@ -164,7 +164,7 @@ export function DraftStep({
         the rewrite rather than participating in the comparison, and it reads
         badly at sidebar width.
       */}
-      <section className="mt-12 border-t border-border pt-8">
+      <section className="mt-8 border-t border-border pt-8">
         <Marker label={t("draft.whyChanged")} dim={false} />
         <p className="mt-4 max-w-[70ch] leading-relaxed opacity-75">
           {t("draft.whyChangedBody")}
@@ -172,7 +172,7 @@ export function DraftStep({
       </section>
 
       <StepActions onBack={onBack} backDisabled={backLoading}>
-        <Button type="button" size="xl" variant="cta" onClick={onSubmit}>
+        <Button type="button" size="lg" variant="cta" onClick={onSubmit}>
           {t("draft.submit")}
           <ArrowRight aria-hidden="true" />
         </Button>

@@ -9,6 +9,7 @@ import { AuthControls } from "@/components/auth/auth-controls";
 import { LanguageToggle } from "@/components/language-toggle";
 import { useApplications } from "@/lib/client/use-applications";
 import { useI18n } from "@/lib/client/i18n";
+import { PAGE_FRAME } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -17,10 +18,21 @@ export function SiteHeader() {
   const applications = useApplications();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navLinks = [
+  /*
+   * The three things a citizen comes here to do. The four help pages sit in
+   * the utility strip above — seven phrase-length labels did not fit the page
+   * measure, and "Fees" was rendering underneath the language toggle where
+   * nobody could see it.
+   */
+  const primaryLinks = [
     { href: "/apply", label: t("nav.new") },
     { href: "/applications", label: t("nav.mine"), count: applications.length },
     { href: "/appeal", label: t("nav.appeal") },
+  ];
+
+  /* The burger has no room problem, so it carries everything. */
+  const navLinks = [
+    ...primaryLinks,
     { href: "/manual", label: t("nav.manual") },
     { href: "/contact", label: t("nav.contact") },
     { href: "/faq", label: t("nav.faq") },
@@ -51,7 +63,7 @@ export function SiteHeader() {
       data-print="hide"
       className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
     >
-      <div className="mx-auto flex h-16 w-full max-w-[88rem] items-center px-5 sm:px-8 lg:px-12">
+      <div className={cn(PAGE_FRAME, "flex h-14 items-center")}>
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
@@ -89,8 +101,8 @@ export function SiteHeader() {
           header that wrapped each label onto two lines and overlapped the
           controls. The burger carries 1024–1280px instead, where it fits.
         */}
-        <nav aria-label="Main" className="ml-6 hidden h-full items-center gap-5 xl:flex 2xl:ml-8 2xl:gap-7">
-          {navLinks.map((link) => {
+        <nav aria-label="Main" className="ml-8 hidden h-full items-center gap-6 xl:flex">
+          {primaryLinks.map((link) => {
             const active = isActive(link.href);
             return (
               <Link
@@ -123,7 +135,7 @@ export function SiteHeader() {
         {/* `min-w-0` rather than `shrink-0`: at the narrowest width with the
             largest text this group is what decides whether the page scrolls
             sideways, and it has to be allowed to give. */}
-        <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
           <LanguageToggle className="shrink-0" />
           <AuthControls />
           

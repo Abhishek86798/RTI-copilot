@@ -218,7 +218,7 @@ export function LoginDialog({
             </div>
 
             <div className="flex gap-3 pt-2">
-              <Button type="submit" size="xl" disabled={busy || !challenge}>
+              <Button type="submit" size="lg" disabled={busy || !challenge}>
                 {busy ? (
                   <Loader2 aria-hidden="true" className="animate-spin" />
                 ) : (
@@ -226,7 +226,7 @@ export function LoginDialog({
                 )}
                 Send code
               </Button>
-              <Button type="button" variant="ghost" size="xl" onClick={onClose}>
+              <Button type="button" variant="ghost" size="lg" onClick={onClose}>
                 Cancel
               </Button>
             </div>
@@ -247,11 +247,11 @@ export function LoginDialog({
               />
             </div>
             <div className="flex gap-3 pt-2">
-              <Button type="submit" size="xl" disabled={busy}>
+              <Button type="submit" size="lg" disabled={busy}>
                 {busy && <Loader2 aria-hidden="true" className="animate-spin" />}
                 Sign in
               </Button>
-              <Button type="button" variant="ghost" size="xl" onClick={reset}>
+              <Button type="button" variant="ghost" size="lg" onClick={reset}>
                 Use a different email
               </Button>
             </div>

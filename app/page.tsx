@@ -79,11 +79,11 @@ export default function HomePage() {
             <Marker label={t("home.hero.eyebrow")} />
           </div>
 
-          <div className="grid gap-10 py-10 lg:grid-cols-[1.55fr_1fr] lg:items-end lg:gap-16 lg:py-14">
+          <div className="grid gap-8 py-8 lg:grid-cols-[1.55fr_1fr] lg:items-end lg:gap-14 lg:py-10">
             <Reveal>
               <Display
                 as="h1"
-                className="max-w-[17ch] text-[2.35rem] sm:text-[3.2rem] lg:text-[4.15rem]"
+                className="max-w-[18ch] text-[2rem] leading-[1.05] sm:text-[2.6rem] lg:text-[3.2rem]"
               >
                 {t("home.hero.title")}
               </Display>
@@ -93,7 +93,7 @@ export default function HomePage() {
             <Reveal delay={80}>
               <div className="grid grid-cols-2 border-t border-border pt-6 lg:border-t-0 lg:pt-0">
                 <div className="pr-6">
-                  <p className="text-[2.5rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[3.25rem]">
+                  <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
                     30
                   </p>
                   <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
@@ -101,7 +101,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="border-l border-border pl-6">
-                  <p className="text-[2.5rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[3.25rem]">
+                  <p className="text-[2rem] leading-none font-bold tracking-[-0.03em] tabular-nums sm:text-[2.6rem]">
                     ₹10
                   </p>
                   <p className="mt-3 font-mono text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
@@ -114,18 +114,18 @@ export default function HomePage() {
 
           <Rule />
 
-          <div className="grid gap-10 py-12 lg:grid-cols-[1.55fr_1fr] lg:gap-16">
+          <div className="grid gap-8 py-10 lg:grid-cols-[1.55fr_1fr] lg:gap-14">
             <Reveal>
-              <p className="max-w-[70ch] text-lg leading-relaxed opacity-80 sm:text-xl">
+              <p className="max-w-[74ch] text-base leading-[1.65] opacity-80 sm:text-[1.05rem]">
                 {t("home.hero.body")}
               </p>
 
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Button size="xl" variant="cta" onClick={() => router.push("/apply")}>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Button size="lg" variant="cta" onClick={() => router.push("/apply")}>
                   {t("home.hero.start")}
                 </Button>
                 <Button
-                  size="xl"
+                  size="lg"
                   variant="outline"
                   onClick={() => router.push(`/apply?case=${DEMO_CASES[0].id}`)}
                 >
@@ -159,7 +159,7 @@ export default function HomePage() {
       {/* 01 — The problem                                                  */}
       {/* ================================================================= */}
       <Band id="problem" tone="alt">
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <Reveal>
             <Marker index={1} total={TOTAL} label={t("home.sec.problem.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
@@ -171,7 +171,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={60}>
-            <RuleGrid cols={3} className="mt-14 border-t border-border">
+            <RuleGrid cols={3} className="mt-10 border-t border-border">
               {problems.map((p, i) => (
                 <div key={p.titleKey}>
                   <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
@@ -192,7 +192,7 @@ export default function HomePage() {
       {/* 02 — The scale                                                    */}
       {/* ================================================================= */}
       <Band tone="invert">
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <Reveal>
             <Marker index={2} total={TOTAL} label={t("home.sec.scale.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
@@ -207,7 +207,7 @@ export default function HomePage() {
             {/* Hairlines inherit the band's inverted colour so they stay visible. */}
             <RuleGrid
               cols={4}
-              className="mt-14 border-t border-current/25 [&>*]:border-current/25"
+              className="mt-10 border-t border-current/25 [&>*]:border-current/25"
             >
               {stats.map(([v, l, s]) => (
                 <Stat key={v} value={t(v)} label={t(l)} source={t(s)} />
@@ -227,7 +227,7 @@ export default function HomePage() {
       {/* 03 — Routing                                                      */}
       {/* ================================================================= */}
       <Band>
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <Reveal>
             <Marker index={3} total={TOTAL} label={t("home.sec.routing.eyebrow")} />
           </Reveal>
@@ -253,7 +253,7 @@ export default function HomePage() {
       {/* 04 — The rewrite                                                  */}
       {/* ================================================================= */}
       <Band tone="alt">
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <Reveal>
             <Marker index={4} total={TOTAL} label={t("home.sec.rewrite.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
@@ -265,15 +265,15 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={60}>
-            <Drawn className="mt-14">
+            <Drawn className="mt-10">
               <QuestionToRecords className="mx-auto w-full max-w-xl" />
             </Drawn>
           </Reveal>
 
           {/* The diff, because the pitch for this product is a diff. */}
           <Reveal delay={80}>
-            <div className="mt-14 grid border-t border-border md:grid-cols-2">
-              <div className="border-b border-border py-9 md:border-r md:border-b-0 md:pr-12">
+            <div className="mt-10 grid border-t border-border md:grid-cols-2">
+              <div className="border-b border-border py-7 md:border-r md:border-b-0 md:pr-12">
                 <Marker label="High Probability of Rejection" className="text-destructive" dim={false} />
                 <blockquote className="mt-6 max-w-[42ch] text-xl leading-snug">
                   &ldquo;Why was my father&apos;s pension stopped without any
@@ -285,7 +285,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="py-9 md:pl-12">
+              <div className="py-7 md:pl-12">
                 <Marker label="Statutorily Mandated Response" className="text-success" dim={false} />
                 <ol className="mt-6 border-t border-border">
                   {[
@@ -320,7 +320,7 @@ export default function HomePage() {
       {/* 05 — The clock                                                    */}
       {/* ================================================================= */}
       <Band>
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <Reveal>
             <Marker index={5} total={TOTAL} label={t("home.sec.clock.eyebrow")} />
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
@@ -332,7 +332,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={60}>
-            <Drawn className="mt-14">
+            <Drawn className="mt-10">
               <StatutoryClock
                 className="mx-auto w-full max-w-5xl"
                 labels={{
@@ -346,7 +346,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={80}>
-            <RuleGrid cols={4} className="mt-16 border-t border-border">
+            <RuleGrid cols={4} className="mt-10 border-t border-border">
               {solutions.map((key, i) => (
                 <div key={key}>
                   <span className="font-mono text-[0.68rem] tracking-[0.16em] opacity-72">
@@ -364,7 +364,7 @@ export default function HomePage() {
       {/* Honesty and close                                                 */}
       {/* ================================================================= */}
       <Band tone="alt">
-        <Frame className="py-16 lg:py-24">
+        <Frame className="py-12 lg:py-16">
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             <Reveal>
               <Marker label={t("home.sec.honest.eyebrow")} />
@@ -389,7 +389,7 @@ export default function HomePage() {
                 {t("home.cta.lead")}
               </p>
               <Button
-                size="xl"
+                size="lg"
                 variant="cta"
                 className="mt-9 w-full sm:w-auto"
                 onClick={() => router.push("/apply")}

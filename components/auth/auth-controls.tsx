@@ -148,9 +148,14 @@ export function AuthControls() {
         on every page, which is the reflow failure (WCAG 1.4.10) the text-size
         control exists to avoid. `lg` is still a 44px target.
       */}
-      <Button size="lg" onClick={() => setOpen(true)}>
+      <Button size="lg" className="whitespace-nowrap" onClick={() => setOpen(true)}>
         <User aria-hidden="true" />
-        {t("auth.signIn")}
+        {/*
+          Icon-only on a phone. `sr-only` rather than `hidden`, so the button
+          keeps its accessible name — the icon beside it is aria-hidden, and
+          dropping the label outright would leave a button called nothing.
+        */}
+        <span className="sr-only sm:not-sr-only">{t("auth.signIn")}</span>
       </Button>
       <LoginDialog
         open={open}

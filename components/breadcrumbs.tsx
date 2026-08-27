@@ -89,7 +89,7 @@ export function LastReviewed({
   );
 
   return (
-    <p className={cn("mt-16 border-t border-border pt-6 text-sm opacity-75", className)}>
+    <p className={cn("mt-10 border-t border-border pt-6 text-sm opacity-75", className)}>
       {t("footer.updated")}:{" "}
       <time dateTime={date} className="font-medium">
         {formatted}

@@ -47,7 +47,7 @@ export function StepActions({
     >
       <Button
         type="button"
-        size="xl"
+        size="lg"
         variant="outline"
         onClick={onBack}
         disabled={backDisabled}

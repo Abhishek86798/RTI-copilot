@@ -67,9 +67,9 @@ export default function ManualPage() {
         <Steps items={STEPS} />
       </Section>
 
-      <div className="mt-16">
+      <div className="mt-10">
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           nativeButton={false}
           render={<Link href="/apply">Start an application</Link>}

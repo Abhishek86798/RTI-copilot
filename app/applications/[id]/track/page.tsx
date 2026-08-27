@@ -50,7 +50,7 @@ export default function TrackApplicationPage() {
           {t("track.missingBody")}
         </p>
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           className="mt-6"
           nativeButton={false}
@@ -70,12 +70,12 @@ export default function TrackApplicationPage() {
           backHref="/applications"
           backLabelKey="nav.mine"
         />
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="mt-10 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.notFiledYet")}
           </p>
           <Button
-            size="xl"
+            size="lg"
             variant="cta"
             className="mt-6"
             nativeButton={false}
@@ -106,7 +106,7 @@ export default function TrackApplicationPage() {
         backLabelKey="nav.mine"
       />
 
-      <div className="mt-16 space-y-16">
+      <div className="mt-10 space-y-10">
         <DeadlineTracker
           application={application}
           onSimulate={() =>
@@ -157,7 +157,7 @@ export default function TrackApplicationPage() {
                   </p>
                 )}
                 <Button
-                  size="xl"
+                  size="lg"
                   variant="cta"
                   nativeButton={false}
                   render={
@@ -183,7 +183,7 @@ export default function TrackApplicationPage() {
               <AlertDescription className="space-y-4">
                 <p>{t("appeal.submittedHelp")}</p>
                 <Button
-                  size="xl"
+                  size="lg"
                   variant="outline"
                   nativeButton={false}
                   render={

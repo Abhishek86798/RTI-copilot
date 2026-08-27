@@ -83,7 +83,7 @@ export function AuthorityStep({
       </PageTitle>
 
       {/* Full measure, matching the step rule on both edges. */}
-      <div className="mt-8 space-y-6">
+      <div className="mt-6 space-y-5">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
             <Info aria-hidden="true" className="text-destructive" />
@@ -160,7 +160,7 @@ export function AuthorityStep({
       <StepActions onBack={onBack} backDisabled={loading}>
         <Button
           type="button"
-          size="xl"
+          size="lg"
           variant={routing.lowConfidence ? "outline" : "cta"}
           onClick={onSubmit}
           disabled={loading || !selectedId}

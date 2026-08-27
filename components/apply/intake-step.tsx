@@ -118,7 +118,7 @@ export function IntakeStep({
 
         <Button
           type="submit"
-          size="xl"
+          size="lg"
           variant="cta"
           disabled={loading || tooShort}
           className="w-full sm:w-auto"

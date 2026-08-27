@@ -111,6 +111,7 @@ const en = {
   "nav.language": "Language Select",
   "nav.menu": "Menu",
   "nav.skip": "Skip to main content",
+  "nav.utility": "Help and information",
 
   "common.back": "Back",
   "common.backStep": "Back to the previous step",
@@ -593,6 +594,7 @@ const hi: Record<StringKey, string> = {
   "nav.language": "भाषा",
   "nav.menu": "मेनू",
   "nav.skip": "मुख्य सामग्री पर जाएं",
+  "nav.utility": "सहायता और जानकारी",
 
   "common.back": "पीछे",
   "common.backStep": "पिछले चरण पर वापस जाएँ",

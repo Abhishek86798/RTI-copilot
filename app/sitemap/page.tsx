@@ -115,18 +115,21 @@ export default function SitemapPage() {
           label={group.heading}
           icon={group.icon}
         >
-          <ul className="divide-y divide-border border-t border-border">
+          {/*
+            Two columns. An index is scanned, not read — a single column of
+            99px rows put four links on a screen and made the shortest page on
+            the site three screens long.
+          */}
+          <ul className="grid gap-x-10 border-t border-border sm:grid-cols-2">
             {group.links.map((link) => (
-              <li key={link.href} className="py-5">
+              <li key={link.href} className="border-b border-border py-4">
                 <Link
                   href={link.href}
-                  className="text-base font-medium underline-offset-4 hover:underline"
+                  className="text-[0.9375rem] font-medium underline-offset-4 hover:underline"
                 >
                   {link.label}
                 </Link>
-                <p className="prose-measure mt-1.5 text-base leading-relaxed opacity-75">
-                  {link.detail}
-                </p>
+                <p className="mt-1 text-sm leading-[1.6] opacity-75">{link.detail}</p>
               </li>
             ))}
           </ul>

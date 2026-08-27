@@ -99,7 +99,7 @@ export default function SubmitAppealPage() {
           {t("track.missingBody")}
         </p>
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           className="mt-6"
           nativeButton={false}
@@ -122,12 +122,12 @@ export default function SubmitAppealPage() {
           backHref={`/applications/${application.id}/track`}
           backLabelKey="track.backToStatus"
         />
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="mt-10 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("appeal.notYet")}
           </p>
           <Button
-            size="xl"
+            size="lg"
             variant="cta"
             className="mt-6"
             nativeButton={false}
@@ -152,18 +152,18 @@ export default function SubmitAppealPage() {
       />
 
       {submitted ? (
-        <section className="mt-16" aria-labelledby="appeal-ack">
+        <section className="mt-10" aria-labelledby="appeal-ack">
           <Rule />
           <div className="pt-8">
             <Marker label={t("appeal.acknowledgement")} />
             <h2
               id="appeal-ack"
-              className="mt-4 flex items-center gap-3 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] sm:text-[1.9rem]"
+              className="mt-2 flex items-center gap-2.5 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
             >
-              <CheckCircle2 aria-hidden="true" className="size-7 shrink-0 text-success" />
+              <CheckCircle2 aria-hidden="true" className="size-5 shrink-0 text-success" />
               {t("appeal.submitted", { date: formatDate(submitted) })}
             </h2>
-            <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+            <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
               {t("appeal.submittedHelp")}
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function SubmitAppealPage() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button
-              size="xl"
+              size="lg"
               variant="cta"
               nativeButton={false}
               render={
@@ -183,7 +183,7 @@ export default function SubmitAppealPage() {
                 </Link>
               }
             />
-            <Button type="button" size="xl" variant="outline" onClick={() => setPrinting(true)}>
+            <Button type="button" size="lg" variant="outline" onClick={() => setPrinting(true)}>
               <Printer aria-hidden="true" />
               {t("common.print")}
             </Button>
@@ -191,23 +191,23 @@ export default function SubmitAppealPage() {
         </section>
       ) : (
         <>
-          <section className="mt-16" aria-labelledby="appeal-grounds">
+          <section className="mt-10" aria-labelledby="appeal-grounds">
             <Rule />
             <div className="pt-8">
               <Marker label={t("appeal.section.grounds")} />
               <h2
                 id="appeal-grounds"
-                className="mt-4 flex items-center gap-3 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] sm:text-[1.9rem]"
+                className="mt-2 flex items-center gap-2.5 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
               >
-                <Gavel aria-hidden="true" className="size-6 shrink-0 text-warning" />
+                <Gavel aria-hidden="true" className="size-5 shrink-0 text-warning" />
                 {t("nav.appeal")}
               </h2>
-              <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+              <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
                 {t("track.appealHelp")}
               </p>
             </div>
 
-            <div className="mt-8 space-y-6">
+            <div className="mt-6 space-y-5">
               <div>
                 <Marker label={t("appeal.against")} />
                 <p className="mt-3 font-mono text-base">
@@ -236,19 +236,19 @@ export default function SubmitAppealPage() {
             </div>
           </section>
 
-          <section className="mt-16" aria-labelledby="appeal-confirm">
+          <section className="mt-10" aria-labelledby="appeal-confirm">
             <Rule />
             <div className="pt-8">
               <Marker label={t("appeal.section.confirm")} />
               <h2
                 id="appeal-confirm"
-                className="mt-4 text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] sm:text-[1.9rem]"
+                className="mt-2 text-[1.05rem] leading-snug font-bold tracking-[-0.015em]"
               >
                 {t("appeal.confirmTitle")}
               </h2>
             </div>
 
-            <div className="mt-8 space-y-6">
+            <div className="mt-6 space-y-5">
               {/*
                 The one declaration this act needs. Filing had the citizenship
                 declaration; an appeal has this — that the appellant has read
@@ -272,7 +272,7 @@ export default function SubmitAppealPage() {
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button
                   type="button"
-                  size="xl"
+                  size="lg"
                   variant="cta"
                   disabled={!confirmed}
                   onClick={() => {
@@ -292,7 +292,7 @@ export default function SubmitAppealPage() {
                 </Button>
                 <Button
                   type="button"
-                  size="xl"
+                  size="lg"
                   variant="outline"
                   onClick={() => setPrinting(true)}
                 >

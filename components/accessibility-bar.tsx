@@ -90,6 +90,14 @@ export function setContrast(high: boolean) {
   emit();
 }
 
+/** The pages you consult while filing, as opposed to the ones you file on. */
+const UTILITY_LINKS = [
+  { href: "/manual", labelKey: "nav.manual" },
+  { href: "/contact", labelKey: "nav.contact" },
+  { href: "/faq", labelKey: "nav.faq" },
+  { href: "/payment-reconciliation", labelKey: "nav.payment" },
+] as const;
+
 export function AccessibilityBar() {
   const { t } = useI18n();
   // Server snapshots are the defaults, which is what the boot script also
@@ -106,7 +114,30 @@ export function AccessibilityBar() {
         row, right-aligned, with hairline-separated groups, so it reads as
         chrome rather than competing with the nav beneath it.
       */}
-      <Frame className="flex min-h-10 flex-wrap items-center justify-end gap-y-1 py-1 text-xs">
+      <Frame className="flex min-h-9 flex-wrap items-center justify-between gap-y-0.5 py-0.5 text-xs">
+        {/*
+          The help pages live up here rather than in the main nav.
+
+          Seven phrase-length items did not fit the page measure: "Fees" was
+          rendering underneath the language toggle, invisible, on every screen.
+          Splitting them by kind fixes it without shrinking anything — the
+          three things you came to do stay in the nav below, and the four you
+          consult while doing them sit in the strip that was already here and
+          half empty. It is also the shape most government portals use.
+        */}
+        <nav aria-label={t("nav.utility")} className="hidden items-center xl:flex">
+          {UTILITY_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="inline-flex min-h-8 items-center px-2 underline-offset-4 opacity-75 hover:underline hover:opacity-100"
+            >
+              {t(link.labelKey)}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex flex-wrap items-center justify-end gap-y-0.5">
         <Link
           href="/accessibility"
           className="inline-flex min-h-8 items-center px-2 underline-offset-4 opacity-75 hover:underline hover:opacity-100"
@@ -211,6 +242,7 @@ export function AccessibilityBar() {
         */}
         <div className="ml-2 flex items-center border-l border-border pl-3">
           <ThemeToggle compact />
+        </div>
         </div>
       </Frame>
     </div>

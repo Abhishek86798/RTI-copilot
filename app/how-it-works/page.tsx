@@ -206,9 +206,9 @@ export default function HowItWorksPage() {
         </div>
       </Section>
 
-      <div className="mt-16">
+      <div className="mt-10">
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           nativeButton={false}
           render={<Link href="/apply">Access Portal</Link>}

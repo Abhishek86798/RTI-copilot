@@ -109,10 +109,10 @@ export function FiledDialog({
         </p>
 
         <div className="mt-4 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center">
-          <Button size="xl" variant="cta" onClick={() => router.push("/applications")}>
+          <Button size="lg" variant="cta" onClick={() => router.push("/applications")}>
             {t("receipt.dashboard")}
           </Button>
-          <Button size="xl" variant="ghost" onClick={onClose}>
+          <Button size="lg" variant="ghost" onClick={onClose}>
             {t("receipt.stay")}
           </Button>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Reveal } from "@/components/reveal";
+import { PAGE_FRAME } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 
 /**
@@ -23,28 +24,23 @@ import { cn } from "@/lib/utils";
  *   Band       full-bleed section, hairline-separated
  */
 
-/** Horizontal measure. Every page and band aligns to this and nothing else. */
+/**
+ * Horizontal measure. Every page, band and bar aligns to this and nothing else.
+ *
+ * It takes no width option any more. There used to be a `wide` for landing
+ * bands and a `text` for reading pages, and the result was chrome that ran
+ * 160px wider than the content it framed — two left edges on every screen.
+ * Reading width is now handled where it belongs, by capping prose inside a
+ * section rather than by narrowing the whole frame.
+ */
 export function Frame({
   children,
   className,
-  width = "wide",
 }: {
   children: React.ReactNode;
   className?: string;
-  /** `wide` for landing bands, `text` for reading and form pages. */
-  width?: "wide" | "text";
 }) {
-  return (
-    <div
-      className={cn(
-        "mx-auto w-full px-5 sm:px-8 lg:px-12",
-        width === "wide" ? "max-w-[88rem]" : "max-w-3xl",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn(PAGE_FRAME, className)}>{children}</div>;
 }
 
 /*
@@ -69,7 +65,7 @@ export function Stack({
   return (
     <div
       className={cn(
-        { sm: "space-y-6", md: "space-y-12", lg: "space-y-16 lg:space-y-24" }[gap],
+        { sm: "space-y-5", md: "space-y-10", lg: "space-y-14 lg:space-y-20" }[gap],
         className
       )}
     >
@@ -162,8 +158,8 @@ export function Display({
   return (
     <Tag
       className={cn(
-        "max-w-[19ch] text-[2.15rem] leading-[1.02] font-bold tracking-[-0.02em] text-balance",
-        "sm:text-[2.75rem] lg:text-[3.4rem]",
+        "max-w-[20ch] text-[1.9rem] leading-[1.05] font-bold tracking-[-0.02em] text-balance",
+        "sm:text-[2.3rem] lg:text-[2.8rem]",
         className
       )}
     >
@@ -189,13 +185,18 @@ export function PageTitle({
   className?: string;
 }) {
   return (
-    <header className={cn("border-b border-border pb-8", className)}>
-      {marker && <div className="mb-5">{marker}</div>}
-      <h1 className="max-w-[24ch] text-[1.75rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[2.25rem]">
+    <header className={cn("border-b border-border pb-6", className)}>
+      {marker && <div className="mb-3">{marker}</div>}
+      {/*
+        28px, down from 36. A page title is a label for what you are looking
+        at, not an argument — at display size on a form it shouted, and it cost
+        a third of the first screen before any content appeared.
+      */}
+      <h1 className="max-w-[30ch] text-[1.5rem] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[1.75rem]">
         {children}
       </h1>
       {lead && (
-        <p className="mt-5 max-w-[58ch] text-base leading-relaxed opacity-75 sm:text-lg">
+        <p className="mt-3 max-w-[74ch] text-[0.9375rem] leading-[1.6] opacity-75 sm:text-base">
           {lead}
         </p>
       )}
@@ -221,7 +222,7 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <p className="text-[2.25rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.9rem]">
+      <p className="text-[1.9rem] leading-[1] font-bold tracking-[-0.03em] tabular-nums sm:text-[2.4rem]">
         {value}
       </p>
       <p className="mt-4 text-sm leading-snug font-medium">{label}</p>
@@ -256,7 +257,7 @@ export function RuleGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 [&>*]:border-border [&>*]:border-b [&>*]:py-9 sm:[&>*]:border-b-0",
+        "grid grid-cols-1 [&>*]:border-border [&>*]:border-b [&>*]:py-7 sm:[&>*]:border-b-0",
         "[&>*]:sm:px-8",
         layout,
         className

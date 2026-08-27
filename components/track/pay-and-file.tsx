@@ -91,16 +91,16 @@ export function PayAndFile({
         <h2
           id="pay-heading"
           tabIndex={-1}
-          className="mt-4 max-w-[24ch] text-[1.5rem] leading-[1.12] font-bold tracking-[-0.02em] text-balance sm:text-[1.9rem]"
+          className="mt-2 max-w-[30ch] text-[1.05rem] leading-snug font-bold tracking-[-0.015em] text-balance"
         >
           {isBpl ? t("pay.bplTitle") : t("pay.title")}
         </h2>
-        <p className="mt-4 max-w-[58ch] leading-relaxed opacity-75">
+        <p className="mt-2 max-w-[74ch] text-sm leading-[1.6] opacity-75">
           {isBpl ? t("pay.bplBody") : t("pay.help")}
         </p>
       </div>
 
-      <div className="mt-8 space-y-5">
+      <div className="mt-6 space-y-4">
         {/* FR-19: the disclosure sits on the screen, above the action. */}
         <Alert variant="warning">
           <FlaskConical aria-hidden="true" />
@@ -165,7 +165,7 @@ export function PayAndFile({
           </Alert>
         )}
 
-        <Button size="xl" variant="cta" onClick={submit} disabled={busy}>
+        <Button size="lg" variant="cta" onClick={submit} disabled={busy}>
           {busy ? (
             <>
               <Loader2 aria-hidden="true" className="animate-spin" />

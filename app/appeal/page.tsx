@@ -100,7 +100,7 @@ export default function AppealPage() {
             <FieldHint id="appeal-lookup-hint">{t("appealPage.regNumberHelp")}</FieldHint>
             {error && <FieldError>{error}</FieldError>}
           </div>
-          <Button type="submit" size="xl" variant="cta">
+          <Button type="submit" size="lg" variant="cta">
             {t("appealPage.find")}
             <ArrowRight aria-hidden="true" />
           </Button>

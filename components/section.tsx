@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 export function Section({
   label,
   icon: Icon,
+  description,
   children,
   /**
    * The first section on a page sits directly under `PageTitle`, which already
@@ -31,6 +32,8 @@ export function Section({
 }: {
   label: string;
   icon?: LucideIcon;
+  /** Optional standfirst, set beside the content rather than above it. */
+  description?: string;
   children: React.ReactNode;
   first?: boolean;
   className?: string;
@@ -38,15 +41,37 @@ export function Section({
   return (
     <section
       className={cn(
-        first ? "mt-12" : "mt-16 border-t border-border pt-12",
+        "py-8 sm:py-10",
+        first ? "pt-6 sm:pt-8" : "border-t border-border",
+        "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12",
         className
       )}
     >
-      <h2 className="flex items-center gap-2.5 font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
-        {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
-        {label}
-      </h2>
-      <div className="mt-8">{children}</div>
+      {/*
+        The label column.
+        
+        Sections used to stack: label, gap, content, repeat — which meant a
+        page of six short sections spent a third of its height on headings and
+        the air around them, and you could never see a section's title and its
+        content in the same glance on anything but the shortest one.
+        
+        Setting the label beside the content instead is the single change that
+        made these pages fit. It also gives the page a spine: one column of
+        labels running down the left, at one x-position, on every screen.
+      */}
+      <div className="lg:pt-0.5">
+        <h2 className="flex items-center gap-2.5 font-mono text-[0.68rem] tracking-[0.18em] uppercase opacity-75">
+          {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
+          {label}
+        </h2>
+        {description && (
+          <p className="mt-3 max-w-[42ch] text-sm leading-[1.6] opacity-75">
+            {description}
+          </p>
+        )}
+      </div>
+
+      <div className="mt-5 lg:mt-0">{children}</div>
     </section>
   );
 }
@@ -69,10 +94,10 @@ export function Prose({
   return (
     <div
       className={cn(
-        "prose-measure space-y-6 text-base leading-relaxed opacity-75",
+        "prose-measure space-y-4 text-[0.9375rem] leading-[1.65] opacity-75 sm:text-base",
         "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
-        "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-3 [&_ul]:pl-5 [&_ul]:marker:text-border",
-        "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-3 [&_ol]:pl-5 [&_ol]:marker:text-border",
+        "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:marker:text-border",
+        "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:marker:text-border",
         className
       )}
     >
@@ -93,20 +118,26 @@ export function Steps({
   className?: string;
 }) {
   return (
-    <ol className={cn("space-y-10", className)}>
+    /*
+      Two columns from `sm`. A numbered step is a short title and two lines of
+      body — set one per row it produced a column of mostly empty space and
+      three screens of scrolling for six steps. The numerals keep the reading
+      order unambiguous across the wrap.
+    */
+    <ol className={cn("grid gap-x-10 gap-y-7 sm:grid-cols-2", className)}>
       {items.map((item, index) => (
-        <li key={item.title} className="flex gap-5">
+        <li key={item.title} className="flex gap-4">
           <span
             aria-hidden="true"
-            className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-sm tabular-nums"
+            className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border border-border font-mono text-xs tabular-nums"
           >
             {index + 1}
           </span>
           <div className="min-w-0">
-            <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
-            <p className="prose-measure mt-2 text-base leading-relaxed opacity-75">
-              {item.body}
-            </p>
+            <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
+              {item.title}
+            </h3>
+            <p className="mt-1.5 text-sm leading-[1.6] opacity-75">{item.body}</p>
           </div>
         </li>
       ))}
@@ -131,12 +162,12 @@ export function Callout({
   return (
     <div
       className={cn(
-        "rounded-xl border border-warning/30 bg-warning/10 p-6 sm:p-8",
+        "rounded-lg border border-warning/30 bg-warning/10 p-5 sm:p-6",
         className
       )}
     >
-      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-      <div className="mt-3 space-y-4 text-base leading-relaxed opacity-90">
+      <h3 className="text-base font-semibold tracking-tight">{title}</h3>
+      <div className="mt-2 space-y-3 text-[0.9375rem] leading-[1.65] opacity-90">
         {children}
       </div>
     </div>

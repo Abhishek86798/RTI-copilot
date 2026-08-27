@@ -93,7 +93,7 @@ export default function SubmitApplicationPage() {
           {t("track.missingBody")}
         </p>
         <Button
-          size="xl"
+          size="lg"
           variant="cta"
           className="mt-6"
           nativeButton={false}
@@ -150,12 +150,12 @@ export default function SubmitApplicationPage() {
       {/* Already filed: say so, and hand over. Re-showing the form here is how
           an application gets filed twice. */}
       {filed && (
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="mt-10 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.alreadyFiled")}
           </p>
           <Button
-            size="xl"
+            size="lg"
             variant="cta"
             className="mt-6"
             nativeButton={false}
@@ -165,14 +165,14 @@ export default function SubmitApplicationPage() {
       )}
 
       {!filed && (
-        <div className="mt-6" data-filing-step>
+        <div className="mt-4" data-filing-step>
           {/*
-            Sticky under the site header, which is 4rem tall. The chips are
+            Sticky under the site header, which is 3.5rem tall. The chips are
             the only wayfinding once the form is five screens deep, and on the
             applicant step they would otherwise scroll away before the fields
             they belong to.
           */}
-          <div className="sticky top-16 z-30 -mx-6 mb-8 border-b border-border bg-background px-6 py-2.5 sm:-mx-12 sm:px-12 lg:-mx-16 lg:px-16">
+          <div className="sticky top-14 z-30 -mx-5 mb-6 border-b border-border bg-background px-5 py-2 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
             <FilingStepNav
               steps={FILING_STEPS}
               current={step}
@@ -211,7 +211,7 @@ export default function SubmitApplicationPage() {
             two primary actions on one screen is how someone pays twice.
           */}
           {step !== "pay" && (
-            <div className="mt-12 border-t border-border pt-8">
+            <div className="mt-8 border-t border-border pt-6">
               {blocked.length > 0 && (
                 <Alert variant="destructive" className="mb-6">
                   <AlertTriangle aria-hidden="true" />
@@ -220,12 +220,12 @@ export default function SubmitApplicationPage() {
               )}
 
               <div className="flex flex-wrap items-center gap-3">
-                <Button size="xl" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
+                <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
                   {t("submit.next")}
                   <ArrowRight aria-hidden="true" />
                 </Button>
                 {stepIndex > 0 && (
-                  <Button size="xl" variant="ghost" onClick={goPrevious}>
+                  <Button size="lg" variant="ghost" onClick={goPrevious}>
                     <ArrowLeft aria-hidden="true" />
                     {t("submit.previous")}
                   </Button>
