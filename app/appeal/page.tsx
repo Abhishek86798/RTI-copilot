@@ -71,7 +71,7 @@ export default function AppealPage() {
   }
 
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current={t("nav.appeal")} />
 
       <PageTitle
@@ -81,7 +81,7 @@ export default function AppealPage() {
         {t("nav.appeal")}
       </PageTitle>
 
-      <Section first label={t("appealPage.lookupSection")} icon={Search}>
+      <Section label={t("appealPage.lookupSection")} icon={Search}>
         <form onSubmit={handleLookup} className="max-w-md space-y-4" noValidate>
           <div className="space-y-1.5">
             <Label htmlFor="appeal-lookup">{t("appealPage.regNumber")}</Label>

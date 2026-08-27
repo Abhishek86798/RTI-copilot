@@ -16,7 +16,7 @@ import { InfoNotice } from "@/components/notices";
 import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ux4g/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
-import { Marker, PageTitle, Rule } from "@/components/editorial";
+import { Marker, PageTitle } from "@/components/editorial";
 import { confidenceBucket } from "@/lib/client/confidence";
 import { resolveChannel } from "@/lib/client/filing";
 import { useI18n } from "@/lib/client/i18n";
@@ -83,7 +83,7 @@ export function AuthorityStep({
       </PageTitle>
 
       {/* Full measure, matching the step rule on both edges. */}
-      <div className="mt-6 space-y-5">
+      <div className="mt-5 space-y-4">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
             <Info aria-hidden="true" className="text-destructive" />
@@ -260,7 +260,6 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
 
   return (
     <section className="mt-10">
-      <Rule />
       <div className="pt-8">
         <Marker label={t("confirm.office")} />
       </div>

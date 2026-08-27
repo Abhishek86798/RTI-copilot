@@ -98,7 +98,7 @@ const GROUPS = [
 
 export default function SitemapPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="Sitemap" />
 
       <PageTitle
@@ -108,10 +108,9 @@ export default function SitemapPage() {
         Sitemap
       </PageTitle>
 
-      {GROUPS.map((group, index) => (
+      {GROUPS.map((group) => (
         <Section
           key={group.heading}
-          first={index === 0}
           label={group.heading}
           icon={group.icon}
         >

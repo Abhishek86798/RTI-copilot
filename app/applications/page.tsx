@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowRight, Clock, Plus } from "lucide-react";
 
 import { DownloadButton } from "@/components/track/download-button";
 import { MigratePrompt } from "@/components/migrate-prompt";
+import { Panel, PanelList } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ux4g/button";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
@@ -77,7 +78,7 @@ export default function ApplicationsPage() {
       </div>
 
       {sorted.length === 0 ? (
-        <div className="mt-8 border-t border-border py-16 text-center">
+        <Panel className="mt-6 py-14 text-center">
           <p className="text-lg opacity-75">{t("list.empty")}</p>
           <Button
             size="lg"
@@ -86,19 +87,21 @@ export default function ApplicationsPage() {
             nativeButton={false}
             render={<Link href="/apply">{t("list.emptyCta")}</Link>}
           />
-        </div>
+        </Panel>
       ) : (
         // Dividers are borders on the list items, not `hr` elements between
         // them: an `hr` is not permitted content inside a `ul`, and inserting
         // one silently breaks the list semantics a screen reader relies on to
         // announce "list, N items".
-        <ul className="mt-8 border-b border-border">
-          {sorted.map((application) => (
-            <li key={application.id} className="border-t border-border">
-              <ApplicationRow application={application} />
-            </li>
-          ))}
-        </ul>
+        <Panel className="mt-6">
+          <PanelList>
+            {sorted.map((application) => (
+              <li key={application.id}>
+                <ApplicationRow application={application} />
+              </li>
+            ))}
+          </PanelList>
+        </Panel>
       )}
     </div>
   );
@@ -124,7 +127,7 @@ function ApplicationRow({ application }: { application: Application }) {
       beside it. Nesting a button inside an anchor would be invalid markup and
       would give the row two conflicting activation behaviours.
     */
-    <div className="group relative py-5 transition-colors hover:bg-card">
+    <div className="group relative px-5 py-4 transition-colors hover:bg-muted/40 sm:px-6">
       <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-5">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-4">

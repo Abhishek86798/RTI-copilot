@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { CheckCircle2, Gavel, Printer } from "lucide-react";
 
-import { Marker, Rule } from "@/components/editorial";
+import { Marker } from "@/components/editorial";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { AppealSheet } from "@/components/track/application-sheet";
 import { Alert, AlertTitle } from "@/components/ux4g/alert";
@@ -153,7 +153,6 @@ export default function SubmitAppealPage() {
 
       {submitted ? (
         <section className="mt-10" aria-labelledby="appeal-ack">
-          <Rule />
           <div className="pt-8">
             <Marker label={t("appeal.acknowledgement")} />
             <h2
@@ -192,7 +191,6 @@ export default function SubmitAppealPage() {
       ) : (
         <>
           <section className="mt-10" aria-labelledby="appeal-grounds">
-            <Rule />
             <div className="pt-8">
               <Marker label={t("appeal.section.grounds")} />
               <h2
@@ -237,7 +235,6 @@ export default function SubmitAppealPage() {
           </section>
 
           <section className="mt-10" aria-labelledby="appeal-confirm">
-            <Rule />
             <div className="pt-8">
               <Marker label={t("appeal.section.confirm")} />
               <h2

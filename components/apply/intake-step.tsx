@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { ArrowRight, Loader2, Lock } from "lucide-react";
 
 import { Button } from "@/components/ux4g/button";
+import { Panel, PanelBody } from "@/components/ui/panel";
 import { Marker, PageTitle, Rule } from "@/components/editorial";
 import { FieldError, FieldHint, Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,52 +70,49 @@ export function IntakeStep({
         {t("intake.title")}
       </PageTitle>
 
-      {/*
-        Full measure, matching the step rule above it on both edges. Capping
-        it left the block short on the right and reading as left-shifted
-        inside its own frame.
-      */}
-      <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
-        <div className="space-y-2">
-          {/*
-            The page title directly above already reads "What happened?", so a
-            second visible copy was pure repetition. It stays in the
-            accessibility tree so the field keeps its programmatic label.
-          */}
-          <Label htmlFor={fieldId} className="sr-only">
-            {t("intake.title")}
-          </Label>
-          <Textarea
-            id={fieldId}
-            value={value}
-            onChange={(event) => onChange(event.target.value)}
-            onBlur={() => setTouched(true)}
-            placeholder={t("intake.placeholder")}
-            rows={8}
-            aria-describedby={`${hintId} ${countId}`}
-            aria-invalid={showError || undefined}
-            className="min-h-52 text-base leading-relaxed border-border bg-background shadow-sm"
-          />
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <FieldHint id={hintId} className="sr-only">
-              {t("intake.help")}
-            </FieldHint>
-            {/* Polite, so it does not interrupt on every keystroke. */}
-            <p
-              id={countId}
-              aria-live="polite"
-              className={cn(
-                "ml-auto font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
-                tooShort ? "opacity-75" : "text-success"
-              )}
-            >
-              {tooShort
-                ? `${words} / ${MIN_WORDS} ${t("intake.wordsMin")}`
-                : `${words} ${t("intake.words")}`}
-            </p>
-          </div>
-          {showError && <FieldError>{t("intake.minWords")}</FieldError>}
-        </div>
+      <form onSubmit={handleSubmit} className="mt-5 space-y-4" noValidate>
+        <Panel>
+          <PanelBody className="space-y-2">
+            {/*
+              The page title directly above already reads "What happened?", so a
+              second visible copy was pure repetition. It stays in the
+              accessibility tree so the field keeps its programmatic label.
+            */}
+            <Label htmlFor={fieldId} className="sr-only">
+              {t("intake.title")}
+            </Label>
+            <Textarea
+              id={fieldId}
+              value={value}
+              onChange={(event) => onChange(event.target.value)}
+              onBlur={() => setTouched(true)}
+              placeholder={t("intake.placeholder")}
+              rows={8}
+              aria-describedby={`${hintId} ${countId}`}
+              aria-invalid={showError || undefined}
+              className="min-h-52 text-base leading-relaxed border-border bg-background shadow-sm"
+            />
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <FieldHint id={hintId} className="sr-only">
+                {t("intake.help")}
+              </FieldHint>
+              {/* Polite, so it does not interrupt on every keystroke. */}
+              <p
+                id={countId}
+                aria-live="polite"
+                className={cn(
+                  "ml-auto font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
+                  tooShort ? "opacity-75" : "text-success"
+                )}
+              >
+                {tooShort
+                  ? `${words} / ${MIN_WORDS} ${t("intake.wordsMin")}`
+                  : `${words} ${t("intake.words")}`}
+              </p>
+            </div>
+            {showError && <FieldError>{t("intake.minWords")}</FieldError>}
+          </PanelBody>
+        </Panel>
 
         <Button
           type="submit"

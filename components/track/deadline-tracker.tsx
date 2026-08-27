@@ -4,7 +4,7 @@ import { CalendarClock, FastForward, FlaskConical, Gavel, RotateCcw, Siren } fro
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { Marker, Rule } from "@/components/editorial";
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Progress } from "@/components/ui/progress";
 import {
   basisKey,
@@ -60,18 +60,12 @@ export function DeadlineTracker({
       : "good";
 
   return (
-    <section aria-labelledby="track-heading">
-      <Rule />
+    <Panel labelledBy="track-heading">
+      <PanelHeader id="track-heading" title={t("track.title")} />
 
-      <div className="pt-8">
-        <Marker label={t("track.title")} />
-        <h2 id="track-heading" className="sr-only">
-          {t("track.title")}
-        </h2>
-      </div>
-
+      <PanelBody className="space-y-5">
       {application.lifeOrLibertyFlag && (
-        <Alert className="mt-6 border-destructive/40 bg-destructive/6">
+        <Alert className="border-destructive/40 bg-destructive/6">
           <Siren aria-hidden="true" className="text-destructive" />
           <AlertTitle>48-hour window claimed under Section 7(1)</AlertTitle>
           <AlertDescription>
@@ -85,8 +79,8 @@ export function DeadlineTracker({
         The countdown, as text first and at display size. The bar underneath is
         aria-hidden — a screen reader gets "6 days left", not a percentage.
       */}
-      <div className="mt-6">
-        <p className="font-mono text-[0.75rem] tracking-[0.14em] uppercase opacity-75">
+      <div>
+        <p className="font-mono text-[0.75rem] tracking-[0.14em] uppercase text-muted-foreground">
           {t("track.remaining")}
         </p>
         <p
@@ -100,7 +94,7 @@ export function DeadlineTracker({
         <Progress value={clock.elapsedFraction * 100} tone={tone} className="mt-5" />
       </div>
 
-      <dl className="mt-8 grid grid-cols-1 divide-y divide-border border-y border-border sm:grid-cols-3 sm:divide-y-0">
+      <dl className="grid grid-cols-1 divide-y divide-border border-y border-border sm:grid-cols-3 sm:divide-y-0">
         <Fact label={t("track.filedOn")}>{formatDate(clock.filedAt)}</Fact>
         <Fact label={t("track.deadline")} divided>
           {formatDate(clock.responseDeadline)}
@@ -110,7 +104,7 @@ export function DeadlineTracker({
         </Fact>
       </dl>
 
-      <p className="mt-6 flex items-start gap-2 border-l-2 border-border pl-4 text-sm leading-relaxed">
+      <p className="flex items-start gap-2 border-l-2 border-border pl-4 text-sm leading-relaxed">
         <CalendarClock aria-hidden="true" className="mt-0.5 size-4 shrink-0 opacity-75" />
         <span>
           <span className="font-medium">{t("track.basis")}:</span>{" "}
@@ -130,13 +124,11 @@ export function DeadlineTracker({
       {/* FR-14 demo control                                             */}
       {/* -------------------------------------------------------------- */}
       {canSimulate(application) && (
-        <div className="mt-10 border border-warning/40 bg-warning/6 p-5">
-          <Marker
-            label="Demo control"
-            dim={false}
-            className="text-warning"
-          />
-          <p className="mt-3 max-w-[58ch] text-sm leading-relaxed opacity-75">
+        <div className="rounded-lg border border-warning/40 bg-warning/6 p-4">
+          <p className="font-mono text-[0.75rem] tracking-[0.14em] text-warning uppercase">
+            Demo control
+          </p>
+          <p className="mt-2 max-w-[64ch] text-sm leading-[1.7] text-muted-foreground">
             {t("track.simulateHelp")}
           </p>
           {application.simulatedDaysElapsed ? (
@@ -168,7 +160,7 @@ export function DeadlineTracker({
       {/* Deadline lapsed                                                */}
       {/* -------------------------------------------------------------- */}
       {clock.isOverdue && !application.appeal?.filedAt && (
-        <Alert className="mt-8 border-destructive/40 bg-destructive/6">
+        <Alert className="border-destructive/40 bg-destructive/6">
           <Gavel aria-hidden="true" className="text-destructive" />
           <AlertTitle>{t("track.overdueTitle")}</AlertTitle>
           <AlertDescription className="space-y-2">
@@ -191,7 +183,8 @@ export function DeadlineTracker({
           </AlertDescription>
         </Alert>
       )}
-    </section>
+      </PanelBody>
+    </Panel>
   );
 }
 

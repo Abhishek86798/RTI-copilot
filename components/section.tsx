@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { cn } from "@/lib/utils";
 
 /**
@@ -23,56 +24,28 @@ export function Section({
   icon: Icon,
   description,
   children,
-  /**
-   * The first section on a page sits directly under `PageTitle`, which already
-   * ends in a hairline. Drawing a second one here is the double-rule bug.
-   */
-  first = false,
   className,
 }: {
   label: string;
   icon?: LucideIcon;
-  /** Optional standfirst, set beside the content rather than above it. */
+  /** Optional standfirst, under the heading. */
   description?: string;
   children: React.ReactNode;
-  first?: boolean;
   className?: string;
 }) {
   return (
-    <section
-      className={cn(
-        "py-8 sm:py-10",
-        first ? "pt-6 sm:pt-8" : "border-t border-border",
-        "lg:grid lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-x-12",
-        className
-      )}
-    >
-      {/*
-        The label column.
-        
-        Sections used to stack: label, gap, content, repeat — which meant a
-        page of six short sections spent a third of its height on headings and
-        the air around them, and you could never see a section's title and its
-        content in the same glance on anything but the shortest one.
-        
-        Setting the label beside the content instead is the single change that
-        made these pages fit. It also gives the page a spine: one column of
-        labels running down the left, at one x-position, on every screen.
-      */}
-      <div className="lg:pt-0.5">
-        <h2 className="flex items-center gap-2.5 font-mono text-[0.75rem] tracking-[0.16em] uppercase opacity-75">
-          {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
-          {label}
-        </h2>
-        {description && (
-          <p className="mt-3 max-w-[42ch] text-sm leading-[1.7] opacity-75">
-            {description}
-          </p>
-        )}
-      </div>
-
-      <div className="mt-5 lg:mt-0">{children}</div>
-    </section>
+    <Panel className={className}>
+      <PanelHeader
+        title={
+          <span className="flex items-center gap-2">
+            {Icon && <Icon aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />}
+            {label}
+          </span>
+        }
+        description={description}
+      />
+      <PanelBody>{children}</PanelBody>
+    </Panel>
   );
 }
 
@@ -94,7 +67,7 @@ export function Prose({
   return (
     <div
       className={cn(
-        "prose-measure space-y-4 text-[0.9375rem] leading-[1.7] opacity-75 sm:text-base",
+        "prose-measure space-y-4 text-[0.9375rem] leading-[1.7] text-muted-foreground sm:text-base",
         "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4",
         "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:marker:text-border",
         "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:marker:text-border",
@@ -137,7 +110,7 @@ export function Steps({
             <h3 className="text-[0.9375rem] leading-snug font-semibold tracking-tight">
               {item.title}
             </h3>
-            <p className="mt-1.5 text-sm leading-[1.7] opacity-75">{item.body}</p>
+            <p className="mt-1.5 text-sm leading-[1.7] text-muted-foreground">{item.body}</p>
           </div>
         </li>
       ))}

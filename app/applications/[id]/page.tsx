@@ -143,7 +143,6 @@ export default function SubmitApplicationPage() {
          */
         backHref={filed ? "/applications" : `/apply?draft=${application.id}`}
         backLabelKey={filed ? "nav.mine" : "common.backStep"}
-        compact={!filed}
       />
 
       {/* Already filed: say so, and hand over. Re-showing the form here is how

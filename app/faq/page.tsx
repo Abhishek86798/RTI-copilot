@@ -37,7 +37,7 @@ const FAQS = [
 
 export default function FAQPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="Common questions" />
 
       <PageTitle
@@ -47,7 +47,7 @@ export default function FAQPage() {
         Common questions
       </PageTitle>
 
-      <Section first label="Questions and answers" icon={HelpCircle}>
+      <Section label="Questions and answers" icon={HelpCircle}>
         {/*
           Two columns from `sm`, divided by hairlines rather than boxed.
 

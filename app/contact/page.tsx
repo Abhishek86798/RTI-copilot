@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="Contact and help" />
 
       <PageTitle
@@ -24,7 +24,7 @@ export default function ContactPage() {
         Contact and help
       </PageTitle>
 
-      <Section first label="About this tool" icon={LifeBuoy}>
+      <Section label="About this tool" icon={LifeBuoy}>
         <Prose>
           <p>
             This is an independent prototype that helps you draft an RTI application.

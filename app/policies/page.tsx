@@ -26,7 +26,7 @@ export const metadata: Metadata = {
  */
 export default function PoliciesPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="Website policies" />
 
       <PageTitle
@@ -36,7 +36,7 @@ export default function PoliciesPage() {
         Website policies
       </PageTitle>
 
-      <Section first label="Privacy" icon={Lock}>
+      <Section label="Privacy" icon={Lock}>
         <Prose>
           <p>
             There is no account, no analytics, no advertising and no third-party

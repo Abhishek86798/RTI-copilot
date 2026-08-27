@@ -55,7 +55,7 @@ const READERS = [
 
 export default function AccessibilityPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="Accessibility statement" />
 
       <PageTitle
@@ -65,7 +65,7 @@ export default function AccessibilityPage() {
         Accessibility statement
       </PageTitle>
 
-      <Section first label="Standard we aim at" icon={Accessibility}>
+      <Section label="Standard we aim at" icon={Accessibility}>
         <Prose>
           <p>
             This prototype targets <strong>WCAG 2.1 Level AA</strong>, the standard

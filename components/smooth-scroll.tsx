@@ -75,6 +75,20 @@ export function SmoothScroll() {
    */
   const search = useSearchParams();
 
+  /*
+   * Never restore a previous scroll position.
+   *
+   * Browsers put you back where you were on a back or forward move, and with
+   * smooth scroll installed that restore races the reset below — so the one
+   * navigation that did not start at the top was the one people use most.
+   * Turning it off makes every arrival identical, however it was reached.
+   */
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;

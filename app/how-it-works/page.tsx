@@ -142,7 +142,7 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="System capabilities and limitations" />
 
       <PageTitle
@@ -152,15 +152,14 @@ export default function HowItWorksPage() {
         System Capabilities and Technical Limitations
       </PageTitle>
 
-      {groups.map((group, index) => {
+      {groups.map((group) => {
         const meta = STATE_META[group.state];
         return (
           <Section
             key={group.state}
             /* The first section sits under PageTitle, which already ends in a
                hairline; a second one here would read as a mistake. */
-            first={index === 0}
-            label={group.heading}
+              label={group.heading}
             icon={meta.icon}
           >
             <ul className="divide-y divide-border border-t border-border">

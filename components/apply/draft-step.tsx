@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowRight, Siren } from "lucide-react";
 
 import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ux4g/button";
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Marker, PageTitle } from "@/components/editorial";
 import { Label } from "@/components/ui/label";
@@ -99,64 +100,65 @@ export function DraftStep({
         Below that the panel falls under the editor, where it is still visible
         without being hidden behind a disclosure.
       */}
-      <div className="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <Label htmlFor={textId}>{t("draft.portalLabel")}</Label>
-            <p
-              id={countId}
-              aria-live="polite"
-              className={cn(
-                "font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
-                overLimit
-                  ? "font-semibold text-destructive"
-                  : nearLimit
-                    ? "font-medium text-warning"
-                    : "opacity-75"
-              )}
-            >
-              {charCount.toLocaleString("en-IN")} /{" "}
-              {PORTAL_CHAR_LIMIT.toLocaleString("en-IN")} {t("draft.chars")}
+      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+        <Panel>
+          <PanelBody className="space-y-2">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <Label htmlFor={textId}>{t("draft.portalLabel")}</Label>
+              <p
+                id={countId}
+                aria-live="polite"
+                className={cn(
+                  "font-mono text-[0.75rem] tracking-[0.14em] uppercase tabular-nums",
+                  overLimit
+                    ? "font-semibold text-destructive"
+                    : nearLimit
+                      ? "font-medium text-warning"
+                      : "opacity-75"
+                )}
+              >
+                {charCount.toLocaleString("en-IN")} /{" "}
+                {PORTAL_CHAR_LIMIT.toLocaleString("en-IN")} {t("draft.chars")}
+              </p>
+            </div>
+            <Textarea
+              id={textId}
+              value={portalText}
+              onChange={(event) => onPortalTextChange(event.target.value)}
+              rows={16}
+              aria-describedby={countId}
+              aria-invalid={overLimit || undefined}
+              className="min-h-96 font-mono text-sm leading-relaxed"
+            />
+            <p className="max-w-[58ch] text-sm leading-relaxed opacity-75">
+              {t("draft.portalHelp")}
             </p>
-          </div>
-          <Textarea
-            id={textId}
-            value={portalText}
-            onChange={(event) => onPortalTextChange(event.target.value)}
-            rows={16}
-            aria-describedby={countId}
-            aria-invalid={overLimit || undefined}
-            className="min-h-96 font-mono text-sm leading-relaxed"
-          />
-          <p className="max-w-[58ch] text-sm leading-relaxed opacity-75">
-            {t("draft.portalHelp")}
-          </p>
-          {overLimit && (
-            <Alert variant="destructive" className="border-destructive/30">
-              <AlertTriangle aria-hidden="true" />
-              <AlertTitle>{t("draft.overLimit")}</AlertTitle>
-            </Alert>
-          )}
-        </div>
+            {overLimit && (
+              <Alert variant="destructive" className="border-destructive/30">
+                <AlertTriangle aria-hidden="true" />
+                <AlertTitle>{t("draft.overLimit")}</AlertTitle>
+              </Alert>
+            )}
+          </PanelBody>
+        </Panel>
 
         {/* ---------------------------------------------------------------- */}
         {/* Audit trail: what you wrote, and why it reads differently now     */}
         {/* ---------------------------------------------------------------- */}
-        <aside
-          aria-label={t("draft.compare")}
-          className="border-t border-border pt-6 lg:sticky lg:top-24 lg:self-start lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
-        >
-          <Marker label={t("draft.yourWords")} dim={false} />
+        <Panel className="lg:sticky lg:top-20 lg:self-start">
+          <PanelHeader title={t("draft.yourWords")} />
+          <PanelBody>
           {/*
             No height cap and no inner scrollbar. Boxing this into a scrolling
             panel put a second scroll region inside a page that already
             scrolls, and hid the end of the citizen's own sentence behind it —
             on the one screen whose purpose is that they read it back.
           */}
-          <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap opacity-90">
-            {grievance}
-          </p>
-        </aside>
+            <p className="text-sm leading-[1.7] whitespace-pre-wrap text-muted-foreground">
+              {grievance}
+            </p>
+          </PanelBody>
+        </Panel>
       </div>
 
       {/*
@@ -164,12 +166,14 @@ export function DraftStep({
         the rewrite rather than participating in the comparison, and it reads
         badly at sidebar width.
       */}
-      <section className="mt-8 border-t border-border pt-8">
-        <Marker label={t("draft.whyChanged")} dim={false} />
-        <p className="mt-4 max-w-[70ch] leading-relaxed opacity-75">
-          {t("draft.whyChangedBody")}
-        </p>
-      </section>
+      <Panel className="mt-5">
+        <PanelHeader title={t("draft.whyChanged")} />
+        <PanelBody>
+          <p className="max-w-[74ch] text-sm leading-[1.7] text-muted-foreground">
+            {t("draft.whyChangedBody")}
+          </p>
+        </PanelBody>
+      </Panel>
 
       <StepActions onBack={onBack} backDisabled={backLoading}>
         <Button type="button" size="lg" variant="cta" onClick={onSubmit}>

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function PaymentPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="About the fee step" />
 
       <PageTitle
@@ -24,7 +24,7 @@ export default function PaymentPage() {
         About the fee step
       </PageTitle>
 
-      <Section first label="What this tool does" icon={CreditCard}>
+      <Section label="What this tool does" icon={CreditCard}>
         {/*
           The callout sits outside Prose on purpose. Nested inside it, it
           inherited the muted body treatment and rendered the single most

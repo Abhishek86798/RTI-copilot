@@ -31,7 +31,7 @@ const STEPS = [
 
 export default function ManualPage() {
   return (
-    <div className={cn(PAGE_LAYOUT)}>
+    <div className={cn(PAGE_LAYOUT, "space-y-5")}>
       <Breadcrumbs current="How to use this tool" />
 
       <PageTitle
@@ -41,7 +41,7 @@ export default function ManualPage() {
         How to use this tool
       </PageTitle>
 
-      <Section first label="Before you start" icon={ListChecks}>
+      <Section label="Before you start" icon={ListChecks}>
         <Prose>
           <p>
             This tool helps you write an RTI application for a Central Government

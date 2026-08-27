@@ -5,7 +5,7 @@ import { AlertTriangle, FlaskConical, IndianRupee, Loader2 } from "lucide-react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ux4g/alert";
 import { Button } from "@/components/ux4g/button";
-import { Marker, Rule } from "@/components/editorial";
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { useI18n } from "@/lib/client/i18n";
 import type { Application } from "@/lib/client/store";
 
@@ -83,24 +83,15 @@ export function PayAndFile({
   }
 
   return (
-    <section aria-labelledby="pay-heading">
-      <Rule />
+    <Panel labelledBy="pay-heading">
+      <PanelHeader
+        id="pay-heading"
+        eyebrow={t("submit.step.pay")}
+        title={isBpl ? t("pay.bplTitle") : t("pay.title")}
+        description={isBpl ? t("pay.bplBody") : t("pay.help")}
+      />
 
-      <div className="pt-8">
-        <Marker label={isBpl ? t("pay.bplTitle") : t("pay.title")} />
-        <h2
-          id="pay-heading"
-          tabIndex={-1}
-          className="mt-2 max-w-[30ch] text-[1.25rem] leading-snug font-semibold tracking-[-0.015em] text-balance"
-        >
-          {isBpl ? t("pay.bplTitle") : t("pay.title")}
-        </h2>
-        <p className="mt-2 max-w-[74ch] text-sm leading-[1.7] opacity-75">
-          {isBpl ? t("pay.bplBody") : t("pay.help")}
-        </p>
-      </div>
-
-      <div className="mt-6 space-y-4">
+      <PanelBody className="space-y-4">
         {/* FR-19: the disclosure sits on the screen, above the action. */}
         <Alert variant="warning">
           <FlaskConical aria-hidden="true" />
@@ -178,8 +169,8 @@ export function PayAndFile({
             </>
           )}
         </Button>
-      </div>
-    </section>
+      </PanelBody>
+    </Panel>
   );
 }
 
