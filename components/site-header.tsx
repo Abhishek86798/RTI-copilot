@@ -120,7 +120,10 @@ export function SiteHeader() {
         </nav>
 
         {/* Right Controls */}
-        <div className="ml-auto flex shrink-0 items-center gap-2">
+        {/* `min-w-0` rather than `shrink-0`: at the narrowest width with the
+            largest text this group is what decides whether the page scrolls
+            sideways, and it has to be allowed to give. */}
+        <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-2">
           <LanguageToggle className="shrink-0" />
           <AuthControls />
           

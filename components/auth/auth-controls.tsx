@@ -141,7 +141,14 @@ export function AuthControls() {
 
   return (
     <>
-      <Button size="xl" onClick={() => setOpen(true)}>
+      {/*
+        `lg`, not `xl`. This sits in the header beside the language toggle and
+        the menu button, and at 320px with the largest text setting the xl
+        chip pushed that group 16px past the viewport — a horizontal scrollbar
+        on every page, which is the reflow failure (WCAG 1.4.10) the text-size
+        control exists to avoid. `lg` is still a 44px target.
+      */}
+      <Button size="lg" onClick={() => setOpen(true)}>
         <User aria-hidden="true" />
         {t("auth.signIn")}
       </Button>

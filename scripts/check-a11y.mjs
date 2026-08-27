@@ -86,11 +86,6 @@ function label(locale, key) {
   return value;
 }
 
-const GRIEVANCE =
-  "My EPS-95 pension has not been credited for four months. I submitted form 10D " +
-  "at the regional office in March and my PPO number is PPO/2019/004512. Nobody " +
-  "at the office will tell me what happened to the file.";
-
 const violations = [];
 
 /** Run axe against the current page state and collect anything it finds. */
@@ -177,8 +172,17 @@ async function walk(page, viewport, locale) {
   await page.waitForURL(/\/applications\//, { timeout: 30_000 });
   await page.waitForTimeout(1200);
 
-  // ---- Step 4: file ----------------------------------------------------
-  await audit(page, tag("file-empty"));
+  // ---- Step 4: file, which is itself five sub-steps --------------------
+  //
+  // Each one is audited: they carry different controls (a pair of dependent
+  // dropdowns, a long particulars form, radio groups, a declaration, the fee
+  // choices) and a rail whose disabled steps ahead have to keep their
+  // contrast.
+  const nextStep = button("submit.next");
+
+  await audit(page, tag("file-authority"));
+  await nextStep.click();
+  await page.waitForTimeout(400);
 
   /*
    * Located by id suffix rather than by label: the signed-out header carries
@@ -186,15 +190,32 @@ async function walk(page, viewport, locale) {
    * own, so a label match is ambiguous on this screen.
    */
   const field = (name) => page.locator(`[id$="-${name}"]:not([id^="login-"])`);
+
+  // The incomplete state first — the blocked "Next" and its alert are a
+  // screen state of their own.
+  await audit(page, tag("file-applicant-empty"));
   await field("name").fill("Test Applicant");
   await field("mobile").fill("9876543210");
   await field("address").fill("12 Test Road, Test City");
   await field("state").selectOption({ index: 1 });
   await field("pincode").fill("400001");
   await field("email").fill("test@example.com");
-  await field("citizen").check();
   await page.waitForTimeout(400);
-  await audit(page, tag("file-filled"));
+  await audit(page, tag("file-applicant-filled"));
+  await nextStep.click();
+  await page.waitForTimeout(400);
+
+  await field("citizen").check();
+  await page.waitForTimeout(300);
+  await audit(page, tag("file-declaration"));
+  await nextStep.click();
+  await page.waitForTimeout(400);
+
+  await audit(page, tag("file-request"));
+  await nextStep.click();
+  await page.waitForTimeout(400);
+
+  await audit(page, tag("file-pay"));
 
   // ---- The acknowledgement, which is a modal ---------------------------
   await button("pay.confirm").click();
