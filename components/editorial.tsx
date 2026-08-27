@@ -60,7 +60,7 @@ export function Frame({
  * measure at every breakpoint.
  */
 export const PAGE_LAYOUT =
-  "mx-auto w-full max-w-4xl px-6 py-12 sm:px-12 sm:py-20 lg:px-16 lg:py-28";
+  "mx-auto w-full max-w-4xl px-6 pt-6 pb-12 sm:px-12 sm:pt-10 sm:pb-20 lg:px-16 lg:pt-12 lg:pb-28";
 
 /**
  * Vertical rhythm between blocks. Three steps, deliberately few — a scale with

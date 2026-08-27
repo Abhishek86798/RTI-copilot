@@ -44,7 +44,13 @@ function readStoredTheme(): Theme {
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { t } = useI18n();
-  const [theme, setTheme] = useState<Theme>(readStoredTheme);
+  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>("system");
+
+  useEffect(() => {
+    setMounted(true);
+    setTheme(readStoredTheme());
+  }, []);
 
   useEffect(() => {
     applyTheme(theme);
@@ -84,7 +90,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       )}
     >
       {OPTIONS.map((option) => {
-        const active = theme === option.value;
+        const active = mounted ? theme === option.value : option.value === "system";
         return (
           <button
             key={option.value}

@@ -59,11 +59,11 @@ export class ApiError extends Error {
       case "rejected":
         return this.message;
       case "unreachable":
-        return "We couldn't reach the server. Check your internet connection and try again — nothing you typed has been lost.";
+        return "Unable to establish secure connection with the central registry. Verify local connectivity; local state is preserved.";
       case "timeout":
-        return "That took too long to come back. This is usually a slow connection rather than a problem with what you wrote. Try again.";
+        return "Transaction timeout exceeded. This indicates high network latency. Please retry the operation.";
       case "server":
-        return "Something went wrong on our side, not yours. Please try again in a moment.";
+        return "An internal system error has occurred. Please retry the operation.";
     }
   }
 
@@ -191,5 +191,5 @@ export async function generateDraft(params: {
 /** Narrows an unknown catch value to something with a showable message. */
 export function toApiError(error: unknown): ApiError {
   if (error instanceof ApiError) return error;
-  return new ApiError("server", "Something went wrong.");
+  return new ApiError("server", "An unexpected system exception was encountered.");
 }

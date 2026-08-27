@@ -129,21 +129,7 @@ export function AuthorityStep({
           </div>
         </fieldset>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowConfidenceHelp((open) => !open)}
-            aria-expanded={showConfidenceHelp}
-            className="inline-flex min-h-12 cursor-pointer items-center text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            {t("confidence.explain")}
-          </button>
-          {showConfidenceHelp && (
-            <p className="animate-rise max-w-[58ch] border-l-2 border-border pl-4 text-sm leading-relaxed opacity-75">
-              {t("confidence.explainBody")}
-            </p>
-          )}
-        </div>
+
       </div>
 
       {selected && <AuthorityDetails candidate={selected} />}
@@ -170,29 +156,31 @@ export function AuthorityStep({
         </div>
       )}
 
-      <div className="mt-10 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row-reverse">
+      <div className="mt-10 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <Button type="button" size="xl" variant="outline" onClick={onBack} disabled={loading} className="order-2 sm:order-1">
+          <ArrowLeft aria-hidden="true" className="mr-2" />
+          {t("common.back")}
+        </Button>
+        
         <Button
           type="button"
           size="xl"
           variant={routing.lowConfidence ? "outline" : "cta"}
           onClick={onSubmit}
           disabled={loading || !selectedId}
+          className="order-1 sm:order-2"
         >
           {loading ? (
             <>
-              <Loader2 aria-hidden="true" className="animate-spin" />
+              <Loader2 aria-hidden="true" className="animate-spin mr-2" />
               {t("confirm.working")}
             </>
           ) : (
             <>
               {routing.lowConfidence ? t("confirm.submitUnsure") : t("confirm.submit")}
-              <ArrowRight aria-hidden="true" />
+              <ArrowRight aria-hidden="true" className="ml-2" />
             </>
           )}
-        </Button>
-        <Button type="button" size="xl" variant="outline" onClick={onBack} disabled={loading}>
-          <ArrowLeft aria-hidden="true" />
-          {t("common.back")}
         </Button>
       </div>
     </div>
@@ -287,7 +275,7 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
         a citizen checks against the authority's own page, so they should read
         as a record, not as a panel.
       */}
-      <dl className="mt-5 grid grid-cols-[auto_1fr] border-y border-border">
+      <dl className="mt-5 flex flex-col rounded-xl border border-border bg-card overflow-hidden">
         <DetailRow icon={Building2} label={t("confirm.pio")} first>
           {authority.pioDesignation}
         </DetailRow>
@@ -368,19 +356,16 @@ function DetailRow({
 }) {
   const divider = first ? "" : "border-t border-border";
   return (
-    <>
+    <div className={cn("flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 p-5", divider)}>
       <dt
-        className={cn(
-          "col-start-1 flex items-start gap-4 pt-4 font-mono text-[0.68rem] tracking-[0.14em] whitespace-nowrap uppercase opacity-75",
-          divider
-        )}
+        className="flex sm:w-[35%] items-center gap-2.5 font-mono text-xs tracking-[0.1em] uppercase opacity-75 shrink-0"
       >
-        <Icon aria-hidden="true" className="mt-px size-4 shrink-0" />
+        <Icon aria-hidden="true" className="size-4 shrink-0" />
         {label}
       </dt>
-      <dd className={cn("col-start-2 min-w-0 pt-4 pb-4 pl-4 text-base leading-relaxed", divider)}>
+      <dd className="sm:flex-1 text-sm sm:text-base leading-relaxed font-medium">
         {children}
       </dd>
-    </>
+    </div>
   );
 }

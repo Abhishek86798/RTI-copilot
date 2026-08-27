@@ -28,22 +28,25 @@ export function ErrorNotice({
   const { t } = useI18n();
 
   return (
-    <Alert
-      variant="destructive"
-      className={cn("border-destructive/30", className)}
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center rounded-xl border border-destructive/20 bg-destructive/10 px-6 py-5 text-center text-destructive",
+        className
+      )}
     >
-      <AlertTriangle aria-hidden="true" />
-      <AlertTitle>{t("error.title")}</AlertTitle>
-      <AlertDescription className="space-y-3">
-        <p>{error.userMessage}</p>
-        {error.retryable && onRetry && (
-          <Button type="button" variant="outline" size="lg" onClick={onRetry}>
-            <RotateCcw aria-hidden="true" />
+      <AlertTriangle aria-hidden="true" className="mb-2 size-6 opacity-80" />
+      <h3 className="text-base font-semibold tracking-tight">{t("error.title")}</h3>
+      <p className="mt-1.5 text-sm leading-relaxed opacity-90 max-w-[50ch]">{error.userMessage}</p>
+      
+      {error.retryable && onRetry && (
+        <div className="mt-4">
+          <Button type="button" variant="outline" onClick={onRetry}>
+            <RotateCcw aria-hidden="true" className="mr-2 size-4" />
             {t("common.tryAgain")}
           </Button>
-        )}
-      </AlertDescription>
-    </Alert>
+        </div>
+      )}
+    </div>
   );
 }
 

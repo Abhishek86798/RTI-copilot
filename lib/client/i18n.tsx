@@ -372,7 +372,7 @@ const en = {
   "home.cta.lead":
     "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
 
-  "error.title": "We could not continue",
+  "error.title": "System Exception Encountered",
 } as const;
 
 export type StringKey = keyof typeof en;
