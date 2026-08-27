@@ -1,11 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import { ApplicationHeader } from "@/components/track/application-header";
-import { ApplicationSheet } from "@/components/track/application-sheet";
 import { FiledDialog } from "@/components/track/filed-dialog";
 import { FilingGuide } from "@/components/track/filing-guide";
 import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
@@ -35,24 +34,10 @@ export default function SubmitApplicationPage() {
   const hydrated = useHydrated();
   const application = useApplication(params.id);
 
-  const [printing, setPrinting] = useState(false);
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
   const [showReceipt, setShowReceipt] = useState(false);
 
   const filed = Boolean(application?.filedAt);
-
-  /*
-   * Render the print sheet first, then print. Calling window.print() in the
-   * same tick would capture the DOM before React has committed the sheet.
-   */
-  useEffect(() => {
-    if (!printing) return;
-    const frame = requestAnimationFrame(() => {
-      window.print();
-      setPrinting(false);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [printing]);
 
   const handleApplicantChange = useCallback(
     (applicant: Applicant) => {
@@ -154,11 +139,9 @@ export default function SubmitApplicationPage() {
           open={showReceipt}
           receipt={receipt}
           onClose={() => setShowReceipt(false)}
-          onPrint={() => setPrinting(true)}
         />
       )}
 
-      {printing && <ApplicationSheet application={application} />}
     </div>
   );
 }

@@ -137,26 +137,22 @@ async function walk(page, viewport, locale) {
   await page.goto(`${BASE}/applications`, { waitUntil: "networkidle" });
   await audit(page, tag("list-empty"));
 
-  // ---- Step 1: intake -------------------------------------------------
-  await page.goto(`${BASE}/apply`, { waitUntil: "networkidle" });
+  // ---- Step 1: describe ------------------------------------------------
+  //
+  // Seeded from a prepared case rather than typed. Routing and drafting call
+  // a live model; without API keys the demo cases fall back to their saved
+  // responses, which is what makes this audit runnable on any machine.
+  await page.goto(`${BASE}/apply?case=pension`, { waitUntil: "networkidle" });
+  await page.getByRole("heading", { level: 1 }).waitFor({ timeout: 30_000 });
   await page.waitForTimeout(400);
-  await audit(page, tag("intake"));
+  await audit(page, tag("describe"));
 
-  await page.getByRole("textbox").first().fill(GRIEVANCE);
   await button("intake.submit").click();
 
   // ---- Step 2: authority ----------------------------------------------
   // Either label can appear: a low-confidence result changes the wording, and
   // which one shows depends on what the live model returned this run.
-  const confirm = page
-    .getByRole("button", {
-      name: new RegExp(
-        [label(locale, "confirm.submit"), label(locale, "confirm.submitUnsure")]
-          .map((text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-          .join("|")
-      ),
-    })
-    .first();
+  const confirm = button("confirm.submit").or(button("confirm.submitUnsure")).first();
   await confirm.waitFor({ state: "visible", timeout: 120_000 });
   await page.waitForTimeout(500);
   await audit(page, tag("authority"));
@@ -177,51 +173,63 @@ async function walk(page, viewport, locale) {
   await page.waitForTimeout(800);
   await audit(page, tag("draft"));
 
-  // The side-by-side comparison is collapsed by default and carries the two
-  // markers that the redesign restyled, so it has to be opened to be audited.
-  const compare = button("draft.compare");
-  if (await compare.count()) {
-    await compare.click();
-    await page.waitForTimeout(300);
-    await audit(page, tag("draft-compare-open"));
-  }
-
   await next.click();
   await page.waitForURL(/\/applications\//, { timeout: 30_000 });
   await page.waitForTimeout(1200);
 
-  // ---- Step 4: filing --------------------------------------------------
-  await audit(page, tag("detail-unfiled"));
+  // ---- Step 4: file ----------------------------------------------------
+  await audit(page, tag("file-empty"));
 
-  await page.getByLabel(label(locale, "file.name"), { exact: false }).fill("Test Applicant");
-  await page
-    .getByLabel(label(locale, "file.address"), { exact: false })
-    .fill("12 Test Road, Test City");
-  await page
-    .getByLabel(label(locale, "file.email"), { exact: false })
-    .fill("test@example.com");
+  /*
+   * Located by id suffix rather than by label: the signed-out header carries
+   * its own sign-in form with an "Email address" and a "Mobile number" of its
+   * own, so a label match is ambiguous on this screen.
+   */
+  const field = (name) => page.locator(`[id$="-${name}"]:not([id^="login-"])`);
+  await field("name").fill("Test Applicant");
+  await field("mobile").fill("9876543210");
+  await field("address").fill("12 Test Road, Test City");
+  await field("state").selectOption({ index: 1 });
+  await field("pincode").fill("400001");
+  await field("email").fill("test@example.com");
+  await field("citizen").check();
   await page.waitForTimeout(400);
-  await audit(page, tag("filing-guide-filled"));
+  await audit(page, tag("file-filled"));
 
-  const start = button("file.confirm");
-  await start.waitFor({ timeout: 15_000 });
-  await start.click();
-  await page.waitForTimeout(1500);
+  // ---- The acknowledgement, which is a modal ---------------------------
+  await button("pay.confirm").click();
+  await page.locator("dialog[open]").waitFor({ timeout: 30_000 });
+  await page.waitForTimeout(400);
+  await audit(page, tag("filed-dialog"));
 
-  // ---- Step 5: tracking, then the lapsed state and the appeal ----------
-  await audit(page, tag("tracking"));
+  // Taken deliberately rather than waiting for the countdown to expire.
+  await button("receipt.dashboard").click();
+  await page.waitForFunction(() => location.pathname === "/applications", null, {
+    timeout: 20_000,
+  });
+  await page.waitForTimeout(800);
+  await audit(page, tag("list-populated"));
+
+  // ---- Status, the lapsed state, and the appeal ------------------------
+  const id = await page.evaluate(() => {
+    const raw = localStorage.getItem("rti-copilot:applications");
+    return raw ? JSON.parse(raw).applications?.[0]?.id : null;
+  });
+
+  await page.goto(`${BASE}/applications/${id}/track`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(900);
+  await audit(page, tag("status"));
 
   const simulate = button("track.simulate");
   if (await simulate.count()) {
     await simulate.click();
-    await page.waitForTimeout(2000);
-    await audit(page, tag("tracking-overdue-and-appeal"));
+    await page.waitForTimeout(1800);
+    await audit(page, tag("status-overdue"));
   }
 
-  // The dashboard, now that it holds a real row rather than the empty state.
-  await page.goto(`${BASE}/applications`, { waitUntil: "networkidle" });
-  await page.waitForTimeout(600);
-  await audit(page, tag("list-populated"));
+  await page.goto(`${BASE}/applications/${id}/appeal`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(900);
+  await audit(page, tag("appeal"));
 }
 
 const browser = await chromium.launch();
@@ -232,7 +240,17 @@ try {
     ["desktop", { width: 1280, height: 900 }],
   ]) {
     for (const locale of ["en", "hi"]) {
-      const context = await browser.newContext({ viewport });
+      /*
+       * Audited with reduced motion.
+       *
+       * Not to skip anything: the scroll reveals fade text in from
+       * transparent, and axe sampling a block mid-fade reported the landing
+       * page as a wall of 1.02:1 contrast failures — text against its own
+       * background, on about half of runs. The finished colours are the ones
+       * a reader sees and the ones worth testing, and reduced motion is
+       * exactly the path that renders them immediately.
+       */
+      const context = await browser.newContext({ viewport, reducedMotion: "reduce" });
       const page = await context.newPage();
 
       // The language toggle persists to localStorage, so seeding it before the

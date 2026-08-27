@@ -25,6 +25,7 @@ export function Dialog({
   open,
   onClose,
   labelledBy,
+  dismissible = true,
   children,
   className,
 }: {
@@ -32,6 +33,12 @@ export function Dialog({
   onClose: () => void;
   /** id of the heading inside the dialog. */
   labelledBy: string;
+  /**
+   * Draws the close affordance in the corner. Escape always works — this only
+   * governs whether there is a button for it, which a dialog whose own
+   * content already offers a clear way out does not need.
+   */
+  dismissible?: boolean;
   children: React.ReactNode;
   className?: string;
 }) {
@@ -62,21 +69,24 @@ export function Dialog({
        */
       onClose={onClose}
       className={cn(
-        "m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[calc(100dvh-3rem)] overflow-y-auto",
-        "border border-border bg-background p-0 text-foreground shadow-2xl",
-        "backdrop:bg-foreground/45 open:animate-rise",
+        "m-auto w-[min(34rem,calc(100vw-2rem))] max-h-[calc(100dvh-3rem)] overflow-y-auto",
+        "rounded-lg border border-border bg-background p-0 text-foreground shadow-2xl",
+        "backdrop:bg-foreground/50 backdrop:backdrop-blur-[2px]",
+        "motion-safe:open:animate-rise",
         className
       )}
     >
       <div className="relative px-6 py-8 sm:px-10 sm:py-10">
-        <button
-          type="button"
-          onClick={() => ref.current?.close()}
-          aria-label={t("common.close")}
-          className="absolute top-3 right-3 flex size-12 items-center justify-center opacity-75 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-        >
-          <X aria-hidden="true" className="size-5" />
-        </button>
+        {dismissible && (
+          <button
+            type="button"
+            onClick={() => ref.current?.close()}
+            aria-label={t("common.close")}
+            className="absolute top-2 right-2 flex size-12 items-center justify-center opacity-75 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            <X aria-hidden="true" className="size-5" />
+          </button>
+        )}
         {children}
       </div>
     </dialog>

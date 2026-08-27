@@ -74,8 +74,12 @@ const en = {
   "receipt.feeExempt": "Exempt under Section 7(5)",
   "receipt.dueBy": "Reply due by",
   "receipt.dashboard": "Go to Applicant Dashboard",
-  "receipt.next":
-    "This application is now listed on your Applicant Dashboard. Open it there to watch the reply deadline, record a reply, or file a first appeal.",
+  "receipt.saved":
+    "Saved to your Applicant Dashboard, with the reply deadline and the PDF.",
+  "receipt.simulatedShort":
+    "Simulated filing. Nothing was sent to rtionline.gov.in.",
+  "receipt.stay": "Stay on this page",
+  "receipt.redirect": "Opening your dashboard in {seconds}s",
   "receipt.download": "Download the application (PDF)",
   "theme.label": "Colour theme",
   "theme.light": "Light",
@@ -538,8 +542,12 @@ const hi: Record<StringKey, string> = {
   "receipt.feeExempt": "धारा 7(5) के तहत छूट",
   "receipt.dueBy": "उत्तर देय तिथि",
   "receipt.dashboard": "आवेदक डैशबोर्ड पर जाएँ",
-  "receipt.next":
-    "यह आवेदन अब आपके आवेदक डैशबोर्ड में दर्ज है। उत्तर की समय-सीमा देखने, उत्तर दर्ज करने या प्रथम अपील दाख़िल करने के लिए इसे वहीं से खोलें।",
+  "receipt.saved":
+    "आपके आवेदक डैशबोर्ड में सुरक्षित — उत्तर की समय-सीमा और पीडीएफ़ सहित।",
+  "receipt.simulatedShort":
+    "यह नक़ली फ़ाइलिंग है। rtionline.gov.in पर कुछ नहीं भेजा गया।",
+  "receipt.stay": "इसी पृष्ठ पर रहें",
+  "receipt.redirect": "{seconds} सेकंड में डैशबोर्ड खुलेगा",
   "receipt.download": "आवेदन डाउनलोड करें (PDF)",
   "theme.label": "रंग थीम",
   "theme.light": "उजला",

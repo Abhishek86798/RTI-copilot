@@ -49,3 +49,8 @@ journey-*.png
 ui-*.png
 file-*.png
 undefined/
+
+# Local scratch scripts and screenshots
+.walk*.mjs
+.dbg*.mjs
+.shot-*.png

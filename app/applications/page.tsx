@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Clock, Plus } from "lucide-react";
 
+import { DownloadButton } from "@/components/track/download-button";
 import { MigratePrompt } from "@/components/migrate-prompt";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ux4g/button";
@@ -117,19 +118,13 @@ function ApplicationRow({ application }: { application: Application }) {
     : null;
 
   return (
-    <Link
-      /*
-         Filing and tracking are separate pages now, so a row has to point at
-         the one that matches the application's stage — sending a filed
-         request back to the submission form is how you file it twice.
-      */
-      href={
-        application.filedAt
-          ? `/applications/${application.id}/track`
-          : `/applications/${application.id}`
-      }
-      className="group block py-7 transition-colors hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-    >
+    /*
+      One link per row, stretched over the whole row by a pseudo-element, so
+      the row is still a single target while the download stays a real button
+      beside it. Nesting a button inside an anchor would be invalid markup and
+      would give the row two conflicting activation behaviours.
+    */
+    <div className="group relative py-7 transition-colors hover:bg-card">
       <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-8">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-4">
@@ -142,7 +137,22 @@ function ApplicationRow({ application }: { application: Application }) {
           </div>
 
           <p className="mt-5 max-w-[34ch] text-xl leading-snug font-semibold tracking-[-0.01em]">
-            {application.authority.authorityName}
+            <Link
+              /*
+                 Filing and tracking are separate pages, so a row has to point
+                 at the one that matches the application's stage — sending a
+                 filed request back to the submission form is how you file it
+                 twice.
+              */
+              href={
+                application.filedAt
+                  ? `/applications/${application.id}/track`
+                  : `/applications/${application.id}`
+              }
+              className="underline-offset-4 after:absolute after:inset-0 group-hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {application.authority.authorityName}
+            </Link>
           </p>
           <p className="mt-4 line-clamp-2 max-w-[58ch] text-base leading-loose opacity-75">
             {application.grievance}
@@ -179,13 +189,20 @@ function ApplicationRow({ application }: { application: Application }) {
               {t("list.started", { date: formatDate(application.createdAt) })}
             </p>
           )}
-          <p className="mt-3 inline-flex items-center gap-1 text-sm font-medium underline-offset-4 group-hover:underline">
+          <p className="mt-3 inline-flex items-center gap-1 text-sm font-medium opacity-75">
             {t("list.open")}
             <ArrowRight aria-hidden="true" className="size-4" />
           </p>
         </div>
       </div>
-    </Link>
+
+      {/* Raised above the stretched link so it stays clickable in its own
+          right. This is where the PDF lives now — the filing confirmation
+          hands over rather than carrying it. */}
+      <div className="relative z-10 mt-6">
+        <DownloadButton application={application} />
+      </div>
+    </div>
   );
 }
 
