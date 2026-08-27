@@ -64,7 +64,12 @@ export default function TrackApplicationPage() {
   if (!application.filedAt) {
     return (
       <div className={cn(PAGE_LAYOUT)}>
-        <ApplicationHeader application={application} step={3} stageKey="steps.file" />
+        <ApplicationHeader
+          application={application}
+          stageKey="steps.track"
+          backHref="/applications"
+          backLabelKey="nav.mine"
+        />
         <div className="mt-16 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.notFiledYet")}
@@ -94,7 +99,12 @@ export default function TrackApplicationPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <ApplicationHeader application={application} step={4} stageKey="steps.track" />
+      <ApplicationHeader
+        application={application}
+        stageKey="steps.track"
+        backHref="/applications"
+        backLabelKey="nav.mine"
+      />
 
       <div className="mt-16 space-y-16">
         <DeadlineTracker

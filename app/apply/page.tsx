@@ -14,8 +14,9 @@ import { StepIndicator } from "@/components/step-indicator";
 import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
 import { splitDraftItems } from "@/lib/client/filing";
-import { createApplication, updateApplication } from "@/lib/client/store";
-import type { DraftResponse, RoutingResponse } from "@/lib/client/types";
+import { createApplication, updateApplication, type Application } from "@/lib/client/store";
+import { useApplication, useHydrated } from "@/lib/client/use-applications";
+import type { RoutingResponse } from "@/lib/client/types";
 
 type WizardStep = "intake" | "authority" | "draft";
 
@@ -35,10 +36,9 @@ const STEP_INDEX: Record<WizardStep, number> = {
  * dropped connection, or a phone that killed the tab to save memory.
  *
  * Once the draft exists the journey moves to `/applications/[id]`, which owns
- * filing and tracking — those need a durable URL the citizen can come back to
- * in thirty days.
+ * step 4 — filing needs a durable URL, and the record has to outlive the tab.
  */
-function ApplyWizard() {
+function ApplyWizard({ resume }: { resume: Application | null }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const headingRef = useRef<HTMLDivElement>(null);
@@ -52,20 +52,28 @@ function ApplyWizard() {
    */
   const seeded = getDemoCase(searchParams.get("case") ?? "");
 
-  const [step, setStep] = useState<WizardStep>("intake");
-  const [grievance, setGrievance] = useState(() => seeded?.grievance ?? "");
-  const [isDemo, setIsDemo] = useState(() => Boolean(seeded));
+  const [step, setStep] = useState<WizardStep>(resume ? "draft" : "intake");
+  const [grievance, setGrievance] = useState(
+    () => resume?.grievance ?? seeded?.grievance ?? ""
+  );
+  const [isDemo, setIsDemo] = useState(() => resume?.isDemo ?? Boolean(seeded));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [source, setSource] = useState<ResultSource>("live");
 
   const [routing, setRouting] = useState<RoutingResponse | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(
+    () => resume?.authority.id ?? null
+  );
 
-  const [draft, setDraft] = useState<DraftResponse | null>(null);
-  const [portalText, setPortalText] = useState("");
-  const [urgent, setUrgent] = useState(false);
-  const [applicationId, setApplicationId] = useState<string | null>(null);
+  const [portalText, setPortalText] = useState(() => resume?.portalText ?? "");
+  const [urgent, setUrgent] = useState(() => resume?.lifeOrLibertyFlag ?? false);
+  const [urgentReason, setUrgentReason] = useState(
+    () => resume?.lifeOrLibertyReason ?? ""
+  );
+  const [applicationId, setApplicationId] = useState<string | null>(
+    () => resume?.id ?? null
+  );
 
   /*
    * Move focus to the step heading on every step change. Without this a
@@ -113,25 +121,42 @@ function ApplyWizard() {
         extractedReferences: routing.extractedReferences,
       });
 
-      setDraft(result.data);
       setPortalText(result.data.portalText);
       setUrgent(result.data.lifeOrLibertyFlag);
+      setUrgentReason(result.data.lifeOrLibertyReason);
       setSource((previous) =>
         previous === "demo-fixture" ? previous : result.source
       );
 
-      const application = createApplication({
-        grievance,
-        authority,
-        extractedReferences: routing.extractedReferences,
-        items: result.data.items,
-        fullText: result.data.fullText,
-        portalText: result.data.portalText,
-        lifeOrLibertyFlag: result.data.lifeOrLibertyFlag,
-        lifeOrLibertyReason: result.data.lifeOrLibertyReason,
-        isDemo,
-      });
-      setApplicationId(application.id);
+      /*
+       * Coming back from step 4 to edit: the record already exists, so update
+       * it rather than starting a second one. Redrafting used to leave the
+       * citizen with two rows on their dashboard for one grievance.
+       */
+      if (applicationId) {
+        updateApplication(applicationId, {
+          authority,
+          extractedReferences: routing.extractedReferences,
+          items: result.data.items,
+          fullText: result.data.fullText,
+          portalText: result.data.portalText,
+          lifeOrLibertyFlag: result.data.lifeOrLibertyFlag,
+          lifeOrLibertyReason: result.data.lifeOrLibertyReason,
+        });
+      } else {
+        const application = createApplication({
+          grievance,
+          authority,
+          extractedReferences: routing.extractedReferences,
+          items: result.data.items,
+          fullText: result.data.fullText,
+          portalText: result.data.portalText,
+          lifeOrLibertyFlag: result.data.lifeOrLibertyFlag,
+          lifeOrLibertyReason: result.data.lifeOrLibertyReason,
+          isDemo,
+        });
+        setApplicationId(application.id);
+      }
       setStep("draft");
     } catch (caught) {
       setError(toApiError(caught));
@@ -214,15 +239,25 @@ function ApplyWizard() {
           />
         )}
 
-        {step === "draft" && draft && (
+        {step === "draft" && (
           <DraftStep
             grievance={grievance}
             portalText={portalText}
             onPortalTextChange={handlePortalTextChange}
             lifeOrLibertyFlag={urgent}
-            lifeOrLibertyReason={draft.lifeOrLibertyReason}
+            lifeOrLibertyReason={urgentReason}
             onToggleUrgency={handleToggleUrgency}
-            onBack={() => setStep("authority")}
+            /*
+             * Resuming from step 4 restores the draft but not the shortlist
+             * that produced it — candidates are a server answer, not part of
+             * the saved application. Rather than reconstruct a one-entry list
+             * that would misrepresent what the router actually returned, ask
+             * it again.
+             */
+            onBack={() =>
+              routing ? setStep("authority") : void handleRoute(grievance, isDemo)
+            }
+            backLoading={loading && !routing}
             onSubmit={() => {
               if (applicationId) router.push(`/applications/${applicationId}`);
             }}
@@ -234,19 +269,43 @@ function ApplyWizard() {
 }
 
 /**
+ * Resolves `?draft=<id>` before the wizard mounts.
+ *
+ * Step 4 lives on its own route, so "back to the previous step" has to come
+ * back here and land on the draft rather than at the start of the form. The
+ * lookup happens out here, and the id is used as a `key`, so the wizard's
+ * initial state can be read straight from the record — no effect that seeds
+ * state on a second render, and no flash of an empty step 1.
+ */
+function ApplyRoute() {
+  const searchParams = useSearchParams();
+  const hydrated = useHydrated();
+  const resumeId = searchParams.get("draft");
+  const resumed = useApplication(resumeId ?? "");
+
+  if (resumeId && !hydrated) {
+    return <Loading />;
+  }
+
+  return <ApplyWizard key={resumeId ?? "new"} resume={resumed ?? null} />;
+}
+
+function Loading() {
+  return (
+    <div className={cn(PAGE_LAYOUT)}>
+      <p className="text-muted-foreground">Loading…</p>
+    </div>
+  );
+}
+
+/**
  * `useSearchParams` opts the subtree into client-side rendering, so Next needs
  * a boundary to prerender the shell around it.
  */
 export default function ApplyPage() {
   return (
-    <Suspense
-      fallback={
-        <div className={cn(PAGE_LAYOUT)}>
-          <p className="text-muted-foreground">Loading…</p>
-        </div>
-      }
-    >
-      <ApplyWizard />
+    <Suspense fallback={<Loading />}>
+      <ApplyRoute />
     </Suspense>
   );
 }

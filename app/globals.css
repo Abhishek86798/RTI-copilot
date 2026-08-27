@@ -615,3 +615,13 @@
 [data-print="only"] {
   display: none;
 }
+
+/*
+ * Scroll lock for modal dialogs. A native `<dialog>` blocks pointer and
+ * assistive-technology access to the page behind it, but leaves that page
+ * free to scroll; see `setPageScrollLocked` in components/smooth-scroll.tsx
+ * for the other half, which stops the smooth-scroll animation.
+ */
+html[data-scroll-locked] {
+  overflow: hidden;
+}

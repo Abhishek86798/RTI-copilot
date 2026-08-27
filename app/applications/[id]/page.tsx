@@ -1,15 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { scrollPageToTop } from "@/components/smooth-scroll";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import { ApplicationHeader } from "@/components/track/application-header";
 import { ApplicationSheet } from "@/components/track/application-sheet";
+import { FiledDialog } from "@/components/track/filed-dialog";
 import { FilingGuide } from "@/components/track/filing-guide";
 import { PayAndFile, type Receipt as ReceiptData } from "@/components/track/pay-and-file";
-import { Receipt } from "@/components/track/receipt";
 import { Button } from "@/components/ux4g/button";
 import { updateApplication } from "@/lib/client/store";
 import { PAGE_LAYOUT } from "@/components/page-layout";
@@ -19,26 +18,26 @@ import { useApplication, useHydrated } from "@/lib/client/use-applications";
 import type { Applicant, Authority } from "@/lib/client/types";
 
 /**
- * Step 4 — Submit RTI Request.
+ * Step 4 — Submit RTI Request. The last step of Initiate Requisition.
  *
- * This page ends at the acknowledgement. It used to keep going: the receipt
- * appeared and the whole tracking panel unrolled beneath it on the same
- * screen, so the moment of "your application has been filed" was immediately
- * buried under a countdown, a demo control and an appeal draft.
+ * The journey ends here, at "pay ₹10 and file". Everything that happens
+ * afterwards — the wait, the reminder, the appeal — starts from the Applicant
+ * Dashboard, so this page hands over rather than continuing: the
+ * acknowledgement arrives as a dialog and points at the dashboard, and there
+ * is no tracking on the screen at all.
  *
- * Filing and tracking are separate acts, minutes and then a month apart, so
- * they are separate pages. The acknowledgement's own "Track this application"
- * button is the way across.
+ * Back goes to the draft, not to the dashboard. This is step 4 of a form; the
+ * thing behind it is step 3.
  */
 export default function SubmitApplicationPage() {
   const { t } = useI18n();
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const hydrated = useHydrated();
   const application = useApplication(params.id);
 
   const [printing, setPrinting] = useState(false);
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
+  const [showReceipt, setShowReceipt] = useState(false);
 
   const filed = Boolean(application?.filedAt);
 
@@ -97,22 +96,21 @@ export default function SubmitApplicationPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <ApplicationHeader application={application} step={3} stageKey="steps.file" />
+      <ApplicationHeader
+        application={application}
+        step={3}
+        stageKey="steps.file"
+        /*
+         * Once it is filed there is no previous step to return to — the form
+         * is spent, and the only useful way out is the list.
+         */
+        backHref={filed ? "/applications" : `/apply?draft=${application.id}`}
+        backLabelKey={filed ? "nav.mine" : "common.backStep"}
+      />
 
-      {/* Just filed: the acknowledgement, and nothing under it. */}
-      {receipt && (
-        <div className="mt-16">
-          <Receipt
-            receipt={receipt}
-            onPrint={() => setPrinting(true)}
-            onTrack={() => router.push(`/applications/${application.id}/track`)}
-          />
-        </div>
-      )}
-
-      {/* Already filed, arriving fresh: point at tracking rather than at a
-          form that would file it a second time. */}
-      {!receipt && filed && (
+      {/* Already filed: say so, and hand over. Re-showing the form here is how
+          an application gets filed twice. */}
+      {filed && (
         <div className="mt-16 border-t border-border pt-8">
           <p className="max-w-[58ch] leading-relaxed opacity-75">
             {t("track.alreadyFiled")}
@@ -122,11 +120,7 @@ export default function SubmitApplicationPage() {
             variant="cta"
             className="mt-6"
             nativeButton={false}
-            render={
-              <Link href={`/applications/${application.id}/track`}>
-                {t("receipt.track")}
-              </Link>
-            }
+            render={<Link href="/applications">{t("receipt.dashboard")}</Link>}
           />
         </div>
       )}
@@ -149,10 +143,19 @@ export default function SubmitApplicationPage() {
                 viaApio: false,
               });
               setReceipt(issued);
-              scrollPageToTop();
+              setShowReceipt(true);
             }}
           />
         </div>
+      )}
+
+      {receipt && (
+        <FiledDialog
+          open={showReceipt}
+          receipt={receipt}
+          onClose={() => setShowReceipt(false)}
+          onPrint={() => setPrinting(true)}
+        />
       )}
 
       {printing && <ApplicationSheet application={application} />}
