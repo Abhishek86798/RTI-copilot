@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, BookOpen, FlaskConical, Info, RotateCcw } from "lucide-react";
+import { AlertTriangle, BookOpen, Info, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -52,33 +52,6 @@ export function ErrorNotice({
         </Button>
       )}
     </div>
-  );
-}
-
-/**
- * Shown whenever a screen is displaying a saved fixture instead of a live
- * model response.
- *
- * This banner is not decoration. A reviewer has to be able to tell, without
- * asking, which parts of what they are looking at were generated just now and
- * which were prepared earlier — and the honest answer is more useful than a
- * demo that appears to work perfectly.
- */
-export function FixtureNotice({ className }: { className?: string }) {
-  const { t } = useI18n();
-
-  return (
-    /*
-       role="status" rather than the Alert default of role="alert". This
-       appears when a call falls back to a saved response — worth announcing,
-       but not worth interrupting whatever the reader is in the middle of.
-       WCAG 4.1.3 wants the polite role for exactly this case.
-    */
-    <Alert role="status" variant="warning" className={className}>
-      <FlaskConical aria-hidden="true" />
-      <AlertTitle>Showing a saved response</AlertTitle>
-      <AlertDescription>{t("disclosure.fixture")}</AlertDescription>
-    </Alert>
   );
 }
 

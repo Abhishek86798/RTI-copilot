@@ -272,9 +272,6 @@ const en = {
   "list.emptyNav": "Start one from “New application” in the menu above.",
   "list.stored": "Everything you have drafted or filed, with the reply date for each.",
 
-  "disclosure.title": "What is real and what is simulated",
-  "disclosure.fixture":
-    "We could not reach our server, so this example is showing a saved answer.",
 
   "demo.title": "You are walking through an example",
   "demo.body": "A prepared case, filled in so you can see the whole journey. Nothing is filed and no fee is charged.",
@@ -763,9 +760,6 @@ const hi: Record<StringKey, string> = {
   "list.emptyNav": "ऊपर मेनू में “नया आवेदन” से शुरू करें।",
   "list.stored": "आपके सभी मसौदे और दाखिल आवेदन, हर एक की जवाब की तारीख के साथ।",
 
-  "disclosure.title": "क्या असली है और क्या नकल",
-  "disclosure.fixture":
-    "हमारा सर्वर नहीं मिल पाया, इसलिए यह उदाहरण सहेजा हुआ जवाब दिखा रहा है।",
 
   "demo.title": "आप एक उदाहरण देख रहे हैं",
   "demo.body": "पहले से तैयार मामला, पूरा भरा हुआ, ताकि आप पूरी प्रक्रिया देख सकें। न कुछ दाखिल होता है, न कोई शुल्क लगता है।",

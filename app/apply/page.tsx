@@ -9,8 +9,8 @@ import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
-import { DemoNotice, ErrorNotice, FixtureNotice } from "@/components/notices";
-import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
+import { DemoNotice, ErrorNotice } from "@/components/notices";
+import { generateDraft, routeAuthority, toApiError, type ApiError } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
 import { splitDraftItems } from "@/lib/client/filing";
 import { createApplication, updateApplication, type Application } from "@/lib/client/store";
@@ -52,7 +52,6 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
   const [isDemo, setIsDemo] = useState(() => resume?.isDemo ?? Boolean(seeded));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
-  const [source, setSource] = useState<ResultSource>("live");
 
   const [routing, setRouting] = useState<RoutingResponse | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(
@@ -85,7 +84,6 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
       try {
         const result = await routeAuthority(text);
         setRouting(result.data);
-        setSource(result.source);
         setSelectedId(result.data.candidates[0]?.authority.id ?? null);
         setIsDemo(demo);
         setStep("authority");
@@ -117,10 +115,6 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
       setPortalText(result.data.portalText);
       setUrgent(result.data.lifeOrLibertyFlag);
       setUrgentReason(result.data.lifeOrLibertyReason);
-      setSource((previous) =>
-        previous === "demo-fixture" ? previous : result.source
-      );
-
       /*
        * Coming back from step 4 to edit: the record already exists, so update
        * it rather than starting a second one. Redrafting used to leave the
@@ -205,10 +199,6 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
           moment the case stops being the prepared one and becomes theirs.
         */}
         {isDemo && <DemoNotice className="mb-6" />}
-
-        {source === "demo-fixture" && step !== "intake" && (
-          <FixtureNotice className="mb-6" />
-        )}
 
         {step === "intake" && (
           <IntakeStep
