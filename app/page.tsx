@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 import {
@@ -40,13 +39,10 @@ const TOTAL = 5;
  */
 export default function HomePage() {
   const { t } = useI18n();
-  const router = useRouter();
   /*
-   * The account question belongs on the citizen's own application, not on the
-   * worked example. Someone clicking "See it work on a real example" is
-   * deciding whether to trust this at all, and a sign-in form is the wrong
-   * first screen for that — the example files nothing and keeps nothing, so
-   * there is no account for it to need.
+   * Both entry points ask for an account, but the example asks with the form
+   * already answered — a reviewer should be able to see how sign-in works
+   * without inventing an address for it.
    */
   const { start, dialog } = useSignInGate();
 
@@ -136,7 +132,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={() => router.push(`/apply?case=${DEMO_CASES[0].id}`)}
+                  onClick={() => void start(`/apply?case=${DEMO_CASES[0].id}`, { demo: true })}
                 >
                   {t("home.hero.demo")}
                 </Button>

@@ -23,10 +23,11 @@ import { setStoreMode } from "@/lib/client/store";
 export function useSignInGate() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [demo, setDemo] = useState(false);
   const pending = useRef<string | null>(null);
 
   const start = useCallback(
-    async (href: string) => {
+    async (href: string, options?: { demo?: boolean }) => {
       let email: string | null = null;
       try {
         const response = await fetch("/api/auth/session");
@@ -47,6 +48,7 @@ export function useSignInGate() {
       }
 
       pending.current = href;
+      setDemo(options?.demo ?? false);
       setOpen(true);
     },
     [router]
@@ -54,7 +56,15 @@ export function useSignInGate() {
 
   const dialog = (
     <LoginDialog
+      /*
+       * Keyed on the mode so the dialog remounts when it changes. Its fields
+       * start from `demo` on first render, and the gate renders it long before
+       * either button is pressed — without the key the demo details would be
+       * decided while the answer was still "not a demo".
+       */
+      key={demo ? "demo" : "own"}
       open={open}
+      demo={demo}
       onClose={() => setOpen(false)}
       onSignedIn={(email) => {
         setStoreMode(email ? "account" : "guest");

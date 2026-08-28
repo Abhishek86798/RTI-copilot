@@ -25,19 +25,40 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 type Pane = "identify" | "code";
 type Challenge = { question: string; token: string };
 
+/**
+ * The account a reviewer signs in with on the worked example.
+ *
+ * `example.com` is the range reserved for documentation, so this can never
+ * reach a real inbox. There is no password to invent: the whole
+ * authentication is a code, and in a deployment with no mail configured the
+ * code comes back in the response and is filled in here too — so trying the
+ * product costs two clicks and no typing.
+ */
+const DEMO_EMAIL = "demo@example.com";
+const DEMO_PHONE = "9876543210";
+
+/** The challenge is `What is A + B?`, and on the demo we answer it ourselves. */
+function solve(question: string | undefined): string {
+  const match = /(\d+)\s*\+\s*(\d+)/.exec(question ?? "");
+  return match ? String(Number(match[1]) + Number(match[2])) : "";
+}
+
 export function LoginDialog({
   open,
+  demo = false,
   onClose,
   onSignedIn,
 }: {
   open: boolean;
+  /** Fill everything in: this is the walkthrough, not someone's own account. */
+  demo?: boolean;
   onClose: () => void;
   onSignedIn: (email: string) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [pane, setPane] = useState<Pane>("identify");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(demo ? DEMO_EMAIL : "");
+  const [phone, setPhone] = useState(demo ? DEMO_PHONE : "");
   const [code, setCode] = useState("");
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [captchaAnswer, setCaptchaAnswer] = useState("");
@@ -59,10 +80,10 @@ export function LoginDialog({
         .then((response) => response.json())
         .then((next: Challenge) => {
           setChallenge(next);
-          setCaptchaAnswer("");
+          setCaptchaAnswer(demo ? solve(next.question) : "");
         })
         .catch(() => setError("Could not load the verification question.")),
-    []
+    [demo]
   );
 
   useEffect(() => {
@@ -71,6 +92,8 @@ export function LoginDialog({
 
   function reset() {
     setPane("identify");
+    setEmail(demo ? DEMO_EMAIL : "");
+    setPhone(demo ? DEMO_PHONE : "");
     setCode("");
     setDevCode(null);
     setError(null);
@@ -100,6 +123,8 @@ export function LoginDialog({
         return;
       }
       setDevCode(body.devCode ?? null);
+      /* Nothing to copy across on the demo: the code is already known. */
+      if (demo && body.devCode) setCode(body.devCode);
       setPane("code");
     } catch {
       setError("Could not reach the server. Check your connection.");
@@ -149,7 +174,9 @@ export function LoginDialog({
         </h2>
         <p className="mt-2 max-w-[46ch] text-sm opacity-75">
           {pane === "identify"
-            ? "Signing in keeps your applications across devices. You can also use this tool without an account."
+            ? demo
+              ? "Filled in for the walkthrough — nothing here reaches a real inbox. Send the code, then sign in."
+              : "Signing in keeps your applications across devices. You can also use this tool without an account."
             : `We sent a code to ${email}.`}
         </p>
 
