@@ -3,25 +3,33 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+/*
+ * A notice is a sentence, not a panel.
+ *
+ * These used to be tinted, bordered, rounded boxes with a 20px icon — the
+ * full treatment, for something as small as "no money moves here". Stack two
+ * of them on a form and the page reads as a list of problems before the
+ * citizen has done anything wrong.
+ *
+ * So: no background, no box, no rounding. A small icon, the sentence in the
+ * colour of its status, and the detail underneath. Colour and position carry
+ * the weight that a filled panel used to, which is the same thing an official
+ * form does with a red asterisk.
+ *
+ * Contrast improves rather than suffers. Status text on a 10% tint of its own
+ * hue had almost no headroom — warning measured 3.73:1 and failed AA. On the
+ * page background the same tokens clear it comfortably.
+ */
 const alertVariants = cva(
-  "group/alert relative grid w-full gap-2 rounded-xl border p-4 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-3 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-5",
+  "group/alert relative grid w-full gap-0.5 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-card text-card-foreground",
-        /*
-         * Status text sits on a 10% tint of its own hue, which leaves very
-         * little contrast headroom — and the description used to be dropped to
-         * 90% opacity on top of that, which pushed it under AA. Warning failed
-         * at 3.73:1 against its own background.
-         *
-         * The description now carries the full status colour, and the tokens
-         * themselves are dark enough that status-on-tint clears 4.5:1.
-         */
-        destructive: "border-destructive/20 bg-destructive/10 text-destructive *:data-[slot=alert-description]:text-destructive *:[svg]:text-current",
-        info: "border-info/20 bg-info/10 text-info *:data-[slot=alert-description]:text-info *:[svg]:text-current",
-        success: "border-success/20 bg-success/10 text-success *:data-[slot=alert-description]:text-success *:[svg]:text-current",
-        warning: "border-warning/30 bg-warning/10 text-warning *:data-[slot=alert-description]:text-warning *:[svg]:text-current",
+        default: "text-foreground",
+        destructive: "text-destructive *:data-[slot=alert-description]:text-destructive/90",
+        info: "text-info *:data-[slot=alert-description]:text-info/90",
+        success: "text-success *:data-[slot=alert-description]:text-success/90",
+        warning: "text-warning *:data-[slot=alert-description]:text-warning/90",
       },
     },
     defaultVariants: {
@@ -66,7 +74,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        "text-sm text-balance text-muted-foreground md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+        "text-sm text-balance text-muted-foreground md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-3",
         className
       )}
       {...props}

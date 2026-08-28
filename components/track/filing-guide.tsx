@@ -121,7 +121,7 @@ export function FilingGuide({
       {/* Scope — the real portal serves Central authorities only          */}
       {/* -------------------------------------------------------------- */}
       {isState && (
-        <Alert className="border-warning/40 bg-warning/8">
+        <Alert variant="warning">
           <AlertTriangle aria-hidden="true" className="text-warning" />
           <AlertTitle>{t("submit.stateTitle")}</AlertTitle>
           <AlertDescription>{t("submit.stateBody")}</AlertDescription>
@@ -485,7 +485,7 @@ export function FilingGuide({
           />
           <PanelBody>
           {application.lifeOrLibertyFlag && (
-            <Alert className="border-destructive/40 bg-destructive/6">
+            <Alert variant="destructive">
               <Siren aria-hidden="true" className="text-destructive" />
               <AlertTitle>{t("submit.urgentTitle")}</AlertTitle>
               <AlertDescription className="space-y-3">

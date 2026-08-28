@@ -85,7 +85,7 @@ export function AuthorityStep({
       {/* Full measure, matching the step rule on both edges. */}
       <div className="mt-4 space-y-4">
         {routing.lowConfidence && (
-          <Alert className="border-destructive/30 bg-destructive/6">
+          <Alert variant="destructive">
             <Info aria-hidden="true" className="text-destructive" />
             <AlertTitle>{t("confirm.lowTitle")}</AlertTitle>
             <AlertDescription>{t("confirm.lowBody")}</AlertDescription>
@@ -296,7 +296,7 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
         keeps the fee of a state application it returns.
       */}
       {isState && (
-        <Alert className="border-warning/40 bg-warning/8">
+        <Alert variant="warning">
           <Info aria-hidden="true" className="text-warning" />
           <AlertTitle>This one cannot be filed on the central portal</AlertTitle>
           <AlertDescription>

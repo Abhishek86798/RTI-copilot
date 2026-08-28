@@ -123,7 +123,7 @@ export default function TrackApplicationPage() {
         {/* Deadline lapsed: point at the appeal, do not draft it here. */}
         {clock.isOverdue && !appealFiled && (
           <section aria-labelledby="appeal-available">
-            <Alert className="border-warning/40 bg-warning/8">
+            <Alert variant="warning">
               <Gavel aria-hidden="true" className="text-warning" />
               <AlertTitle id="appeal-available">{t("track.overdueTitle")}</AlertTitle>
               <AlertDescription className="space-y-4">
@@ -158,7 +158,7 @@ export default function TrackApplicationPage() {
 
         {appealFiled && (
           <section aria-labelledby="appeal-filed">
-            <Alert className="border-success/40 bg-success/8">
+            <Alert variant="success">
               <Gavel aria-hidden="true" className="text-success" />
               <AlertTitle id="appeal-filed">
                 {t("appeal.submitted", {

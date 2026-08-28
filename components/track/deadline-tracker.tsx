@@ -65,7 +65,7 @@ export function DeadlineTracker({
 
       <PanelBody className="space-y-4">
       {application.lifeOrLibertyFlag && (
-        <Alert className="border-destructive/40 bg-destructive/6">
+        <Alert variant="destructive">
           <Siren aria-hidden="true" className="text-destructive" />
           <AlertTitle>48-hour window claimed under Section 7(1)</AlertTitle>
           <AlertDescription>
@@ -124,11 +124,9 @@ export function DeadlineTracker({
       {/* FR-14 demo control                                             */}
       {/* -------------------------------------------------------------- */}
       {canSimulate(application) && (
-        <div className="rounded-lg border border-warning/40 bg-warning/6 p-4">
-          <p className="font-mono text-2xs tracking-[0.14em] text-warning uppercase">
-            Demo control
-          </p>
-          <p className="mt-2 max-w-[64ch] text-sm text-muted-foreground">
+        <div className="border-t border-border pt-4">
+          <p className="text-sm font-medium text-warning">Demo control</p>
+          <p className="mt-1 max-w-[64ch] text-sm text-muted-foreground">
             {t("track.simulateHelp")}
           </p>
           {application.simulatedDaysElapsed ? (
@@ -160,7 +158,7 @@ export function DeadlineTracker({
       {/* Deadline lapsed                                                */}
       {/* -------------------------------------------------------------- */}
       {clock.isOverdue && !application.appeal?.filedAt && (
-        <Alert className="border-destructive/40 bg-destructive/6">
+        <Alert variant="destructive">
           <Gavel aria-hidden="true" className="text-destructive" />
           <AlertTitle>{t("track.overdueTitle")}</AlertTitle>
           <AlertDescription className="space-y-2">

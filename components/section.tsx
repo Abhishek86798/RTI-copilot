@@ -133,16 +133,9 @@ export function Callout({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "rounded-lg border border-warning/30 bg-warning/10 p-5 sm:p-6",
-        className
-      )}
-    >
-      <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-      <div className="mt-2 space-y-3 text-sm opacity-90">
-        {children}
-      </div>
+    <div className={cn("text-warning", className)}>
+      <h3 className="text-sm font-medium">{title}</h3>
+      <div className="mt-1 space-y-2 text-sm text-warning/90">{children}</div>
     </div>
   );
 }

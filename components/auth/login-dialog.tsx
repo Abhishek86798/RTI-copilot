@@ -160,7 +160,7 @@ export function LoginDialog({
         )}
 
         {devCode && (
-          <Alert className="mt-6 border-warning/30 bg-warning/10">
+          <Alert variant="warning" className="mt-6">
             <AlertTitle>Development mode</AlertTitle>
             <AlertDescription>
               Email delivery is not configured, so no message was sent. Your code is{" "}

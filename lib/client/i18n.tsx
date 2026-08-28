@@ -50,7 +50,7 @@ const en = {
   "file.submitting": "Filing…",
   "file.simulatedTitle": "This is a simulated filing",
   "file.simulatedBody":
-    "Nothing is sent to rtionline.gov.in and no public authority receives this. The portal has no public way to accept applications from another site, so filing is simulated here — the validation, the fee rules and the registration number all follow the real ones.",
+    "Nothing is sent to rtionline.gov.in and no authority receives this. The fee rules and the registration number follow the real ones.",
   "file.problemsTitle": "Fix these before filing",
   "pay.title": "Pay the application fee",
   "pay.help": "₹10 under the RTI Rules, 2012. This is a simulated payment — no money moves.",
@@ -188,7 +188,7 @@ const en = {
   "confirm.references": "Details we will keep exactly as you wrote them",
   "confirm.lowTitle": "We are not sure about this one",
   "confirm.lowBody":
-    "No authority in our directory clearly holds these records. Please check the department's own website before filing. You can continue, but verify the office first.",
+    "No office in our directory clearly holds these records. Check the department’s own website before you file.",
   "confirm.otherOptions": "Other possible offices",
   "confirm.submit": "Write my application",
   "confirm.submitUnsure": "Continue with this office",
@@ -218,7 +218,7 @@ const en = {
   "draft.items": "Requested records",
   "draft.urgentTitle": "This may qualify for a reply in 48 hours",
   "draft.urgentBody":
-    "State this ground in your application. The 48-hour window applies only to genuine life-or-liberty matters. If it does not fit your situation, remove the claim and the normal 30-day deadline applies.",
+    "State this ground in the application. The 48-hour window is only for genuine life-or-liberty matters; otherwise the normal 30 days apply.",
   "draft.urgentRemove": "This does not apply to me — use the 30-day deadline",
   "draft.urgentRestore": "Restore the 48-hour claim",
   "draft.submit": "Continue to filing",
@@ -245,7 +245,7 @@ const en = {
   "track.noReply": "No reply received",
   "track.simulate": "Simulate +31 days",
   "track.simulateHelp":
-    "Fast-forwards this example's clock past the reply deadline, so the appeal step can be reached without waiting a month. Only available on prepared examples, never on something you actually filed.",
+    "Moves this example’s clock past the reply deadline so you can reach the appeal step. Never available on something you filed.",
   "track.simulateOn": "Clock fast-forwarded by {days} days (demo)",
   "track.simulateReset": "Reset the clock",
   "track.overdueTitle": "The 30 days have passed",
@@ -277,8 +277,8 @@ const en = {
     "We could not reach our server, so this example is showing a saved answer.",
 
   "demo.title": "You are walking through an example",
-  "demo.body": "This is a prepared case, not your own. Everything is filled in so you can see the whole journey — nothing is filed and no fee is charged. To write your own, choose New application in the menu.",
-  "demo.bodyFiling": "The details below belong to the example, not to you. Change anything you like — nothing is filed and no fee is charged.",
+  "demo.body": "A prepared case, filled in so you can see the whole journey. Nothing is filed and no fee is charged.",
+  "demo.bodyFiling": "These details belong to the example. Change anything you like.",
 
   "time.overdueToday": "Deadline passed today",
   "time.overdueOne": "1 day overdue",
@@ -483,7 +483,7 @@ const en = {
 
   "submit.stateTitle": "This portal covers Central Government authorities",
   "submit.stateBody":
-    "The authority matched here is a State public authority. This portal accepts requests for Central Government ministries, departments and public authorities; most States run their own RTI portal. You can still complete and print this request, but file it with your State's portal or by post.",
+    "This is a State authority. This portal covers Central Government bodies; most States run their own. You can still print this request and file it with your State’s portal or by post.",
   "submit.section.applicant": "Applicant details",
   "submit.section.declaration": "Declaration and fee",
   "submit.section.supporting": "Supporting document",
@@ -501,13 +501,13 @@ const en = {
   "submit.supportingTitle": "Supporting document",
   "submit.supportingNotAvailable": "You cannot attach a file here",
   "submit.supportingHelp":
-    "The real form takes one PDF of up to 1 MB. This prototype cannot keep files, so nothing can be attached — saying so is better than a box that quietly loses your document.",
+    "The real form takes one PDF of up to 1 MB. This prototype cannot keep files, so nothing can be attached.",
   "submit.requestTitle": "Text of the request",
   "submit.requestHelp":
     "This is what will be sent to the Public Information Officer. Go back to the draft step to change it.",
   "submit.urgentTitle": "State the 48-hour ground in the request",
   "submit.urgentBody":
-    "The shorter deadline under the proviso to Section 7(1) applies only where the ground is claimed in the request itself. Make sure this sentence appears in the text below.",
+    "The 48-hour deadline applies only if the ground is claimed in the request itself. Check that sentence appears below.",
 
   "error.title": "Something went wrong",
 } as const;
@@ -539,7 +539,7 @@ const hi: Record<StringKey, string> = {
   "file.submitting": "दाख़िल हो रहा है…",
   "file.simulatedTitle": "यह एक नक़ली (सिम्युलेटेड) फ़ाइलिंग है",
   "file.simulatedBody":
-    "rtionline.gov.in पर कुछ नहीं भेजा जाता और कोई लोक प्राधिकरण इसे प्राप्त नहीं करता। पोर्टल के पास किसी दूसरी साइट से आवेदन स्वीकार करने का कोई सार्वजनिक तरीक़ा नहीं है, इसलिए यहाँ फ़ाइलिंग नक़ली है — पर जाँच, शुल्क नियम और पंजीकरण संख्या असली नियमों का पालन करते हैं।",
+    "rtionline.gov.in पर कुछ नहीं भेजा जाता और कोई कार्यालय इसे नहीं पाता। शुल्क के नियम और पंजीकरण संख्या असली जैसे ही हैं।",
   "file.problemsTitle": "दाख़िल करने से पहले इन्हें ठीक करें",
   "pay.title": "आवेदन शुल्क का भुगतान करें",
   "pay.help": "आरटीआई नियम, 2012 के तहत ₹10। यह नक़ली भुगतान है — कोई पैसा नहीं जाता।",
@@ -678,7 +678,7 @@ const hi: Record<StringKey, string> = {
   "confirm.references": "ये विवरण हम हूबहू वैसे ही रखेंगे",
   "confirm.lowTitle": "इस बारे में हम निश्चित नहीं हैं",
   "confirm.lowBody":
-    "हमारी सूची में कोई प्राधिकरण स्पष्ट रूप से इन अभिलेखों को नहीं रखता। दाख़िल करने से पहले कृपया विभाग की अपनी वेबसाइट देखें। आप आगे बढ़ सकते हैं, पर पहले कार्यालय की पुष्टि कर लें।",
+    "हमारी सूची में ऐसा कोई कार्यालय नहीं दिखा जिसके पास ये दस्तावेज़ हों। दाखिल करने से पहले विभाग की वेबसाइट देख लीजिए।",
   "confirm.otherOptions": "अन्य संभावित कार्यालय",
   "confirm.submit": "मेरा आवेदन लिखें",
   "confirm.submitUnsure": "इसी कार्यालय के साथ आगे बढ़ें",
@@ -709,7 +709,7 @@ const hi: Record<StringKey, string> = {
   "draft.items": "माँगे गए अभिलेख",
   "draft.urgentTitle": "इस पर 48 घंटे में जवाब मिल सकता है",
   "draft.urgentBody":
-    "यह आधार अपने आवेदन में स्पष्ट रूप से लिखें। 48 घंटे की अवधि केवल वास्तविक जीवन या स्वतंत्रता के मामलों पर लागू होती है। यदि यह आपकी स्थिति पर लागू नहीं होता, तो इसे हटा दें और सामान्य 30 दिन की सीमा लागू होगी।",
+    "यह आधार आवेदन में लिखिए। 48 घंटे की छूट सिर्फ़ जीवन या स्वतंत्रता से जुड़े मामलों के लिए है; बाकी में सामान्य 30 दिन ही लगते हैं।",
   "draft.urgentRemove": "यह मुझ पर लागू नहीं — 30 दिन की सीमा रखें",
   "draft.urgentRestore": "48 घंटे का दावा वापस लाएँ",
   "draft.submit": "दाखिल करने के लिए आगे बढ़ें",
@@ -736,7 +736,7 @@ const hi: Record<StringKey, string> = {
   "track.noReply": "कोई उत्तर नहीं मिला",
   "track.simulate": "+31 दिन आगे बढ़ाएँ",
   "track.simulateHelp":
-    "इस उदाहरण की घड़ी उत्तर की समय-सीमा से आगे बढ़ाता है, ताकि महीना भर रुके बिना अपील चरण तक पहुँचा जा सके। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
+    "इस उदाहरण की घड़ी जवाब की तारीख से आगे कर देता है ताकि अपील वाला चरण दिख सके। आपके अपने आवेदन पर यह कभी नहीं मिलता।",
   "track.simulateOn": "घड़ी {days} दिन आगे बढ़ाई गई (डेमो)",
   "track.simulateReset": "घड़ी वापस करें",
   "track.overdueTitle": "30 दिन पूरे हो चुके हैं",
@@ -768,8 +768,8 @@ const hi: Record<StringKey, string> = {
     "हमारा सर्वर नहीं मिल पाया, इसलिए यह उदाहरण सहेजा हुआ जवाब दिखा रहा है।",
 
   "demo.title": "आप एक उदाहरण देख रहे हैं",
-  "demo.body": "यह पहले से तैयार मामला है, आपका अपना नहीं। सब कुछ भरा हुआ है ताकि आप पूरी प्रक्रिया देख सकें — न कुछ दाखिल होता है, न कोई शुल्क लगता है। अपना आवेदन लिखने के लिए मेनू में “नया आवेदन” चुनिए।",
-  "demo.bodyFiling": "नीचे दिया विवरण उदाहरण का है, आपका नहीं। जो चाहें बदल सकते हैं — न कुछ दाखिल होता है, न कोई शुल्क लगता है।",
+  "demo.body": "पहले से तैयार मामला, पूरा भरा हुआ, ताकि आप पूरी प्रक्रिया देख सकें। न कुछ दाखिल होता है, न कोई शुल्क लगता है।",
+  "demo.bodyFiling": "यह विवरण उदाहरण का है। जो चाहें बदल सकते हैं।",
 
   "time.overdueToday": "समय-सीमा आज समाप्त हो गई",
   "time.overdueOne": "1 दिन बीत चुका",
@@ -974,7 +974,7 @@ const hi: Record<StringKey, string> = {
 
   "submit.stateTitle": "यह पोर्टल केंद्र सरकार के प्राधिकरणों के लिए है",
   "submit.stateBody":
-    "यहाँ मिलान किया गया प्राधिकरण राज्य का लोक प्राधिकरण है। यह पोर्टल केंद्र सरकार के मंत्रालयों, विभागों और लोक प्राधिकरणों के अनुरोध स्वीकार करता है; अधिकतर राज्यों का अपना आरटीआई पोर्टल है। आप यह अनुरोध पूरा करके प्रिंट कर सकते हैं, पर इसे अपने राज्य के पोर्टल पर या डाक से दाख़िल करें।",
+    "यह राज्य का कार्यालय है। यह पोर्टल केंद्र सरकार के लिए है; ज़्यादातर राज्यों का अपना पोर्टल है। आप यह आवेदन छापकर अपने राज्य के पोर्टल पर या डाक से दे सकते हैं।",
   "submit.section.applicant": "आवेदक का विवरण",
   "submit.section.declaration": "घोषणा और शुल्क",
   "submit.section.supporting": "सहायक दस्तावेज़",
@@ -992,13 +992,13 @@ const hi: Record<StringKey, string> = {
   "submit.supportingTitle": "सहायक दस्तावेज़",
   "submit.supportingNotAvailable": "यहां फाइल नहीं जोड़ी जा सकती",
   "submit.supportingHelp":
-    "असली फॉर्म में 1 एमबी तक की एक पीडीएफ लगाई जा सकती है। यह प्रोटोटाइप फाइलें नहीं रख सकता, इसलिए यहां कुछ नहीं जुड़ेगा।",
+    "असली फॉर्म में 1 एमबी तक की एक पीडीएफ लगती है। यह प्रोटोटाइप फाइलें नहीं रख सकता, इसलिए यहां कुछ नहीं जुड़ेगा।",
   "submit.requestTitle": "अनुरोध का पाठ",
   "submit.requestHelp":
     "यही लोक सूचना अधिकारी को भेजा जाएगा। इसे बदलने के लिए मसौदा चरण पर वापस जाएँ।",
   "submit.urgentTitle": "अनुरोध में 48 घंटे का आधार लिखें",
   "submit.urgentBody":
-    "धारा 7(1) के परंतुक की छोटी समय-सीमा तभी लागू होती है जब यह आधार अनुरोध में ही लिखा हो। सुनिश्चित करें कि नीचे दिए पाठ में यह वाक्य मौजूद है।",
+    "48 घंटे की समय-सीमा तभी लागू होती है जब यह आधार आवेदन में लिखा हो। नीचे वह वाक्य है या नहीं, देख लीजिए।",
 
   "error.title": "कुछ गड़बड़ हो गई",
 };

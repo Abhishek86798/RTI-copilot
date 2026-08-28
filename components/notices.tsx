@@ -28,23 +28,28 @@ export function ErrorNotice({
   const { t } = useI18n();
 
   return (
-    <div
-      className={cn(
-        "flex flex-col items-center justify-center rounded-xl border border-destructive/20 bg-destructive/10 px-6 py-5 text-center text-destructive",
-        className
-      )}
-    >
-      <AlertTriangle aria-hidden="true" className="mb-2 size-6 opacity-80" />
-      <h3 className="text-base font-semibold tracking-tight">{t("error.title")}</h3>
-      <p className="mt-1.5 text-sm opacity-90 max-w-[50ch]">{error.userMessage}</p>
-      
-      {error.retryable && onRetry && (
-        <div className="mt-4">
-          <Button type="button" variant="outline" onClick={onRetry}>
-            <RotateCcw aria-hidden="true" className="mr-2 size-4" />
-            {t("common.tryAgain")}
-          </Button>
+    <div className={cn("text-destructive", className)}>
+      <div className="flex items-start gap-2.5">
+        <AlertTriangle aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+        <div>
+          <p className="text-sm font-medium">{t("error.title")}</p>
+          <p className="mt-0.5 max-w-[62ch] text-sm text-destructive/90">
+            {error.userMessage}
+          </p>
         </div>
+      </div>
+
+      {error.retryable && onRetry && (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={onRetry}
+          className="mt-3 ml-[1.625rem]"
+        >
+          <RotateCcw aria-hidden="true" />
+          {t("common.tryAgain")}
+        </Button>
       )}
     </div>
   );
@@ -69,8 +74,8 @@ export function FixtureNotice({ className }: { className?: string }) {
        but not worth interrupting whatever the reader is in the middle of.
        WCAG 4.1.3 wants the polite role for exactly this case.
     */
-    <Alert role="status" className={cn("border-warning/40 bg-warning/8", className)}>
-      <FlaskConical aria-hidden="true" className="text-warning" />
+    <Alert role="status" variant="warning" className={className}>
+      <FlaskConical aria-hidden="true" />
       <AlertTitle>Showing a saved response</AlertTitle>
       <AlertDescription>{t("disclosure.fixture")}</AlertDescription>
     </Alert>
@@ -98,8 +103,8 @@ export function DemoNotice({
   const { t } = useI18n();
 
   return (
-    <Alert role="status" className={cn("border-primary/30 bg-primary/8", className)}>
-      <BookOpen aria-hidden="true" className="text-primary" />
+    <Alert role="status" variant="info" className={className}>
+      <BookOpen aria-hidden="true" />
       <AlertTitle>{t("demo.title")}</AlertTitle>
       <AlertDescription>{t(bodyKey)}</AlertDescription>
     </Alert>
@@ -122,8 +127,8 @@ export function InfoNotice({
        is present when the page renders, and role="alert" made a screen reader
        announce it out of document order on every load.
     */
-    <Alert role="note" className={cn("border-info/30 bg-info/6", className)}>
-      <Info aria-hidden="true" className="text-info" />
+    <Alert role="note" variant="info" className={className}>
+      <Info aria-hidden="true" />
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>{children}</AlertDescription>
     </Alert>

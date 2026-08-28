@@ -73,7 +73,7 @@ export function DraftStep({
       />
 
       {lifeOrLibertyFlag && (
-        <Alert className="mt-8 border-destructive/40 bg-destructive/6">
+        <Alert variant="destructive" className="mt-8">
           <Siren aria-hidden="true" className="text-destructive" />
           <AlertTitle>{t("draft.urgentTitle")}</AlertTitle>
           <AlertDescription className="space-y-3">
@@ -133,7 +133,7 @@ export function DraftStep({
               {t("draft.portalHelp")}
             </p>
             {overLimit && (
-              <Alert variant="destructive" className="border-destructive/30">
+              <Alert variant="destructive">
                 <AlertTriangle aria-hidden="true" />
                 <AlertTitle>{t("draft.overLimit")}</AlertTitle>
               </Alert>
