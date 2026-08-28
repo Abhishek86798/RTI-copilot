@@ -49,11 +49,23 @@ export type Shortlist = {
 export function shortlistAuthorities(grievance: string, limit = 6): Shortlist {
   const text = grievance.toLowerCase();
   const scored = getAllAuthorities().map((authority) => {
-    const hits = authority.keywords.filter((kw) => text.includes(kw.toLowerCase())).length;
-    return { authority, hits };
+    const matches = authority.keywords.filter((kw) => text.includes(kw.toLowerCase()));
+    /*
+     * Weighted by how much of the grievance each keyword actually explains.
+     *
+     * Counting matches alone treats "scholarship" and "ministry of education"
+     * as the same evidence, so a citizen writing about a central scheme was
+     * shortlisted against a state secondary board on the strength of one
+     * generic word. Length is a decent proxy for specificity: a multi-word
+     * phrase names something, a single common noun only hints at a domain.
+     */
+    const score = matches.reduce((total, kw) => total + kw.length, 0);
+    return { authority, hits: matches.length, score };
   });
 
-  const matched = scored.filter((s) => s.hits > 0).sort((a, b) => b.hits - a.hits);
+  const matched = scored
+    .filter((s) => s.hits > 0)
+    .sort((a, b) => b.score - a.score || b.hits - a.hits);
 
   if (matched.length === 0) {
     return { authorities: getAllAuthorities(), noKeywordMatch: true };

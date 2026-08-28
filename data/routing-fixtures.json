@@ -114,6 +114,24 @@
       "label": "Out of scope — private employer dispute",
       "expectLowConfidence": true,
       "grievance": "My private company employer has not given me my relieving letter and experience certificate even three months after I resigned and completed my notice period properly"
+    },
+    {
+      "label": "Central higher-education scholarship",
+      "expectId": "ministry-education-higher",
+      "confusable": "education-board",
+      "grievance": "I applied for a scholarship under the Ministry of Higher Education for my college course but I have not received any confirmation mail or any update about my application"
+    },
+    {
+      "label": "Central school scheme",
+      "expectId": "ministry-education-school",
+      "confusable": "education-board",
+      "grievance": "The mid day meal under PM POSHAN has not been served at the Kendriya Vidyalaya my son attends for the last two months and nobody will tell us why the funds stopped"
+    },
+    {
+      "label": "State board revaluation stays with the board",
+      "expectId": "education-board",
+      "confusable": "ministry-education-school",
+      "grievance": "I applied for revaluation of my class 12 answer sheet with the state board of secondary education three months ago and the corrected marksheet has still not been issued"
     }
   ]
 }

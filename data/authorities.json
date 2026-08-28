@@ -93,6 +93,60 @@
     "notes": "FIR copies and investigation status are disclosable. Case diary access is restricted and may be refused under Section 8(1)(h) while investigation is ongoing."
   },
   {
+    "id": "ministry-education-higher",
+    "domain": "higher_education",
+    "keywords": [
+      "higher education",
+      "ministry of education",
+      "department of higher education",
+      "national scholarship",
+      "scholarship portal",
+      "post matric scholarship",
+      "college scholarship",
+      "ugc",
+      "aicte",
+      "central university",
+      "iit",
+      "nit",
+      "aishe",
+      "swayam"
+    ],
+    "authorityName": "Department of Higher Education, Ministry of Education",
+    "pioDesignation": "Central Public Information Officer, Department of Higher Education, Ministry of Education",
+    "appellateAuthority": "First Appellate Authority, Department of Higher Education, Ministry of Education",
+    "filingAddress": "Department of Higher Education, Ministry of Education, Shastri Bhawan, New Delhi 110001",
+    "verifyAt": "https://www.education.gov.in",
+    "level": "central",
+    "ministry": "Ministry of Education",
+    "notes": "Central scholarship schemes for college and university students, UGC and AICTE policy, central universities and centrally funded institutions. Records held by a particular college or university are with that institution's PIO, not here."
+  },
+  {
+    "id": "ministry-education-school",
+    "domain": "education",
+    "keywords": [
+      "school education",
+      "department of school education",
+      "samagra shiksha",
+      "mid day meal",
+      "pm poshan",
+      "kendriya vidyalaya",
+      "navodaya",
+      "ncert",
+      "cbse",
+      "pre matric scholarship",
+      "right to education",
+      "rte"
+    ],
+    "authorityName": "Department of School Education and Literacy, Ministry of Education",
+    "pioDesignation": "Central Public Information Officer, Department of School Education and Literacy, Ministry of Education",
+    "appellateAuthority": "First Appellate Authority, Department of School Education and Literacy, Ministry of Education",
+    "filingAddress": "Department of School Education and Literacy, Ministry of Education, Shastri Bhawan, New Delhi 110001",
+    "verifyAt": "https://www.education.gov.in",
+    "level": "central",
+    "ministry": "Ministry of Education",
+    "notes": "Central school schemes, CBSE, Kendriya Vidyalayas and Navodaya Vidyalayas. A state board's own records — results, marksheets, revaluation — sit with the state board."
+  },
+  {
     "id": "education-board",
     "domain": "education",
     "keywords": [
@@ -102,9 +156,9 @@
       "revaluation",
       "school admission",
       "education board",
-      "scholarship",
       "certificate",
-      "migration certificate"
+      "migration certificate",
+      "board scholarship"
     ],
     "authorityName": "State Board of Secondary Education",
     "pioDesignation": "Public Information Officer, State Education Board",

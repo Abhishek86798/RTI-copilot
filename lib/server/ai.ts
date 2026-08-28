@@ -82,12 +82,20 @@ ${grievance}
 </grievance>
 
 Candidate authorities (choose only from this list, by id):
-${shortlist.map((a) => `- id: ${a.id} | ${a.authorityName} | domain: ${a.domain}`).join("\n")}
+${shortlist
+  .map(
+    (a) =>
+      `- id: ${a.id} | ${a.authorityName} | domain: ${a.domain} | level: ${a.level}` +
+      (a.ministry ? ` | ministry: ${a.ministry}` : "")
+  )
+  .join("\n")}
 ${
   noKeywordMatch
     ? "\nNote: nothing in this grievance matched our directory's keywords, so the full directory is shown above with no narrowing. Treat this as a signal that the right authority may not be listed at all — score accordingly rather than forcing a fit.\n"
     : ""
 }
+A citizen who names a Ministry, a national scheme, or a central department is describing a central authority; a state board, district office or discom is a state one. Weigh the level and ministry shown above accordingly — a central scheme routed to a state body, or the reverse, is the mistake this step exists to prevent.
+
 Rank up to 3 candidates by confidence that they hold the records this grievance concerns. Also extract any dates, PPO numbers, FIR numbers, case numbers, or other reference identifiers mentioned verbatim in the grievance — do not paraphrase them.`,
     })
   );
