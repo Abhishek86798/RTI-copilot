@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CheckCircle2, CircleDashed, FlaskConical } from "lucide-react";
 
 import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
@@ -7,7 +6,6 @@ import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
 import { Section } from "@/components/section";
 import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -210,11 +208,6 @@ export default function HowItWorksPage() {
         </Section>
       </PageGrid>
 
-      <div className="mt-10">
-        <Link href="/apply"
-            className={buttonVariants({ variant: "cta", size: "lg" })}
-          >Access Portal</Link>
-      </div>
       <LastReviewed date="2026-08-23" />
     </div>
   );

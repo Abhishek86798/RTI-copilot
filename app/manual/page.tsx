@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ClipboardList, ListChecks } from "lucide-react";
 
 import { LastReviewed } from "@/components/breadcrumbs";
@@ -7,7 +6,6 @@ import { LastReviewed } from "@/components/breadcrumbs";
 import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Prose, Section, Steps } from "@/components/section";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -77,11 +75,6 @@ export default function ManualPage() {
         </Section>
       </PageGrid>
 
-      <div className="mt-10">
-        <Link href="/apply"
-            className={buttonVariants({ variant: "cta", size: "lg" })}
-          >Start an application</Link>
-      </div>
       <LastReviewed date="2026-08-23" />
     </div>
   );
