@@ -78,8 +78,45 @@ export async function refresh(): Promise<void> {
 /* Reads — synchronous, so useSyncExternalStore stays valid           */
 /* ---------------------------------------------------------------- */
 
+/*
+ * Both stores at once, when signed in.
+ *
+ * The account is the source of truth, but it is not the only place a row
+ * lives: every write goes to localStorage first so the screen can move before
+ * the network does. Reading the account rows alone meant that whenever the
+ * server could not take a write — no database configured, an outage, a 401
+ * from an expired cookie — the application the citizen had just made
+ * disappeared from under them and the filing screen said it was not on this
+ * device. It was; nobody was looking there.
+ *
+ * So: local rows, with the server's version of any row it also holds. Nothing
+ * a signed-in citizen creates on this device can vanish because a request
+ * failed, and rows made on another device still arrive from the account.
+ *
+ * Memoised on the identity of both inputs, because `useSyncExternalStore`
+ * needs the same array back when nothing has changed. `guestList` already
+ * returns a stable reference, and `cache` is only reassigned in `refresh` and
+ * `setStoreMode`.
+ */
+let mergeInputs: readonly [Application[], Application[]] | null = null;
+let mergeResult: Application[] = [];
+
+function merge(remote: Application[], local: Application[]): Application[] {
+  if (mergeInputs && mergeInputs[0] === remote && mergeInputs[1] === local) {
+    return mergeResult;
+  }
+
+  const byId = new Map<string, Application>();
+  for (const application of local) byId.set(application.id, application);
+  for (const application of remote) byId.set(application.id, application);
+
+  mergeInputs = [remote, local];
+  mergeResult = [...byId.values()];
+  return mergeResult;
+}
+
 export function listApplications(): Application[] {
-  return mode === "account" ? cache : guestList();
+  return mode === "account" ? merge(cache, guestList()) : guestList();
 }
 
 export function getApplication(id: string): Application | undefined {
@@ -124,7 +161,9 @@ export function updateApplication(
     })
       .then(() => refresh())
       .catch(() => {});
-    return cache.find((a) => a.id === id);
+    /* Through the same merge the screens read, so a row the server never
+       accepted is still returned from the copy that did get written. */
+    return getApplication(id);
   }
 
   return updated;
