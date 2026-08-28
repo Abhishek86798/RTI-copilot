@@ -9,7 +9,7 @@ import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 import { DraftStep } from "@/components/apply/draft-step";
 import { IntakeStep } from "@/components/apply/intake-step";
-import { ErrorNotice, FixtureNotice } from "@/components/notices";
+import { DemoNotice, ErrorNotice, FixtureNotice } from "@/components/notices";
 import { generateDraft, routeAuthority, toApiError, type ApiError, type ResultSource } from "@/lib/client/api";
 import { getDemoCase, type DemoCase } from "@/lib/client/demo-cases";
 import { splitDraftItems } from "@/lib/client/filing";
@@ -199,6 +199,12 @@ function ApplyWizard({ resume }: { resume: Application | null }) {
             className="mb-6"
           />
         )}
+
+        {/*
+          Typing over the seeded text clears `isDemo`, so this disappears the
+          moment the case stops being the prepared one and becomes theirs.
+        */}
+        {isDemo && <DemoNotice className="mb-6" />}
 
         {source === "demo-fixture" && step !== "intake" && (
           <FixtureNotice className="mb-6" />

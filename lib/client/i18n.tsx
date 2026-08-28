@@ -276,6 +276,10 @@ const en = {
   "disclosure.fixture":
     "We could not reach our server, so this example is showing a saved answer.",
 
+  "demo.title": "You are walking through an example",
+  "demo.body": "This is a prepared case, not your own. Everything is filled in so you can see the whole journey — nothing is filed and no fee is charged. To write your own, choose New application in the menu.",
+  "demo.bodyFiling": "The details below belong to the example, not to you. Change anything you like — nothing is filed and no fee is charged.",
+
   "time.overdueToday": "Deadline passed today",
   "time.overdueOne": "1 day overdue",
   "time.overdueMany": "{days} days overdue",
@@ -762,6 +766,10 @@ const hi: Record<StringKey, string> = {
   "disclosure.title": "क्या असली है और क्या नकल",
   "disclosure.fixture":
     "हमारा सर्वर नहीं मिल पाया, इसलिए यह उदाहरण सहेजा हुआ जवाब दिखा रहा है।",
+
+  "demo.title": "आप एक उदाहरण देख रहे हैं",
+  "demo.body": "यह पहले से तैयार मामला है, आपका अपना नहीं। सब कुछ भरा हुआ है ताकि आप पूरी प्रक्रिया देख सकें — न कुछ दाखिल होता है, न कोई शुल्क लगता है। अपना आवेदन लिखने के लिए मेनू में “नया आवेदन” चुनिए।",
+  "demo.bodyFiling": "नीचे दिया विवरण उदाहरण का है, आपका नहीं। जो चाहें बदल सकते हैं — न कुछ दाखिल होता है, न कोई शुल्क लगता है।",
 
   "time.overdueToday": "समय-सीमा आज समाप्त हो गई",
   "time.overdueOne": "1 दिन बीत चुका",

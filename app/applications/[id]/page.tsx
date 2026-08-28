@@ -8,6 +8,7 @@ import { scrollPageToTop } from "@/components/smooth-scroll";
 import { ArrowRight } from "lucide-react";
 
 import { StepActions } from "@/components/apply/step-actions";
+import { DemoNotice } from "@/components/notices";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { FiledDialog } from "@/components/track/filed-dialog";
 import { FilingGuide, type FilingSectionId } from "@/components/track/filing-guide";
@@ -179,6 +180,8 @@ export default function SubmitApplicationPage() {
 
       {!filed && (
         <div className="mt-3" data-filing-step>
+          {application.isDemo && <DemoNotice bodyKey="demo.bodyFiling" className="mb-4" />}
+
           {/*
             Sticky under the site header, which is 3.5rem tall. The chips are
             the only wayfinding once the form is five screens deep, and on the

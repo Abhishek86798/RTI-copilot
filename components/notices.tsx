@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, FlaskConical, Info, RotateCcw } from "lucide-react";
+import { AlertTriangle, BookOpen, FlaskConical, Info, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -73,6 +73,35 @@ export function FixtureNotice({ className }: { className?: string }) {
       <FlaskConical aria-hidden="true" className="text-warning" />
       <AlertTitle>Showing a saved response</AlertTitle>
       <AlertDescription>{t("disclosure.fixture")}</AlertDescription>
+    </Alert>
+  );
+}
+
+/**
+ * Shown on every screen of a worked example.
+ *
+ * The demo and the real thing are the same five screens, so without this the
+ * only difference a citizen can see is that the boxes came pre-filled — which
+ * reads as the tool having guessed their name. It says whose case this is,
+ * that nothing will be filed, and where their own application starts.
+ *
+ * `role="status"`, like the fixture banner: worth announcing once, not worth
+ * interrupting someone mid-sentence.
+ */
+export function DemoNotice({
+  bodyKey = "demo.body",
+  className,
+}: {
+  bodyKey?: "demo.body" | "demo.bodyFiling";
+  className?: string;
+}) {
+  const { t } = useI18n();
+
+  return (
+    <Alert role="status" className={cn("border-primary/30 bg-primary/8", className)}>
+      <BookOpen aria-hidden="true" className="text-primary" />
+      <AlertTitle>{t("demo.title")}</AlertTitle>
+      <AlertDescription>{t(bodyKey)}</AlertDescription>
     </Alert>
   );
 }

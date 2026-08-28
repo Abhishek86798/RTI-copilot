@@ -4,7 +4,7 @@ import type {
   Authority,
   FilingChannel,
 } from "./types";
-import { EMPTY_APPLICANT } from "./types";
+import { DEMO_APPLICANT, EMPTY_APPLICANT } from "./types";
 import { computeClock } from "./deadlines";
 
 /**
@@ -185,7 +185,12 @@ export function createApplication(input: NewApplicationInput): Application {
     id: crypto.randomUUID(),
     createdAt: now,
     updatedAt: now,
-    applicant: { ...EMPTY_APPLICANT },
+    /*
+     * A worked example arrives filled in. The point of the demo is to show
+     * what filing looks like, and asking someone to invent a name and a PIN
+     * code for a case that is not theirs is the step they abandon.
+     */
+    applicant: { ...(input.isDemo ? DEMO_APPLICANT : EMPTY_APPLICANT) },
     status: "drafting",
     viaApio: false,
     ...input,

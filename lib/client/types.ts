@@ -120,6 +120,30 @@ export type Applicant = {
   bplCertificateRef?: string;
 };
 
+/**
+ * The applicant on a worked example.
+ *
+ * Someone who clicked "See it work on a real example" wants to watch the
+ * journey, not fill in a form on behalf of an imaginary person — a blank
+ * particulars step is where a demonstration stops being a demonstration.
+ *
+ * Invented throughout, and visibly so: `example.com` is the address range
+ * reserved for documentation, and there is no certificate number, no Aadhaar,
+ * no PAN. The screens that show these details also say they are an example.
+ */
+export const DEMO_APPLICANT: Applicant = {
+  fullName: "Sunita Devi",
+  mobile: "9876543210",
+  country: "india",
+  address: "12, Gandhi Marg, Andheri East, Mumbai",
+  state: "Maharashtra",
+  pincode: "400069",
+  phone: "",
+  email: "sunita.devi@example.com",
+  isBpl: false,
+  isCitizen: true,
+};
+
 export const EMPTY_APPLICANT: Applicant = {
   fullName: "",
   mobile: "",
