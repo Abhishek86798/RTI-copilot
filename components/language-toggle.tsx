@@ -27,7 +27,17 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label={t("nav.language")}
       className={cn(
-        "inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]",
+        /*
+         * A hairline outline instead of a filled tray.
+         *
+         * This control has to read as on/off — it is the one piece of state in
+         * the chrome someone may need to find in a script they cannot read, so
+         * plain text with a divider is not enough. But the tray was doing that
+         * job four layers deep: a muted fill, a raised chip, a shadow and a
+         * ring. An outline plus one fill says the same thing in a fraction of
+         * the ink.
+         */
+        "inline-flex items-center gap-px rounded-md border border-border p-px",
         className
       )}
     >
@@ -42,9 +52,16 @@ export function LanguageToggle({ className }: { className?: string }) {
             aria-pressed={active}
             aria-label={option.aria}
             className={cn(
-              "min-h-9 cursor-pointer rounded-md px-2.5 text-xs font-medium transition-colors sm:px-3",
+              /*
+               * 32px, down from 36. The tap target is the button plus the
+               * header's own vertical padding, which keeps it past the 44px
+               * guideline at every width.
+               */
+              "min-h-8 cursor-pointer rounded-[5px] px-2 text-xs transition-colors sm:px-2.5",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              active ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
+              active
+                ? "bg-muted font-semibold text-foreground"
+                : "font-medium text-muted-foreground hover:text-foreground"
             )}
           >
             <span className="sm:hidden">{option.short}</span>

@@ -142,15 +142,28 @@ export function AuthControls() {
   return (
     <>
       {/*
-        36px, and the only filled control left in the header.
+        Outlined, not filled.
 
-        At 56px it pushed the control group 16px past a 320px viewport with the
-        largest text setting — a horizontal scrollbar on every page, from the
-        control that exists to prevent exactly that. It is also the only thing
-        in the chrome still carrying the accent, now that the four toggles
-        beside it have given theirs up, so it does not need size as well.
+        The accent is reserved for the one action that moves the journey
+        forward on a given screen — see the `cta` variant, whose whole argument
+        is that the forward action is findable by being the only filled button
+        on the page. Sign-in is chrome: it sits on every screen, including the
+        ones with a real "Next" underneath it, and a filled violet button in
+        the header was competing with that Next for the same signal.
+        Outlining it keeps the label and the affordance while handing the
+        accent back to the page.
+
+        Size stays at the 32px scale the toggles beside it use. At 56px this
+        pushed the control group past a 320px viewport at the largest text
+        setting — a horizontal scrollbar caused by the control group that
+        exists to prevent exactly that.
       */}
-      <Button size="default" className="whitespace-nowrap" onClick={() => setOpen(true)}>
+      <Button
+        variant="outline"
+        size="sm"
+        className="h-9 whitespace-nowrap"
+        onClick={() => setOpen(true)}
+      >
         <User aria-hidden="true" />
         {/*
           Icon-only on a phone. `sr-only` rather than `hidden`, so the button
