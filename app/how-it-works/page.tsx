@@ -9,145 +9,152 @@ import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "System Capabilities and Technical Limitations",
+  title: "What this can and cannot do",
   description:
-    "Documentation outlining live integrations, simulated capabilities, and pending administrative features of the RTI Copilot module.",
+    "What works, what is only pretending to work, and what is not built yet.",
 };
 
+/**
+ * The honest page.
+ *
+ * Written for the citizen who is about to trust this with a pension number,
+ * not for an engineer reading a status board. Everything here used to be
+ * phrased as capabilities and integrations — "Automated Authority
+ * Designation", "Cross-Session Data Persistence" — which is a way of sounding
+ * official without telling anyone what actually happens to their application.
+ */
 type Row = { state: "live" | "mocked" | "planned"; what: string; detail: string };
 
 const ROWS: Row[] = [
   {
     state: "live",
-    what: "Unstructured Data Intake",
+    what: "You write in your own words",
     detail:
-      "The system supports free-text input without requiring pre-selection of administrative hierarchies or departments.",
+      "No dropdowns to work through first. Describe what happened and we take it from there.",
   },
   {
     state: "live",
-    what: "Automated Authority Designation",
+    what: "We find the office",
     detail:
-      "Input parameters are evaluated against a curated directory using a language model. Output is strictly bounded to pre-existing official designations to prevent invalid routing.",
+      "What you wrote is matched against a list of real public authorities. We only ever name an office that is on that list.",
   },
   {
     state: "live",
-    what: "Statutory Compliance Formatting",
+    what: "We write the request",
     detail:
-      "The module transcribes unstructured grievances into formal Section 2(f) compliant document requisitions while preserving critical reference numbers and dates.",
+      "Your complaint becomes a request for documents, which is what an office has to answer. Your reference numbers and dates are carried across exactly as you typed them.",
   },
   {
     state: "live",
-    what: "Proviso Clause Detection",
+    what: "We spot urgent cases",
     detail:
-      "The system analyzes the request against the stringent criteria of the Section 7(1) proviso, identifying cases requiring a 48-hour expedited response.",
+      "Where someone's life or liberty is at stake, the law allows 48 hours instead of 30 days. We tell you when that may apply.",
   },
   {
     state: "live",
-    what: "Jurisdictional Filing Directives",
+    what: "We tell you where to send it",
     detail:
-      "Determines appropriate submission channels based on Central versus State jurisdiction to prevent erroneous fee capture and subsequent rejection.",
+      "Central and State authorities take requests in different places. Sending it to the wrong one means paying a fee for nothing.",
   },
   {
     state: "live",
-    what: "Statutory Period Monitoring",
+    what: "We watch the dates",
     detail:
-      "Calculates applicable statutory deadlines (30 days, 35 days, or 48 hours) and automatically monitors the 30-day First Appeal window post-expiration.",
+      "We work out when the reply is due — 30 days, 35 days, or 48 hours — and when your window to appeal opens and closes.",
   },
   {
     state: "live",
-    what: "First Appellate Draft Generation",
+    what: "We draft the appeal too",
     detail:
-      "Automatically compiles a formulaic First Appeal utilizing verified administrative templates upon expiration of the statutory response period.",
+      "If the deadline passes with no reply, the first appeal is written for you. It costs nothing to file.",
   },
   {
     state: "live",
-    what: "Standardized Output Formatting",
+    what: "You get a printable application",
+    detail: "Laid out on A4 the way an information officer expects to receive it.",
+  },
+  {
+    state: "live",
+    what: "Your applications follow you",
     detail:
-      "Generates compliant A4 documentation formatted according to prevailing Public Information Officer (PIO) expectations.",
+      "Sign in and they are kept for you, so they survive a cleared browser or a new phone. Without an account they stay on this device only.",
+  },
+  {
+    state: "live",
+    what: "We email you before a deadline",
+    detail:
+      "Once a day we check every filed application and write to you when the reply window is closing or has passed.",
   },
   {
     state: "mocked",
-    what: "Public Authority Database",
+    what: "Nothing is actually filed",
     detail:
-      "Currently limited to thirty-six curated domains. Expansion to the full national directory is required for production deployment. Queries outside supported domains yield an explicit low-confidence assessment.",
+      "We prepare the application; you file it yourself. This prototype cannot submit anything to the official portal on your behalf.",
   },
   {
     state: "mocked",
-    what: "Direct Portal Integration",
+    what: "The fee is not real",
     detail:
-      "The prototype lacks write-access integration with official RTI portals. Submissions are generated but not electronically filed on behalf of the citizen.",
+      "No money moves and no bank is involved. The registration number is generated here, not issued by the portal.",
   },
   {
     state: "mocked",
-    what: "Payment Verification",
+    what: "The list of offices is small",
     detail:
-      "Fee payment and registration status are reliant entirely on user self-certification without backend verification or validation.",
+      "Thirty-six areas of government, chosen by hand. Ask about something outside them and we will say plainly that we are unsure rather than guess.",
   },
   {
     state: "mocked",
-    what: "Temporal Simulation Utility",
+    what: "The clock can be fast-forwarded",
     detail:
-      "A demonstration utility is provided to simulate deadline expiration. This feature is disabled for genuine user-generated queries to prevent statutory misrepresentation.",
+      "On the prepared examples only, so you can see the appeal step without waiting a month. It is never available on something you filed yourself.",
   },
   {
     state: "mocked",
-    what: "Fallback Contingency Protocols",
+    what: "The examples have saved answers",
     detail:
-      "Pre-loaded templates utilize static fallback responses in the event of upstream model unavailability, ensuring uninterrupted demonstration flow.",
-  },
-  {
-    state: "live",
-    what: "Cross-Session Data Persistence",
-    detail:
-      "Signed-in applications are stored server-side and survive a cleared browser or a change of device. Guest mode remains available and stays local-only, by design.",
-  },
-  {
-    state: "live",
-    what: "Automated Notification Systems",
-    detail:
-      "A daily server-side sweep checks every filed application against its statutory deadline and emails the applicant when the window is closing or has lapsed.",
+      "If our server cannot be reached, the prepared examples fall back to an answer saved earlier, and the page says so.",
   },
   {
     state: "planned",
-    what: "Escalation Protocols",
+    what: "Going beyond the first appeal",
     detail:
-      "Functionality currently terminates at the First Appellate level. Integration with Information Commission escalation procedures (Section 18/19) is pending.",
+      "If the first appeal fails you can go to the Information Commission. That step is not built yet — you would do it yourself.",
   },
 ];
 
 const STATE_META = {
   live: {
     icon: CheckCircle2,
-    label: "Active Integration",
+    label: "Works",
     className: "text-success",
   },
   mocked: {
     icon: FlaskConical,
-    label: "Simulated Constraints",
+    label: "Pretend",
     className: "text-warning",
   },
   planned: {
     icon: CircleDashed,
-    label: "Pending Development",
+    label: "Not built yet",
     className: "text-muted-foreground",
   },
 } as const;
 
 export default function HowItWorksPage() {
   const groups = [
-    { state: "live" as const, heading: "Active System Integrations" },
-    { state: "mocked" as const, heading: "Simulated Constraints & Technical Limitations" },
-    { state: "planned" as const, heading: "Pending Administrative Features" },
+    { state: "live" as const, heading: "What really works" },
+    { state: "mocked" as const, heading: "What is only pretending" },
+    { state: "planned" as const, heading: "What is not built yet" },
   ];
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <Breadcrumbs current="System capabilities and limitations" />
+      <Breadcrumbs current="What this can and cannot do" />
 
       <PageHeader
-        eyebrow="System Documentation"
-        title={"System Capabilities and Technical Limitations"}
-        lead="This portal serves as a functional prototype detailing the operational boundaries of the RTI Copilot module. The following documentation outlines live integrations, simulated capabilities, and pending administrative features."
+        title="What this can and cannot do"
+        lead="This is a prototype, so some of it is real and some of it is pretending. Here is which is which, before you rely on any of it."
       />
 
       {/*
@@ -177,35 +184,6 @@ export default function HowItWorksPage() {
             </Section>
           );
         })}
-
-        <Section label="Production Deployment Considerations">
-          <div className="space-y-3 text-sm leading-prose text-muted-foreground">
-            <p>
-              <span className="font-semibold text-foreground">
-                Directory Completeness Dependency.
-              </span>{" "}
-              Routing accuracy requires ingestion of complete public authority datasets rather than reliance on generative inference. Models must be strictly bounded to prevent the fabrication of non-existent administrative entities.
-            </p>
-            <p>
-              <span className="font-semibold text-foreground">
-                Confidence Metric Transparency.
-              </span>{" "}
-              High-volume administrative processing demands explicit low-confidence warnings. Mandatory review protocols must remain in place to prevent systemic misdirection of citizen applications.
-            </p>
-            <p>
-              <span className="font-semibold text-foreground">
-                Centralized State Management.
-              </span>{" "}
-              Statutory tracking necessitates server-side persistence. Active monitoring and automated citizen notification are critical to ensuring compliance with strict appellate timelines.
-            </p>
-            <p>
-              <span className="font-semibold text-foreground">
-                Data Privacy and Security Compliance.
-              </span>{" "}
-              Requests frequently contain sensitive personal data, mandating encryption at rest. Submission data must never be utilized for external model training without explicit, documented consent.
-            </p>
-          </div>
-        </Section>
       </PageGrid>
 
       <LastReviewed date="2026-08-23" />
