@@ -10,39 +10,40 @@ landing page open.
 
 ## Minute one, the citizen
 
-Minute one is one explanation told across four screens: the problem, how we
-solve it, and the filing. Full sentences, normal pace, roughly 150 words.
+The flow, in one line: people don't file RTIs because they don't know who to
+send them to. So you write your problem, we tell you the office, we write the
+application, and you file it.
 
-### 0:00 · Landing page — the problem
+150 words, normal pace.
 
-> Under the Right to Information Act, any citizen can make a government office
-> hand over its records. The catch is that you have to name the right office
-> yourself, and word it the way the law expects.
+### 0:00 · Landing page
+
+> This is RTI Online. Under the Right to Information Act, any Indian can ask a
+> government office to show its records. Almost nobody does. Not because they
+> don't want to, but because they don't know who to send it to.
 
 → Click *See it work on a real example*, then *Send code*, then *Sign in*.
-Keep talking through those clicks. Do not stop to explain the sign in.
+Keep talking through those clicks.
 
-### 0:15 · Describe the problem — the citizen's words
+### 0:16 · Describe the problem
 
-> So here, you just say what happened. A pension stopped in April with no
-> notice, and three visits to the office got no answer.
+> So you don't have to know. You just write it the way you'd say it. A pension
+> stopped in April, no notice, three visits to the office, no answer.
 
 → *Find the right office*
 
-### 0:26 · The authority — where it has to go
+### 0:28 · The authority
 
-> It then finds the office that actually holds those records. Here, EPFO. It
-> names the officer who has to answer you, and the senior officer you appeal to
-> if nobody does. Send it to the wrong office, and your thirty days start
-> again.
+> And the system tells you exactly where it goes. This one goes to EPFO, with
+> the officer who has to reply, and the officer you appeal to if he doesn't.
 
 → *Write my application*
 
-### 0:42 · The draft — how it has to be worded
+### 0:42 · The draft
 
-> Then it rewrites the complaint. An office can refuse to explain itself, but
-> it cannot refuse to hand over a document. So why was it stopped becomes: the
-> order, the file notings, the officer's name.
+> Then it writes the application from what you typed. Your question becomes a
+> request for documents, because an office can refuse to explain itself, but it
+> cannot refuse to hand over a file.
 
 → *Continue to filing*
 
@@ -50,7 +51,8 @@ Keep talking through those clicks. Do not stop to explain the sign in.
 
 Say it as one line while clicking *Next* through the steps.
 
-> Ten rupees, filed, and from here we count the thirty days for you.
+> After that it's the normal filing. Your details, ten rupees, done. And we
+> watch the thirty day deadline.
 
 ---
 
@@ -82,7 +84,7 @@ Still screen. No clicking.
 
 ---
 
-**Running long?** Cut "Send it to the wrong office, and your thirty days start
-again", then "And it scores itself. Under sixty percent, it tells you to go
-check the department yourself." Never cut the draft line at 0:42 or the
-directory line at 1:13.
+**Running long?** Cut "with the officer who has to reply, and the officer you
+appeal to if he doesn't", then "And it scores itself. Under sixty percent, it
+tells you to go check the department yourself." Never cut the draft line at
+0:42 or the directory line at 1:13.
