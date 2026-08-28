@@ -1,7 +1,7 @@
 # RTI Online
 
 Every Indian citizen can ask a government office for its records. Almost nobody
-does, and the reason is not apathy. You have to know which of thousands of
+does, and it is not apathy. You have to know which of thousands of
 public authorities holds the papers you want, and you have to word the request
 as a demand for documents rather than a question. Get either wrong and it comes
 back weeks later, with your thirty day clock reset.
@@ -23,6 +23,6 @@ not real.
 And it is a suggestion, not a verdict. The alternatives sit on the same screen,
 one click away.
 
-Miss the thirty day deadline and the first appeal is already drafted. It runs
+Miss the thirty day deadline and the appeal is already drafted. It runs
 in English and Hindi, on a phone, at any text size. Filing is simulated, and we
 say so on screen.
