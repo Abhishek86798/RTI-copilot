@@ -6,15 +6,16 @@ so nothing is typed on camera.
 **Setup:** sign out, run `localStorage.clear()` in the console, 100% zoom,
 landing page open.
 
+The framing throughout: this is RTI, rebuilt. Not a service sitting on top of
+it. Never say "we help you" when you can say "you do this here".
+
 ---
 
 ## Minute one, the citizen
 
-The flow, in one line: people don't file RTIs because they don't know who to
-send them to. So you write your problem, we tell you the office, we write the
-application, and you file it.
-
-150 words, normal pace.
+The flow: people don't file RTIs because they don't know who to send them to.
+So you write your problem, the office comes back, the application writes
+itself, and you file it. 150 words, normal pace.
 
 ### 0:00 · Landing page
 
@@ -34,16 +35,17 @@ Keep talking through those clicks.
 
 ### 0:28 · The authority
 
-> And the system tells you exactly where it goes. This one goes to EPFO, with
-> the officer who has to reply, and the officer you appeal to if he doesn't.
+> And it tells you exactly where it goes. This one goes to EPFO, with the
+> officer who has to reply to you. And if you disagree, the other offices are
+> right there. You can change it.
 
 → *Write my application*
 
 ### 0:42 · The draft
 
-> Then it writes the application from what you typed. Your question becomes a
-> request for documents, because an office can refuse to explain itself, but it
-> cannot refuse to hand over a file.
+> Then the application writes itself from what you typed. Your question becomes
+> a request for documents, because an office can refuse to explain itself, but
+> it cannot refuse to hand over a file.
 
 → *Continue to filing*
 
@@ -51,47 +53,48 @@ Keep talking through those clicks.
 
 Say it as one line while clicking *Next* through the steps.
 
-> After that it's the normal filing. Your details, ten rupees, done. And we
-> watch the thirty day deadline.
+> After that it's the normal filing. Your details, ten rupees, done. And the
+> thirty day deadline is now being counted.
 
 ---
 
 ## Minute two, how we built it
 
-Still screen. No clicking. Four decisions, and the reason for each one.
-Assume the listener knows nothing about how any of this works.
+Still screen. No clicking. Assume the listener knows nothing about how any of
+this works.
 
-### 1:00 · Why it is hard
+### 1:00 · What we actually built
 
-> The hard part here isn't the writing. It's knowing which office. There are
-> thousands of them, and if you pick wrong, nobody tells you for six weeks.
+> We didn't build a helper on top of the RTI portal. We rebuilt the thing
+> itself, around the one step that stops everybody: knowing which office to
+> send it to.
 
-### 1:11 · The first decision
+### 1:12 · Why not just AI
 
-> So our first decision was to not let the AI answer that alone. Ask a language
-> model which department holds your records, and it will name one that sounds
-> right and doesn't exist.
+> We could have just asked an AI. But ask a language model which department
+> holds your records, and it will name one that sounds right and doesn't exist.
+> So we don't rely on it alone.
 
-### 1:24 · What we did instead
+### 1:26 · What we did instead
 
-> We wrote the list ourselves instead. Thirty eight real offices, each with the
-> officer who receives requests and the one who hears appeals. When you
-> describe your problem, we match your words to that list, and the AI only
-> chooses from what we hand it. It can never invent an office.
+> We built our own list of real offices first. Thirty eight of them, with the
+> officer who takes the request and the one who hears an appeal. Your words are
+> matched against that list, and the AI only picks from what we hand it. It can
+> never name an office that isn't real.
 
-### 1:44 · Being honest about doubt
+### 1:46 · And you stay in charge
 
-> And when it isn't sure, it says so instead of guessing. That mattered more
-> than looking clever, because a confident wrong answer costs someone a month.
+> And it's a suggestion, not a decision. The other offices we considered are
+> right there on the screen, and you can switch in one click. You decide where
+> your application goes.
 
-### 1:54 · Close
+### 1:57 · Close
 
-> And we never file it for you. We prepare it, you send it, and we say so on
-> the screen.
+> Filing here is simulated, so nothing reaches a real office yet.
 
 ---
 
-**Running long?** Cut "with the officer who has to reply, and the officer you
-appeal to if he doesn't", then "There are thousands of them, and if you pick
-wrong, nobody tells you for six weeks." Never cut the draft line at 0:42 or
-the list line at 1:24.
+**Running long?** Cut "with the officer who has to reply to you" at 0:28, then
+"with the officer who takes the request and the one who hears an appeal" at
+1:26. Never cut the draft line at 0:42, the list line at 1:26, or the change-it
+line at 1:46.
