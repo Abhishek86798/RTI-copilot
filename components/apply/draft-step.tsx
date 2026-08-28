@@ -99,7 +99,7 @@ export function DraftStep({
         Below that the panel falls under the editor, where it is still visible
         without being hidden behind a disclosure.
       */}
-      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <Panel>
           <PanelBody className="space-y-2">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -165,7 +165,7 @@ export function DraftStep({
         the rewrite rather than participating in the comparison, and it reads
         badly at sidebar width.
       */}
-      <Panel className="mt-5">
+      <Panel className="mt-4">
         <PanelHeader title={t("draft.whyChanged")} />
         <PanelBody>
           <p className="max-w-[74ch] text-sm text-muted-foreground">

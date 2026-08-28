@@ -27,6 +27,33 @@
  * fixes the curly-tail y. On a page whose whole purpose is transcribing
  * reference numbers correctly, that is not a flourish.
  */
+/*
+ * Tell the browser which way the page is lit.
+ *
+ * Without `color-scheme`, everything the OS draws for us stays in its light
+ * default: a `<select>`'s option list rendered as grey-on-grey over a dark
+ * page and was genuinely hard to read, and scrollbars and date pickers had
+ * the same problem. This is the one line that fixes all of them, and it is
+ * keyed off the same `.dark` class the palette is.
+ */
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+/*
+ * Belt and braces for the option list itself. `color-scheme` handles Chrome
+ * and Safari; Firefox on Linux still paints options from the widget theme
+ * unless they are given a colour of their own.
+ */
+option {
+  background-color: var(--card);
+  color: var(--foreground);
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

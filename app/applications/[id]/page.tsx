@@ -162,7 +162,7 @@ export default function SubmitApplicationPage() {
             applicant step they would otherwise scroll away before the fields
             they belong to.
           */}
-          <div className="sticky top-14 z-30 -mx-5 mb-4 border-b border-border bg-background px-5 py-2 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
+          <div className="sticky top-14 z-30 -mx-5 mb-4 bg-background px-5 pt-1 pb-3 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
             <FilingStepNav
               steps={FILING_STEPS}
               current={step}

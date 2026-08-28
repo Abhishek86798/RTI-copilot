@@ -69,7 +69,7 @@ export function IntakeStep({
         lead={t("intake.help")}
       />
 
-      <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
+      <form onSubmit={handleSubmit} className="mt-4 space-y-4" noValidate>
         <Panel>
           <PanelBody className="space-y-2">
             {/*

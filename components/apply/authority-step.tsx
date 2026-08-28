@@ -16,8 +16,8 @@ import { InfoNotice } from "@/components/notices";
 import { StepActions } from "@/components/apply/step-actions";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Marker } from "@/components/editorial";
 import { PageHeader } from "@/components/ui/page";
+import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { confidenceBucket } from "@/lib/client/confidence";
 import { resolveChannel } from "@/lib/client/filing";
 import { useI18n } from "@/lib/client/i18n";
@@ -83,7 +83,7 @@ export function AuthorityStep({
       />
 
       {/* Full measure, matching the step rule on both edges. */}
-      <div className="mt-4 space-y-3">
+      <div className="mt-4 space-y-4">
         {routing.lowConfidence && (
           <Alert className="border-destructive/30 bg-destructive/6">
             <Info aria-hidden="true" className="text-destructive" />
@@ -99,7 +99,7 @@ export function AuthorityStep({
         */}
         <fieldset>
           <legend className="sr-only">{t("confirm.title")}</legend>
-          <div role="radiogroup" aria-labelledby={groupId} className="space-y-3">
+          <div role="radiogroup" aria-labelledby={groupId} className="space-y-4">
             <span id={groupId} className="sr-only">
               {t("confirm.title")}
             </span>
@@ -113,9 +113,9 @@ export function AuthorityStep({
 
             {alternatives.length > 0 && (
               <>
-                <div className="pt-4">
-                  <Marker label={t("confirm.otherOptions")} />
-                </div>
+                <p className="pt-1 font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
+                  {t("confirm.otherOptions")}
+                </p>
                 {alternatives.map((candidate) => (
                   <CandidateOption
                     key={candidate.authority.id}
@@ -136,7 +136,7 @@ export function AuthorityStep({
       {selected && <AuthorityDetails candidate={selected} />}
 
       {routing.extractedReferences.length > 0 && (
-        <div className="mt-6">
+        <div className="mt-4">
           <InfoNotice title={t("confirm.references")}>
             <ul className="mt-1 flex flex-wrap gap-2">
               {routing.extractedReferences.map((reference) => (
@@ -201,11 +201,15 @@ function CandidateOption({
     <label
       htmlFor={inputId}
       className={cn(
-        "flex cursor-pointer gap-4 border p-5 transition-colors",
+        // Same radius, border and padding as a Panel — it is a card you
+        // can pick, not a different kind of object. Selection is carried by
+        // the accent and a ring rather than by a black border, so the chosen
+        // option reads as chosen rather than as heavier.
+        "flex cursor-pointer gap-3 rounded-xl border bg-card p-4 transition-colors sm:p-5",
         "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
         checked
-          ? "border-foreground bg-card"
-          : "border-border hover:bg-card"
+          ? "border-primary ring-1 ring-primary/25"
+          : "border-border hover:bg-muted/40"
       )}
     >
       <input
@@ -215,7 +219,7 @@ function CandidateOption({
         value={candidate.authority.id}
         checked={checked}
         onChange={() => onSelect(candidate.authority.id)}
-        className="mt-1 size-5 shrink-0 cursor-pointer accent-[var(--foreground)]"
+        className="mt-0.5 size-4 shrink-0 cursor-pointer accent-[var(--primary)]"
       />
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-start justify-between gap-3">
@@ -259,17 +263,15 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
   const isState = resolveChannel(authority) === "state-portal";
 
   return (
-    <section className="mt-10">
-      <div className="pt-8">
-        <Marker label={t("confirm.office")} />
-      </div>
-
-      {/*
-        A definition list on hairlines rather than a card. These are the facts
-        a citizen checks against the authority's own page, so they should read
-        as a record, not as a panel.
-      */}
-      <dl className="mt-5 flex flex-col rounded-xl border border-border bg-card overflow-hidden">
+    <Panel className="mt-4">
+      <PanelHeader title={t("confirm.office")} />
+      <PanelBody className="space-y-4">
+        {/*
+          These are the facts a citizen checks against the authority's own
+          page, so they read as a record — hairline rows, not a card inside a
+          card.
+        */}
+        <dl className="flex flex-col divide-y divide-border">
         <DetailRow icon={Building2} label={t("confirm.pio")} first>
           {authority.pioDesignation}
         </DetailRow>
@@ -279,10 +281,10 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
         <DetailRow icon={Gavel} label={t("confirm.appellate")}>
           {authority.appellateAuthority}
         </DetailRow>
-      </dl>
+        </dl>
 
       {authority.notes && (
-        <p className="mt-5 max-w-[58ch] border-l-2 border-border pl-4 text-sm">
+        <p className="max-w-[74ch] rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm">
           <span className="font-semibold">{t("confirm.worthKnowing")}: </span>
           <span className="opacity-75">{authority.notes}</span>
         </p>
@@ -294,7 +296,7 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
         keeps the fee of a state application it returns.
       */}
       {isState && (
-        <Alert className="mt-5 border-warning/40 bg-warning/8">
+        <Alert className="border-warning/40 bg-warning/8">
           <Info aria-hidden="true" className="text-warning" />
           <AlertTitle>This one cannot be filed on the central portal</AlertTitle>
           <AlertDescription>
@@ -306,7 +308,7 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
       )}
 
       {authority.verifyAt && (
-        <p className="mt-5 text-sm opacity-75">
+        <p className="text-sm text-muted-foreground">
           {t("confirm.verify")}{" "}
           {authority.verifyAt.startsWith("http") ? (
             <a
@@ -324,7 +326,8 @@ function AuthorityDetails({ candidate }: { candidate: Candidate }) {
           )}
         </p>
       )}
-    </section>
+      </PanelBody>
+    </Panel>
   );
 }
 
