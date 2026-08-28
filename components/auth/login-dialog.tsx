@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Loader2, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,13 @@ export function LoginDialog({
   onSignedIn: (email: string) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  /*
+   * Two of these are mounted at once on the landing page — the header's and
+   * the gate's — so fixed ids collided and every `label for` pointed at the
+   * first dialog's field. Scoped per instance instead.
+   */
+  const uid = useId();
+  const fieldId = (name: string) => `login-${name}-${uid}`;
   const [pane, setPane] = useState<Pane>("identify");
   const [email, setEmail] = useState(demo ? DEMO_EMAIL : "");
   const [phone, setPhone] = useState(demo ? DEMO_PHONE : "");
@@ -203,11 +210,11 @@ export function LoginDialog({
         reset();
         onClose();
       }}
-      aria-labelledby="login-title"
+      aria-labelledby={fieldId("title")}
       className="m-auto w-[min(92vw,30rem)] rounded-xl border border-border bg-card p-0 text-foreground backdrop:bg-black/50"
     >
       <div className="p-8">
-        <h2 id="login-title" className="text-2xl font-semibold tracking-tight">
+        <h2 id={fieldId("title")} className="text-2xl font-semibold tracking-tight">
           {pane === "identify" ? "Sign in" : "Enter your code"}
         </h2>
         <p className="mt-2 max-w-[46ch] text-sm opacity-75">
@@ -254,9 +261,9 @@ export function LoginDialog({
         {pane === "identify" ? (
           <form onSubmit={requestCode} className="mt-6 space-y-5">
             <div>
-              <Label htmlFor="login-email">Email address</Label>
+              <Label htmlFor={fieldId("email")}>Email address</Label>
               <Input
-                id="login-email"
+                id={fieldId("email")}
                 type="email"
                 required
                 autoComplete="email"
@@ -267,30 +274,30 @@ export function LoginDialog({
             </div>
 
             <div>
-              <Label htmlFor="login-phone">
+              <Label htmlFor={fieldId("phone")}>
                 Mobile number <span className="opacity-60">(optional)</span>
               </Label>
               <Input
-                id="login-phone"
+                id={fieldId("phone")}
                 type="tel"
                 inputMode="numeric"
                 autoComplete="tel"
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
                 className="mt-2"
-                aria-describedby="login-phone-help"
+                aria-describedby={fieldId("phone-help")}
               />
-              <p id="login-phone-help" className="mt-2 text-sm opacity-75">
+              <p id={fieldId("phone-help")} className="mt-2 text-sm opacity-75">
                 Used on your RTI application. We do not send codes by SMS.
               </p>
             </div>
 
             <div>
-              <Label htmlFor="login-captcha">
+              <Label htmlFor={fieldId("captcha")}>
                 {challenge?.question ?? "Loading verification question…"}
               </Label>
               <Input
-                id="login-captcha"
+                id={fieldId("captcha")}
                 inputMode="numeric"
                 required
                 value={captchaAnswer}
@@ -316,9 +323,9 @@ export function LoginDialog({
         ) : (
           <form onSubmit={submitCode} className="mt-6 space-y-5">
             <div>
-              <Label htmlFor="login-code">Sign-in code</Label>
+              <Label htmlFor={fieldId("code")}>Sign-in code</Label>
               <Input
-                id="login-code"
+                id={fieldId("code")}
                 inputMode="numeric"
                 autoComplete="one-time-code"
                 required
