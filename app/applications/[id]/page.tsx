@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import { scrollPageToTop } from "@/components/smooth-scroll";
 
 import { ArrowRight } from "lucide-react";
 
@@ -93,9 +94,12 @@ export default function SubmitApplicationPage() {
         <p className="mx-auto mt-3 max-w-[52ch] opacity-75">
           {t("track.missingBody")}
         </p>
-        <Link href="/apply"
-            className={cn(buttonVariants({ variant: "cta", size: "lg" }), "mt-6")}
-          >{t("list.emptyCta")}</Link>
+        <Link
+          href="/applications"
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-6")}
+        >
+          {t("nav.mine")}
+        </Link>
       </div>
     );
   }
@@ -109,12 +113,24 @@ export default function SubmitApplicationPage() {
    * looking at the middle of a form they have not seen the top of — and a
    * screen reader user gets no announcement that anything happened at all.
    */
+  /*
+   * A sub-step is a new screen, so it opens at the top of the page like every
+   * other navigation in the app.
+   *
+   * This used to call `scrollIntoView` on the step's own heading, which put
+   * that heading at the top of the viewport and left the page header, the
+   * identity band and the step chips scrolled off above it — 346px down, on
+   * every Next, Back and chip. `preventScroll` on the focus call is what
+   * keeps the browser from undoing the scroll it is given: focusing an
+   * element off-screen scrolls it into view unless you say otherwise.
+   */
   function goTo(next: FilingStepId) {
     setStep(next);
     requestAnimationFrame(() => {
-      const heading = document.querySelector<HTMLElement>("[data-filing-step] h2");
-      heading?.scrollIntoView({ block: "start" });
-      heading?.focus();
+      scrollPageToTop();
+      document
+        .querySelector<HTMLElement>("[data-filing-step] h2")
+        ?.focus({ preventScroll: true });
     });
   }
 
@@ -182,7 +198,9 @@ export default function SubmitApplicationPage() {
 
           {/* Says what the asterisk means, once, before any field carries it. */}
           {step !== "pay" && (
-            <p className="mb-3 text-xs text-destructive">{t("submit.mandatory")}</p>
+            <p id="filing-mandatory" className="mb-3 text-xs text-destructive">
+              {t("submit.mandatory")}
+            </p>
           )}
 
           {step === "pay" ? (
@@ -223,18 +241,26 @@ export default function SubmitApplicationPage() {
             className="items-start"
           >
             {step === "pay" ? undefined : (
-              <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
+              <Button
+                size="lg"
+                variant="cta"
+                onClick={goNext}
+                disabled={blocked.length > 0}
+                /*
+                 * Points at the legend above the form rather than repeating
+                 * it underneath. The asterisks say which fields; the legend
+                 * says what an asterisk means; a second red sentence at the
+                 * foot of the page said both again. What the sentence was
+                 * really carrying was the reason this button is disabled —
+                 * so it carries it, to anyone who lands on the button.
+                 */
+                aria-describedby={blocked.length > 0 ? "filing-mandatory" : undefined}
+              >
                 {t("submit.next")}
                 <ArrowRight aria-hidden="true" />
               </Button>
             )}
           </StepActions>
-
-          {blocked.length > 0 && (
-            <p role="alert" className="mt-3 text-sm text-destructive">
-              {t("submit.incomplete")}
-            </p>
-          )}
         </div>
       )}
 

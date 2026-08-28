@@ -91,7 +91,6 @@ const en = {
   "submit.step.pay": "Fee",
   "submit.next": "Next",
   "submit.previous": "Previous",
-  "submit.incomplete": "* Fill in the fields marked with an asterisk before continuing.",
   "submit.mandatory": "* Mandatory field",
 
   "auth.signIn": "Sign in",
@@ -270,6 +269,7 @@ const en = {
 
   "list.title": "Applicant Dashboard",
   "list.empty": "No active applications on record.",
+  "list.emptyNav": "Start one from “New application” in the menu above.",
   "list.emptyCta": "Initiate New Requisition",
   "list.stored": "Data resides strictly within local browser storage. Clearing browser cache will irrevocably purge all records.",
 
@@ -575,7 +575,6 @@ const hi: Record<StringKey, string> = {
   "submit.step.pay": "शुल्क",
   "submit.next": "आगे",
   "submit.previous": "पीछे",
-  "submit.incomplete": "* आगे बढ़ने से पहले तारांकित फ़ील्ड भरें।",
   "submit.mandatory": "* अनिवार्य फ़ील्ड",
 
   "auth.signIn": "साइन इन करें",
@@ -758,6 +757,7 @@ const hi: Record<StringKey, string> = {
 
   "list.title": "मेरे आवेदन",
   "list.empty": "आपने अभी कोई आवेदन शुरू नहीं किया है।",
+  "list.emptyNav": "ऊपर मेनू में “नया आवेदन” से शुरू करें।",
   "list.emptyCta": "अपना पहला आवेदन शुरू करें",
   "list.stored": "केवल इसी ब्राउज़र में सुरक्षित। ब्राउज़र डेटा मिटाने पर ये हट जाएँगे।",
 

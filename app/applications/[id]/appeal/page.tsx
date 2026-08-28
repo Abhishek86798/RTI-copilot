@@ -8,7 +8,6 @@ import { CheckCircle2, Gavel, Printer } from "lucide-react";
 
 import { ApplicationHeader } from "@/components/track/application-header";
 import { AppealSheet } from "@/components/track/application-sheet";
-import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { CheckboxField } from "@/components/ui/checkbox";
@@ -219,7 +218,15 @@ export default function SubmitAppealPage() {
           </Panel>
 
           <Panel labelledBy="appeal-confirm">
-            <PanelHeader id="appeal-confirm" title={t("appeal.confirmTitle")} />
+            <PanelHeader
+              id="appeal-confirm"
+              title={t("appeal.confirmTitle")}
+              description={
+                <span id="appeal-mandatory" className="text-destructive">
+                  {t("submit.mandatory")}
+                </span>
+              }
+            />
             <PanelBody className="space-y-4">
               {/*
                 The one declaration this act needs. Filing had the citizenship
@@ -228,18 +235,12 @@ export default function SubmitAppealPage() {
               */}
               <CheckboxField
                 id="appeal-confirm-read"
+                aria-required="true"
                 checked={confirmed}
                 onChange={(event) => setConfirmed(event.target.checked)}
                 label={t("appeal.confirmLabel")}
                 hint={t("appeal.confirmHelp")}
               />
-
-              {!confirmed && (
-                <Alert role="note">
-                  <Gavel aria-hidden="true" />
-                  <AlertTitle>{t("appeal.confirmRequired")}</AlertTitle>
-                </Alert>
-              )}
 
               <div className="flex flex-col gap-2 sm:flex-row">
                 <Button
@@ -247,6 +248,9 @@ export default function SubmitAppealPage() {
                   size="lg"
                   variant="cta"
                   disabled={!confirmed}
+                  /* Same rule as the filing steps: the requirement is stated
+                     once, at the top, and the disabled action points at it. */
+                  aria-describedby={!confirmed ? "appeal-mandatory" : undefined}
                   onClick={() => {
                     updateApplication(application.id, {
                       status: "appealed",
