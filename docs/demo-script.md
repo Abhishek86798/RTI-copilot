@@ -1,169 +1,203 @@
 # Two minute demo script
 
-Total: 120 seconds. Minute one is the citizen journey. Minute two is how it is
-built and why.
+Two halves, each shaped the same way: a hook, the detail, an ending.
 
-The entire recording runs on **See it work on a real example**. That path is a
-prepared case: the grievance, the routing answer, the draft and the applicant
-details are all seeded, so nothing depends on a live model call while you are
-recording. Nothing is typed on camera and nothing can time out.
+Minute one is the citizen, driven entirely by **See it work on a real example**.
+That path is a prepared case, so the grievance, the routing, the draft and the
+applicant details are all already there. Nothing is typed on camera.
 
-Two presenters. Presenter A drives the browser and speaks for 0:00 to 1:00.
-Presenter B speaks for 1:00 to 2:00 over the same screen, with no further
-clicking.
+Minute two is Presenter B over a still screen. No clicking at all.
+
+Read the lines exactly as written. They are built for the mouth, not the page.
 
 ---
 
 ## Before you record
 
-- Sign out first, so the landing page shows **Sign in** in the header.
-- Clear the dashboard: open DevTools console and run
-  `localStorage.clear(); location.reload();` so no old applications appear.
-- Walk the example once, end to end, before you hit record. You are checking
-  that every screen appears and how long each click takes, so that your
-  narration lands on the right screen.
-- Browser at 100% zoom. Start with the landing page already open.
+- Sign out, so the header shows **Sign in**.
+- In the DevTools console: `localStorage.clear(); location.reload();`
+- Walk the example once first, so you know how long each click takes.
+- Browser at 100% zoom, landing page open, then hit record.
 
-**Do not click anything outside the example path.** Not the nav pages, not
-Policies, Accessibility, FAQ, the Hindi toggle, the appeal screens, or the how
-it works page. They are all built and all worth a sentence in minute two, but
-clicking into them costs the demo its one minute and takes you off the prepared
-case.
+Click nothing outside the example path. The other pages are built and they get
+a sentence in minute two. Opening them costs you the minute.
 
 ---
 
-## Minute one, the citizen (Presenter A)
+## MINUTE ONE: the citizen
 
-### 0:00 to 0:12 — Landing page
+### HOOK: 0:00 to 0:13
 
-**Screen:** the landing page, top of the hero.
+**Screen:** landing page
 
-> "This is RTI Online. Any Indian citizen can ask a government office for its
-> records, and almost nobody does, because you have to know which office holds
-> them and you have to word the request the way the Act expects. Get either
-> wrong and it comes back weeks later. Here is the whole thing on a real case."
+> You can legally make any government office in India open its files to you.
+>
+> Most people never do it once.
+>
+> Not because they don't care. Because guessing the wrong office costs them a
+> month.
 
 **Click:** `See it work on a real example`
 
 ---
 
-### 0:12 to 0:20 — Sign in
+### DETAIL: 0:13 to 0:54
 
-**Screen:** the sign in dialog, already filled in.
+#### 0:13 to 0:19, the sign in dialog
 
-> "Sign in is filled in for the walkthrough, so nothing here costs you typing."
+> This is a real case, already loaded. Sign in is filled in too.
 
-**Click:** `Send code`, then `Sign in`. Do not explain the code. Keep moving.
+**Click:** `Send code`, then `Sign in`
 
----
+#### 0:19 to 0:33, Describe the problem
 
-### 0:20 to 0:34 — Step 1, Describe
-
-**Screen:** `Describe the problem`. The banner at the top says you are walking
-through an example, and the box already carries the pension case.
-
-> "This is our prepared case, and this is how a person actually talks. A
-> pension stopped in April, no notice, a PPO number, three visits to the
-> office, and a question at the end. Why was it stopped, and who is
-> responsible. None of this is in the language of the Act."
+> A pension stopped in April. No notice.
+>
+> He's seventy four, and it was his only income.
+>
+> Three trips to the office, no answers.
+>
+> That's how a real person writes it. Not like a form.
 
 **Click:** `Find the right office`
 
----
+#### 0:33 to 0:45, the authority
 
-### 0:34 to 0:46 — Step 2, Authority
-
-**Screen:** the authority card, EPFO selected, with the confidence shown.
-
-> "It comes back with the Employees' Provident Fund Organisation, under the
-> Ministry of Labour and Employment. The officer the request goes to, the
-> officer an appeal would go to, and how sure the system is. That last part
-> matters, because the wrong office means a transfer under Section 6(3), and
-> the citizen's thirty day clock starts again."
+> And it finds the office. EPFO, under the Ministry of Labour and Employment.
+>
+> Who to send it to. Who to appeal to. And how sure it is.
+>
+> Wrong office, and your thirty days start over.
 
 **Click:** `Write my application`
 
----
+#### 0:45 to 0:54, the draft
 
-### 0:46 to 0:58 — Step 3, Draft
-
-**Screen:** the draft, with **Why the wording changed** visible. Give this
-screen the most time. It is the product.
-
-> "And this is the part that decides whether you get an answer. The question
-> 'why was it stopped' has become a request for the order that stopped it, the
-> file notings behind it, and the name of the officer who signed it. An office
-> is not obliged to explain itself. It is obliged to hand over records it
-> holds. The PPO number and the dates are carried across exactly as written."
+> Now watch the wording.
+>
+> Why was it stopped becomes: give me the order, the notings, the officer's
+> name.
+>
+> Records, not excuses.
 
 **Click:** `Continue to filing`
 
 ---
 
-### 0:58 to 1:00 — Filing
+### ENDING: 0:54 to 1:00
 
-**Screen:** the filing steps, with the applicant details already filled in.
-Click `Next` through them at speed and stop on the fee step.
+**Screen:** the filing steps
 
-> "Details, declaration, the request, ten rupees. Filed, and from there the
-> dashboard watches the thirty day deadline."
+Say this as one line while you click `Next` through the steps. Do not pause
+between clicks. Land on the fee step as you say "filed".
 
-Hand over. Do not wait for the confirmation dialog if you are tight on time.
-
----
-
-## Minute two, how we built it (Presenter B)
-
-Stay where minute one ended. No clicking. Everything below is spoken over a
-still screen, so nothing here can go wrong on camera.
-
-### 1:00 to 1:18 — The problem worth solving
-
-> "The hard part of this product is the step you just watched, where a
-> complaint became an office. Asking a language model 'which government office
-> holds these records' on its own gets you a confident, well written, non
-> existent department. A citizen cannot tell the difference, and finds out six
-> weeks later. So we do not ask it that."
-
-### 1:18 to 1:42 — How the routing is designed
-
-> "We hand curated a directory of public authorities. Thirty eight of them,
-> central and state, each carrying the officer who receives requests, the
-> appellate officer, the filing address, and around three hundred and forty
-> keywords a citizen might actually type. The grievance is keyword matched
-> against that directory first, weighted so a specific phrase like 'ministry of
-> education' counts for more than a common word like 'scholarship'. Only that
-> shortlist reaches the model, and the model can answer only with an id from
-> the list. It cannot invent an office, because there is nothing to invent
-> from."
-
-### 1:42 to 1:56 — Honesty, and what else is in there
-
-> "It also scores its own confidence. Below 0.6 the screen stops being
-> confident and says plainly that we are not sure, and to check the
-> department's own website first. For someone spending a month on this, an
-> honest 'verify this' beats a confident wrong answer.
+> Details, declaration, request, ten rupees, filed.
 >
-> The rest follows the Act itself. Thirty days, or forty eight hours where
-> someone's life or liberty is at stake. The appeal window under Section 19,
-> with the first appeal drafted for you when the deadline passes. The fee, and
-> the exemption if you hold a BPL certificate. It runs in English and Hindi, at
-> every text size, on a phone, and without an account."
+> And the thirty day clock starts now.
 
-### 1:56 to 2:00 — Close
-
-> "And filing is simulated. We prepare the application, you file it. That is on
-> the screen, not buried in a footer."
+Hand over.
 
 ---
 
-## Timing safety
+## MINUTE TWO: how we built it
 
-If you are running long, cut in this order:
+Nothing moves on screen from here.
 
-1. The second half of the 0:34 authority line, from "That last part matters".
-2. The 0:58 filing narration, down to "Details, declaration, ten rupees, filed."
-3. The list of extras at 1:42, from "The fee, and the exemption".
+### HOOK: 1:00 to 1:13
 
-Do not cut the draft explanation at 0:46, and do not cut the routing
-explanation at 1:18. Those two are the whole submission.
+> Here's the part nobody sees.
+>
+> If you just ask an AI which office holds your records, it will make one up.
+>
+> Sound perfect. Be completely wrong. And you'd never know.
+
+---
+
+### DETAIL: 1:13 to 1:50
+
+> So we don't let it.
+>
+> We built the directory ourselves. Thirty eight authorities, central and
+> state.
+>
+> Each one with its information officer, its appeal officer, and the words a
+> real person would type.
+>
+> Your complaint gets matched against those words first. Ministry of education
+> beats a loose word like scholarship.
+>
+> Only that shortlist goes to the model. And it can only answer with an id from
+> the list.
+>
+> It can't invent an office, because there's nothing to invent from.
+>
+> And it scores itself. Under sixty percent, it tells you to go check the
+> department yourself.
+
+---
+
+### ENDING: 1:50 to 2:00
+
+> An honest maybe beats a confident mistake. That's the whole idea.
+>
+> We don't file it for you. We write it, you file it, and we say so on the
+> screen.
+
+---
+
+## Read it straight through
+
+### Presenter A
+
+You can legally make any government office in India open its files to you. Most
+people never do it once. Not because they don't care. Because guessing the
+wrong office costs them a month.
+
+This is a real case, already loaded. Sign in is filled in too.
+
+A pension stopped in April. No notice. He's seventy four, and it was his only
+income. Three trips to the office, no answers. That's how a real person writes
+it. Not like a form.
+
+And it finds the office. EPFO, under the Ministry of Labour and Employment. Who
+to send it to. Who to appeal to. And how sure it is. Wrong office, and your
+thirty days start over.
+
+Now watch the wording. Why was it stopped becomes: give me the order, the
+notings, the officer's name. Records, not excuses.
+
+Details, declaration, request, ten rupees, filed. And the thirty day clock
+starts now.
+
+### Presenter B
+
+Here's the part nobody sees. If you just ask an AI which office holds your
+records, it will make one up. Sound perfect. Be completely wrong. And you'd
+never know.
+
+So we don't let it. We built the directory ourselves. Thirty eight authorities,
+central and state. Each one with its information officer, its appeal officer,
+and the words a real person would type. Your complaint gets matched against
+those words first. Ministry of education beats a loose word like scholarship.
+Only that shortlist goes to the model. And it can only answer with an id from
+the list. It can't invent an office, because there's nothing to invent from.
+
+And it scores itself. Under sixty percent, it tells you to go check the
+department yourself.
+
+An honest maybe beats a confident mistake. That's the whole idea. We don't file
+it for you. We write it, you file it, and we say so on the screen.
+
+---
+
+## If you run long
+
+Cut in this order:
+
+1. "Wrong office, and your thirty days start over."
+2. "Three trips to the office, no answers."
+3. "And it scores itself. Under sixty percent, it tells you to go check the
+   department yourself."
+
+Never cut the draft lines at 0:45 or the directory lines at 1:13. Everything
+else is context. Those two are the product.
