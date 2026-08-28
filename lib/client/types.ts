@@ -133,14 +133,18 @@ export type Applicant = {
  */
 export const DEMO_APPLICANT: Applicant = {
   fullName: "Sunita Devi",
+  gender: "female",
   mobile: "9876543210",
   country: "india",
   address: "12, Gandhi Marg, Andheri East, Mumbai",
   state: "Maharashtra",
   pincode: "400069",
+  areaStatus: "urban",
+  educationalStatus: "literate",
   phone: "",
   email: "sunita.devi@example.com",
   isBpl: false,
+  /* The declaration the real form will not accept a request without. */
   isCitizen: true,
 };
 

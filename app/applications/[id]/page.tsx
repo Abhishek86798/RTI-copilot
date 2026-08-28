@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { scrollPageToTop } from "@/components/smooth-scroll";
@@ -25,7 +25,7 @@ import {
   stepProblems,
   type FilingStepId,
 } from "@/lib/client/filing-steps";
-import type { Applicant, Authority } from "@/lib/client/types";
+import { DEMO_APPLICANT, type Applicant, type Authority } from "@/lib/client/types";
 
 /**
  * Which of the form's sections belong to each step.
@@ -59,6 +59,18 @@ export default function SubmitApplicationPage() {
   const router = useRouter();
   const hydrated = useHydrated();
   const application = useApplication(params.id);
+
+  /*
+   * A worked example is filled in at the moment it is created, but an example
+   * begun before that behaviour existed still carries a blank applicant — and
+   * the whole point of the demo is that nobody has to type anything. Fill it
+   * on arrival. The guard is the name, so a demo whose details someone has
+   * since edited is never overwritten.
+   */
+  useEffect(() => {
+    if (!application?.isDemo || application.applicant.fullName) return;
+    updateApplication(application.id, { applicant: { ...DEMO_APPLICANT } });
+  }, [application]);
 
   const [step, setStep] = useState<FilingStepId>("authority");
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
