@@ -11,7 +11,9 @@ const { createSessionToken, readSessionToken } = await import(
 const { createChallenge, verifyChallenge } = await import(
   "../lib/server/auth/captcha.ts"
 );
-const { verifyCode, issueCode } = await import("../lib/server/auth/otp.ts");
+const { verifyCode, issueCode, isDevOtpActive } = await import(
+  "../lib/server/auth/otp.ts"
+);
 
 /*
  * The three things worth a test: a forged cookie must not authenticate, a
@@ -111,6 +113,29 @@ test("brute force burns the code after five attempts", async () => {
   }
   /* Even the correct code is refused once the attempt budget is spent. */
   assert.equal(verifyCode(email, issued.devCode), "too-many-attempts");
+});
+
+test("AUTH_DEV_OTP=on forces the fixed code even where mail could send", async () => {
+  /*
+   * The switch only had an "off" position, so setting RESEND_API_KEY on a
+   * deployment silently started emailing real six-digit codes — correct, and
+   * a surprise when what you wanted was a demo anyone can sign into.
+   */
+  const previous = { env: process.env.NODE_ENV, key: process.env.RESEND_API_KEY, dev: process.env.AUTH_DEV_OTP };
+  process.env.NODE_ENV = "production";
+  process.env.RESEND_API_KEY = "fake-key";
+  process.env.AUTH_DEV_OTP = "on";
+  try {
+    assert.equal(isDevOtpActive(), true);
+    process.env.AUTH_DEV_OTP = "off";
+    assert.equal(isDevOtpActive(), false, "off still forces real codes");
+  } finally {
+    process.env.NODE_ENV = previous.env;
+    if (previous.key === undefined) delete process.env.RESEND_API_KEY;
+    else process.env.RESEND_API_KEY = previous.key;
+    if (previous.dev === undefined) delete process.env.AUTH_DEV_OTP;
+    else process.env.AUTH_DEV_OTP = previous.dev;
+  }
 });
 
 test("an unknown email has no code to verify", () => {

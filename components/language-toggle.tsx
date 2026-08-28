@@ -27,45 +27,29 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label={t("nav.language")}
       className={cn(
-        "inline-flex items-center gap-0.5",
+        "inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]",
         className
       )}
     >
-      {OPTIONS.map((option, index) => {
+      {OPTIONS.map((option) => {
         const active = locale === option.value;
         return (
-          <span key={option.value} className="inline-flex items-center">
-            {index > 0 && (
-              <span aria-hidden="true" className="mr-0.5 h-3.5 w-px bg-border" />
-            )}
           <button
+            key={option.value}
             type="button"
             lang={option.value}
             onClick={() => setLocale(option.value)}
             aria-pressed={active}
             aria-label={option.aria}
             className={cn(
-              /*
-               * 36px tall so the tap area clears the 44px guideline once the
-               * header's own padding is counted, but visually light: the
-               * selected language is marked by weight and colour alone.
-               *
-               * It used to be a filled chip inside a filled tray — three
-               * treatments (background, shadow, ring) saying one thing, in a
-               * header that already carries a nav, a sign-in button and the
-               * utility strip above it.
-               */
-              "min-h-9 cursor-pointer rounded-md px-2 text-xs transition-colors",
+              "min-h-9 cursor-pointer rounded-md px-2.5 text-xs font-medium transition-colors sm:px-3",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              active
-                ? "font-semibold text-foreground"
-                : "font-medium text-muted-foreground hover:text-foreground"
+              active ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
             )}
           >
             <span className="sm:hidden">{option.short}</span>
             <span className="hidden sm:inline">{option.label}</span>
           </button>
-          </span>
         );
       })}
     </div>

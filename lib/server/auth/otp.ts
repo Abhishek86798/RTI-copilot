@@ -42,6 +42,16 @@ const codes = new Map<string, Entry>();
 export const DEV_OTP = "1234";
 
 export function isDevOtpActive(): boolean {
+  /*
+   * "on" forces the fixed code even where mail would send.
+   *
+   * There was only an "off" switch before, so a deployment that had a Resend
+   * key started issuing real six-digit codes by email the moment it was set —
+   * which is correct behaviour, and a surprise if what you wanted was a demo
+   * anyone can sign into. "off" still forces real codes; unset keeps the
+   * automatic behaviour below.
+   */
+  if (process.env.AUTH_DEV_OTP === "on") return true;
   if (process.env.AUTH_DEV_OTP === "off") return false;
   return process.env.NODE_ENV !== "production" || !process.env.RESEND_API_KEY;
 }
