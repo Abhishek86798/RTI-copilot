@@ -205,9 +205,12 @@ export function FilingGuide({
           */}
           <div className="grid gap-x-5 gap-y-3 sm:grid-cols-2">
             <div className="space-y-1">
-              <Label htmlFor={`${fieldPrefix}-name`}>{t("file.name")}</Label>
+              <Label htmlFor={`${fieldPrefix}-name`} required>
+                  {t("file.name")}
+                </Label>
               <Input
                 id={`${fieldPrefix}-name`}
+                  aria-required="true"
                 value={application.applicant.fullName}
                 onChange={(event) => patchApplicant({ fullName: event.target.value })}
                 autoComplete="name"
@@ -229,9 +232,12 @@ export function FilingGuide({
 
             {/* The one field that genuinely needs the full width. */}
             <div className="space-y-1.5 sm:col-span-2">
-              <Label htmlFor={`${fieldPrefix}-address`}>{t("file.address")}</Label>
+              <Label htmlFor={`${fieldPrefix}-address`} required>
+                  {t("file.address")}
+                </Label>
               <Textarea
                 id={`${fieldPrefix}-address`}
+                  aria-required="true"
                 value={application.applicant.address}
                 onChange={(event) => patchApplicant({ address: event.target.value })}
                 rows={2}
@@ -244,9 +250,12 @@ export function FilingGuide({
               the street address, and it rejects an application without them.
             */}
             <div className="space-y-1">
-              <Label htmlFor={`${fieldPrefix}-state`}>{t("file.state")}</Label>
+              <Label htmlFor={`${fieldPrefix}-state`} required>
+                  {t("file.state")}
+                </Label>
               <Select
                 id={`${fieldPrefix}-state`}
+                aria-required="true"
                 value={application.applicant.state}
                 onChange={(event) => patchApplicant({ state: event.target.value })}
                 autoComplete="address-level1"
@@ -261,9 +270,12 @@ export function FilingGuide({
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor={`${fieldPrefix}-pincode`}>{t("file.pincode")}</Label>
+              <Label htmlFor={`${fieldPrefix}-pincode`} required>
+                  {t("file.pincode")}
+                </Label>
               <Input
                 id={`${fieldPrefix}-pincode`}
+                  aria-required="true"
                 inputMode="numeric"
                 maxLength={6}
                 value={application.applicant.pincode}
@@ -338,9 +350,12 @@ export function FilingGuide({
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor={`${fieldPrefix}-email`}>{t("file.email")}</Label>
+              <Label htmlFor={`${fieldPrefix}-email`} required>
+                  {t("file.email")}
+                </Label>
               <Input
                 id={`${fieldPrefix}-email`}
+                  aria-required="true"
                 type="email"
                 inputMode="email"
                 value={application.applicant.email}
@@ -372,6 +387,7 @@ export function FilingGuide({
             */}
             <CheckboxField
               id={`${fieldPrefix}-citizen`}
+              aria-required="true"
               checked={application.applicant.isCitizen ?? false}
               onChange={(event) => patchApplicant({ isCitizen: event.target.checked })}
               label={t("submit.citizen")}

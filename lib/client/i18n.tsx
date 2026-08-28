@@ -91,7 +91,8 @@ const en = {
   "submit.step.pay": "Fee",
   "submit.next": "Next",
   "submit.previous": "Previous",
-  "submit.incomplete": "Fill in the highlighted fields before continuing.",
+  "submit.incomplete": "* Fill in the fields marked with an asterisk before continuing.",
+  "submit.mandatory": "* Mandatory field",
 
   "auth.signIn": "Sign in",
   "auth.signOut": "Sign out",
@@ -574,7 +575,8 @@ const hi: Record<StringKey, string> = {
   "submit.step.pay": "शुल्क",
   "submit.next": "आगे",
   "submit.previous": "पीछे",
-  "submit.incomplete": "आगे बढ़ने से पहले चिह्नित फ़ील्ड भरें।",
+  "submit.incomplete": "* आगे बढ़ने से पहले तारांकित फ़ील्ड भरें।",
+  "submit.mandatory": "* अनिवार्य फ़ील्ड",
 
   "auth.signIn": "साइन इन करें",
   "auth.signOut": "साइन आउट करें",

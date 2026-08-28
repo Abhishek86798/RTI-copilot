@@ -2,11 +2,11 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { StepActions } from "@/components/apply/step-actions";
 import { ApplicationHeader } from "@/components/track/application-header";
 import { FiledDialog } from "@/components/track/filed-dialog";
 import { FilingGuide, type FilingSectionId } from "@/components/track/filing-guide";
@@ -54,6 +54,7 @@ const SECTIONS_FOR_STEP: Record<Exclude<FilingStepId, "pay">, FilingSectionId[]>
 export default function SubmitApplicationPage() {
   const { t } = useI18n();
   const params = useParams<{ id: string }>();
+  const router = useRouter();
   const hydrated = useHydrated();
   const application = useApplication(params.id);
 
@@ -125,7 +126,12 @@ export default function SubmitApplicationPage() {
 
   function goPrevious() {
     const previous = FILING_STEPS[stepIndex - 1];
-    if (previous) goTo(previous);
+    if (previous) {
+      goTo(previous);
+      return;
+    }
+    /* First sub-step: the step before this one is the draft. */
+    router.push(`/apply?draft=${params.id}`);
   }
 
   return (
@@ -134,11 +140,12 @@ export default function SubmitApplicationPage() {
         application={application}
         stageKey="steps.file"
         /*
-         * Once it is filed there is no previous step to return to — the form
-         * is spent, and the only useful way out is the list.
+         * Only once it is filed. While the form is live, Back lives in the
+         * actions row at the foot of the step with everything else; a second
+         * one above the title was the same act described twice.
          */
-        backHref={filed ? "/applications" : `/apply?draft=${application.id}`}
-        backLabelKey={filed ? "nav.mine" : "common.backStep"}
+        backHref={filed ? "/applications" : undefined}
+        backLabelKey={filed ? "nav.mine" : undefined}
       />
 
       {/* Already filed: say so, and hand over. Re-showing the form here is how
@@ -173,6 +180,11 @@ export default function SubmitApplicationPage() {
             />
           </div>
 
+          {/* Says what the asterisk means, once, before any field carries it. */}
+          {step !== "pay" && (
+            <p className="mb-3 text-xs text-destructive">{t("submit.mandatory")}</p>
+          )}
+
           {step === "pay" ? (
             <PayAndFile
               application={application}
@@ -197,42 +209,31 @@ export default function SubmitApplicationPage() {
           )}
 
           {/*
-            The fee step carries its own submit button, so it gets no "Next" —
-            two primary actions on one screen is how someone pays twice.
+            The same actions row as steps 1 to 3 of the journey, so Back is one
+            control in one place from the first screen to the last. The filing
+            screen used to have two: a "Back to the previous step" link above
+            the title and a "Previous" button below the form, which are the
+            same act described two ways.
           */}
-          {step !== "pay" && (
-            <div className="mt-6 border-t border-border pt-5">
-              {blocked.length > 0 && (
-                <Alert variant="destructive" className="mb-6">
-                  <AlertTriangle aria-hidden="true" />
-                  <AlertDescription>{t("submit.incomplete")}</AlertDescription>
-                </Alert>
-              )}
+          <StepActions
+            onBack={goPrevious}
+            /* Announced, not boxed: a red line under the form is what a
+               government form does, and an alert panel for one sentence made
+               the failure look larger than the fix. */
+            className="items-start"
+          >
+            {step === "pay" ? undefined : (
+              <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
+                {t("submit.next")}
+                <ArrowRight aria-hidden="true" />
+              </Button>
+            )}
+          </StepActions>
 
-              {/*
-                Back on the left, forward on the right — where every browser,
-                operating system and paper form puts them. They were sitting
-                side by side in the left corner with the forward action first,
-                which reversed the one convention nobody reads to check.
-
-                The empty span holds the left slot on the first step so "Next"
-                does not slide across when there is nothing to go back to.
-              */}
-              <div className="flex items-center justify-between gap-3">
-                {stepIndex > 0 ? (
-                  <Button size="lg" variant="ghost" onClick={goPrevious}>
-                    <ArrowLeft aria-hidden="true" />
-                    {t("submit.previous")}
-                  </Button>
-                ) : (
-                  <span />
-                )}
-                <Button size="lg" variant="cta" onClick={goNext} disabled={blocked.length > 0}>
-                  {t("submit.next")}
-                  <ArrowRight aria-hidden="true" />
-                </Button>
-              </div>
-            </div>
+          {blocked.length > 0 && (
+            <p role="alert" className="mt-3 text-sm text-destructive">
+              {t("submit.incomplete")}
+            </p>
           )}
         </div>
       )}

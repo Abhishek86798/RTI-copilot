@@ -79,8 +79,15 @@ export function SelectField({
 }) {
   return (
     <div className={cn("space-y-1", className)}>
-      <Label htmlFor={id}>{label}</Label>
-      <Select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
+      <Label htmlFor={id} required>
+        {label}
+      </Label>
+      <Select
+        id={id}
+        value={value}
+        aria-required="true"
+        onChange={(event) => onChange(event.target.value)}
+      >
         {children}
       </Select>
       {hint && <p className="text-xs text-muted-foreground">{hint}</p>}

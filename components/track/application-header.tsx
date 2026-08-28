@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { StatusBadge } from "@/components/status-badge";
+import { cn } from "@/lib/utils";
 import { deriveStatus, type Application } from "@/lib/client/store";
 import { useI18n } from "@/lib/client/i18n";
 import type { StringKey } from "@/lib/client/i18n";
@@ -35,21 +36,24 @@ export function ApplicationHeader({
   application: Application;
   /** Names the stage: File, Track, Appeal. */
   stageKey: StringKey;
-  backHref: string;
-  backLabelKey: StringKey;
+  /** Omitted on screens whose Back lives in an actions row instead. */
+  backHref?: string;
+  backLabelKey?: StringKey;
 }) {
   const { t } = useI18n();
   const status = deriveStatus(application);
 
   return (
     <div data-print="hide">
-      <Link
-        href={backHref}
-        className="inline-flex min-h-8 items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-      >
-        <ArrowLeft aria-hidden="true" className="size-4" />
-        {t(backLabelKey)}
-      </Link>
+      {backHref && backLabelKey && (
+        <Link
+          href={backHref}
+          className="inline-flex min-h-8 items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+        >
+          <ArrowLeft aria-hidden="true" className="size-4" />
+          {t(backLabelKey)}
+        </Link>
+      )}
 
       {/*
         Identity in three lines: what stage this is, whose office it is going
@@ -60,7 +64,7 @@ export function ApplicationHeader({
         on the drafting step — offering it again on every screen afterwards was
         a second copy of something nobody had lost.
       */}
-      <div className="mt-1.5 border-b border-border pb-4">
+      <div className={cn("border-b border-border pb-4", backHref && "mt-1.5")}>
         <div className="flex flex-wrap items-center gap-2">
           <p className="font-mono text-2xs tracking-[0.14em] text-muted-foreground uppercase">
             {t(stageKey)}

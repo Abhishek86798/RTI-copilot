@@ -31,8 +31,13 @@ export function StepActions({
 }: {
   onBack: () => void;
   backDisabled?: boolean;
-  /** The forward action. Rendered on the right. */
-  children: React.ReactNode;
+  /**
+   * The forward action, rendered on the right. Optional: the fee step carries
+   * its own submit inside the panel, and two primary actions on one screen is
+   * how someone pays twice — but it still needs Back in the same place as
+   * every other step.
+   */
+  children?: React.ReactNode;
   className?: string;
 }) {
   const { t } = useI18n();
@@ -57,6 +62,12 @@ export function StepActions({
         {t("common.back")}
       </Button>
 
+      {/*
+        The placeholder carries the same order classes as the real slot.
+        Without them it defaulted to order 0 — ahead of Back's order 1 — so on
+        the one step with no forward action, `justify-between` put Back on the
+        right.
+      */}
       <div className="order-1 sm:order-2">{children}</div>
     </div>
   );

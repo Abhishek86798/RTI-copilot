@@ -37,6 +37,10 @@ function CheckboxField({
   className,
   ...props
 }: React.ComponentProps<"input"> & { label: React.ReactNode; hint?: React.ReactNode }) {
+  /* The red asterisk, on the same rule as Label's: drawn for sighted readers,
+     hidden from the accessibility tree because `aria-required` already says
+     it and hearing "asterisk" after a sentence-long declaration is noise. */
+  const required = props["aria-required"] === "true" || props["aria-required"] === true
   const hintId = hint ? `${id}-hint` : undefined
   return (
     <div className={cn("rounded-lg", className)}>
@@ -45,7 +49,14 @@ function CheckboxField({
         className="flex min-h-9 cursor-pointer items-start gap-3 py-1.5 select-none"
       >
         <Checkbox id={id} aria-describedby={hintId} className="mt-0.5" {...props} />
-        <span className="text-sm font-medium">{label}</span>
+        <span className="text-sm font-medium">
+          {label}
+          {required && (
+            <span aria-hidden="true" className="ml-0.5 text-destructive">
+              *
+            </span>
+          )}
+        </span>
       </label>
       {hint && (
         <p id={hintId} className="mt-0.5 ml-8 text-sm text-muted-foreground">
