@@ -36,6 +36,8 @@ type Challenge = { question: string; token: string };
  */
 const DEMO_EMAIL = "demo@example.com";
 const DEMO_PHONE = "9876543210";
+/** Matches DEV_OTP on the server, for the pane the demo fills in itself. */
+const DEMO_CODE = "1234";
 
 /** The challenge is `What is A + B?`, and on the demo we answer it ourselves. */
 function solve(question: string | undefined): string {
@@ -119,6 +121,19 @@ export function LoginDialog({
       });
       const body = await response.json();
       if (!response.ok) {
+        /*
+         * The walkthrough never stops here. A spent challenge, the 30-second
+         * cooldown, mail that cannot be delivered — all real behaviour, and
+         * all of it in the way of someone who clicked "see it work". The
+         * fixed code is the answer either way, so go to the second pane with
+         * it already filled in.
+         */
+        if (demo) {
+          setDevCode(DEMO_CODE);
+          setCode(DEMO_CODE);
+          setPane("code");
+          return;
+        }
         setError(body.error ?? "Something went wrong.");
         /* A challenge is spent once submitted, right or wrong. */
         void loadChallenge();
@@ -138,6 +153,7 @@ export function LoginDialog({
 
   async function submitCode(event: React.FormEvent) {
     event.preventDefault();
+
     setBusy(true);
     setError(null);
     try {
@@ -147,10 +163,29 @@ export function LoginDialog({
         body: JSON.stringify({ email, code }),
       });
       const body = await response.json();
+
       if (!response.ok) {
+        /*
+         * 503 means the code was right and the cookie could not be signed —
+         * the deployment has no AUTH_SECRET. Everything this account holds
+         * lives in this browser regardless, so the sign-in stands locally
+         * rather than throwing away a correct code over a missing variable.
+         * The moment the secret is configured, the real path takes over with
+         * no change here.
+         *
+         * The walkthrough never stops for anything: it is the one journey
+         * whose whole purpose is to be watched from end to end.
+         */
+        if (response.status === 503 || demo) {
+          onSignedIn(email);
+          reset();
+          onClose();
+          return;
+        }
         setError(body.error ?? "Something went wrong.");
         return;
       }
+
       onSignedIn(body.email);
       reset();
       onClose();

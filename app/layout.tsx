@@ -48,12 +48,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  /* The same name the header carries. A tab is a few characters wide. */
   title: {
-    default: "RTI Copilot — file an RTI without knowing the department",
-    template: "%s · RTI Copilot",
+    default: "RTI Online",
+    template: "%s · RTI Online",
   },
   description:
-    "Describe a grievance in plain language. RTI Copilot finds the public authority that holds the records, rewrites it into a valid RTI request, and tracks the 30-day statutory deadline.",
+    "Describe a grievance in plain language. We find the public authority that holds the records, write it as a valid RTI request, and track the 30-day deadline.",
 };
 
 export const viewport: Viewport = {

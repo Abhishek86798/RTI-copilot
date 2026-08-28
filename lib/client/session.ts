@@ -17,7 +17,15 @@ import { setStoreMode } from "./store";
  *
  * Setting the session also swaps the application store's backing mode, since
  * the two answers are the same answer.
+ *
+ * Mirrored into localStorage. The cookie is the real session, but a deployment
+ * with no AUTH_SECRET cannot sign one, and the dialog signs those citizens in
+ * locally rather than discarding a correct code. Without somewhere to keep
+ * that, a refresh would sign them straight back out. A cookie still wins
+ * wherever there is one.
  */
+const LOCAL_KEY = "rti-copilot:session";
+
 let email: string | null = null;
 let loaded = false;
 
@@ -43,8 +51,24 @@ export function isSessionLoaded(): boolean {
 export function setSession(next: string | null) {
   email = next;
   loaded = true;
+
+  try {
+    if (next) window.localStorage.setItem(LOCAL_KEY, next);
+    else window.localStorage.removeItem(LOCAL_KEY);
+  } catch {
+    /* Private browsing. The session still holds for this page view. */
+  }
+
   setStoreMode(next ? "account" : "guest");
   emit();
+}
+
+function readLocal(): string | null {
+  try {
+    return window.localStorage.getItem(LOCAL_KEY);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -59,11 +83,17 @@ export function loadSession(): Promise<string | null> {
   inFlight = fetch("/api/auth/session")
     .then((response) => response.json())
     .then((body: { email: string | null }) => {
-      setSession(body.email);
-      return body.email;
+      const resolved = body.email ?? readLocal();
+      setSession(resolved);
+      return resolved;
     })
     .catch(() => {
-      /* Offline: guest mode is the working state, not an error state. */
+      /* Offline: fall back to whatever this browser last knew. */
+      const local = readLocal();
+      if (local) {
+        setSession(local);
+        return local;
+      }
       loaded = true;
       emit();
       return null;
