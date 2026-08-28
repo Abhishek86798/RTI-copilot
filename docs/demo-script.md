@@ -58,33 +58,40 @@ Say it as one line while clicking *Next* through the steps.
 
 ## Minute two, how we built it
 
-Still screen. No clicking.
+Still screen. No clicking. Four decisions, and the reason for each one.
+Assume the listener knows nothing about how any of this works.
 
-### 1:00 · The hook
+### 1:00 · Why it is hard
 
-> Here's the part nobody sees. If you just ask an AI which office holds your
-> records, it will make one up. Sound perfect. Be completely wrong. And you'd
-> never know.
+> The hard part here isn't the writing. It's knowing which office. There are
+> thousands of them, and if you pick wrong, nobody tells you for six weeks.
 
-### 1:13 · How it actually works
+### 1:11 · The first decision
 
-> So we don't let it. We built the directory ourselves. Thirty eight
-> authorities, central and state, each with its information officer, its appeal
-> officer, and the words a real person would type. Your complaint is matched
-> against those words first. Ministry of education beats a loose word like
-> scholarship. Only that shortlist goes to the model, and it can only answer
-> with an id from the list. It can't invent an office, because there's nothing
-> to invent from. And it scores itself. Under sixty percent, it tells you to go
-> check the department yourself.
+> So our first decision was to not let the AI answer that alone. Ask a language
+> model which department holds your records, and it will name one that sounds
+> right and doesn't exist.
 
-### 1:50 · Close
+### 1:24 · What we did instead
 
-> An honest maybe beats a confident mistake. That's the whole idea. We don't
-> file it for you. We write it, you file it, and we say so on the screen.
+> We wrote the list ourselves instead. Thirty eight real offices, each with the
+> officer who receives requests and the one who hears appeals. When you
+> describe your problem, we match your words to that list, and the AI only
+> chooses from what we hand it. It can never invent an office.
+
+### 1:44 · Being honest about doubt
+
+> And when it isn't sure, it says so instead of guessing. That mattered more
+> than looking clever, because a confident wrong answer costs someone a month.
+
+### 1:54 · Close
+
+> And we never file it for you. We prepare it, you send it, and we say so on
+> the screen.
 
 ---
 
 **Running long?** Cut "with the officer who has to reply, and the officer you
-appeal to if he doesn't", then "And it scores itself. Under sixty percent, it
-tells you to go check the department yourself." Never cut the draft line at
-0:42 or the directory line at 1:13.
+appeal to if he doesn't", then "There are thousands of them, and if you pick
+wrong, nobody tells you for six weeks." Never cut the draft line at 0:42 or
+the list line at 1:24.
