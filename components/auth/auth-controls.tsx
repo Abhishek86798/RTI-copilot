@@ -1,12 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { LogOut, User } from "lucide-react";
 
 import { LoginDialog } from "@/components/auth/login-dialog";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/client/i18n";
-import { setStoreMode } from "@/lib/client/store";
+import {
+  getSessionEmail,
+  isSessionLoaded,
+  loadSession,
+  setSession,
+  subscribeSession,
+} from "@/lib/client/session";
 import { cn } from "@/lib/utils";
 
 /**
@@ -23,9 +29,14 @@ import { cn } from "@/lib/utils";
  */
 export function AuthControls() {
   const { t } = useI18n();
-  const [email, setEmail] = useState<string | null>(null);
+  /*
+   * Shared, not local. Sign-in also happens from the landing page, and a
+   * header holding its own answer went on offering "Sign in" to somebody who
+   * had just used it.
+   */
+  const email = useSyncExternalStore(subscribeSession, getSessionEmail, () => null);
+  const ready = useSyncExternalStore(subscribeSession, isSessionLoaded, () => false);
   const [open, setOpen] = useState(false);
-  const [ready, setReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -52,29 +63,14 @@ export function AuthControls() {
     };
   }, [menuOpen]);
 
-  /* Resolve the cookie session once on mount, then mirror it into the store. */
+  /* Resolve the cookie once. The store shares the flight with any other caller. */
   useEffect(() => {
-    let active = true;
-    fetch("/api/auth/session")
-      .then((response) => response.json())
-      .then((body: { email: string | null }) => {
-        if (!active) return;
-        setEmail(body.email);
-        setStoreMode(body.email ? "account" : "guest");
-      })
-      .catch(() => {
-        /* Offline: stay in guest mode rather than blocking the header. */
-      })
-      .finally(() => active && setReady(true));
-    return () => {
-      active = false;
-    };
+    if (!isSessionLoaded()) void loadSession();
   }, []);
 
   async function signOut() {
     await fetch("/api/auth/session", { method: "DELETE" }).catch(() => {});
-    setEmail(null);
-    setStoreMode("guest");
+    setSession(null);
   }
 
   /*
@@ -175,10 +171,7 @@ export function AuthControls() {
       <LoginDialog
         open={open}
         onClose={() => setOpen(false)}
-        onSignedIn={(next) => {
-          setEmail(next);
-          setStoreMode("account");
-        }}
+        onSignedIn={(next) => setSession(next)}
       />
     </>
   );

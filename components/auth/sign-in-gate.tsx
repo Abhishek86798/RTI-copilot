@@ -4,7 +4,12 @@ import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { LoginDialog } from "@/components/auth/login-dialog";
-import { setStoreMode } from "@/lib/client/store";
+import {
+  getSessionEmail,
+  isSessionLoaded,
+  loadSession,
+  setSession,
+} from "@/lib/client/session";
 
 /**
  * Sign in first, then continue where you were going.
@@ -28,19 +33,12 @@ export function useSignInGate() {
 
   const start = useCallback(
     async (href: string, options?: { demo?: boolean }) => {
-      let email: string | null = null;
-      try {
-        const response = await fetch("/api/auth/session");
-        email = ((await response.json()) as { email: string | null }).email;
-      } catch {
-        /*
-         * Offline. Guest mode is the whole point of this tool working without
-         * an account, and a sign-in dialog nobody can complete is a dead end —
-         * so let the journey start and let the header ask later.
-         */
-        router.push(href);
-        return;
-      }
+      /*
+       * Usually already resolved: the header asks on mount, and both callers
+       * share the flight. Offline this answers null, and the dialog opens —
+       * which is the same thing the header would do.
+       */
+      const email = isSessionLoaded() ? getSessionEmail() : await loadSession();
 
       if (email) {
         router.push(href);
@@ -67,7 +65,7 @@ export function useSignInGate() {
       demo={demo}
       onClose={() => setOpen(false)}
       onSignedIn={(email) => {
-        setStoreMode(email ? "account" : "guest");
+        setSession(email);
         const href = pending.current;
         pending.current = null;
         setOpen(false);
