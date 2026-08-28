@@ -63,6 +63,7 @@ export function LoginDialog({
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [captchaAnswer, setCaptchaAnswer] = useState("");
   const [devCode, setDevCode] = useState<string | null>(null);
+  const [delivery, setDelivery] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -96,6 +97,7 @@ export function LoginDialog({
     setPhone(demo ? DEMO_PHONE : "");
     setCode("");
     setDevCode(null);
+    setDelivery(null);
     setError(null);
     setChallenge(null);
   }
@@ -123,6 +125,7 @@ export function LoginDialog({
         return;
       }
       setDevCode(body.devCode ?? null);
+      setDelivery(typeof body.delivery === "string" ? body.delivery : null);
       /* Nothing to copy across on the demo: the code is already known. */
       if (demo && body.devCode) setCode(body.devCode);
       setPane("code");
@@ -183,6 +186,23 @@ export function LoginDialog({
         {error && (
           <Alert variant="destructive" className="mt-6">
             <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        {/*
+          The deployment issued a real code and could not deliver it, which
+          leaves someone staring at an empty box waiting for mail that is not
+          coming. Say so, and say what fixes it — the alternative is a sign-in
+          that appears to work and never does.
+        */}
+        {!devCode && delivery === "blocked" && (
+          <Alert variant="warning" className="mt-6">
+            <AlertTitle>The code could not be delivered</AlertTitle>
+            <AlertDescription>
+              This deployment sends from a shared address that only reaches the
+              account it was set up with, so no message arrived. Whoever runs it
+              can set AUTH_DEV_OTP=on to use the fixed demo code instead.
+            </AlertDescription>
           </Alert>
         )}
 
