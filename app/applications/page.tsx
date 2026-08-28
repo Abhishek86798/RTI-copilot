@@ -4,12 +4,10 @@ import Link from "next/link";
 import { AlertTriangle, ArrowRight, Clock } from "lucide-react";
 
 import { DownloadButton } from "@/components/track/download-button";
-import { MigratePrompt } from "@/components/migrate-prompt";
 import { Panel, PanelList } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/status-badge";
 import { computeClock, describeRemaining, formatDate } from "@/lib/client/deadlines";
-import { listApplications as listGuestApplications } from "@/lib/client/guest-storage";
-import { deriveStatus, getStoreMode, type Application } from "@/lib/client/store";
+import { deriveStatus, type Application } from "@/lib/client/store";
 import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { cn } from "@/lib/utils";
@@ -46,10 +44,6 @@ export default function ApplicationsPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      {getStoreMode() === "account" && (
-        <MigratePrompt count={listGuestApplications().length} />
-      )}
-
       <PageHeader
         /*
          * No eyebrow. It used to print the row count on its own — a bare "4"

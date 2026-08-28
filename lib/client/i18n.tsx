@@ -29,16 +29,6 @@ const en = {
   "brand.name": "RTI Online",
   "brand.tagline": "A prototype for drafting RTI requests and first appeals. Not an official government website.",
 
-  "migrate.title": "Save these to your account?",
-  "migrate.body":
-    "You have {count} application(s) saved in this browser only. Copying them to your account lets us email you when a deadline runs out — and keeps them if you clear your browser or switch device.",
-  "migrate.privacy":
-    "Your application text can include a PPO, FIR, or PAN number. Nothing is uploaded unless you choose to.",
-  "migrate.confirm": "Copy to my account",
-  "migrate.dismiss": "Keep them in this browser",
-  "migrate.working": "Copying…",
-  "migrate.done": "{count} copied to your account.",
-  "migrate.failed": "{count} could not be copied. They are still saved in this browser.",
   "file.state": "State",
   "file.statePlaceholder": "Select your state",
   "file.pincode": "PIN code",
@@ -515,16 +505,6 @@ const hi: Record<StringKey, string> = {
   "brand.name": "आरटीआई ऑनलाइन",
   "brand.tagline": "आरटीआई आवेदन और प्रथम अपील तैयार करने का एक प्रोटोटाइप। यह सरकारी वेबसाइट नहीं है।",
 
-  "migrate.title": "इन्हें अपने खाते में सहेजें?",
-  "migrate.body":
-    "आपके पास {count} आवेदन केवल इसी ब्राउज़र में सहेजे हैं। इन्हें अपने खाते में कॉपी करने पर समय-सीमा समाप्त होने पर हम आपको ईमेल कर सकेंगे — और ब्राउज़र साफ़ करने या डिवाइस बदलने पर भी ये सुरक्षित रहेंगे।",
-  "migrate.privacy":
-    "आपके आवेदन में PPO, FIR या PAN नंबर हो सकता है। आपकी अनुमति के बिना कुछ भी अपलोड नहीं किया जाता।",
-  "migrate.confirm": "मेरे खाते में कॉपी करें",
-  "migrate.dismiss": "इसी ब्राउज़र में रहने दें",
-  "migrate.working": "कॉपी हो रहा है…",
-  "migrate.done": "{count} आपके खाते में कॉपी हो गए।",
-  "migrate.failed": "{count} कॉपी नहीं हो सके। वे अब भी इसी ब्राउज़र में सुरक्षित हैं।",
   "file.state": "राज्य",
   "file.statePlaceholder": "अपना राज्य चुनें",
   "file.pincode": "पिन कोड",
