@@ -1,6 +1,6 @@
 import { randomInt, timingSafeEqual } from "node:crypto";
 
-import { sendMail } from "@/lib/server/email";
+import { canDeliverToAnyone, sendMail } from "@/lib/server/email";
 
 /**
  * One-time codes, held in memory.
@@ -30,14 +30,14 @@ type Entry = { code: string; expiresAt: number; attempts: number; issuedAt: numb
 const codes = new Map<string, Entry>();
 
 /**
- * The fixed development code.
+ * The fixed code, used wherever mail cannot actually be delivered.
  *
- * Real mail cannot leave this deployment yet: RESEND_API_KEY is unset, and the
- * shared `onboarding@resend.dev` sender only delivers to the Resend account
- * owner. A random code the citizen can never receive would make login
- * untestable, so development uses a known one and the UI says so out loud.
+ * With no RESEND_API_KEY nothing sends; with the shared `onboarding@resend.dev`
+ * sender Resend delivers only to the account owner. A random code the citizen
+ * can never receive makes sign-in impossible rather than merely untestable, so
+ * those deployments use a known one and the dialog says so out loud.
  *
- * Set AUTH_DEV_OTP=off to force real random codes once a domain is verified.
+ * AUTH_DEV_OTP=off forces real random codes; "on" forces the fixed one.
  */
 export const DEV_OTP = "1234";
 
@@ -53,7 +53,23 @@ export function isDevOtpActive(): boolean {
    */
   if (process.env.AUTH_DEV_OTP === "on") return true;
   if (process.env.AUTH_DEV_OTP === "off") return false;
-  return process.env.NODE_ENV !== "production" || !process.env.RESEND_API_KEY;
+
+  /*
+   * Otherwise: follow whether mail can actually be delivered, which is what
+   * the fixed code is for.
+   *
+   * Checking NODE_ENV and the API key alone missed the case the deployment
+   * was actually in — a key set, but the sender still the shared resend.dev
+   * address. Resend accepts the request and delivers to nobody but the
+   * account owner, so production issued real six-digit codes that no
+   * applicant, and no reviewer, ever received. Sign-in was impossible on the
+   * deployed site while working perfectly on localhost.
+   *
+   * Verifying a domain and setting RESEND_FROM switches this off by itself,
+   * which is the point: the behaviour tracks the deployment's actual ability
+   * to send rather than a flag someone has to remember.
+   */
+  return !canDeliverToAnyone();
 }
 
 export type IssueResult =

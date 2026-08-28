@@ -12,7 +12,22 @@ import { Resend } from "resend";
  * Moving between them is a config change, not a code change.
  */
 
-const FROM = process.env.RESEND_FROM ?? "RTI Copilot <onboarding@resend.dev>";
+const SHARED_SENDER = "onboarding@resend.dev";
+
+const FROM = process.env.RESEND_FROM ?? `RTI Copilot <${SHARED_SENDER}>`;
+
+/**
+ * Whether a message sent from here can reach someone who is not the Resend
+ * account owner.
+ *
+ * False in both directions that matter: with no API key nothing sends at all,
+ * and with the shared sender Resend refuses every recipient but the owner.
+ * The sign-in code needs to know, because a code that cannot be delivered is
+ * a code nobody can use.
+ */
+export function canDeliverToAnyone(): boolean {
+  return Boolean(process.env.RESEND_API_KEY) && !FROM.includes(SHARED_SENDER);
+}
 
 export type Mail = { to: string; subject: string; text: string };
 
