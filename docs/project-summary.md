@@ -21,6 +21,6 @@ scores its own confidence and says plainly when it is unsure, because a
 confident wrong answer costs a citizen a month. And when thirty days pass with
 no reply, the first appeal is already drafted, free, and waiting.
 
-It works in English and Hindi, on a phone, at any text size, and without an
+It works in English and Hindi, on a phone, at any text size, without an
 account. Filing is simulated. We prepare the application and you file it, and
-we say so on the screen rather than in a footer.
+we say so on screen, not in a footer.
