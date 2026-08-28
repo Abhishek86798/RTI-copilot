@@ -17,7 +17,13 @@ import { computeClock } from "./deadlines";
  */
 
 const STORAGE_KEY = "rti-copilot:applications";
-const STORAGE_VERSION = 2;
+/*
+ * Bumped to 3 to drop the accumulated test drafts from development.
+ * `read` discards any envelope that does not match, so a stale store is
+ * emptied on the next load rather than migrated — guest data is a working
+ * draft, not a record of account.
+ */
+const STORAGE_VERSION = 3;
 
 export type AppealDraft = {
   draftedAt: string;
