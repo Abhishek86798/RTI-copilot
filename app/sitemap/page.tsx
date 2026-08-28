@@ -33,13 +33,13 @@ const GROUPS = [
     links: [
       {
         href: "/apply",
-        label: "Initiate Requisition",
+        label: "New application",
         detail: "Describe a grievance and get a drafted RTI application.",
       },
       {
         href: "/applications",
         label: "Applicant Dashboard",
-        detail: "Applications you have drafted, with their statutory deadlines.",
+        detail: "Applications you have drafted, with the date each reply is due.",
       },
     ],
   },
@@ -69,7 +69,7 @@ const GROUPS = [
       },
       {
         href: "/how-it-works",
-        label: "System capabilities and limitations",
+        label: "What this can and cannot do",
         detail: "What works today, what is simulated, and what is not built yet.",
       },
     ],

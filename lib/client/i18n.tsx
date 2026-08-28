@@ -27,7 +27,7 @@ const STORAGE_KEY = "rti-copilot:locale";
 
 const en = {
   "brand.name": "RTI Online",
-  "brand.tagline": "Version 3.0 (Copilot Edition) — An Initiative of Department of Personnel & Training, Government of India",
+  "brand.tagline": "A prototype for drafting RTI requests and first appeals. Not an official government website.",
 
   "migrate.title": "Save these to your account?",
   "migrate.body":
@@ -45,7 +45,7 @@ const en = {
   "file.pincodeHelp": "Six digits.",
   "file.bplRef": "BPL certificate number",
   "file.bplRefHelp":
-    "Section 7(5) waives the fee only if the certificate is produced. Without it the application is treated as unpaid and returned.",
+    "The fee is waived only if you produce the certificate. Without it the application is treated as unpaid and returned.",
   "file.submitPortal": "File this application",
   "file.submitting": "Filing…",
   "file.simulatedTitle": "This is a simulated filing",
@@ -101,14 +101,14 @@ const en = {
   "theme.light": "Light",
   "theme.dark": "Dark",
   "theme.system": "Match my device",
-  "nav.new": "Initiate Requisition",
+  "nav.new": "New application",
   "nav.mine": "Applicant Dashboard",
   "nav.manual": "How to use",
   "nav.contact": "Contact",
   "nav.faq": "Questions",
   "nav.payment": "Fees",
-  "nav.how": "System Capabilities",
-  "nav.language": "Language Select",
+  "nav.how": "How this works",
+  "nav.language": "Language",
   "nav.menu": "Menu",
   "nav.skip": "Skip to main content",
   "nav.utility": "Help and information",
@@ -149,12 +149,12 @@ const en = {
   "home.problem.3.body":
     "System will not be available on 30-8-2026 (Friday) from 11:00 AM to 3:00 PM due to maintenance activity. Inconvenience caused is highly regretted.",
 
-  "home.solution.title": "Copilot Routing Integration",
-  "home.solution.1": "The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the DoPT RTI Online Portal.",
-  "home.solution.2": "Copilot now automatically retrieves related details of the RTI Application to ensure a smooth and more streamlined filing process.",
-  "home.solution.3": "Email verification via OTP will be implemented for all RTI requests starting Monday.",
-  "home.solution.4": "This will enhance citizen privacy and data security.",
-  "home.solution.5": "It will strengthen the portal's cybersecurity framework.",
+  "home.solution.title": "What is new",
+  "home.solution.1": "Second appeals can now be filed from the same place as your original request.",
+  "home.solution.2": "Details from your RTI application are carried over, so you do not type them twice.",
+  "home.solution.3": "From Monday, every request is confirmed by a code sent to your email.",
+  "home.solution.4": "That keeps your details from being used by anyone else.",
+  "home.solution.5": "Nothing else about filing changes.",
 
   "steps.describe": "Describe",
   "steps.authority": "Authority",
@@ -162,37 +162,37 @@ const en = {
   "steps.file": "File",
   "steps.track": "Track",
 
-  "intake.title": "Grievance / Subject Matter Description",
+  "intake.title": "Describe the problem",
   "intake.help":
-    "Furnish factual details of the grievance. Include all relevant reference numbers (e.g., PPO number, FIR, or application number). Submissions are recorded verbatim.",
+    "Write what happened in your own words. Add any numbers you have — a PPO number, an FIR number, a file or application number — and we will keep them exactly as you wrote them.",
   "intake.placeholder":
     "For example: My father's pension stopped in April without any notice. We went to the office three times and nobody would explain or show us anything in writing…",
   "intake.words": "words",
   "intake.wordsMin": "words minimum",
   "intake.minWords": "Please write at least 15 words so we can route this accurately.",
-  "intake.submit": "Identify Public Authority",
-  "intake.working": "Identifying relevant Public Authority…",
-  "intake.demoTitle": "Pre-configured Exemplars",
-  "intake.demoHelp": "Simulated configurations for procedural demonstration prior to drafting.",
-  "intake.privacy": "Your text is sent to our server to be routed and rewritten. It is not stored on our server and is not used to train any model.",
+  "intake.submit": "Find the right office",
+  "intake.working": "Finding the right office…",
+  "intake.demoTitle": "Try a ready-made example",
+  "intake.demoHelp": "Three real situations you can walk through before writing your own.",
+  "intake.privacy": "What you write is sent to our server so we can find the right office and draft the request. We do not keep it, and we do not use it to train anything.",
 
-  "confirm.title": "Authority Designation Verification",
+  "confirm.title": "Check the office before you file",
   "confirm.help":
-    "Statutory Notice: Misdirected submissions initiate Section 6(3) transfer protocols, restarting the statutory 30-day response period. Strict verification is mandated.",
-  "confirm.office": "Designated Authority",
+    "If it goes to the wrong office they have to pass it on, and your 30 days start again. Please check this is the right one.",
+  "confirm.office": "The office",
   "confirm.pio": "Application goes to",
   "confirm.address": "Filing address",
   "confirm.appellate": "If they do not reply, your appeal goes to",
   "confirm.worthKnowing": "Worth knowing",
   "confirm.verify": "Confirm the exact office for your area at",
   "confirm.references": "Details we will keep exactly as you wrote them",
-  "confirm.lowTitle": "Low System Confidence Designation",
+  "confirm.lowTitle": "We are not sure about this one",
   "confirm.lowBody":
     "No authority in our directory clearly holds these records. Please check the department's own website before filing. You can continue, but verify the office first.",
   "confirm.otherOptions": "Other possible offices",
-  "confirm.submit": "Generate Statutory Draft",
-  "confirm.submitUnsure": "Proceed with Current Selection",
-  "confirm.working": "Generating statutory draft…",
+  "confirm.submit": "Write my application",
+  "confirm.submitUnsure": "Continue with this office",
+  "confirm.working": "Writing your application…",
 
   "confidence.strong": "Strong match",
   "confidence.likely": "Likely match",
@@ -200,33 +200,33 @@ const en = {
   "confidence.uncertain": "Uncertain — verify",
   "confidence.explain": "How sure are we?",
   "confidence.explainBody":
-    "This is our own estimate, not an official figure, and it is not a probability. Treat it as a signal about how carefully to check, not as a guarantee.",
+    "This is our own guess, not an official figure. Use it to decide how carefully to check — not as a promise.",
 
-  "draft.title": "RTI Requisition Draft",
-  "draft.help": "Draft is subject to applicant review. The applicant retains ultimate responsibility for submitted content.",
+  "draft.title": "Your application",
+  "draft.help": "Read it before you file. What it says is your responsibility.",
   "draft.portalLabel": "Your application text",
   "draft.portalHelp":
-    "This is the text that will be submitted with your application. It is kept within the 3,000-character limit the RTI request field allows.",
+    "This is the text that goes with your application. It fits the 3,000-character limit the portal allows.",
   "draft.chars": "characters",
   "draft.overLimit": "Over the portal's 3,000-character limit. Shorten it, or attach the full version as a PDF.",
   "draft.compare": "Compare with what you wrote",
   "draft.yourWords": "Your words",
   "draft.ourDraft": "What we are asking for",
-  "draft.whyChanged": "Drafting Rationale",
+  "draft.whyChanged": "Why the wording changed",
   "draft.whyChangedBody":
-    "Interrogatives were converted into requests for material records in strict adherence to Section 2(f). Public authorities are statutorily obliged to furnish existing information, not explanations.",
+    "The Act gives you records, not answers. So “why did this happen?” becomes “send me the order, the file notings and the officer’s name” — which they have to give you.",
   "draft.items": "Requested records",
-  "draft.urgentTitle": "Flagged under Section 7(1): 48-hour window may apply",
+  "draft.urgentTitle": "This may qualify for a reply in 48 hours",
   "draft.urgentBody":
     "State this ground in your application. The 48-hour window applies only to genuine life-or-liberty matters. If it does not fit your situation, remove the claim and the normal 30-day deadline applies.",
   "draft.urgentRemove": "This does not apply to me — use the 30-day deadline",
   "draft.urgentRestore": "Restore the 48-hour claim",
-  "draft.submit": "Proceed to Filing Directives",
-  "draft.regenerate": "Restart Drafting Process",
+  "draft.submit": "Continue to filing",
+  "draft.regenerate": "Start the draft again",
 
-  "file.applicantTitle": "Applicant Particulars",
+  "file.applicantTitle": "Your details",
   "file.applicantHelp":
-    "Mandatory applicant particulars pursuant to the RTI Rules, 2012. Data is retained strictly within local browser storage.",
+    "These go on your application exactly as you type them.",
   "file.name": "Full name",
   "file.address": "Postal address",
   "file.phone": "Phone number",
@@ -235,8 +235,8 @@ const en = {
   "file.bplHelp": "Section 7(5) waives the fee. You must attach a copy of the certificate.",
   "file.fee": "Fee",
 
-  "track.title": "Application Status Tracking",
-  "track.filedOn": "Date of Filing",
+  "track.title": "Application status",
+  "track.filedOn": "Filed on",
   "track.deadline": "Reply due by",
   "track.appealBy": "Appeal by",
   "track.basis": "Deadline basis",
@@ -248,12 +248,12 @@ const en = {
     "Fast-forwards this example's clock past the reply deadline, so the appeal step can be reached without waiting a month. Only available on prepared examples, never on something you actually filed.",
   "track.simulateOn": "Clock fast-forwarded by {days} days (demo)",
   "track.simulateReset": "Reset the clock",
-  "track.overdueTitle": "Statutory Period Lapsed",
+  "track.overdueTitle": "The 30 days have passed",
   "track.overdueBody":
     "No reply within the statutory period is a deemed refusal under Section 7(2). You can file a First Appeal now, free of charge. We have drafted it below.",
-  "track.appealTitle": "First Appellate Draft",
+  "track.appealTitle": "Your first appeal",
   "track.appealHelp":
-    "Under Section 19(1), addressed to the appellate officer senior to the PIO. No fee is payable on a first appeal.",
+    "Addressed to the officer senior to the Public Information Officer, under Section 19(1). There is no fee.",
   "track.appealDeadlineWarn": "You have {days} days left to file this appeal.",
   "track.appealClosed":
     "The 30-day appeal window has closed. You can still appeal, but you must ask the appellate authority to condone the delay and give a reason.",
@@ -268,14 +268,13 @@ const en = {
   "status.resolved": "Resolved",
 
   "list.title": "Applicant Dashboard",
-  "list.empty": "No active applications on record.",
+  "list.empty": "You have not started an application yet.",
   "list.emptyNav": "Start one from “New application” in the menu above.",
-  "list.emptyCta": "Initiate New Requisition",
-  "list.stored": "Data resides strictly within local browser storage. Clearing browser cache will irrevocably purge all records.",
+  "list.stored": "Everything you have drafted or filed, with the reply date for each.",
 
-  "disclosure.title": "What is real and what is mocked",
+  "disclosure.title": "What is real and what is simulated",
   "disclosure.fixture":
-    "The server was unreachable, so this prepared example is showing its saved response instead of a freshly generated one.",
+    "We could not reach our server, so this example is showing a saved answer.",
 
   "time.overdueToday": "Deadline passed today",
   "time.overdueOne": "1 day overdue",
@@ -305,43 +304,43 @@ const en = {
     "This portal is a prototype build demonstrating AI-assisted RTI filing. It is not affiliated with, endorsed by, or operated by the Government of India or any State Government. It does not file applications on your behalf and cannot submit anything to the live rtionline.gov.in systems. It prepares a document that you review, sign, and file yourself.",
   "footer.notLegal":
     "This is a drafting aid, not legal advice. Read every draft before you file it — you are responsible for what it says. Nothing here guarantees that an authority will reply.",
-  "footer.howLink": "How this works, and what is mocked",
+  "footer.howLink": "How this works, and what is simulated",
   "footer.portalLink": "Official RTI Online portal",
   "footer.actLink": "The RTI Act, 2005",
 
   "home.hero.eyebrow": "Right to Information Act, 2005",
   "home.hero.scroll": "How it works",
 
-  "home.sec.problem.eyebrow": "Common Deficiencies",
-  "home.sec.problem.title": "Grounds for Rejection under RTI Act, 2005",
+  "home.sec.problem.eyebrow": "Why applications fail",
+  "home.sec.problem.title": "Most applications fail for the same few reasons",
   "home.sec.problem.lead":
-    "Statistical analysis indicates a high rejection rate for initial applications due to procedural non-compliance and improper authority designation, leading to inevitable delays.",
+    "Sent to an office that does not hold the records, or asking a question nobody is obliged to answer. Either one costs weeks.",
 
-  "home.sec.scale.eyebrow": "Systematic Backlog",
-  "home.sec.scale.title": "Administrative Scale and Scope",
+  "home.sec.scale.eyebrow": "The queue",
+  "home.sec.scale.title": "You are one of lakhs waiting",
   "home.sec.scale.lead":
-    "The volume of citizen queries often outpaces administrative processing capacity, necessitating precise drafting and correct initial routing to avoid systematic backlog.",
+    "More requests arrive than offices can answer. Getting the office and the wording right the first time is the part of the wait you control.",
 
-  "home.sec.routing.eyebrow": "Authority Routing",
-  "home.sec.routing.title": "Verification of Public Authority",
+  "home.sec.routing.eyebrow": "The right office",
+  "home.sec.routing.title": "We find the office that holds the records",
   "home.sec.routing.lead":
-    "An automated review matches the grievance against the official directory of public authorities to mitigate Section 6(3) transfer delays and statutory clock resets.",
+    "What you describe is matched against a directory of public authorities, so the request does not have to be passed on — which would start your 30 days again.",
 
-  "home.sec.rewrite.eyebrow": "Statutory Translation",
-  "home.sec.rewrite.title": "Drafting Requisites for Information Requests",
+  "home.sec.rewrite.eyebrow": "The wording",
+  "home.sec.rewrite.title": "Ask for records, not explanations",
   "home.sec.rewrite.lead":
-    "The Act mandates the provision of existing records, not the justification of administrative actions. Queries are transcribed into formal document requisitions compliance with Section 2(f).",
+    "An office has to hand over records it already holds. It does not have to explain itself. So your question is rewritten as a request for the documents.",
 
-  "home.sec.clock.eyebrow": "Statutory Timelines",
-  "home.sec.clock.title": "Section 7 and 19 Compliance",
+  "home.sec.clock.eyebrow": "The deadlines",
+  "home.sec.clock.title": "Thirty days to reply, thirty more to appeal",
   "home.sec.clock.lead":
-    "Non-response within the stipulated 30-day period constitutes a deemed refusal under Section 7(2), mandating the filing of a First Appeal within the subsequent 30-day window.",
+    "No reply within 30 days counts as a refusal, and you can appeal free of charge for the next 30. We watch both dates for you.",
 
-  "home.sec.honest.eyebrow": "Advisory",
-  "home.sec.honest.title": "Prototype Usage Notification",
+  "home.sec.honest.eyebrow": "Being straight with you",
+  "home.sec.honest.title": "What this does, and what it does not",
   "home.sec.honest.lead":
-    "This system serves strictly as a drafting and routing assistant. It does not interface directly with internal government databases, and no requests are automatically transmitted.",
-  "home.sec.honest.cta": "View full technical limitations",
+    "It writes the application and tells you where to send it. It does not send it for you, and it is not connected to any government system.",
+  "home.sec.honest.cta": "What this can and cannot do",
 
   "home.stat.filed.value": "≈53 lakh",
   "home.stat.filed.label": "RTI applications filed every year",
@@ -392,7 +391,7 @@ const en = {
 
   "home.cta.title": "It takes one paragraph to start",
   "home.cta.lead":
-    "No account, no dropdowns, and nothing leaves your browser until you ask us to route it.",
+    "No account to create and no forms to hunt through. Write one paragraph and we will do the rest.",
 
   "appeal.against": "Appeal against registration number",
   "appeal.grounds": "Grounds of appeal",
@@ -454,7 +453,7 @@ const en = {
   "submit.section.authority": "Public authority",
   "submit.authorityTitle": "Public authority details",
   "submit.authorityHelp":
-    "Pre-selected from what you described. Change either dropdown if you know the request belongs somewhere else — filing with the wrong authority costs a Section 6(3) transfer and restarts the 30-day clock.",
+    "Chosen from what you described. Change either list if you know the request belongs somewhere else — the wrong office has to pass it on, and your 30 days start again.",
   "submit.ministry": "Ministry / Department / Apex body",
   "submit.publicAuthority": "Public authority",
   "submit.publicAuthorityHint": "Your request will be filed with this public authority.",
@@ -496,9 +495,9 @@ const en = {
   "submit.feeExemptNote":
     "No fee is payable under Section 7(5). Keep the certificate — the authority may ask to see it.",
   "submit.supportingTitle": "Supporting document",
-  "submit.supportingNotAvailable": "Attachments are not available in this prototype",
+  "submit.supportingNotAvailable": "You cannot attach a file here",
   "submit.supportingHelp":
-    "The real form accepts one PDF of up to 1 MB here. This build has no document store, so nothing can be attached — an upload box that quietly discarded your file would be worse than saying so.",
+    "The real form takes one PDF of up to 1 MB. This prototype cannot keep files, so nothing can be attached — saying so is better than a box that quietly loses your document.",
   "submit.requestTitle": "Text of the request",
   "submit.requestHelp":
     "This is what will be sent to the Public Information Officer. Go back to the draft step to change it.",
@@ -506,14 +505,14 @@ const en = {
   "submit.urgentBody":
     "The shorter deadline under the proviso to Section 7(1) applies only where the ground is claimed in the request itself. Make sure this sentence appears in the text below.",
 
-  "error.title": "System Exception Encountered",
+  "error.title": "Something went wrong",
 } as const;
 
 export type StringKey = keyof typeof en;
 
 const hi: Record<StringKey, string> = {
   "brand.name": "आरटीआई ऑनलाइन",
-  "brand.tagline": "संस्करण 3.0 (कोपायलट संस्करण) — कार्मिक और प्रशिक्षण विभाग, भारत सरकार की एक पहल",
+  "brand.tagline": "आरटीआई आवेदन और प्रथम अपील तैयार करने का एक प्रोटोटाइप। यह सरकारी वेबसाइट नहीं है।",
 
   "migrate.title": "इन्हें अपने खाते में सहेजें?",
   "migrate.body":
@@ -531,7 +530,7 @@ const hi: Record<StringKey, string> = {
   "file.pincodeHelp": "छह अंक।",
   "file.bplRef": "बीपीएल प्रमाणपत्र संख्या",
   "file.bplRefHelp":
-    "धारा 7(5) शुल्क तभी माफ़ करती है जब प्रमाणपत्र प्रस्तुत किया जाए। इसके बिना आवेदन अवैतनिक मानकर लौटा दिया जाता है।",
+    "शुल्क तभी माफ़ होता है जब प्रमाणपत्र दिया जाए। उसके बिना आवेदन बिना शुल्क का मानकर लौटा दिया जाता है।",
   "file.submitPortal": "यह आवेदन दाख़िल करें",
   "file.submitting": "दाख़िल हो रहा है…",
   "file.simulatedTitle": "यह एक नक़ली (सिम्युलेटेड) फ़ाइलिंग है",
@@ -634,13 +633,13 @@ const hi: Record<StringKey, string> = {
   "home.problem.3.body":
     "रखरखाव गतिविधि के कारण सिस्टम 30-8-2026 (शुक्रवार) को सुबह 11:00 बजे से दोपहर 3:00 बजे तक उपलब्ध नहीं रहेगा। असुविधा के लिए अत्यधिक खेद है।",
 
-  "home.solution.title": "कोपायलट रूटिंग एकीकरण",
-  "home.solution.1": "केंद्रीय सूचना आयोग (CIC) ने अपने द्वितीय अपील फाइलिंग पोर्टल को DoPT RTI ऑनलाइन पोर्टल के साथ एकीकृत किया है।",
+  "home.solution.title": "नया क्या है",
+  "home.solution.1": "दूसरी अपील अब वहीं से की जा सकती है जहां से आपने पहला आवेदन किया था।",
   "home.solution.2":
-    "कोपायलट अब एक सुचारू और अधिक सुव्यवस्थित फाइलिंग प्रक्रिया सुनिश्चित करने के लिए आरटीआई आवेदन के संबंधित विवरणों को स्वचालित रूप से प्राप्त करता है।",
-  "home.solution.3": "सभी आरटीआई अनुरोधों के लिए ओटीपी के माध्यम से ईमेल सत्यापन सोमवार से लागू किया जाएगा।",
-  "home.solution.4": "यह नागरिकों की गोपनीयता और डेटा सुरक्षा को बढ़ाएगा।",
-  "home.solution.5": "यह पोर्टल के साइबर सुरक्षा ढांचे को मजबूत करेगा।",
+    "आपके आरटीआई आवेदन का विवरण अपने आप आगे चला जाता है, दोबारा लिखना नहीं पड़ता।",
+  "home.solution.3": "सोमवार से हर आवेदन की पुष्टि आपके ईमेल पर भेजे गए कोड से होगी।",
+  "home.solution.4": "इससे आपका विवरण कोई और इस्तेमाल नहीं कर पाएगा।",
+  "home.solution.5": "आवेदन करने का बाकी तरीका वैसा ही रहेगा।",
 
   "steps.describe": "विवरण",
   "steps.authority": "कार्यालय",
@@ -648,37 +647,37 @@ const hi: Record<StringKey, string> = {
   "steps.file": "दाख़िल",
   "steps.track": "निगरानी",
 
-  "intake.title": "क्या हुआ?",
+  "intake.title": "समस्या बताइए",
   "intake.help":
-    "जैसे किसी मित्र को बताते, वैसे लिखिए। तारीखें और जो भी संदर्भ संख्या आपके पास है — पीपीओ नंबर, केस नंबर, आवेदन संख्या — ज़रूर लिखें। हम उन्हें हूबहू वैसे ही रखते हैं।",
+    "जो हुआ वह अपने शब्दों में लिखिए। आपके पास जो भी नंबर हों — पीपीओ, एफआईआर, फाइल या आवेदन संख्या — वे भी लिखिए; हम उन्हें ज्यों का त्यों रखेंगे।",
   "intake.placeholder":
     "उदाहरण: मेरे पिता की पेंशन अप्रैल में बिना किसी सूचना के बंद हो गई। हम तीन बार कार्यालय गए, किसी ने न कारण बताया, न कुछ लिखित दिया…",
   "intake.words": "शब्द",
   "intake.wordsMin": "शब्द न्यूनतम",
   "intake.minWords": "सही कार्यालय ढूँढ़ने के लिए कृपया कम से कम 15 शब्द लिखें।",
-  "intake.submit": "सही कार्यालय ढूँढ़ें",
-  "intake.working": "सही कार्यालय ढूँढ़ा जा रहा है…",
-  "intake.demoTitle": "या इनमें से कोई आज़माएँ",
-  "intake.demoHelp": "तैयार उदाहरण, ताकि अपना लिखने से पहले आप पूरी प्रक्रिया देख सकें।",
+  "intake.submit": "सही कार्यालय खोजें",
+  "intake.working": "सही कार्यालय खोजा जा रहा है…",
+  "intake.demoTitle": "तैयार उदाहरण आज़माइए",
+  "intake.demoHelp": "अपना आवेदन लिखने से पहले तीन असली उदाहरण देख सकते हैं।",
   "intake.privacy":
-    "आपका लिखा हुआ पाठ रूटिंग और पुनर्लेखन के लिए हमारे सर्वर पर भेजा जाता है। यह सर्वर पर संग्रहीत नहीं होता और किसी मॉडल के प्रशिक्षण में उपयोग नहीं होता।",
+    "आपका लिखा हमारे सर्वर पर जाता है ताकि सही कार्यालय खोजा जा सके और आवेदन तैयार हो सके। हम उसे रखते नहीं, और किसी मॉडल को सिखाने में इस्तेमाल नहीं करते।",
 
-  "confirm.title": "क्या यही सही कार्यालय है?",
+  "confirm.title": "दाखिल करने से पहले कार्यालय जांचिए",
   "confirm.help":
-    "गलत प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है और 30 दिन की अवधि फिर से शुरू होती है। यह स्क्रीन दो बार पढ़ने लायक है।",
-  "confirm.office": "यह कार्यालय",
+    "गलत कार्यालय में गया तो उसे आगे भेजना पड़ेगा और आपके 30 दिन दोबारा शुरू होंगे। कृपया जांच लीजिए कि यह सही है।",
+  "confirm.office": "कार्यालय",
   "confirm.pio": "आवेदन यहाँ जाएगा",
   "confirm.address": "दाख़िल करने का पता",
   "confirm.appellate": "उत्तर न मिलने पर अपील यहाँ जाएगी",
   "confirm.worthKnowing": "जानने योग्य",
   "confirm.verify": "अपने क्षेत्र का सही कार्यालय यहाँ जाँचें",
   "confirm.references": "ये विवरण हम हूबहू वैसे ही रखेंगे",
-  "confirm.lowTitle": "इस मिलान को लेकर हम आश्वस्त नहीं हैं",
+  "confirm.lowTitle": "इस बारे में हम निश्चित नहीं हैं",
   "confirm.lowBody":
     "हमारी सूची में कोई प्राधिकरण स्पष्ट रूप से इन अभिलेखों को नहीं रखता। दाख़िल करने से पहले कृपया विभाग की अपनी वेबसाइट देखें। आप आगे बढ़ सकते हैं, पर पहले कार्यालय की पुष्टि कर लें।",
   "confirm.otherOptions": "अन्य संभावित कार्यालय",
   "confirm.submit": "मेरा आवेदन लिखें",
-  "confirm.submitUnsure": "फिर भी आगे बढ़ें",
+  "confirm.submitUnsure": "इसी कार्यालय के साथ आगे बढ़ें",
   "confirm.working": "आपका आवेदन लिखा जा रहा है…",
 
   "confidence.strong": "पक्का मिलान",
@@ -687,34 +686,34 @@ const hi: Record<StringKey, string> = {
   "confidence.uncertain": "अनिश्चित — जाँच लें",
   "confidence.explain": "हम कितने आश्वस्त हैं?",
   "confidence.explainBody":
-    "यह हमारा अपना अनुमान है, कोई सरकारी आँकड़ा नहीं, और यह प्रायिकता भी नहीं है। इसे इस संकेत की तरह लें कि कितनी सावधानी से जाँचना है — गारंटी की तरह नहीं।",
+    "यह हमारा अपना अनुमान है, कोई आधिकारिक आंकड़ा नहीं। इससे तय कीजिए कि कितनी सावधानी से जांचना है।",
 
-  "draft.title": "आपका आरटीआई आवेदन",
-  "draft.help": "हर पंक्ति बदली जा सकती है। क्या दाख़िल होगा, यह अंततः आप तय करते हैं।",
+  "draft.title": "आपका आवेदन",
+  "draft.help": "दाखिल करने से पहले पढ़ लीजिए। इसमें जो लिखा है उसकी ज़िम्मेदारी आपकी है।",
   "draft.portalLabel": "आपके आवेदन का पाठ",
   "draft.portalHelp":
-    "यही पाठ आपके आवेदन के साथ जमा किया जाएगा। यह आरटीआई अनुरोध क्षेत्र की 3,000 अक्षरों की सीमा के भीतर रखा गया है।",
+    "यही पाठ आपके आवेदन के साथ जाएगा। यह पोर्टल की 3,000 अक्षरों की सीमा में है।",
   "draft.chars": "अक्षर",
   "draft.overLimit":
     "पोर्टल की 3,000 अक्षरों की सीमा से अधिक। इसे छोटा करें, या पूरा संस्करण पीडीएफ के रूप में संलग्न करें।",
   "draft.compare": "आपने जो लिखा था उससे मिलाएँ",
   "draft.yourWords": "आपके शब्द",
   "draft.ourDraft": "हम क्या माँग रहे हैं",
-  "draft.whyChanged": "यह क्यों बदला",
+  "draft.whyChanged": "शब्द क्यों बदले",
   "draft.whyChangedBody":
-    "प्रश्नों को उन अभिलेखों की माँग में बदला गया जो उनका उत्तर देंगे। धारा 2(f) के तहत प्राधिकरण को अपने पास मौजूद सूचना देनी होती है; सफ़ाई देना या राय देना ज़रूरी नहीं।",
+    "कानून आपको दस्तावेज़ देता है, जवाब नहीं। इसलिए “ऐसा क्यों हुआ?” की जगह “आदेश, फाइल नोटिंग और अधिकारी का नाम दीजिए” लिखा जाता है — यह उन्हें देना ही पड़ता है।",
   "draft.items": "माँगे गए अभिलेख",
-  "draft.urgentTitle": "धारा 7(1) के तहत चिह्नित: 48 घंटे की समय-सीमा लागू हो सकती है",
+  "draft.urgentTitle": "इस पर 48 घंटे में जवाब मिल सकता है",
   "draft.urgentBody":
     "यह आधार अपने आवेदन में स्पष्ट रूप से लिखें। 48 घंटे की अवधि केवल वास्तविक जीवन या स्वतंत्रता के मामलों पर लागू होती है। यदि यह आपकी स्थिति पर लागू नहीं होता, तो इसे हटा दें और सामान्य 30 दिन की सीमा लागू होगी।",
   "draft.urgentRemove": "यह मुझ पर लागू नहीं — 30 दिन की सीमा रखें",
   "draft.urgentRestore": "48 घंटे का दावा वापस लाएँ",
-  "draft.submit": "आगे: इसे कैसे दाख़िल करें",
-  "draft.regenerate": "फिर से शुरू करें",
+  "draft.submit": "दाखिल करने के लिए आगे बढ़ें",
+  "draft.regenerate": "मसौदा दोबारा बनाएं",
 
   "file.applicantTitle": "आपका विवरण",
   "file.applicantHelp":
-    "आरटीआई नियम, 2012 के अंतर्गत आवेदन पर आवश्यक। केवल इसी ब्राउज़र में सुरक्षित रहता है।",
+    "ये विवरण आपके आवेदन पर वैसे ही जाएंगे जैसे आप लिखेंगे।",
   "file.name": "पूरा नाम",
   "file.address": "डाक पता",
   "file.phone": "फ़ोन नंबर",
@@ -723,8 +722,8 @@ const hi: Record<StringKey, string> = {
   "file.bplHelp": "धारा 7(5) के तहत शुल्क माफ़ है। प्रमाणपत्र की प्रति संलग्न करना अनिवार्य है।",
   "file.fee": "शुल्क",
 
-  "track.title": "आपके आवेदन की स्थिति",
-  "track.filedOn": "दाख़िल किया गया",
+  "track.title": "आवेदन की स्थिति",
+  "track.filedOn": "दाखिल किया",
   "track.deadline": "उत्तर की अंतिम तिथि",
   "track.appealBy": "अपील की अंतिम तिथि",
   "track.basis": "समय-सीमा का आधार",
@@ -736,12 +735,12 @@ const hi: Record<StringKey, string> = {
     "इस उदाहरण की घड़ी उत्तर की समय-सीमा से आगे बढ़ाता है, ताकि महीना भर रुके बिना अपील चरण तक पहुँचा जा सके। केवल तैयार उदाहरणों पर उपलब्ध, आपके वास्तविक आवेदन पर कभी नहीं।",
   "track.simulateOn": "घड़ी {days} दिन आगे बढ़ाई गई (डेमो)",
   "track.simulateReset": "घड़ी वापस करें",
-  "track.overdueTitle": "समय-सीमा बीत चुकी है",
+  "track.overdueTitle": "30 दिन पूरे हो चुके हैं",
   "track.overdueBody":
     "वैधानिक अवधि में उत्तर न आना धारा 7(2) के तहत मानी गई अस्वीकृति है। आप अभी निःशुल्क प्रथम अपील दाख़िल कर सकते हैं। हमने नीचे उसका मसौदा तैयार कर दिया है।",
   "track.appealTitle": "आपकी प्रथम अपील",
   "track.appealHelp":
-    "धारा 19(1) के तहत, पीआईओ से वरिष्ठ अपीलीय अधिकारी के नाम। प्रथम अपील पर कोई शुल्क नहीं लगता।",
+    "धारा 19(1) के तहत, जन सूचना अधिकारी से वरिष्ठ अधिकारी को। कोई शुल्क नहीं।",
   "track.appealDeadlineWarn": "यह अपील दाख़िल करने के लिए आपके पास {days} दिन बचे हैं।",
   "track.appealClosed":
     "30 दिन की अपील अवधि समाप्त हो चुकी है। आप अब भी अपील कर सकते हैं, पर अपीलीय प्राधिकारी से विलंब क्षमा करने का अनुरोध और कारण देना होगा।",
@@ -758,12 +757,11 @@ const hi: Record<StringKey, string> = {
   "list.title": "मेरे आवेदन",
   "list.empty": "आपने अभी कोई आवेदन शुरू नहीं किया है।",
   "list.emptyNav": "ऊपर मेनू में “नया आवेदन” से शुरू करें।",
-  "list.emptyCta": "अपना पहला आवेदन शुरू करें",
-  "list.stored": "केवल इसी ब्राउज़र में सुरक्षित। ब्राउज़र डेटा मिटाने पर ये हट जाएँगे।",
+  "list.stored": "आपके सभी मसौदे और दाखिल आवेदन, हर एक की जवाब की तारीख के साथ।",
 
-  "disclosure.title": "क्या वास्तविक है और क्या नकली",
+  "disclosure.title": "क्या असली है और क्या नकल",
   "disclosure.fixture":
-    "सर्वर उपलब्ध नहीं था, इसलिए यह तैयार उदाहरण ताज़ा उत्तर के बजाय अपना सहेजा हुआ उत्तर दिखा रहा है।",
+    "हमारा सर्वर नहीं मिल पाया, इसलिए यह उदाहरण सहेजा हुआ जवाब दिखा रहा है।",
 
   "time.overdueToday": "समय-सीमा आज समाप्त हो गई",
   "time.overdueOne": "1 दिन बीत चुका",
@@ -793,43 +791,43 @@ const hi: Record<StringKey, string> = {
     "आरटीआई कोपायलट का भारत सरकार या किसी राज्य सरकार से कोई संबंध नहीं है, न ही इसे उनकी मान्यता प्राप्त है या वे इसे चलाते हैं। यह आपकी ओर से आवेदन दाख़िल नहीं करता और rtionline.gov.in पर कुछ भी जमा नहीं कर सकता। यह केवल एक दस्तावेज़ तैयार करता है, जिसे आप स्वयं जाँचकर, हस्ताक्षर करके दाख़िल करते हैं।",
   "footer.notLegal":
     "यह मसौदा तैयार करने में सहायक है, कानूनी सलाह नहीं। दाख़िल करने से पहले हर मसौदा पढ़ें — उसमें जो लिखा है उसकी ज़िम्मेदारी आपकी है। यहाँ कुछ भी इसकी गारंटी नहीं देता कि प्राधिकरण उत्तर देगा।",
-  "footer.howLink": "यह कैसे काम करता है, और क्या नकली है",
+  "footer.howLink": "यह कैसे काम करता है और क्या नकल है",
   "footer.portalLink": "आधिकारिक आरटीआई ऑनलाइन पोर्टल",
   "footer.actLink": "सूचना का अधिकार अधिनियम, 2005",
 
   "home.hero.eyebrow": "सूचना का अधिकार अधिनियम, 2005",
   "home.hero.scroll": "यह कैसे काम करता है",
 
-  "home.sec.problem.eyebrow": "सामान्य कमियाँ",
-  "home.sec.problem.title": "आरटीआई अधिनियम, 2005 के तहत अस्वीकृति के आधार",
+  "home.sec.problem.eyebrow": "आवेदन क्यों लौटते हैं",
+  "home.sec.problem.title": "ज़्यादातर आवेदन इन्हीं कुछ कारणों से लौटते हैं",
   "home.sec.problem.lead":
-    "प्रक्रियागत अनुपालन न होने और अनुचित प्राधिकरण के चयन के कारण प्रारंभिक आवेदनों की अस्वीकृति दर उच्च पाई गई है, जिससे अनावश्यक विलंब होता है।",
+    "ऐसे कार्यालय में भेज दिया जिसके पास दस्तावेज़ ही नहीं, या ऐसा सवाल पूछ लिया जिसका जवाब देना किसी के लिए ज़रूरी नहीं। दोनों में हफ़्ते बर्बाद होते हैं।",
 
-  "home.sec.scale.eyebrow": "प्रणालीगत बैकलॉग",
-  "home.sec.scale.title": "प्रशासनिक दायरा और सीमा",
+  "home.sec.scale.eyebrow": "लंबी कतार",
+  "home.sec.scale.title": "लाखों लोग कतार में हैं",
   "home.sec.scale.lead":
-    "नागरिक प्रश्नों की संख्या अक्सर प्रशासनिक प्रसंस्करण क्षमता से अधिक होती है, इसलिए सटीक प्रारूपण और सही प्रारंभिक मार्ग निर्धारण आवश्यक है।",
+    "जितने आवेदन आते हैं, कार्यालय उतने निपटा नहीं पाते। पहली बार में सही कार्यालय और सही शब्द चुनना ही आपके हाथ में है।",
 
-  "home.sec.routing.eyebrow": "प्राधिकरण चयन",
-  "home.sec.routing.title": "लोक प्राधिकरण का सत्यापन",
+  "home.sec.routing.eyebrow": "सही कार्यालय",
+  "home.sec.routing.title": "हम वह कार्यालय ढूंढते हैं जिसके पास दस्तावेज़ हैं",
   "home.sec.routing.lead":
-    "यह प्रणाली सार्वजनिक प्राधिकरणों की आधिकारिक निर्देशिका के साथ शिकायत का मिलान करती है ताकि धारा 6(3) के तहत स्थानांतरण में होने वाले विलंब से बचा जा सके।",
+    "आपके विवरण को लोक प्राधिकरणों की सूची से मिलाया जाता है, ताकि आवेदन आगे न भेजना पड़े — वरना आपके 30 दिन दोबारा शुरू हो जाते हैं।",
 
-  "home.sec.rewrite.eyebrow": "वैधानिक अनुवाद",
-  "home.sec.rewrite.title": "सूचना अनुरोधों के लिए प्रारूपण आवश्यकताएं",
+  "home.sec.rewrite.eyebrow": "शब्दों का चुनाव",
+  "home.sec.rewrite.title": "जवाब नहीं, दस्तावेज़ मांगिए",
   "home.sec.rewrite.lead":
-    "अधिनियम प्रशासनिक कार्रवाइयों के औचित्य को नहीं, बल्कि मौजूदा रिकॉर्ड प्रदान करने को अनिवार्य बनाता है। धारा 2(एफ) के अनुपालन में प्रश्नों को औपचारिक दस्तावेज़ अनुरोधों में बदल दिया जाता है।",
+    "कार्यालय को अपने पास मौजूद दस्तावेज़ देने पड़ते हैं, सफाई नहीं देनी पड़ती। इसलिए आपका सवाल दस्तावेज़ की मांग बना दिया जाता है।",
 
-  "home.sec.clock.eyebrow": "वैधानिक समय-सीमा",
-  "home.sec.clock.title": "धारा 7 और 19 का अनुपालन",
+  "home.sec.clock.eyebrow": "समय-सीमा",
+  "home.sec.clock.title": "जवाब के 30 दिन, अपील के 30 दिन",
   "home.sec.clock.lead":
-    "निर्धारित 30 दिनों की अवधि के भीतर उत्तर न देना धारा 7(2) के तहत मानी गई अस्वीकृति है, जिसके लिए अगले 30 दिनों के भीतर प्रथम अपील दायर करना अनिवार्य है।",
+    "30 दिन में जवाब न आए तो वह इनकार माना जाता है, और अगले 30 दिन में आप मुफ़्त अपील कर सकते हैं। दोनों तारीखें हम देखते रहते हैं।",
 
-  "home.sec.honest.eyebrow": "परामर्श",
-  "home.sec.honest.title": "प्रोटोटाइप उपयोग की सूचना",
+  "home.sec.honest.eyebrow": "साफ़ बात",
+  "home.sec.honest.title": "यह क्या करता है और क्या नहीं",
   "home.sec.honest.lead":
-    "यह प्रणाली केवल प्रारूपण और चयन सहायक के रूप में कार्य करती है। यह सीधे सरकारी डेटाबेस से नहीं जुड़ती है, और कोई भी अनुरोध स्वचालित रूप से प्रेषित नहीं होता है।",
-  "home.sec.honest.cta": "पूर्ण तकनीकी सीमाएं देखें",
+    "यह आवेदन लिखता है और बताता है कि कहां भेजना है। यह आपकी ओर से भेजता नहीं, और किसी सरकारी सिस्टम से जुड़ा नहीं है।",
+  "home.sec.honest.cta": "यह क्या कर सकता है और क्या नहीं",
 
   "home.stat.filed.value": "≈53 लाख",
   "home.stat.filed.label": "हर साल दाख़िल होने वाले आरटीआई आवेदन",
@@ -880,7 +878,7 @@ const hi: Record<StringKey, string> = {
 
   "home.cta.title": "शुरू करने के लिए एक अनुच्छेद काफ़ी है",
   "home.cta.lead":
-    "कोई खाता नहीं, कोई ड्रॉप-डाउन नहीं, और जब तक आप न कहें आपका लिखा हुआ ब्राउज़र से बाहर नहीं जाता।",
+    "न खाता बनाना है, न फॉर्म ढूंढने हैं। एक पैराग्राफ लिखिए, बाकी हम कर देंगे।",
 
   "appeal.against": "इस पंजीकरण संख्या के विरुद्ध अपील",
   "appeal.grounds": "अपील के आधार",
@@ -942,7 +940,7 @@ const hi: Record<StringKey, string> = {
   "submit.section.authority": "लोक प्राधिकरण",
   "submit.authorityTitle": "लोक प्राधिकरण का विवरण",
   "submit.authorityHelp":
-    "आपके विवरण से पहले ही चुना गया। यदि आप जानते हैं कि अनुरोध कहीं और जाना चाहिए तो कोई भी विकल्प बदल लें — ग़लत प्राधिकरण में दाख़िल करने पर धारा 6(3) के तहत स्थानांतरण होता है और 30 दिन की अवधि फिर से शुरू होती है।",
+    "आपके विवरण से चुना गया है। अगर आपको पता है कि यह कहीं और जाना चाहिए तो बदल दीजिए — गलत कार्यालय को आवेदन आगे भेजना पड़ता है और आपके 30 दिन दोबारा शुरू होते हैं।",
   "submit.ministry": "मंत्रालय / विभाग / शीर्ष निकाय",
   "submit.publicAuthority": "लोक प्राधिकरण",
   "submit.publicAuthorityHint": "आपका अनुरोध इसी लोक प्राधिकरण के पास दाख़िल होगा।",
@@ -984,9 +982,9 @@ const hi: Record<StringKey, string> = {
   "submit.feeExemptNote":
     "धारा 7(5) के तहत कोई शुल्क देय नहीं। प्रमाणपत्र संभालकर रखें — प्राधिकरण उसे देखने को कह सकता है।",
   "submit.supportingTitle": "सहायक दस्तावेज़",
-  "submit.supportingNotAvailable": "इस प्रोटोटाइप में संलग्नक उपलब्ध नहीं हैं",
+  "submit.supportingNotAvailable": "यहां फाइल नहीं जोड़ी जा सकती",
   "submit.supportingHelp":
-    "वास्तविक फ़ॉर्म यहाँ 1 एमबी तक की एक पीडीएफ़ स्वीकार करता है। इस बिल्ड में दस्तावेज़ संग्रह नहीं है, इसलिए कुछ संलग्न नहीं किया जा सकता — ऐसा अपलोड बॉक्स जो आपकी फ़ाइल चुपचाप हटा दे, यह कहने से बुरा होता।",
+    "असली फॉर्म में 1 एमबी तक की एक पीडीएफ लगाई जा सकती है। यह प्रोटोटाइप फाइलें नहीं रख सकता, इसलिए यहां कुछ नहीं जुड़ेगा।",
   "submit.requestTitle": "अनुरोध का पाठ",
   "submit.requestHelp":
     "यही लोक सूचना अधिकारी को भेजा जाएगा। इसे बदलने के लिए मसौदा चरण पर वापस जाएँ।",
@@ -994,7 +992,7 @@ const hi: Record<StringKey, string> = {
   "submit.urgentBody":
     "धारा 7(1) के परंतुक की छोटी समय-सीमा तभी लागू होती है जब यह आधार अनुरोध में ही लिखा हो। सुनिश्चित करें कि नीचे दिए पाठ में यह वाक्य मौजूद है।",
 
-  "error.title": "हम आगे नहीं बढ़ सके",
+  "error.title": "कुछ गड़बड़ हो गई",
 };
 
 const DICTIONARIES: Record<Locale, Record<StringKey, string>> = { en, hi };

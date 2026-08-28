@@ -275,19 +275,19 @@ export default function HomePage() {
           <Reveal delay={80}>
             <div className="mt-10 grid border-t border-border md:grid-cols-2">
               <div className="border-b border-border py-7 md:border-r md:border-b-0 md:pr-12">
-                <Marker label="High Probability of Rejection" className="text-destructive" dim={false} />
+                <Marker label="Likely to be refused" className="text-destructive" dim={false} />
                 <blockquote className="mt-6 max-w-[42ch] text-xl">
                   &ldquo;Why was my father&apos;s pension stopped without any
                   notice? This is completely unfair and someone needs to explain
                   what happened.&rdquo;
                 </blockquote>
                 <p className="mt-6 max-w-[46ch] text-sm opacity-75">
-                  Under Section 2(f), public authorities are not legally bound to provide explanations or justifications. Requests must be strictly limited to existing material records.
+                  Nobody has to explain themselves to you. The Act only makes an office hand over records it already holds, so a question phrased like this can be turned down.
                 </p>
               </div>
 
               <div className="py-7 md:pl-12">
-                <Marker label="Statutorily Mandated Response" className="text-success" dim={false} />
+                <Marker label="They have to answer this" className="text-success" dim={false} />
                 <ol className="mt-6 border-t border-border">
                   {[
                     "A certified copy of the order discontinuing pension against PPO No. MH/BAN/00123456.",
@@ -309,7 +309,7 @@ export default function HomePage() {
                   ))}
                 </ol>
                 <p className="mt-6 max-w-[46ch] text-sm opacity-75">
-                  The revised requisition correctly solicits existing material records. Refusal of such a request requires explicit invocation of exemptions strictly under Section 8 or 9.
+                  This asks for documents the office already has. To turn it down they have to name one of the exemptions in the Act and say so in writing.
                 </p>
               </div>
             </div>

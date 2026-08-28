@@ -92,14 +92,14 @@ try {
   await page.getByRole("heading", { level: 1 }).waitFor({ timeout: 30_000 });
 
   await toBottom();
-  await page.getByRole("button", { name: /Identify Public Authority/i }).click();
-  const draft = page.getByRole("button", { name: /Generate Statutory Draft/i });
+  await page.getByRole("button", { name: /Find the right office/i }).click();
+  const draft = page.getByRole("button", { name: /Write my application/i });
   await draft.waitFor({ timeout: 60_000 });
   await landed("describe -> authority");
 
   await toBottom();
   await draft.click();
-  const toFiling = page.getByRole("button", { name: /Proceed to Filing Directives/i });
+  const toFiling = page.getByRole("button", { name: /Continue to filing/i });
   await toFiling.waitFor({ timeout: 60_000 });
   await landed("authority -> draft");
 
@@ -167,7 +167,7 @@ try {
   await landed("filing -> draft (query-only navigation)");
 
   /* ---- filing through to the dashboard, then the later screens --------- */
-  await page.getByRole("button", { name: /Proceed to Filing Directives/i }).click();
+  await page.getByRole("button", { name: /Continue to filing/i }).click();
   await page.waitForURL(/\/applications\/[^/]+$/, { timeout: 20_000 });
   await page.waitForTimeout(700);
   for (let i = 0; i < 4; i += 1) {
@@ -181,7 +181,7 @@ try {
   await landed("receipt -> dashboard");
 
   await toBottom();
-  // The row's own link, not the "Initiate Requisition" button above the list.
+  // The row's own link, not a nav item.
   await page.locator('main a[href$="/track"]').first().click();
   await page.waitForFunction(() => location.pathname.endsWith("/track"), null, {
     timeout: 20_000,

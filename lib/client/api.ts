@@ -59,11 +59,11 @@ export class ApiError extends Error {
       case "rejected":
         return this.message;
       case "unreachable":
-        return "Unable to establish secure connection with the central registry. Verify local connectivity; local state is preserved.";
+        return "We could not reach our server. Check your internet connection and try again — nothing you have written is lost.";
       case "timeout":
-        return "Transaction timeout exceeded. This indicates high network latency. Please retry the operation.";
+        return "This is taking longer than it should. Your connection may be slow. Please try again.";
       case "server":
-        return "An internal system error has occurred. Please retry the operation.";
+        return "Something went wrong at our end. Please try again.";
     }
   }
 

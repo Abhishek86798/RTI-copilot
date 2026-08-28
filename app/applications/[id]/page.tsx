@@ -41,7 +41,7 @@ const SECTIONS_FOR_STEP: Record<Exclude<FilingStepId, "pay">, FilingSectionId[]>
 };
 
 /**
- * Step 4 — Submit RTI Request. The last step of Initiate Requisition.
+ * Step 4 — Submit RTI Request. The last step before the fee.
  *
  * The journey ends here, at "pay ₹10 and file". Everything that happens
  * afterwards — the wait, the reminder, the appeal — starts from the Applicant

@@ -94,7 +94,7 @@ export function SiteHeader() {
         {/*
           Desktop navigation, from `xl` rather than `lg`.
 
-          Seven items whose labels are phrases — "Initiate Requisition",
+          Seven items whose labels are phrases — "New application",
           "Applicant Dashboard", "Submit First Appeal" — need about 1250px
           once the wordmark and the three control groups are placed. Showing
           them from 1024px left every laptop between those two widths with a
@@ -111,7 +111,7 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   // `whitespace-nowrap` because every label here is a phrase:
-                  // without it "Initiate Requisition" breaks after the first
+                  // without it "Submit First Appeal" breaks after the first
                   // word and doubles the header's height.
                   "relative flex h-full items-center whitespace-nowrap border-b-2 text-sm font-medium transition-colors hover:text-foreground",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
