@@ -10,43 +10,47 @@ landing page open.
 
 ## Minute one, the citizen
 
-### 0:00 · Landing page
+Minute one is one explanation told across four screens: the problem, how we
+solve it, and the filing. Full sentences, normal pace, roughly 150 words.
 
-> You can legally make any government office in India open its files to you.
-> Most people never do it once. Not because they don't care. Because guessing
-> the wrong office costs them a month.
+### 0:00 · Landing page — the problem
 
-→ *See it work on a real example*, then *Send code*, then *Sign in*
+> Under the Right to Information Act, any citizen can make a government office
+> hand over its records. The catch is that you have to name the right office
+> yourself, and word it the way the law expects.
 
-### 0:19 · Describe the problem
+→ Click *See it work on a real example*, then *Send code*, then *Sign in*.
+Keep talking through those clicks. Do not stop to explain the sign in.
 
-> A pension stopped in April. No notice. He's seventy four, and it was his only
-> income. Three trips to the office, no answers. That's how a real person
-> writes it. Not like a form.
+### 0:15 · Describe the problem — the citizen's words
+
+> So here, you just say what happened. A pension stopped in April with no
+> notice, and three visits to the office got no answer.
 
 → *Find the right office*
 
-### 0:33 · The authority
+### 0:26 · The authority — where it has to go
 
-> And it finds the office. EPFO, under the Ministry of Labour and Employment.
-> Who to send it to. Who to appeal to. And how sure it is. Wrong office, and
-> your thirty days start over.
+> It then finds the office that actually holds those records. Here, EPFO. It
+> names the officer who has to answer you, and the senior officer you appeal to
+> if nobody does. Send it to the wrong office, and your thirty days start
+> again.
 
 → *Write my application*
 
-### 0:45 · The draft
+### 0:42 · The draft — how it has to be worded
 
-> Now watch the wording. Why was it stopped becomes: give me the order, the
-> notings, the officer's name. Records, not excuses.
+> Then it rewrites the complaint. An office can refuse to explain itself, but
+> it cannot refuse to hand over a document. So why was it stopped becomes: the
+> order, the file notings, the officer's name.
 
 → *Continue to filing*
 
-### 0:54 · Filing
+### 0:56 · Filing
 
 Say it as one line while clicking *Next* through the steps.
 
-> Details, declaration, request, ten rupees, filed. And the thirty day clock
-> starts now.
+> Ten rupees, filed, and from here we count the thirty days for you.
 
 ---
 
@@ -78,6 +82,7 @@ Still screen. No clicking.
 
 ---
 
-**Running long?** Cut "Wrong office, and your thirty days start over", then
-"Three trips to the office, no answers". Never cut the draft line at 0:45 or
-the directory line at 1:13.
+**Running long?** Cut "Send it to the wrong office, and your thirty days start
+again", then "And it scores itself. Under sixty percent, it tells you to go
+check the department yourself." Never cut the draft line at 0:42 or the
+directory line at 1:13.
