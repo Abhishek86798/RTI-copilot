@@ -75,12 +75,42 @@ export function PageHeader({
 export function PageGrid({
   children,
   columns = 2,
+  flow = false,
   className,
 }: {
   children: React.ReactNode;
   columns?: 1 | 2;
+  /**
+   * Pack the cards instead of aligning them in rows.
+   *
+   * A two-column grid puts each pair on a shared row, so a short card beside
+   * a long one leaves a hole under it the height of the difference. On a page
+   * of five sections that ran to a screen of empty space and a last card
+   * stranded beside nothing.
+   *
+   * CSS columns flow the cards top-to-bottom and fill the gaps. The trade is
+   * reading order: columns read down then across, so use this only where the
+   * cards are independent — a reference page, not a sequence.
+   */
+  flow?: boolean;
   className?: string;
 }) {
+  if (flow) {
+    return (
+      <div
+        className={cn(
+          "mt-5 gap-4",
+          // `break-inside-avoid` on the children keeps a card from being split
+          // across the column boundary.
+          columns === 2 ? "lg:columns-2 [&>*]:mb-4 [&>*]:break-inside-avoid" : "",
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(

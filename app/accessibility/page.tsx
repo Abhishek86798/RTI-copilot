@@ -59,13 +59,23 @@ export default function AccessibilityPage() {
     <div className={cn(PAGE_LAYOUT)}>
       <Breadcrumbs current="Accessibility statement" />
 
+      {/* No eyebrow: "ACCESSIBILITY" above "Accessibility statement" is the
+          same word twice, and the breadcrumb above already says it. */}
       <PageHeader
-        eyebrow="Accessibility"
-        title={"Accessibility statement"}
+        title="Accessibility statement"
         lead="What has been measured, what it was measured with, and what still falls short."
       />
 
-      <PageGrid>
+      {/*
+        One column, full width.
+
+        Two columns put a short card beside a long one and left a hole the
+        height of the difference; balancing them by CSS columns then made the
+        two sides end hundreds of pixels apart. Neither is worth it here —
+        these are five reference sections read top to bottom, not a dashboard,
+        and one consistent shape reads more calmly than a ragged grid.
+      */}
+      <PageGrid columns={1}>
         <Section label="Standard we aim at" icon={Accessibility}>
           <Prose>
             <p>

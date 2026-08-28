@@ -23,7 +23,16 @@ export default function PaymentPage() {
         lead="This prototype simulates the fee step. Here is what that means, and what actually happens on the real portal."
       />
 
-      <PageGrid>
+      {/*
+        One column, full width.
+
+        Two columns put each pair on a shared row, so a short card beside a
+        long one left a hole the height of the difference — measured at 569px
+        on how-it-works and 159px here. These are reference sections read top
+        to bottom, not a dashboard, and one consistent card width reads more
+        calmly than a ragged grid.
+      */}
+      <PageGrid columns={1}>
         <Section label="What this tool does" icon={CreditCard}>
           {/*
             The callout sits outside Prose on purpose. Nested inside it, it

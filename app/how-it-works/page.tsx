@@ -152,7 +152,16 @@ export default function HowItWorksPage() {
         lead="This portal serves as a functional prototype detailing the operational boundaries of the RTI Copilot module. The following documentation outlines live integrations, simulated capabilities, and pending administrative features."
       />
 
-      <PageGrid>
+      {/*
+        One column, full width.
+
+        Two columns put each pair on a shared row, so a short card beside a
+        long one left a hole the height of the difference — measured at 569px
+        on how-it-works and 159px here. These are reference sections read top
+        to bottom, not a dashboard, and one consistent card width reads more
+        calmly than a ragged grid.
+      */}
+      <PageGrid columns={1}>
         {groups.map((group) => {
           const meta = STATE_META[group.state];
           return (

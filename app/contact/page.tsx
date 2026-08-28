@@ -23,7 +23,16 @@ export default function ContactPage() {
         lead="Where to get help with this tool, and where to go for the official portal."
       />
 
-      <PageGrid>
+      {/*
+        One column, full width.
+
+        Two columns put each pair on a shared row, so a short card beside a
+        long one left a hole the height of the difference — measured at 569px
+        on how-it-works and 159px here. These are reference sections read top
+        to bottom, not a dashboard, and one consistent card width reads more
+        calmly than a ragged grid.
+      */}
+      <PageGrid columns={1}>
         <Section label="About this tool" icon={LifeBuoy}>
           <Prose>
             <p>
