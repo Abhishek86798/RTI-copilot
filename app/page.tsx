@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 import {
@@ -14,6 +13,7 @@ import {
   RuleGrid,
   Stat,
 } from "@/components/editorial";
+import { useSignInGate } from "@/components/auth/sign-in-gate";
 import { Drawn } from "@/components/drawn";
 import { QuestionToRecords, RoutingFan, StatutoryClock } from "@/components/illustrations";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,8 @@ const TOTAL = 5;
  */
 export default function HomePage() {
   const { t } = useI18n();
-  const router = useRouter();
+  /* Both entry points ask for an account first; see useSignInGate. */
+  const { start, dialog } = useSignInGate();
 
   const problems = [
     { titleKey: "home.problem.1.title", bodyKey: "home.problem.1.body" },
@@ -121,13 +122,13 @@ export default function HomePage() {
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <Button size="lg" variant="cta" onClick={() => router.push("/apply")}>
+                <Button size="lg" variant="cta" onClick={() => void start("/apply")}>
                   {t("home.hero.start")}
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={() => router.push(`/apply?case=${DEMO_CASES[0].id}`)}
+                  onClick={() => void start(`/apply?case=${DEMO_CASES[0].id}`)}
                 >
                   {t("home.hero.demo")}
                 </Button>
@@ -392,7 +393,7 @@ export default function HomePage() {
                 size="lg"
                 variant="cta"
                 className="mt-9 w-full sm:w-auto"
-                onClick={() => router.push("/apply")}
+                onClick={() => void start("/apply")}
               >
                 {t("home.hero.start")}
                 <ArrowRight aria-hidden="true" />
@@ -401,6 +402,8 @@ export default function HomePage() {
           </div>
         </Frame>
       </Band>
+
+      {dialog}
     </>
   );
 }
