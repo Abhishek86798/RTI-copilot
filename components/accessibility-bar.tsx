@@ -148,7 +148,12 @@ export function AccessibilityBar() {
         <div
           role="group"
           aria-label={t("a11y.textSize")}
-          className="inline-flex items-center gap-0.5 rounded-lg bg-muted p-[3px]"
+          /*
+            No tray. The theme and contrast controls beside this one have
+            none, and a filled pill wrapped around three chips that already
+            carry their own fill was two backgrounds deep in a 36px strip.
+          */
+          className="inline-flex items-center gap-0.5"
         >
           <Type aria-hidden="true" className="mx-1 size-3 shrink-0 opacity-60" />
           {SIZES.map((value, index) => (
@@ -171,9 +176,17 @@ export function AccessibilityBar() {
                  * the box has to stay constant — otherwise the three chips are
                  * different heights and the selected one looks like a mistake.
                  */
-                "inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md leading-none transition-colors",
+                "inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md leading-none transition-colors",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                size === value ? "bg-card text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
+                /*
+                 * Selection by fill alone. A background plus a shadow plus a
+                 * ring is three treatments saying one thing, and on a strip
+                 * this small it read as a raised button rather than a chosen
+                 * option.
+                 */
+                size === value
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               {/*
@@ -207,9 +220,11 @@ export function AccessibilityBar() {
             onClick={() => setContrast(!high)}
             aria-pressed={high}
             className={cn(
-              "inline-flex min-h-7 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 transition-colors",
+              "inline-flex min-h-6 cursor-pointer items-center gap-1.5 rounded-md px-2 transition-colors",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              high ? "bg-muted text-foreground font-semibold shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:text-foreground"
+              high
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
             <Contrast aria-hidden="true" className="size-3 shrink-0" />
