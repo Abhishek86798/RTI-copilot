@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -69,17 +70,29 @@ export function SiteHeader() {
           className="flex shrink-0 items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
         >
           {/*
-            A wordmark, not an emblem. A tricolor disc with a navy wheel reads
-            as the National Flag / State Emblem — using anything that reads as
-            a government seal on an independent tool would imply an
-            endorsement that does not exist.
+            The National Flag, at its own 3:2 ratio — squeezing it into the
+            square the wordmark used would be the one thing the Flag Code is
+            unambiguous about. Served from `public/` rather than the image
+            optimizer: it is 825 bytes, and a round trip to resize it would
+            cost more than the file.
+
+            The border matters. The bottom band is white in light mode and the
+            top band is white in dark mode, so without a hairline the flag
+            bleeds into the header on one theme or the other.
+
+            `alt=""` and aria-hidden, because the wordmark beside it already
+            names the link. A second name would have a screen reader announce
+            the home link twice.
           */}
-          <span
+          <Image
+            src="/flag-of-india.svg"
+            alt=""
             aria-hidden="true"
-            className="grid size-8 shrink-0 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground"
-          >
-            RTI
-          </span>
+            width={36}
+            height={24}
+            unoptimized
+            className="h-6 w-9 shrink-0 rounded-xs border border-border"
+          />
           {/*
             `sr-only` rather than `hidden` below the sm breakpoint. The badge
             beside this is aria-hidden, so hiding the wordmark outright left
