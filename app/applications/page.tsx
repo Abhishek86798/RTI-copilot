@@ -52,7 +52,12 @@ export default function ApplicationsPage() {
       )}
 
       <PageHeader
-        eyebrow={sorted.length > 0 ? String(sorted.length) : undefined}
+        /*
+         * No eyebrow. It used to print the row count on its own — a bare "4"
+         * above the heading, which reads as a stray number rather than a
+         * label, and the nav item beside it already carries the same count in
+         * a badge that says what it counts.
+         */
         title={t("list.title")}
         lead={t("list.stored")}
         actions={

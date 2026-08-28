@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Building2, LifeBuoy } from "lucide-react";
 
-import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
+import { LastReviewed } from "@/components/breadcrumbs";
 
 import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <Breadcrumbs current="Contact and help" />
 
       <PageHeader
         eyebrow="Help"

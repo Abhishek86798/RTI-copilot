@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HelpCircle } from "lucide-react";
 
-import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
+import { LastReviewed } from "@/components/breadcrumbs";
 
 import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
@@ -39,7 +39,6 @@ const FAQS = [
 export default function FAQPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <Breadcrumbs current="Common questions" />
 
       <PageHeader
         eyebrow="Questions"

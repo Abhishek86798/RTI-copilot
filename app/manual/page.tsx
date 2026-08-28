@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ClipboardList, ListChecks } from "lucide-react";
 
-import { Breadcrumbs, LastReviewed } from "@/components/breadcrumbs";
+import { LastReviewed } from "@/components/breadcrumbs";
 
 import { PageHeader, PageGrid } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
@@ -33,7 +33,6 @@ const STEPS = [
 export default function ManualPage() {
   return (
     <div className={cn(PAGE_LAYOUT)}>
-      <Breadcrumbs current="How to use this tool" />
 
       <PageHeader
         eyebrow="Guide"

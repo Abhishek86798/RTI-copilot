@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Gavel, Search } from "lucide-react";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PageHeader } from "@/components/ui/page";
 import { PAGE_LAYOUT } from "@/components/page-layout";
 import { Section } from "@/components/section";
@@ -72,13 +71,16 @@ export default function AppealPage() {
 
   return (
     <div className={cn(PAGE_LAYOUT, "space-y-5")}>
-      <Breadcrumbs current={t("nav.appeal")} />
+      {/*
+        No breadcrumb and no eyebrow here.
 
-      <PageHeader
-        eyebrow={t("nav.appeal")}
-        title={t("nav.appeal")}
-        lead={t("appealPage.lead")}
-      />
+        This is a top-level nav item, so the trail said "Home > Submit First
+        Appeal" for a page one click from anywhere — and the eyebrow repeated
+        the title verbatim, printing "SUBMIT FIRST APPEAL" directly above
+        "Submit First Appeal". Three copies of the same four words before the
+        page said anything.
+      */}
+      <PageHeader title={t("nav.appeal")} lead={t("appealPage.lead")} />
 
       <Section label={t("appealPage.lookupSection")} icon={Search}>
         <form onSubmit={handleLookup} className="max-w-md space-y-4" noValidate>

@@ -105,11 +105,19 @@ export function FilingStepNav({
                   is enough to show position and to click back to. The full
                   label stays in the accessible name either way.
                 */}
-                <span className={cn(active ? "inline" : "hidden lg:inline")}>
+                {/*
+                  One label, hidden visually rather than duplicated.
+
+                  This used to be two spans — a visible one and an `sr-only`
+                  fallback for the widths where the visible one is hidden — but
+                  `sr-only lg:hidden` only hides the fallback *below* lg, so
+                  from lg up both rendered and a screen reader heard the label
+                  twice ("Your details Your details"). `sr-only` on the single
+                  span keeps it in the accessibility tree at every width while
+                  showing it only where there is room.
+                */}
+                <span className={cn(!active && "sr-only lg:not-sr-only")}>
                   {t(FILING_STEP_LABELS[step])}
-                </span>
-                <span className="sr-only lg:hidden">
-                  {!active && t(FILING_STEP_LABELS[step])}
                 </span>
                 {/*
                   State in text, not colour alone — the chips differ by fill,
